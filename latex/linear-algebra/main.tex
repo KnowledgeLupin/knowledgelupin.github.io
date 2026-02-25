@@ -1,0 +1,47 @@
+\documentclass[11pt,a4paper]{book}
+\input{preamble}
+
+\title{선형대수학 강의노트}
+\author{Knowledge Lupin}
+\date{\today}
+
+\begin{document}
+\frontmatter
+\maketitle
+\tableofcontents
+
+\chapter*{머리말}
+이 노트는 Serge Lang의 \textit{Linear Algebra (3rd ed.)}를 기준으로 구성한 한국어 강의노트 초안이다.
+집필 원칙은 동기 $\to$ 정의 $\to$ 정리/증명 $\to$ 예제 $\to$ 연습문제 $\to$ 요약 순서를 따른다.
+
+\mainmatter
+
+\part{기초 선형대수}
+\input{chapters/ch01-vector-spaces}
+\input{chapters/ch02-matrices}
+\input{chapters/ch03-linear-maps}
+\input{chapters/ch04-linear-maps-and-matrices}
+
+\part{내적, 직교성, 행렬식}
+\input{chapters/ch05-inner-product-and-orthogonality}
+\input{chapters/ch06-determinants}
+
+\part{구조정리}
+\input{chapters/ch07-symmetric-hermitian-unitary}
+\input{chapters/ch08-eigenvalues-eigenvectors}
+\input{chapters/ch09-polynomials-and-matrices}
+\input{chapters/ch10-triangulation-and-cayley-hamilton}
+\input{chapters/ch11-primary-decomposition-and-jordan}
+
+\part{볼록성과 확장 주제}
+\input{chapters/ch12-convex-sets}
+
+\appendix
+\input{appendices/appendix-a-complex-numbers}
+\input{appendices/appendix-b-iwasawa-decomposition}
+
+\backmatter
+\chapter*{집필 노트}
+버전: v0.1
+
+\end{document}

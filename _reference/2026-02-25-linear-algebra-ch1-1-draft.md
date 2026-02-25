@@ -1,16 +1,12 @@
 ---
-title: "선형대수학 제1장 1.1: 체(Field)와 벡터공간의 공리"
-date: 2026-02-24 23:50:00 +0900
+title: "선형대수학 제1장 1.1 초고: 체(Field)와 벡터공간의 공리"
+date: 2026-02-25 00:26:00 +0900
 categories: [Mathematics, Linear Algebra]
-tags: [선형대수학, 벡터공간, 체, 공리]
+tags: [선형대수학, 벡터공간, 체, 공리, 초고]
 math: true
 toc: true
 author: KnowledgeLupin
 ---
-
-> 최신 LaTeX 강의노트 PDF: [linear-algebra-notes-latest.pdf](/assets/pdf/linear-algebra/linear-algebra-notes-latest.pdf)  
-> 버전 고정 PDF(v0.1): [linear-algebra-notes-v0.1.pdf](/assets/pdf/linear-algebra/linear-algebra-notes-v0.1.pdf)
-{: .prompt-info }
 
 # 제1장 벡터공간
 ## 1.1 체(Field)와 벡터공간의 공리

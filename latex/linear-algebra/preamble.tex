@@ -1,0 +1,56 @@
+\usepackage{kotex}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{titlesec}
+
+\setlist[itemize]{leftmargin=2.2em}
+\setlist[enumerate]{leftmargin=2.5em}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  urlcolor=blue!50!black,
+  citecolor=blue!50!black
+}
+
+\newtheorem{definition}{정의}[section]
+\newtheorem{theorem}[definition]{정리}
+\newtheorem{proposition}[definition]{명제}
+\newtheorem{example}[definition]{예제}
+\newtheorem{exercise}[definition]{연습문제}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\V}{\mathcal{V}}
+\newcommand{\W}{\mathcal{W}}
+\newcommand{\vect}[1]{\mathbf{#1}}
+
+\newcommand{\sectionoutline}[1]{%
+\section{#1}
+\subsection*{동기}
+이 절은 작성 예정입니다.
+
+\subsection*{정의}
+핵심 정의를 작성 예정입니다.
+
+\subsection*{정리와 증명}
+핵심 정리와 증명을 작성 예정입니다.
+
+\subsection*{예제}
+기초 예제와 연결 예제를 작성 예정입니다.
+
+\subsection*{연습문제 (4단계 + 힌트)}
+Level 1--4 문제와 힌트를 작성 예정입니다.
+
+\subsection*{요약}
+핵심 요약 5줄을 작성 예정입니다.
+}

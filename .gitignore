@@ -12,6 +12,21 @@ vendor
 # Ruby
 Gemfile.lock
 
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.run.xml
+*.toc
+*.xdv
+latex/linear-algebra/main.pdf
+latex/linear-algebra/main-ch1.pdf
+
 # npm packages
 node_modules
 package-lock.json
