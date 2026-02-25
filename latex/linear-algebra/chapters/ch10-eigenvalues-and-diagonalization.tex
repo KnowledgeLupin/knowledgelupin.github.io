@@ -1,0 +1,67 @@
+\chapter{고유값, 고유공간, 대각화}
+
+\chapterintro{고유값 이론은 연산자의 작용을 가장 간결하게 읽는 방법입니다. 이 장에서는 대각화 가능성 판정과 계산 절차를 한 흐름으로 정리하겠습니다.}
+\chaptergoals{고유값과 고유공간을 계산할 수 있다.}{대각화 가능성 조건을 설명할 수 있다.}{대각화를 반복 작용 계산에 적용할 수 있다.}
+
+\sectiontemplate{고유값과 고유공간}{고유값은 연산자가 방향을 보존하면서 스케일만 바꾸는 축을 찾는 개념입니다.}{\item 고유값/고유벡터 정의를 쓸 수 있습니다.\item 고유공간을 kernel로 계산할 수 있습니다.\item 대수적/기하적 중복도를 구분할 수 있습니다.}{\item 특성다항식\item kernel 계산}
+
+\begin{definition}
+$T\in\operatorname{End}(V)$에 대해 $Tv=\lambda v$를 만족하는 $v\ne0$가 존재하면 $\lambda$를 $T$의 \emph{고유값}, 해당 $v$를 \emph{고유벡터}라 한다.
+\end{definition}
+
+\begin{theorem}
+서로 다른 고유값에 대응하는 고유벡터들은 일차독립이다.
+\end{theorem}
+
+\begin{proof}
+$\lambda_1,\dots,\lambda_k$가 서로 다르고 $v_i$가 각 고유벡터라 하자. 선형결합 관계가 있다고 가정하고 $T-\lambda_kI$를 적용하면 마지막 항이 소거되어 귀납적으로 모든 계수가 $0$임을 얻는다.
+\end{proof}
+
+\subsection*{주의}
+\begin{warning}
+고유벡터는 $0$벡터가 될 수 없습니다.
+\end{warning}
+\begin{warning}
+고유값의 개수와 대각화 가능성은 별개입니다. 중복도가 핵심입니다.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item $A=\begin{bmatrix}2&1\\0&2\end{bmatrix}$의 고유값/고유공간을 구하십시오.
+\item 서로 다른 고유값 고유벡터의 독립성을 $k=2$에서 직접 증명하십시오.
+\item 기하적 중복도와 대수적 중복도를 정의로 비교하십시오.
+\end{enumerate}
+
+\sectiontemplate{대각화 가능성 판정}{대각화는 기저 선택의 문제입니다. 적절한 고유벡터 기저가 있으면 행렬이 대각형이 됩니다.}{\item 대각화의 정의를 쓸 수 있습니다.\item 필요충분조건을 적용할 수 있습니다.\item 대각화 알고리즘을 재현할 수 있습니다.}{\item 기저\item similarity}
+
+\begin{theorem}
+$A\in M_n(K)$가 대각화 가능할 필요충분조건은 $K^n$에 대한 고유벡터 기저가 존재하는 것이다.
+\end{theorem}
+
+\begin{proof}
+대각화 가능하면 $A=PDP^{-1}$이고 $P$의 열벡터들이 고유벡터 기저다. 반대로 고유벡터 기저를 열로 모아 $P$를 만들면 $P^{-1}AP$가 대각행렬이 된다.
+\end{proof}
+
+\begin{example}
+$A=\begin{bmatrix}4&0\\0&1\end{bmatrix}$는 표준기저가 이미 고유벡터 기저이므로 대각화 가능합니다.
+\end{example}
+
+\subsection*{주의}
+\begin{warning}
+고유값이 서로 다르면 대각화 가능하지만, 역은 성립하지 않습니다.
+\end{warning}
+\begin{warning}
+고유값 계산 오류가 나면 이후 모든 대각화 계산이 무너집니다. 특성다항식부터 검산하십시오.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item $A^n$ 계산에 대각화가 왜 유리한지 설명하십시오.
+\item 대각화 불가능한 $2\times2$ 예를 제시하십시오.
+\item 최소다항식 관점에서 대각화 조건을 서술하십시오.
+\end{enumerate}
+
+\chapterapplicationtemplate{상태전이행렬이 대각화되는 경우 $A^n$을 빠르게 계산하여 장기 거동을 해석해 보십시오.}
+
+\chaptersummarytemplate
+\chapterexercisestemplate

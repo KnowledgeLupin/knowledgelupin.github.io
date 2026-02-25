@@ -1,0 +1,72 @@
+\chapter{쌍대공간과 전치/쌍대사상}
+
+\chapterintro{쌍대공간은 벡터를 숫자로 보내는 선형함수들의 공간입니다. 추상적으로 보이지만, 좌표함수와 전치행렬을 통해 계산적으로 매우 유용합니다.}
+\chaptergoals{쌍대공간의 정의와 차원을 설명할 수 있다.}{쌍대기저를 구성할 수 있다.}{쌍대사상과 전치행렬의 대응을 증명할 수 있다.}
+
+\sectiontemplate{쌍대공간과 쌍대기저}{쌍대공간은 벡터공간을 측정하는 함수들의 공간입니다. 좌표를 뽑아내는 연산자로 이해하면 자연스럽습니다.}{\item 쌍대공간을 정의할 수 있습니다.\item 쌍대기저를 구성할 수 있습니다.\item 차원 관계를 설명할 수 있습니다.}{\item 선형함수\item 기저와 좌표}
+
+\begin{definition}
+$V$ 위의 모든 선형함수 $f:V\to K$의 집합을 $V^*$로 쓰고 \emph{쌍대공간}이라 한다.
+\end{definition}
+
+\begin{theorem}
+$V$가 유한차원이고 기저 $\mathcal{B}=(v_1,\dots,v_n)$를 가지면, $f_i(v_j)=\delta_{ij}$를 만족하는 함수열 $(f_1,\dots,f_n)$이 존재하며 $V^*$의 기저를 이룬다.
+\end{theorem}
+
+\begin{proof}
+각 $x=\sum_j a_jv_j$에 대해 $f_i(x)=a_i$로 정의하면 선형이며 $f_i(v_j)=\delta_{ij}$다. 또한 임의의 $f\in V^*$에 대해
+$$f=\sum_{i=1}^n f(v_i)f_i$$
+가 되어 생성하고, 독립성은 $\sum c_if_i=0$에 $v_j$를 대입하면 즉시 따른다.
+\end{proof}
+
+\subsection*{주의}
+\begin{warning}
+$V$와 $V^*$는 일반적으로 같은 집합이 아닙니다. 유한차원에서만 동형일 뿐입니다.
+\end{warning}
+\begin{warning}
+쌍대기저는 원래 기저가 바뀌면 함께 바뀝니다.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item $\mathbb{R}^2$의 표준기저에 대한 쌍대기저를 쓰십시오.
+\item $\dim V=4$이면 $\dim V^*$를 구하십시오.
+\item 쌍대기저의 유일성을 보이십시오.
+\end{enumerate}
+
+\sectiontemplate{Dual map과 전치행렬}{선형사상은 쌍대공간 사이에 반대 방향 사상을 유도합니다. 이 대응이 전치행렬 공식의 본질입니다.}{\item dual map 정의를 쓸 수 있습니다.\item 전치행렬 대응을 증명할 수 있습니다.\item 합성에 대한 반대방향 성질을 설명할 수 있습니다.}{\item 선형사상 합성\item 행렬표현}
+
+\begin{definition}
+$T:V\to W$가 선형사상일 때 $T^*:W^*\to V^*$를
+$$T^*(\varphi)=\varphi\circ T$$
+로 정의하고 \emph{쌍대사상}이라 한다.
+\end{definition}
+
+\begin{theorem}
+유한차원에서 $T$의 표현행렬이 $A$이면 $T^*$의 표현행렬은 $A^T$이다.
+\end{theorem}
+
+\begin{proof}
+기저와 쌍대기저를 잡고 $T(v_j)=\sum_i a_{ij}w_i$라 하자. 그러면
+$T^*(w_i^*)(v_j)=w_i^*(T(v_j))=a_{ij}$이고, 이는 $T^*$의 행렬 성분이 $A$의 전치 성분임을 뜻한다.
+\end{proof}
+
+\subsection*{주의}
+\begin{warning}
+복소수 내적공간 문맥에서는 전치가 아니라 켤레전치가 등장합니다. 현재 절은 순수 쌍대공간 문맥입니다.
+\end{warning}
+\begin{warning}
+$T^*$는 $T$의 역함수가 아닙니다. 방향과 정의역/공역을 먼저 확인하십시오.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item $(S\circ T)^*=T^*\circ S^*$를 증명하십시오.
+\item $T$가 동형이면 $T^*$도 동형임을 보이십시오.
+\item 작은 예시에서 전치행렬 공식을 직접 확인하십시오.
+\end{enumerate}
+
+\chapterapplicationtemplate{선형 제약식 $f(x)=0$들의 집합을 annihilator 관점으로 해석하여 해공간과 쌍대공간의 관계를 설명해 보십시오.}
+
+\chaptersummarytemplate
+\chapterexercisestemplate

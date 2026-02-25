@@ -1,0 +1,79 @@
+\chapter{Adjoint, Normal/Self-adjoint/Unitary, Spectral Theorem}
+
+\chapterintro{이 장은 내적공간 이론의 핵심 결론을 다룹니다. adjoint를 중심으로 연산자를 분류하고, 스펙트럴 정리로 구조를 완성하겠습니다.}
+\chaptergoals{adjoint의 정의와 성질을 사용할 수 있다.}{normal/self-adjoint/unitary를 구분할 수 있다.}{spectral theorem을 진술하고 적용할 수 있다.}
+
+\sectiontemplate{Adjoint와 연산자 분류}{adjoint는 내적과 선형사상을 연결하는 다리입니다.}{\item adjoint 정의를 정확히 쓸 수 있습니다.\item self-adjoint, unitary, normal을 판정할 수 있습니다.\item 켤레전치 표현을 사용할 수 있습니다.}{\item 내적공간\item 전치행렬}
+
+\begin{definition}
+내적공간 $V$의 선형사상 $T$에 대해
+$$\langle Tx,y\rangle=\langle x,T^*y\rangle\quad(\forall x,y\in V)$$
+를 만족하는 $T^*$를 $T$의 adjoint라 한다.
+\end{definition}
+
+\begin{definition}
+$T^*=T$이면 self-adjoint, $T^*T=TT^*=I$이면 unitary, $T^*T=TT^*$이면 normal이라 한다.
+\end{definition}
+
+\begin{example}
+실수 내적공간에서 self-adjoint는 대칭행렬, unitary는 직교행렬과 대응합니다.
+\end{example}
+
+\subsection*{주의}
+\begin{warning}
+self-adjoint이면 normal이지만, normal이라고 해서 self-adjoint인 것은 아닙니다.
+\end{warning}
+\begin{warning}
+복소수 문맥에서는 전치가 아니라 켤레전치가 핵심입니다.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item 주어진 행렬이 normal인지 판정해 보십시오.
+\item unitary 행렬의 열벡터 성질을 설명하십시오.
+\item self-adjoint 행렬의 고유값이 실수임을 보이십시오.
+\end{enumerate}
+
+\sectiontemplate{Spectral Theorem}{스펙트럴 정리는 normal 연산자의 구조를 완전히 분류하는 정리입니다.}{\item 복소수 경우 spectral theorem을 진술할 수 있습니다.\item 실대칭 경우의 귀결을 설명할 수 있습니다.\item 스펙트럴 분해를 계산에 적용할 수 있습니다.}{\item 대각화\item 내적 직교기저}
+
+\begin{theorem}[Complex spectral theorem]
+유한차원 복소 내적공간에서 normal 연산자 $T$는 어떤 정규직교기저에 대해 대각행렬로 표현된다.
+\end{theorem}
+
+\begin{proof}
+Schur 분해로 유니터리 기저에서 상삼각표현을 얻는다. normal 조건을 상삼각행렬에 적용하면 비대각 원소가 모두 0이 되어 대각행렬이 된다.
+\end{proof}
+
+\begin{theorem}[Real symmetric case]
+실수 내적공간에서 대칭연산자는 직교기저에 대해 대각화된다.
+\end{theorem}
+
+\begin{proof}
+복소수 경우 정리를 적용한 뒤 고유값이 실수이고 고유공간이 실수기저를 가짐을 이용하면 실수 직교기저를 구성할 수 있다.
+\end{proof}
+
+\begin{example}
+대칭행렬 $A=Q\Lambda Q^T$에서
+$$f(A)=Qf(\Lambda)Q^T$$
+형태로 행렬함수를 계산할 수 있습니다.
+\end{example}
+
+\subsection*{주의}
+\begin{warning}
+대각화 기저는 일반 기저가 아니라 \emph{정규직교기저}여야 스펙트럴 해석이 깔끔해집니다.
+\end{warning}
+\begin{warning}
+실수 행렬이라도 normal이면 반드시 직교대각화된다고 말할 수는 없습니다(복소수 대각화는 가능).
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item Schur 분해에서 normal 조건이 비대각 성분을 없애는 이유를 설명하십시오.
+\item 대칭행렬의 고유벡터 직교성을 증명하십시오.
+\item 스펙트럴 분해를 이용해 $A^n$ 계산 공식을 써 보십시오.
+\end{enumerate}
+
+\chapterapplicationtemplate{공분산행렬의 스펙트럴 분해를 통해 주성분 축을 해석하는 간단한 예제를 구성해 보십시오.}
+
+\chaptersummarytemplate
+\chapterexercisestemplate

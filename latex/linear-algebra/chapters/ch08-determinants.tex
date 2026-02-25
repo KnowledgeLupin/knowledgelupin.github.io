@@ -1,0 +1,81 @@
+\chapter{행렬식}
+
+\chapterintro{행렬식은 가역성 판정, 부피 변화, 고유값 이론을 잇는 핵심 함수입니다. 이 장에서는 계산 공식뿐 아니라 왜 그런 공식이 자연스러운지까지 확인하겠습니다.}
+\chaptergoals{행렬식을 교대 다중선형 함수로 정의할 수 있다.}{행렬식의 기본 성질을 증명과 함께 사용할 수 있다.}{가역성 및 기하학적 의미를 해석할 수 있다.}
+
+\sectiontemplate{행렬식의 정의와 기본 성질}{행렬식을 공리적으로 정의하면 여러 성질이 한 번에 정리됩니다.}{\item 행렬식의 정의를 정확히 쓸 수 있습니다.\item 행연산이 행렬식에 미치는 영향을 설명할 수 있습니다.\item 곱셈성의 의미를 해석할 수 있습니다.}{\item 순열\item 다중선형성}
+
+\begin{definition}
+$\det:M_n(K)\to K$가 다음을 만족하면 행렬식이라 한다.
+\begin{enumerate}[label=(\roman*)]
+\item 각 행에 대해 선형이다.
+\item 두 행이 같으면 값이 $0$이다(교대성).
+\item $\det(I_n)=1$.
+\end{enumerate}
+\end{definition}
+
+\begin{theorem}
+$A,B\in M_n(K)$에 대해
+$$\det(AB)=\det(A)\det(B)$$
+가 성립한다.
+\end{theorem}
+
+\begin{proof}
+$B$를 고정하고 $f(A)=\det(AB)$를 두면 $f$는 $A$의 행들에 대해 교대 다중선형이며 $f(I)=\det(B)$이다. 행렬식의 유일성으로 $f(A)=\det(B)\det(A)$가 되어 결론이 따른다.
+\end{proof}
+
+\subsection*{주의}
+\begin{warning}
+$\det(A+B)=\det(A)+\det(B)$는 일반적으로 거짓입니다.
+\end{warning}
+\begin{warning}
+행을 서로 바꾸면 행렬식 부호가 바뀝니다.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item 삼각행렬의 행렬식 공식을 쓰십시오.
+\item $A$가 가역이면 $\det(A^{-1})$를 구하십시오.
+\item 두 행이 비례하면 행렬식이 $0$임을 보이십시오.
+\end{enumerate}
+
+\sectiontemplate{가역성 판정과 기하학적 해석}{행렬식의 값은 가역성과 부피 변화율을 동시에 담습니다.}{\item $\det(A)\ne0$과 가역성의 동치를 설명할 수 있습니다.\item 선형변환의 부피 배율을 해석할 수 있습니다.\item 부호가 방향 보존/반전을 뜻함을 설명할 수 있습니다.}{\item 가역성\item 선형변환의 기하적 직관}
+
+\begin{theorem}
+정사각행렬 $A$에 대해 다음이 동치이다.
+\begin{enumerate}[label=(\roman*)]
+\item $A$는 가역이다.
+\item $\det(A)\ne 0$.
+\item $A\mathbf{x}=\mathbf{0}$이 자명해만 갖는다.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(i)$\Rightarrow$(ii)는 $1=\det(I)=\det(AA^{-1})=\det(A)\det(A^{-1})$에서 따른다.  
+(ii)$\Rightarrow$(iii)는 수반행렬 공식을 통해 $A^{-1}$ 존재를 얻어 성립한다.  
+(iii)$\Rightarrow$(i)는 가역성 동치조건에서 이미 보였다.
+\end{proof}
+
+\begin{example}
+$A=\operatorname{diag}(2,-1,3)$이면 $\det(A)=-6$이므로 부피는 $6$배가 되고 방향은 반전됩니다.
+\end{example}
+
+\subsection*{주의}
+\begin{warning}
+부피 배율은 $|\det(A)|$입니다. 부호를 절댓값 없이 해석하면 틀립니다.
+\end{warning}
+\begin{warning}
+비정사각행렬에는 행렬식을 정의하지 않습니다.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item $\det(A)=0$이면 왜 열벡터가 종속인지 설명하십시오.
+\item $\det(\lambda A)=\lambda^n\det(A)$를 증명하십시오.
+\item 평면 선형변환 예에서 면적 변화율을 계산해 보십시오.
+\end{enumerate}
+
+\chapterapplicationtemplate{평면 변환 $T(x,y)=(ax+by,cx+dy)$의 면적 변화율이 $|ad-bc|$임을 예제로 확인해 보십시오.}
+
+\chaptersummarytemplate
+\chapterexercisestemplate

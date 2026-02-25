@@ -1,0 +1,73 @@
+\chapter{내적공간, 직교화, 직교투영}
+
+\chapterintro{이 장에서는 길이와 각도를 도입하여 선형대수를 기하적으로 확장합니다. 직교화와 투영은 계산과 이론 모두에서 매우 자주 쓰이는 핵심 도구입니다.}
+\chaptergoals{내적공간의 기본 성질을 엄밀히 다룰 수 있다.}{Gram--Schmidt 직교화를 수행할 수 있다.}{직교투영과 최소제곱을 연결해 설명할 수 있다.}
+
+\sectiontemplate{내적과 직교분해}{내적은 선형대수에 길이와 각도를 부여합니다.}{\item 내적 공리를 정확히 쓸 수 있습니다.\item 직교여공간을 정의할 수 있습니다.\item 직교분해 정리를 적용할 수 있습니다.}{\item 복소수 켤레\item 부분공간}
+
+\begin{definition}
+복소수 벡터공간 $V$의 함수 $\langle\cdot,\cdot\rangle:V\times V\to\mathbb{C}$가 sesquilinear, 켤레대칭, 양의정부호를 만족하면 내적이라 한다.
+\end{definition}
+
+\begin{theorem}[직교분해]
+유한차원 내적공간에서 부분공간 $W$에 대해
+$$V=W\oplus W^{\perp}$$
+가 성립한다.
+\end{theorem}
+
+\begin{proof}
+$W$의 정규직교기저를 Gram--Schmidt로 구성하고, 임의의 $v$를 기저 방향 성분과 나머지 성분으로 분해하면 나머지 성분이 $W^{\perp}$에 속함을 확인할 수 있다. 직합성은 교집합 자명성으로 따른다.
+\end{proof}
+
+\subsection*{주의}
+\begin{warning}
+복소수 내적에서는 첫 변수와 둘째 변수 중 어느 쪽에 켤레선형을 둘지 약속을 고정해야 합니다.
+\end{warning}
+\begin{warning}
+$W^{\perp\perp}=W$는 유한차원에서 보장됩니다. 무한차원에서는 닫힘이 필요합니다.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item $\mathbb{R}^3$에서 한 평면의 직교여공간을 구하십시오.
+\item 직교분해의 유일성을 증명하십시오.
+\item Cauchy--Schwarz 부등식의 활용 예를 하나 쓰십시오.
+\end{enumerate}
+
+\sectiontemplate{Gram--Schmidt와 최소제곱}{직교기저를 만들면 계산이 단순해지고, 최소제곱 문제의 해석도 명확해집니다.}{\item Gram--Schmidt 절차를 수행할 수 있습니다.\item 직교투영을 계산할 수 있습니다.\item 최소제곱해를 구하고 해석할 수 있습니다.}{\item 내적\item 정규직교기저}
+
+\begin{theorem}
+$A\in M_{m,n}(\mathbb{R})$가 열독립이면 최소제곱해 $\hat x$는
+$$A^TA\hat x=A^Tb$$
+를 만족하며 유일하다.
+\end{theorem}
+
+\begin{proof}
+잔차 $r=b-Ax$의 노름을 최소화하려면 $r\perp\operatorname{col}(A)$여야 한다. 이는
+$$A^T(b-Ax)=0$$
+와 동치이며, 열독립이면 $A^TA$가 가역이므로 해가 유일하다.
+\end{proof}
+
+\begin{example}
+점 $(0,1),(1,2),(2,2)$에 대한 1차 회귀 직선은 정상방정식을 풀어 얻을 수 있습니다.
+\end{example}
+
+\subsection*{주의}
+\begin{warning}
+Gram--Schmidt 중간 벡터가 0이 되면 원래 벡터열이 종속이라는 신호입니다.
+\end{warning}
+\begin{warning}
+최소제곱해는 원래 방정식의 정확한 해가 아닐 수 있습니다. "잔차 최소"가 목표입니다.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item 간단한 벡터열에 Gram--Schmidt를 적용해 보십시오.
+\item 왜 $A^TA$가 대칭인지 확인하십시오.
+\item 투영행렬 $P=A(A^TA)^{-1}A^T$의 성질 두 가지를 쓰십시오.
+\end{enumerate}
+
+\chapterapplicationtemplate{작은 데이터셋에 대해 최소제곱 직선 적합을 계산하고, 잔차 벡터가 열공간에 직교함을 확인해 보십시오.}
+
+\chaptersummarytemplate
+\chapterexercisestemplate

@@ -1,0 +1,69 @@
+\chapter{불변부분공간과 삼각화}
+
+\chapterintro{Jordan 이론에 들어가기 전에, 연산자가 부분공간을 보존하는 메커니즘을 먼저 정리하겠습니다. 불변부분공간 관점은 분해정리의 핵심 연결고리입니다.}
+\chaptergoals{불변부분공간을 정의하고 판정할 수 있다.}{삼각화 가능성의 의미를 설명할 수 있다.}{일반화 고유벡터 도입의 필요성을 이해한다.}
+
+\sectiontemplate{불변부분공간과 삼각화}{불변부분공간은 연산자의 작용을 작은 블록으로 분리하게 해 줍니다.}{\item 불변부분공간 정의를 쓸 수 있습니다.\item 삼각화 의미를 기저 관점으로 설명할 수 있습니다.\item 블록표현과 연결할 수 있습니다.}{\item 부분공간\item 기저변환}
+
+\begin{definition}
+$T:V\to V$와 부분공간 $W\le V$에 대해 $T(W)\subseteq W$이면 $W$를 $T$-불변부분공간이라 한다.
+\end{definition}
+
+\begin{theorem}
+$V$에 완전한 불변부분공간 사슬
+$$0\subset W_1\subset\cdots\subset W_n=V,\quad \dim W_i=i$$
+이 존재하면 $T$는 어떤 기저에서 상삼각행렬로 표현된다.
+\end{theorem}
+
+\begin{proof}
+각 $W_i$에서 벡터를 하나씩 골라 기저를 구성하면 $T$는 각 단계에서 이전 공간으로만 성분을 보내므로 하위 항이 소거되어 상삼각형태가 된다.
+\end{proof}
+
+\subsection*{주의}
+\begin{warning}
+삼각화 가능과 대각화 가능은 다릅니다. 삼각화가 더 약한 조건입니다.
+\end{warning}
+\begin{warning}
+불변부분공간은 임의 부분공간이 아닙니다. 반드시 $T$ 작용에 대해 닫혀야 합니다.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item 특정 행렬의 고유공간이 왜 불변부분공간인지 설명하십시오.
+\item 상삼각행렬에서 대각성분이 고유값이 되는 이유를 설명하십시오.
+\item 삼각화가 가능한데 대각화는 불가능한 예를 쓰십시오.
+\end{enumerate}
+
+\sectiontemplate{Nilpotent와 일반화 고유벡터}{대각화 실패를 다루기 위해 일반화 고유벡터를 사용합니다.}{\item nilpotent 정의를 쓸 수 있습니다.\item 일반화 고유벡터를 정의할 수 있습니다.\item Jordan 사슬의 직관을 설명할 수 있습니다.}{\item 고유값\item kernel 사슬}
+
+\begin{definition}
+$N^m=0$인 자연수 $m$이 존재하면 $N$을 nilpotent 연산자라 한다.
+\end{definition}
+
+\begin{definition}
+$(T-\lambda I)^k v=0$인 $v\ne0$를 $\lambda$에 대한 일반화 고유벡터라 한다.
+\end{definition}
+
+\begin{example}
+$N=\begin{bmatrix}0&1\\0&0\end{bmatrix}$는 $N^2=0$이므로 nilpotent이고, $e_2$는 $\lambda=0$에 대한 일반화 고유벡터입니다.
+\end{example}
+
+\subsection*{주의}
+\begin{warning}
+일반화 고유벡터는 항상 고유벡터는 아닙니다.
+\end{warning}
+\begin{warning}
+지수 $k$의 최소성 여부를 확인하지 않으면 사슬 길이 해석이 흔들립니다.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item nilpotent 행렬의 고유값이 왜 0뿐인지 설명하십시오.
+\item 일반화 고유공간이 불변부분공간임을 보이십시오.
+\item Jordan 블록에서 일반화 고유벡터 사슬을 직접 써 보십시오.
+\end{enumerate}
+
+\chapterapplicationtemplate{상삼각행렬 예제에서 일반화 고유벡터를 계산해 Jordan 형식 준비 정보를 뽑아 보십시오.}
+
+\chaptersummarytemplate
+\chapterexercisestemplate

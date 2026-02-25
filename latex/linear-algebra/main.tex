@@ -11,37 +11,46 @@
 \tableofcontents
 
 \chapter*{머리말}
-이 노트는 Serge Lang의 \textit{Linear Algebra (3rd ed.)}를 기준으로 구성한 한국어 강의노트 초안이다.
-집필 원칙은 동기 $\to$ 정의 $\to$ 정리/증명 $\to$ 예제 $\to$ 연습문제 $\to$ 요약 순서를 따른다.
+이 원고는 수학전공 2학년 독학자를 대상으로 집필하는 선형대수학 교과서 초안입니다.
+설명 문단은 경어체로 친절하게 서술하고, 정의/정리/증명은 엄밀한 교과서 형식으로 구성합니다.
+중심 서사는 행렬 계산에서 시작하여 벡터공간과 선형사상으로 확장한 뒤, 분해정리와 Jordan 표준형,
+그리고 스펙트럴 이론까지 연결하는 흐름으로 설계합니다.
 
 \mainmatter
 
-\part{기초 선형대수}
-\input{chapters/ch01-vector-spaces}
-\input{chapters/ch02-matrices}
-\input{chapters/ch03-linear-maps}
-\input{chapters/ch04-linear-maps-and-matrices}
+\part{연립방정식과 행렬}
+\input{chapters/ch01-linear-systems-and-gauss}
+\input{chapters/ch02-matrix-operations-invertibility-rank}
 
-\part{내적, 직교성, 행렬식}
-\input{chapters/ch05-inner-product-and-orthogonality}
-\input{chapters/ch06-determinants}
+\part{벡터공간과 선형사상}
+\input{chapters/ch03-vector-spaces-and-subspaces}
+\input{chapters/ch04-basis-and-dimension}
+\input{chapters/ch05-linear-maps-kernel-image}
+\input{chapters/ch06-matrix-representation-and-similarity}
+\input{chapters/ch07-dual-spaces-and-transpose}
+\input{chapters/ch08-determinants}
 
-\part{구조정리}
-\input{chapters/ch07-symmetric-hermitian-unitary}
-\input{chapters/ch08-eigenvalues-eigenvectors}
-\input{chapters/ch09-polynomials-and-matrices}
-\input{chapters/ch10-triangulation-and-cayley-hamilton}
-\input{chapters/ch11-primary-decomposition-and-jordan}
+\part{다항식과 분해정리}
+\input{chapters/ch09-operator-polynomials}
+\input{chapters/ch10-eigenvalues-and-diagonalization}
+\input{chapters/ch11-invariant-subspaces-and-triangularization}
+\input{chapters/ch12-primary-and-cyclic-decomposition}
 
-\part{볼록성과 확장 주제}
-\input{chapters/ch12-convex-sets}
+\part{정준형과 스펙트럴 이론}
+\input{chapters/ch13-jordan-canonical-form}
+\input{chapters/ch14-inner-product-and-orthogonalization}
+\input{chapters/ch15-adjoint-normal-spectral}
+
+\part{쌍선형형식과 에르미트형식}
+\input{chapters/ch16-bilinear-hermitian-forms}
 
 \appendix
-\input{appendices/appendix-a-complex-numbers}
-\input{appendices/appendix-b-iwasawa-decomposition}
+\input{appendices/appendix-a-set-function-equivalence}
+\input{appendices/appendix-b-field-and-complex}
+\input{appendices/appendix-c-notation-guide}
 
 \backmatter
 \chapter*{집필 노트}
-버전: v0.1
+버전: v0.2-plan-implemented
 
 \end{document}

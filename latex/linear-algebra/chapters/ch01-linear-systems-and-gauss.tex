@@ -1,0 +1,278 @@
+\chapter{연립일차방정식과 Gauss 소거법}
+
+\chapterintro{이 장에서는 연립일차방정식을 행렬 언어로 바꾸고, 소거법이 왜 정당한지부터 차근차근 정리하겠습니다. 계산 절차만 외우기보다, 각 단계가 해집합을 보존한다는 사실을 함께 확인해 주시면 이후 장을 훨씬 안정적으로 따라가실 수 있습니다.}
+\chaptergoals{연립일차방정식을 증강행렬로 표준화할 수 있다.}{기본 행연산이 해집합을 보존함을 설명할 수 있다.}{RREF를 통해 해를 매개화하고 구조를 해석할 수 있다.}
+
+\sectiontemplate{선형시스템과 증강행렬}{선형시스템은 미지수에 대한 조건을 모은 것입니다. 이를 증강행렬로 바꾸면 계산 규칙이 통일되어 이후 모든 장에서 같은 언어를 사용할 수 있습니다.}{\item 선형시스템의 표준형을 쓸 수 있습니다.\item 계수행렬과 증강행렬을 구분할 수 있습니다.\item 동차/비동차 시스템을 분류할 수 있습니다.}{\item 연립일차방정식\item 행렬의 기본 표기}
+
+\begin{definition}
+$K$를 체라 하자. $m$개의 방정식과 $n$개의 미지수로 이루어진 식
+$$
+\sum_{j=1}^n a_{ij}x_j=b_i \quad (1\le i\le m)
+$$
+을 $K$ 위의 \emph{연립일차방정식}이라 한다.
+\end{definition}
+
+\begin{definition}
+위 시스템에 대해 $A=(a_{ij})\in M_{m,n}(K)$, $\mathbf{b}=(b_i)\in K^m$를 두면
+$$A\mathbf{x}=\mathbf{b}$$
+로 쓸 수 있다. 이때 $(A\mid\mathbf{b})$를 \emph{증강행렬}이라 한다.
+\end{definition}
+
+\begin{example}
+다음 시스템
+$$
+\begin{cases}
+2x_1-x_2+3x_3=1,\\
+x_1+4x_2-x_3=0
+\end{cases}
+$$
+의 증강행렬은
+$$
+\left[
+\begin{array}{ccc|c}
+2&-1&3&1\\
+1&4&-1&0
+\end{array}
+\right]
+$$
+입니다.
+\end{example}
+
+\subsection*{주의}
+\begin{warning}
+증강행렬의 마지막 열은 상수항 열입니다. 계수행렬과 섞어서 행연산을 기록하면 계산은 맞아도 해석이 틀리기 쉽습니다.
+\end{warning}
+\begin{warning}
+동차시스템($\mathbf{b}=\mathbf{0}$)과 비동차시스템($\mathbf{b}\ne\mathbf{0}$)은 해집합의 구조가 다릅니다. 이 구분을 처음부터 유지해야 합니다.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item 임의의 $3\times 4$ 계수행렬과 $\mathbf{b}\in K^3$를 잡아 증강행렬을 쓰십시오.
+\item 왜 $A\mathbf{x}=\mathbf{b}$ 표기가 계산과 이론을 동시에 단순화하는지 설명해 보십시오.
+\item 동차시스템의 해집합이 항상 공집합이 아님을 증명하십시오.
+\end{enumerate}
+
+\sectiontemplate{기본 행연산과 해집합 보존}{소거법은 세 가지 기본 행연산으로 이루어집니다. 핵심은 이 연산들이 시스템을 동치인 시스템으로 바꾼다는 점입니다.}{\item 세 가지 기본 행연산을 정확히 정의할 수 있습니다.\item 각 행연산이 해집합을 보존함을 설명할 수 있습니다.\item 행렬의 행동치(row equivalence)를 이해할 수 있습니다.}{\item 등식의 동치 변형\item 선형결합}
+
+\begin{definition}
+다음 세 연산을 \emph{기본 행연산}이라 한다.
+\begin{enumerate}[label=(\alph*)]
+\item 한 행에 $0$이 아닌 스칼라를 곱한다.
+\item 한 행에 다른 행의 스칼라배를 더한다.
+\item 두 행을 맞바꾼다.
+\end{enumerate}
+\end{definition}
+
+\paragraph{증명 전략.}
+해집합 보존을 보이려면, 각 행연산이 원래 방정식들의 선형결합으로 새 방정식을 만들며, 역연산도 같은 종류의 행연산임을 확인하면 됩니다.
+
+\begin{theorem}[행연산의 해집합 보존]
+증강행렬에 기본 행연산을 한 번 적용해 얻은 새 시스템은 원래 시스템과 같은 해집합을 갖는다.
+\end{theorem}
+
+\begin{proof}
+(1) 한 행에 $c\ne 0$을 곱하는 연산은 해당 방정식의 양변에 $c$를 곱하는 것과 같으므로 동치다.  
+(2) $i$번째 행에 $j$번째 행의 $c$배를 더하는 연산은 $i$번째 방정식을 $i$번째 방정식과 $j$번째 방정식의 선형결합으로 바꾸는 것이므로 동치다.  
+(3) 두 행을 바꾸는 연산은 방정식의 나열 순서만 바꾸므로 해집합이 바뀌지 않는다.  
+세 연산의 역연산도 각각 같은 종류의 기본 행연산이다. 따라서 유한 번의 기본 행연산으로 얻은 시스템은 항상 원래 시스템과 동치다.
+\end{proof}
+
+\paragraph{의미 해석.}
+이 정리 덕분에 우리는 "같은 문제를 더 계산하기 쉬운 형태로 바꿀 권리"를 얻습니다. 소거법의 정당성은 바로 여기서 출발합니다.
+
+\begin{example}
+다음 증강행렬에 $R_2\leftarrow R_2-2R_1$를 적용하면
+$$
+\left[
+\begin{array}{cc|c}
+1&1&3\\
+2&5&8
+\end{array}
+\right]
+\sim
+\left[
+\begin{array}{cc|c}
+1&1&3\\
+0&3&2
+\end{array}
+\right]
+$$
+이고 두 시스템의 해집합은 같습니다.
+\end{example}
+
+\subsection*{주의}
+\begin{warning}
+열연산은 일반적으로 해집합을 보존하지 않습니다. 연립방정식 해법에서는 행연산만 사용해야 합니다.
+\end{warning}
+\begin{warning}
+$R_i\leftarrow 0\cdot R_i$는 기본 행연산이 아닙니다. $0$배를 허용하면 정보가 소실되어 동치성이 깨집니다.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item 각 기본 행연산의 역연산을 적어 보십시오.
+\item 왜 열교환은 미지수 순서를 바꾼 것으로 해석해야 하는지 설명해 보십시오.
+\item 두 행의 스칼라배가 같은 경우 시스템 해의 구조가 어떻게 바뀌는지 예를 들어 설명하십시오.
+\end{enumerate}
+
+\sectiontemplate{기약행 사다리꼴과 피벗}{RREF는 해를 읽기 가장 쉬운 표준형입니다. 피벗과 자유변수를 구분하면 해집합의 차원을 바로 파악할 수 있습니다.}{\item RREF 조건을 정확히 말할 수 있습니다.\item 피벗열과 자유열을 구분할 수 있습니다.\item 해를 매개변수 형태로 표현할 수 있습니다.}{\item 기본 행연산\item 동치 시스템}
+
+\begin{definition}
+행렬 $R$이 다음을 만족하면 \emph{기약행 사다리꼴}(RREF)이라 한다.
+\begin{enumerate}[label=(\roman*)]
+\item 각 영이 아닌 행의 첫 비영원소는 $1$이다.
+\item 피벗이 있는 열에서 그 피벗을 제외한 나머지 원소는 모두 $0$이다.
+\item 아래 행으로 갈수록 피벗의 위치가 오른쪽으로 이동한다.
+\item 모든 영행은 아래쪽에 모인다.
+\end{enumerate}
+\end{definition}
+
+\paragraph{증명 전략.}
+RREF 존재는 소거 알고리즘으로, 유일성은 같은 행공간을 갖는 두 RREF를 비교하는 방식으로 보입니다.
+
+\begin{theorem}[RREF의 존재와 유일성]
+모든 행렬은 어떤 RREF와 행동치이며, 그 RREF는 유일하다.
+\end{theorem}
+
+\begin{proof}
+존재성은 Gauss--Jordan 소거 절차를 수행하면 얻어진다. 유일성은 표준적인 사실로, 같은 행공간을 갖는 두 RREF의 피벗 위치가 일치하고 각 피벗열이 동일하게 정규화됨을 보이면 된다. 따라서 RREF는 유일하다.
+\end{proof}
+
+\paragraph{의미 해석.}
+유일성은 계산 검산의 기준을 제공합니다. 서로 다른 경로로 소거해도 마지막 RREF는 같아야 합니다.
+
+\begin{example}
+$$
+\left[
+\begin{array}{ccc|c}
+1&2&1&4\\
+2&4&0&6
+\end{array}
+\right]
+\sim
+\left[
+\begin{array}{ccc|c}
+1&2&0&3\\
+0&0&1&1
+\end{array}
+\right].
+$$
+여기서 피벗변수는 $x_1,x_3$, 자유변수는 $x_2$입니다.
+\end{example}
+
+\subsection*{주의}
+\begin{warning}
+피벗 개수와 미지수 개수를 혼동하면 해의 자유도를 잘못 계산하게 됩니다. 자유도는 $n-\text{rank}(A)$입니다.
+\end{warning}
+\begin{warning}
+비동차 시스템에서 모순행($[0\ \cdots\ 0\mid 1]$)이 나타나면 해가 없다는 뜻입니다.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item 주어진 RREF에서 피벗열과 자유열을 찾으십시오.
+\item 왜 RREF 유일성이 알고리즘 검산에 중요한지 설명하십시오.
+\item 동차시스템에서 자유변수가 하나 이상이면 비자명해가 존재함을 증명하십시오.
+\end{enumerate}
+
+\sectiontemplate{동차/비동차 해공간과 매개화}{해를 단순히 "구했다"에서 끝내지 않고, 해집합의 구조를 벡터공간 관점으로 정리합니다.}{\item 동차해의 부분공간 성질을 설명할 수 있습니다.\item 비동차해를 특수해와 동차해의 합으로 표현할 수 있습니다.\item 해를 매개변수 형태로 기술할 수 있습니다.}{\item 벡터공간 기초\item RREF 해석}
+
+\paragraph{증명 전략.}
+동차해집합은 선형사상 $T(\mathbf{x})=A\mathbf{x}$의 kernel로 보고, 비동차해는 한 특수해를 기준으로 kernel의 평행이동으로 해석합니다.
+
+\begin{theorem}
+$A\mathbf{x}=\mathbf{0}$의 해집합은 $K^n$의 부분공간이다. 또한 $A\mathbf{x}=\mathbf{b}$가 해를 가지면, 그 해집합은
+$$
+\mathbf{x}_p+\ker A
+$$
+꼴이다($\mathbf{x}_p$는 임의의 특수해).
+\end{theorem}
+
+\begin{proof}
+첫 문장은 $\ker A=\{\mathbf{x}\in K^n: A\mathbf{x}=\mathbf{0}\}$ 정의에서 바로 따라온다.  
+둘째 문장을 위해 $A\mathbf{x}=\mathbf{b}$의 해 $\mathbf{x}$를 하나 잡으면
+$$A(\mathbf{x}-\mathbf{x}_p)=A\mathbf{x}-A\mathbf{x}_p=\mathbf{b}-\mathbf{b}=\mathbf{0}$$
+이므로 $\mathbf{x}=\mathbf{x}_p+\mathbf{z}$, $\mathbf{z}\in\ker A$다. 역으로 $\mathbf{x}_p+\mathbf{z}$에 대해
+$$A(\mathbf{x}_p+\mathbf{z})=A\mathbf{x}_p+A\mathbf{z}=\mathbf{b}+\mathbf{0}=\mathbf{b}$$
+이므로 성립한다.
+\end{proof}
+
+\paragraph{의미 해석.}
+비동차 문제를 "특수해 하나 + 동차 문제"로 분리하면 계산과 이론이 동시에 단순해집니다. 이 관점은 이후 선형사상 이론 전체의 표준 관점이 됩니다.
+
+\begin{example}
+$A\mathbf{x}=\mathbf{b}$의 한 해가 $\mathbf{x}_p=(1,0,2)^T$이고
+$$
+\ker A=\operatorname{span}\{(1,-1,0)^T,(0,2,1)^T\}
+$$
+이면 전체 해는
+$$
+\mathbf{x}=\mathbf{x}_p+s(1,-1,0)^T+t(0,2,1)^T
+$$
+입니다.
+\end{example}
+
+\subsection*{주의}
+\begin{warning}
+동차해의 기저를 구하지 않고 특수해만 제시하면 전체 해집합을 놓치게 됩니다.
+\end{warning}
+\begin{warning}
+특수해는 유일하지 않습니다. 서로 다른 특수해의 차는 항상 동차해입니다.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item $A\mathbf{x}=\mathbf{0}$의 해집합이 왜 부분공간인지 공리로 확인해 보십시오.
+\item 특수해 두 개의 차가 kernel에 속함을 보이십시오.
+\item 자유변수 2개인 시스템의 일반해를 매개변수로 작성해 보십시오.
+\end{enumerate}
+
+\sectiontemplate{Gauss--Jordan 알고리즘}{알고리즘을 재현 가능한 절차로 고정하면, 독학에서도 계산 실수를 크게 줄일 수 있습니다.}{\item Gauss 소거와 Gauss--Jordan 소거를 구분할 수 있습니다.\item 알고리즘 단계를 스스로 실행할 수 있습니다.\item 계산 검산 체크리스트를 적용할 수 있습니다.}{\item RREF\item 기본 행연산}
+
+\begin{definition}
+\emph{Gauss 소거법}은 사다리꼴을 만드는 절차이고, \emph{Gauss--Jordan 소거법}은 추가 소거로 RREF까지 만드는 절차이다.
+\end{definition}
+
+\begin{example}
+다음 증강행렬을 Gauss--Jordan으로 소거하면
+$$
+\left[
+\begin{array}{ccc|c}
+1&1&1&2\\
+1&2&3&4\\
+1&0&1&1
+\end{array}
+\right]
+\sim
+\left[
+\begin{array}{ccc|c}
+1&0&0&1\\
+0&1&0&0\\
+0&0&1&1
+\end{array}
+\right]
+$$
+따라서 해는 $(x_1,x_2,x_3)=(1,0,1)$입니다.
+\end{example}
+
+\subsection*{주의}
+\begin{warning}
+분수 계산을 늦추려고 무리하게 정수 연산만 고집하면 중간 수가 비대해져 오히려 실수가 늘 수 있습니다.
+\end{warning}
+\begin{warning}
+피벗 선택을 매 단계 기록하지 않으면 역추적에서 오답이 자주 발생합니다.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item 임의의 $3\times 3$ 시스템을 직접 만들어 Gauss와 Gauss--Jordan을 각각 실행해 보십시오.
+\item 두 소거법의 계산량 차이를 질적으로 설명해 보십시오.
+\item RREF 결과를 원래 식에 대입해 검산하는 습관이 왜 중요한지 쓰십시오.
+\end{enumerate}
+
+\chapterapplicationtemplate{회로 해석의 선형시스템(키르히호프 방정식)을 증강행렬로 세우고, Gauss--Jordan 소거로 해를 구해 보십시오.}
+
+\chaptersummarytemplate
+\chapterexercisestemplate

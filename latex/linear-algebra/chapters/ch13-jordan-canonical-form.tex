@@ -1,0 +1,80 @@
+\chapter{Jordan Canonical Form}
+
+\chapterintro{이 장에서는 선형연산자의 구조를 Jordan 표준형으로 정리합니다. 존재성과 유일성을 엄밀히 확인한 뒤, 실제 계산 절차까지 연결하겠습니다.}
+\chaptergoals{Jordan 블록과 사슬을 정의하고 계산할 수 있다.}{Jordan 형식 존재/유일성 정리를 설명할 수 있다.}{Jordan 형식을 반복작용 계산에 적용할 수 있다.}
+
+\sectiontemplate{Jordan 블록, 존재성과 유일성}{Jordan 형식은 대각화가 실패한 경우를 가장 표준적으로 기술하는 틀입니다.}{\item Jordan 블록을 정의할 수 있습니다.\item 존재/유일성의 의미를 설명할 수 있습니다.\item 블록 크기와 불변량의 연결을 말할 수 있습니다.}{\item 일반화 고유벡터\item primary/cyclic decomposition}
+
+\begin{definition}
+$\lambda\in K$와 $k\in\mathbb{N}$에 대해
+$$J_k(\lambda)=
+\begin{bmatrix}
+\lambda&1&0&\cdots&0\\
+0&\lambda&1&\ddots&\vdots\\
+\vdots&\ddots&\ddots&\ddots&0\\
+\vdots&&\ddots&\lambda&1\\
+0&\cdots&\cdots&0&\lambda
+\end{bmatrix}
+$$
+를 Jordan 블록이라 한다.
+\end{definition}
+
+\begin{theorem}[Jordan 존재정리]
+대수적으로 닫힌 체 위 유한차원 공간의 모든 선형연산자는 적절한 기저에서 Jordan 표준형으로 표현된다.
+\end{theorem}
+
+\begin{proof}
+primary decomposition으로 고유값별 성분으로 나눈 뒤, 각 성분에서 nilpotent 부분에 대해 cyclic decomposition을 적용하면 Jordan 사슬 기저를 얻는다. 이들을 합치면 Jordan 형식이 된다.
+\end{proof}
+
+\begin{theorem}[유일성(블록 순서 제외)]
+같은 연산자의 Jordan 형식은 블록 배열 순서를 제외하면 유일하다.
+\end{theorem}
+
+\begin{proof}
+$\dim\ker (T-\lambda I)^j$의 증가량이 블록 크기 분포를 결정한다. 이 값들은 similarity 불변량이므로 블록 분포가 유일하게 정해진다.
+\end{proof}
+
+\subsection*{주의}
+\begin{warning}
+Jordan 형식의 유일성은 "행렬 그대로"가 아니라 "블록 다중집합"의 유일성입니다.
+\end{warning}
+\begin{warning}
+체가 대수적으로 닫히지 않으면 Jordan 형식 대신 rational canonical form이 필요할 수 있습니다.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item $J_3(2)$의 최소다항식과 특성다항식을 구하십시오.
+\item 블록 크기와 $\dim\ker(T-\lambda I)^j$의 관계를 설명하십시오.
+\item 대각화 가능성과 Jordan 블록 크기의 관계를 서술하십시오.
+\end{enumerate}
+
+\sectiontemplate{Jordan 계산과 응용}{실제 계산에서는 사슬을 어떻게 찾는지가 핵심입니다.}{\item Jordan 형식 계산 절차를 재현할 수 있습니다.\item Jordan 기저를 구성할 수 있습니다.\item $A^n$, $e^{tA}$ 계산에 적용할 수 있습니다.}{\item kernel 사슬\item 행렬함수}
+
+\begin{example}
+$$A=\begin{bmatrix}2&1\\0&2\end{bmatrix}=J_2(2)$$
+이므로
+$$A^n=\begin{bmatrix}2^n&n2^{n-1}\\0&2^n\end{bmatrix}$$
+입니다.
+\end{example}
+
+\subsection*{주의}
+\begin{warning}
+Jordan 사슬 계산에서 벡터 선택을 임의로 바꾸면 이전 단계 조건이 깨질 수 있습니다. 단계별 조건을 기록하십시오.
+\end{warning}
+\begin{warning}
+계산 중에 고유값별 블록을 섞으면 검산이 어려워집니다. 고유값별로 분리해 작업하십시오.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item $3\times3$ 비대각화 행렬 하나를 택해 Jordan 형식을 구하십시오.
+\item Jordan 형식으로 $A^n$을 계산하는 절차를 써 보십시오.
+\item $e^{tJ_k(\lambda)}$의 형태를 설명하십시오.
+\end{enumerate}
+
+\chapterapplicationtemplate{Jordan 형식을 이용해 상수계수 선형미분방정식 $x'(t)=Ax(t)$의 해 형태를 분류해 보십시오.}
+
+\chaptersummarytemplate
+\chapterexercisestemplate

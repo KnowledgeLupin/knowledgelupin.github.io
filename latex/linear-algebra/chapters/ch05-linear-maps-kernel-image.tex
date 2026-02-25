@@ -1,0 +1,84 @@
+\chapter{선형사상, Kernel, Image}
+
+\chapterintro{이 장부터는 벡터 그 자체보다 벡터 사이의 사상에 집중합니다. 선형사상을 중심에 두면 행렬 계산이 왜 구조를 보존하는지 자연스럽게 이해할 수 있습니다.}
+\chaptergoals{선형사상과 비선형사상을 구분할 수 있다.}{kernel과 image를 계산하고 부분공간으로 해석할 수 있다.}{rank-nullity 정리를 적용해 차원 관계를 해석할 수 있다.}
+
+\sectiontemplate{선형사상의 정의와 예시}{선형사상은 덧셈과 스칼라곱을 보존하는 함수입니다. 보존되는 연산이 무엇인지 분명히 확인해 주세요.}{\item 선형사상 정의를 정확히 쓸 수 있습니다.\item 대표 예시를 제시할 수 있습니다.\item 비선형 예시를 반례로 설명할 수 있습니다.}{\item 벡터공간\item 함수의 합성}
+
+\begin{definition}
+벡터공간 $V,W$ 사이의 함수 $T:V\to W$가
+$$T(u+v)=T(u)+T(v),\quad T(av)=aT(v)$$
+를 만족하면 \emph{선형사상}이라 한다.
+\end{definition}
+
+\begin{example}
+$T:\mathbb{R}^2\to\mathbb{R}^2$, $T(x,y)=(x+2y,3x-y)$는 선형사상입니다. 반면 $S(x,y)=(x^2,y)$는 선형이 아닙니다.
+\end{example}
+
+\subsection*{주의}
+\begin{warning}
+$T(0)=0$은 선형성의 필요조건이지만 충분조건은 아닙니다.
+\end{warning}
+\begin{warning}
+성분별로 비선형 함수가 끼어 있으면 선형성이 깨집니다.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item $T(x,y,z)=(x-y,2y+z)$가 선형인지 판정하십시오.
+\item 선형사상이면 왜 $T(-v)=-T(v)$인지 보이십시오.
+\item $T(v+w)=T(v)+T(w)$만 만족할 때 실패하는 반례를 만드십시오.
+\end{enumerate}
+
+\sectiontemplate{Kernel, Image, Rank--Nullity}{kernel과 image는 선형사상이 공간을 어떻게 접거나 펼치는지 보여주는 지표입니다.}{\item kernel/image를 계산할 수 있습니다.\item 부분공간 성질을 증명할 수 있습니다.\item rank-nullity 공식을 적용할 수 있습니다.}{\item 차원\item 부분공간 판정}
+
+\begin{definition}
+선형사상 $T:V\to W$에 대해
+$$\ker T=\{v\in V:T(v)=0\},\quad \operatorname{im}T=\{T(v):v\in V\}$$
+로 둔다.
+\end{definition}
+
+\paragraph{증명 전략.}
+$\ker T$와 $\operatorname{im}T$가 부분공간임을 먼저 보인 뒤, $\ker T$의 기저를 $V$의 기저로 확장해 차원을 셉니다.
+
+\begin{theorem}[Rank--Nullity]
+유한차원 $V$에서 선형사상 $T:V\to W$에 대해
+$$
+\dim V = \dim\ker T + \dim\operatorname{im}T
+$$
+가 성립한다.
+\end{theorem}
+
+\begin{proof}
+$\ker T$의 기저를 $\{u_1,\dots,u_k\}$로 잡고 $V$의 기저 $\{u_1,\dots,u_k,v_1,\dots,v_r\}$로 확장한다.  
+$T(v_1),\dots,T(v_r)$가 $\operatorname{im}T$의 기저가 됨을 보일 수 있으므로 $\dim\operatorname{im}T=r$이고 $\dim V=k+r$다. 따라서 식이 성립한다.
+\end{proof}
+
+\paragraph{의미 해석.}
+rank-nullity는 "정보 손실의 차원 + 전달된 정보의 차원 = 원래 차원"이라는 보존식입니다.
+
+\begin{example}
+$T:\mathbb{R}^3\to\mathbb{R}^2$, $T(x,y,z)=(x+y,y+z)$이면
+$$\ker T=\operatorname{span}\{(1,-1,1)\},\quad \dim\operatorname{im}T=2$$
+이므로 $3=1+2$입니다.
+\end{example}
+
+\subsection*{주의}
+\begin{warning}
+kernel은 정의역의 부분공간이고 image는 공역의 부분공간입니다. 공간을 바꿔 쓰지 마십시오.
+\end{warning}
+\begin{warning}
+단사 여부는 kernel, 전사 여부는 image로 판정합니다. 조건을 바꿔 쓰면 오류가 납니다.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item $\dim V=5$, $\dim\ker T=2$일 때 $\dim\operatorname{im}T$를 구하십시오.
+\item $\ker T=\{0\}$이면 단사임을 증명하십시오.
+\item $\operatorname{im}T=W$이면 전사임을 정의로 확인하십시오.
+\end{enumerate}
+
+\chapterapplicationtemplate{미분연산자 $D:P_3\to P_2$의 kernel과 image를 구하고 rank-nullity를 확인해 보십시오.}
+
+\chaptersummarytemplate
+\chapterexercisestemplate

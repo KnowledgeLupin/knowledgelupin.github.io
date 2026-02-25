@@ -1,0 +1,131 @@
+\chapter{행렬 연산, 가역성, 랭크}
+
+\chapterintro{이 장에서는 행렬을 단순한 숫자표가 아니라 선형변환의 표현으로 보겠습니다. 곱셈의 의미, 가역성의 동치조건, 랭크의 해석이 하나의 흐름으로 연결된다는 점을 확인하겠습니다.}
+\chaptergoals{행렬 연산의 정의와 의미를 정확히 설명할 수 있다.}{가역성 동치조건을 정리하고 문제에 적용할 수 있다.}{랭크를 해의 구조와 선형독립성에 연결할 수 있다.}
+
+\sectiontemplate{행렬 연산의 의미}{행렬 연산은 추상 연산이 아니라 선형결합과 합성의 규칙입니다. 이 절에서는 연산 정의를 의미와 함께 정리합니다.}{\item 행렬의 합/스칼라곱/곱셈 정의를 쓸 수 있습니다.\item 행렬곱이 선형결합으로 읽힌다는 점을 설명할 수 있습니다.\item 차원 조건으로 곱 가능 여부를 판정할 수 있습니다.}{\item 인덱스 표기\item 벡터의 선형결합}
+
+\begin{definition}
+$A=(a_{ij})\in M_{m,n}(K)$, $B=(b_{jk})\in M_{n,r}(K)$에 대해 행렬곱 $AB=(c_{ik})\in M_{m,r}(K)$를
+$$c_{ik}=\sum_{j=1}^n a_{ij}b_{jk}$$
+로 정의한다.
+\end{definition}
+
+\begin{example}
+$$
+\begin{bmatrix}1&2\\0&1\end{bmatrix}
+\begin{bmatrix}3\\4\end{bmatrix}
+=
+\begin{bmatrix}11\\4\end{bmatrix}
+$$
+입니다. 첫 성분은 두 번째 벡터의 성분을 첫 행의 선형결합으로 만든 값입니다.
+\end{example}
+
+\subsection*{주의}
+\begin{warning}
+$AB$와 $BA$가 모두 정의되는 경우에도 일반적으로 $AB\ne BA$입니다.
+\end{warning}
+\begin{warning}
+행렬곱의 크기는 왼쪽 행렬의 행 개수와 오른쪽 행렬의 열 개수로 결정됩니다.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item $A\in M_{2,3}(K)$, $B\in M_{3,4}(K)$일 때 $AB$의 크기를 쓰십시오.
+\item $AB$의 $k$번째 열이 $A$의 열들의 선형결합임을 설명하십시오.
+\item $2\times 2$ 행렬 두 개를 골라 $AB\ne BA$ 예를 만드십시오.
+\end{enumerate}
+
+\sectiontemplate{역행렬과 가역성 동치조건}{가역행렬은 선형시스템의 유일해와 직접 연결됩니다. 동치조건을 한꺼번에 정리해 두면 판정이 훨씬 빨라집니다.}{\item 가역행렬의 정의를 정확히 쓸 수 있습니다.\item 가역성 동치조건을 열거하고 적용할 수 있습니다.\item 역행렬 존재 판정과 계산을 구분할 수 있습니다.}{\item 항등행렬\item 기본 행연산}
+
+\begin{definition}
+정사각행렬 $A\in M_n(K)$에 대해 $AB=BA=I_n$을 만족하는 $B$가 존재하면 $A$를 \emph{가역행렬}이라 하고 $B=A^{-1}$로 쓴다.
+\end{definition}
+
+\paragraph{증명 전략.}
+가역성은 선형시스템의 유일해, RREF, 열벡터 독립성과 서로 동치입니다. 핵심은 각 조건을 "항등행렬로 귀착"시키는 것입니다.
+
+\begin{theorem}[가역성 동치조건]
+$A\in M_n(K)$에 대해 다음은 서로 동치이다.
+\begin{enumerate}[label=(\roman*)]
+\item $A$는 가역이다.
+\item $A\mathbf{x}=\mathbf{0}$의 해는 자명해뿐이다.
+\item $A$의 RREF가 $I_n$이다.
+\item $A$의 열벡터들은 $K^n$의 기저를 이룬다.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(i)$\Rightarrow$(ii): $A\mathbf{x}=\mathbf{0}$에 $A^{-1}$를 곱하면 $\mathbf{x}=\mathbf{0}$이다.  
+(ii)$\Rightarrow$(iii): 자명해만 가지므로 피벗이 모든 열에 있어 RREF는 $I_n$이다.  
+(iii)$\Rightarrow$(iv): 피벗이 모든 열에 있으므로 열벡터는 독립이면서 생성한다.  
+(iv)$\Rightarrow$(i): 열벡터가 기저면 선형사상 $\mathbf{x}\mapsto A\mathbf{x}$는 동형이므로 역행렬이 존재한다.
+\end{proof}
+
+\paragraph{의미 해석.}
+이 정리는 "가역성"을 계산, 해석, 구조 세 언어로 동시에 번역해 줍니다.
+
+\begin{example}
+$A=\begin{bmatrix}1&2\\2&4\end{bmatrix}$는 두 열이 종속이므로 가역이 아닙니다. 실제로 $\det A=0$이고 $A\mathbf{x}=\mathbf{0}$은 비자명해를 갖습니다.
+\end{example}
+
+\subsection*{주의}
+\begin{warning}
+역행렬 \emph{계산} 전에 역행렬 \emph{존재}를 먼저 판정하십시오.
+\end{warning}
+\begin{warning}
+좌역행렬과 우역행렬이 따로 등장하는 경우는 비정사각행렬 문맥입니다. 이 절에서는 정사각행렬만 다룹니다.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item $\begin{bmatrix}1&1\\1&2\end{bmatrix}$의 가역성을 두 방법으로 판정하십시오.
+\item 가역성 동치조건 중 두 개를 골라 직접 동치 증명을 써 보십시오.
+\item $A$가 가역이면 $A^T$도 가역임을 보이십시오.
+\end{enumerate}
+
+\sectiontemplate{랭크와 선형시스템의 구조}{랭크는 정보량을 측정하는 지표입니다. 피벗 개수와 공간 차원이 하나로 연결됩니다.}{\item 랭크를 피벗 개수로 계산할 수 있습니다.\item 행공간/열공간 차원을 랭크로 설명할 수 있습니다.\item 랭크 조건으로 해의 존재성과 유일성을 판정할 수 있습니다.}{\item RREF\item 부분공간과 차원}
+
+\begin{definition}
+행렬 $A$의 랭크(rank)를 $\operatorname{rank}(A)$로 쓰며, $A$의 피벗 개수(=열공간의 차원)로 정의한다.
+\end{definition}
+
+\paragraph{증명 전략.}
+해의 존재성은 증강행렬의 모순행 유무로, 유일성은 자유변수 유무로 판정합니다. 두 조건이 랭크 식으로 표현됩니다.
+
+\begin{theorem}[Rouch\'e--Capelli]
+$A\mathbf{x}=\mathbf{b}$가 해를 가질 필요충분조건은
+$$\operatorname{rank}(A)=\operatorname{rank}(A\mid\mathbf{b})$$
+이다. 해가 존재할 때 자유변수 개수는 $n-\operatorname{rank}(A)$이다.
+\end{theorem}
+
+\begin{proof}
+소거 후 모순행이 없을 필요충분조건이 두 랭크의 일치다. 또한 피벗이 없는 열의 개수가 자유변수 개수이며, 이는 $n-\operatorname{rank}(A)$다.
+\end{proof}
+
+\paragraph{의미 해석.}
+랭크 하나로 "해가 있는가"와 "해가 몇 자유도를 갖는가"를 동시에 읽을 수 있습니다.
+
+\begin{example}
+$A\in M_{2,3}(K)$에서 $\operatorname{rank}(A)=2$이면 동차시스템의 자유변수는 $1$개입니다. 따라서 비자명해가 존재합니다.
+\end{example}
+
+\subsection*{주의}
+\begin{warning}
+랭크는 행연산에 대해 보존되지만, 개별 열벡터 자체는 바뀝니다. 이 점을 혼동하지 마십시오.
+\end{warning}
+\begin{warning}
+$\operatorname{rank}(A)=m$이라고 해서 자동으로 해가 유일한 것은 아닙니다. 유일성에는 $n$과의 관계가 필요합니다.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item $m<n$인 동차시스템이 비자명해를 갖는 이유를 랭크 관점으로 설명하십시오.
+\item $\operatorname{rank}(A)=n$이면 단사임을 보이십시오.
+\item 증강행렬 랭크 판정이 실제 계산에서 왜 유용한지 쓰십시오.
+\end{enumerate}
+
+\chapterapplicationtemplate{간단한 데이터 적합 문제 $A\mathbf{x}\approx \mathbf{b}$를 만들고, 설계행렬의 랭크가 해의 유일성에 어떤 영향을 주는지 해석해 보십시오.}
+
+\chaptersummarytemplate
+\chapterexercisestemplate

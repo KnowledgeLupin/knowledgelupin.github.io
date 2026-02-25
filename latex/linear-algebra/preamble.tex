@@ -38,9 +38,11 @@
 \newtheorem{proposition}[definition]{명제}
 \newtheorem{example}[definition]{예제}
 \newtheorem{exercise}{연습문제}[section]
+\newtheorem{warning}[definition]{주의}
+\newtheorem{application}[definition]{응용}
 
 \theoremstyle{remark}
-\newtheorem*{remark}{Remark}
+\newtheorem*{remark}{비고}
 
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\C}{\mathbb{C}}
@@ -52,4 +54,57 @@
 \newcommand{\sectionoutline}[1]{%
 \section{#1}
 이 절은 원고 작성 예정입니다.
+}
+
+\newcommand{\chapterintro}[1]{%
+\section*{장 도입}
+#1
+}
+
+\newcommand{\chaptergoals}[3]{%
+\section*{장 학습목표}
+\begin{enumerate}[label=\arabic*.]
+\item #1
+\item #2
+\item #3
+\end{enumerate}
+}
+
+\newcommand{\sectiontemplate}[4]{%
+\section{#1}
+\subsection*{도입 설명}
+#2
+\subsection*{학습목표}
+\begin{enumerate}[label=\arabic*.]
+#3
+\end{enumerate}
+\subsection*{선수개념 체크}
+\begin{itemize}
+#4
+\end{itemize}
+\subsection*{핵심 내용}
+}
+
+\newcommand{\chapterapplicationtemplate}[1]{%
+\section{응용}
+\begin{application}
+#1
+\end{application}
+}
+
+\newcommand{\chaptersummarytemplate}{%
+\section*{장 요약}
+\begin{itemize}
+\item 핵심 정의 5개, 핵심 정리 5개, 연결 문장 5개를 작성합니다.
+\item 이 장에서 다음 장으로 넘어가기 위한 의존 개념을 명시합니다.
+\end{itemize}
+}
+
+\newcommand{\chapterexercisestemplate}{%
+\section*{종합 연습문제}
+\begin{itemize}
+\item 연습문제 A: 기초 확인 6문항 이상
+\item 연습문제 B: 개념 연결 4문항 이상
+\item 연습문제 C: 증명/종합 2문항 이상
+\end{itemize}
 }

@@ -1,0 +1,69 @@
+\chapter{쌍선형형식과 에르미트형식}
+
+\chapterintro{마지막 장에서는 선형대수의 여러 장면에서 반복된 "형식(form)" 관점을 정리합니다. 이후 추상대수, 기하, 해석으로 넘어가는 다리 역할을 하도록 구성하겠습니다.}
+\chaptergoals{쌍선형형식과 에르미트형식을 정의할 수 있다.}{형식의 행렬표현과 기저변환 공식을 설명할 수 있다.}{이차형식의 기본 해석을 수행할 수 있다.}
+
+\sectiontemplate{쌍선형형식과 행렬표현}{쌍선형형식은 두 벡터를 입력받아 스칼라를 내놓는 선형적 규칙입니다.}{\item 쌍선형형식을 정의할 수 있습니다.\item 형식의 행렬표현을 구성할 수 있습니다.\item 기저변환 시 변환 공식을 쓸 수 있습니다.}{\item 쌍대공간\item 행렬표현}
+
+\begin{definition}
+벡터공간 $V$ 위 함수 $B:V\times V\to K$가 각 변수에 대해 선형이면 \emph{쌍선형형식}이라 한다.
+\end{definition}
+
+\begin{theorem}
+기저를 고정하면 임의의 쌍선형형식 $B$는 어떤 행렬 $M$에 대해
+$$B(x,y)=x^TMy$$
+로 표현된다.
+\end{theorem}
+
+\begin{proof}
+기저 $\{e_i\}$에 대해 $m_{ij}=B(e_i,e_j)$로 두면 선형성으로
+$$B\Big(\sum_i x_ie_i,\sum_j y_je_j\Big)=\sum_{i,j}x_im_{ij}y_j=x^TMy$$
+가 된다.
+\end{proof}
+
+\subsection*{주의}
+\begin{warning}
+형식의 행렬은 기저 의존적입니다. 형식 자체와 행렬을 동일시하지 마십시오.
+\end{warning}
+\begin{warning}
+쌍선형형식과 내적은 다릅니다. 양의정부호와 대칭성이 추가되어야 내적입니다.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item 주어진 $M$으로 $B(x,y)=x^TMy$를 계산해 보십시오.
+\item 기저변환 $x=P\tilde x$에서 새 행렬 공식을 유도하십시오.
+\item 대칭형식과 반대칭형식의 정의를 써 보십시오.
+\end{enumerate}
+
+\sectiontemplate{에르미트형식과 이차형식 마무리}{복소수 공간에서는 에르미트형식이 자연스러운 대칭 조건을 제공합니다.}{\item 에르미트형식을 정의할 수 있습니다.\item 양의정부호 판정을 설명할 수 있습니다.\item 이차형식과의 연결을 요약할 수 있습니다.}{\item 복소수 켤레\item adjoint}
+
+\begin{definition}
+복소수 벡터공간에서 $H:V\times V\to\mathbb{C}$가 첫 변수 선형, 둘째 변수 켤레선형이고
+$$H(y,x)=\overline{H(x,y)}$$
+를 만족하면 \emph{에르미트형식}이라 한다.
+\end{definition}
+
+\begin{example}
+$H(x,y)=x^*Ay$에서 $A=A^*$이면 $H$는 에르미트형식입니다.
+\end{example}
+
+\subsection*{주의}
+\begin{warning}
+실수 대칭형식의 공식과 복소수 에르미트형식의 공식을 그대로 혼용하면 켤레가 빠지는 오류가 생깁니다.
+\end{warning}
+\begin{warning}
+이차형식 $q(x)=B(x,x)$만으로는 원래 $B$를 복원할 수 없는 경우가 있습니다(체의 특성 주의).
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item $A=A^*$일 때 $x^*Ax\in\mathbb{R}$임을 보이십시오.
+\item 양의정부호 행렬 판정 조건을 한 가지 쓰십시오.
+\item 본서의 핵심 흐름을 선형사상 관점에서 5문장으로 요약해 보십시오.
+\end{enumerate}
+
+\chapterapplicationtemplate{이차형식 $q(x)=x^TAx$의 부호가 고유값 부호와 연결된다는 사실을 작은 예제로 확인해 보십시오.}
+
+\chaptersummarytemplate
+\chapterexercisestemplate

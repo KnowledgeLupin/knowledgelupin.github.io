@@ -1,0 +1,73 @@
+\chapter{Primary/Cyclic Decomposition}
+
+\chapterintro{이 장은 구조정리의 중심부입니다. 최소다항식의 인수분해 정보를 이용해 공간을 큰 블록으로 나누고, 다시 cyclic 블록으로 세분화합니다.}
+\chaptergoals{primary decomposition 정리를 진술하고 사용할 수 있다.}{cyclic subspace 개념을 설명할 수 있다.}{Jordan 형식으로의 연결고리를 정리할 수 있다.}
+
+\sectiontemplate{Primary decomposition}{서로소 인수로 나뉜 최소다항식은 공간 분해를 강제합니다.}{\item primary decomposition 정리를 말할 수 있습니다.\item 불변부분공간 분해를 수행할 수 있습니다.\item 분해의 유일성 범위를 설명할 수 있습니다.}{\item 최소다항식 인수분해\item 불변부분공간}
+
+\begin{theorem}[Primary decomposition]
+$m_T(t)=p_1(t)^{e_1}\cdots p_r(t)^{e_r}$가 서로소 기약다항식 분해이면
+$$V=\ker p_1(T)^{e_1}\oplus\cdots\oplus\ker p_r(T)^{e_r}$$
+가 성립한다.
+\end{theorem}
+
+\begin{proof}
+서로소 조건으로 Bezout 항등식을 만들고 이를 $T$에 대입하면 항등연산자가 각 kernel로 가는 사영들의 합으로 표현된다. 교집합이 자명함도 같은 방식으로 보이면 직합 분해가 얻어진다.
+\end{proof}
+
+\subsection*{주의}
+\begin{warning}
+서로소 조건이 빠지면 위 직합 분해가 성립하지 않을 수 있습니다.
+\end{warning}
+\begin{warning}
+각 항은 $\ker p_i(T)^{e_i}$이지 $\ker p_i(T)$가 아닙니다.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item $m_T=(t-1)^2(t+2)$일 때 분해 형태를 써 보십시오.
+\item 왜 각 성분공간이 불변부분공간인지 설명하십시오.
+\item 두 성분공간 교집합이 자명함을 확인하는 아이디어를 쓰십시오.
+\end{enumerate}
+
+\sectiontemplate{Cyclic decomposition과 Jordan 연결}{primary 분해 이후에는 각 성분을 cyclic 구조로 쪼개어 Jordan 계산으로 연결합니다.}{\item cyclic subspace를 정의할 수 있습니다.\item cyclic decomposition의 의미를 설명할 수 있습니다.\item Jordan 형식 준비 데이터를 해석할 수 있습니다.}{\item annihilator\item companion matrix 직관}
+
+\begin{definition}
+$v\in V$에 대해
+$$Z(v;T)=\operatorname{span}\{v,Tv,T^2v,\dots\}$$
+를 $v$가 생성하는 $T$-cyclic subspace라 한다.
+\end{definition}
+
+\begin{theorem}[Cyclic decomposition]
+유한차원 $V$는 적당한 벡터들 $v_1,\dots,v_s$에 대해
+$$V=Z(v_1;T)\oplus\cdots\oplus Z(v_s;T)$$
+로 분해된다.
+\end{theorem}
+
+\begin{proof}
+차원을 하나씩 늘려 가는 최대성 논법으로 cyclic 부분공간을 순차적으로 선택한다. 남는 부분이 있으면 새 cyclic 공간을 추가하는 과정을 반복하면 유한차원성에 의해 종료되어 직합 분해를 얻는다.
+\end{proof}
+
+\begin{example}
+한 개의 cyclic 벡터만으로 $V$ 전체가 생성되면 $T$의 행렬은 companion matrix 형태로 표현됩니다.
+\end{example}
+
+\subsection*{주의}
+\begin{warning}
+cyclic 분해는 일반적으로 유일하지 않습니다. 불변인자 정보가 핵심입니다.
+\end{warning}
+\begin{warning}
+Jordan 형식 계산에서 primary 정보와 cyclic 정보를 분리해 기록하지 않으면 오류가 누적됩니다.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item cyclic 벡터의 정의를 자신의 말로 다시 설명하십시오.
+\item companion matrix가 어떤 경우에 등장하는지 쓰십시오.
+\item primary 분해와 cyclic 분해의 역할 차이를 정리하십시오.
+\end{enumerate}
+
+\chapterapplicationtemplate{주어진 $4\times4$ 행렬의 최소다항식 분해를 이용해 primary 성분과 cyclic 성분을 추적해 보십시오.}
+
+\chaptersummarytemplate
+\chapterexercisestemplate

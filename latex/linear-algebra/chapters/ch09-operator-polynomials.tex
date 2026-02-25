@@ -1,0 +1,88 @@
+\chapter{연산자 다항식, 최소/특성다항식, Cayley--Hamilton}
+
+\chapterintro{이 장에서는 선형연산자에 다항식을 대입하는 관점을 도입합니다. 이 관점이 있어야 분해정리와 Jordan 이론으로 자연스럽게 넘어갈 수 있습니다.}
+\chaptergoals{연산자 다항식의 정의와 계산을 이해한다.}{최소다항식과 특성다항식의 역할을 구분한다.}{Cayley--Hamilton 정리를 적용할 수 있다.}
+
+\sectiontemplate{연산자 다항식과 최소다항식}{다항식을 연산자에 대입하면 연산자의 반복 작용을 하나의 식으로 요약할 수 있습니다.}{\item 연산자 다항식 정의를 쓸 수 있습니다.\item 소멸다항식과 최소다항식을 구분할 수 있습니다.\item 최소다항식의 기본 성질을 설명할 수 있습니다.}{\item 다항식 나눗셈\item 선형연산자 합성}
+
+\begin{definition}
+$T\in \operatorname{End}(V)$와 $p(t)=a_0+a_1t+\cdots+a_mt^m\in K[t]$에 대해
+$$p(T)=a_0I+a_1T+\cdots+a_mT^m$$
+로 정의한다.
+\end{definition}
+
+\begin{definition}
+$T$를 소멸시키는 단위 다항식 중 차수가 최소인 것을 $T$의 \emph{최소다항식} $m_T(t)$라 한다.
+\end{definition}
+
+\begin{theorem}
+$T$를 소멸시키는 임의의 다항식 $p(t)$는 $m_T(t)$로 나누어진다.
+\end{theorem}
+
+\begin{proof}
+다항식 나눗셈으로 $p=q m_T + r$ ($\deg r<\deg m_T$)라 두면
+$$0=p(T)=q(T)m_T(T)+r(T)=r(T).$$
+$r\ne0$이면 최소성에 모순이므로 $r=0$이고, 따라서 $m_T\mid p$.
+\end{proof}
+
+\subsection*{주의}
+\begin{warning}
+최소다항식은 특성다항식과 같을 필요가 없습니다.
+\end{warning}
+\begin{warning}
+최소다항식은 반드시 단위(mononic) 다항식으로 고정해야 유일합니다.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item $T=I$의 최소다항식을 구하십시오.
+\item nilpotent 연산자의 최소다항식 모양을 써 보십시오.
+\item 왜 최소다항식이 유일한지 설명하십시오.
+\end{enumerate}
+
+\sectiontemplate{특성다항식과 Cayley--Hamilton}{특성다항식은 고유값 정보를 담고, Cayley--Hamilton 정리는 연산자가 자기 다항식을 만족함을 말합니다.}{\item 특성다항식을 정의할 수 있습니다.\item Cayley--Hamilton 정리를 진술할 수 있습니다.\item 정리를 계산 문제에 적용할 수 있습니다.}{\item 행렬식\item 고유값 기초}
+
+\begin{definition}
+$A\in M_n(K)$에 대해
+$$\chi_A(t)=\det(tI-A)$$
+를 $A$의 \emph{특성다항식}이라 한다.
+\end{definition}
+
+\begin{theorem}[Cayley--Hamilton]
+모든 $A\in M_n(K)$에 대해
+$$\chi_A(A)=0$$
+가 성립한다.
+\end{theorem}
+
+\begin{proof}
+수반행렬 공식을 사용하면
+$$(tI-A)\operatorname{adj}(tI-A)=\chi_A(t)I.$$
+여기서 $t$를 $A$로 대입하면 좌변 첫 인자가 $A-A=0$가 되어 우변은 $\chi_A(A)=0$이 된다.
+\end{proof}
+
+\begin{example}
+$A=\begin{bmatrix}0&1\\-2&3\end{bmatrix}$이면
+$\chi_A(t)=t^2-3t+2$이고 Cayley--Hamilton으로
+$$A^2-3A+2I=0$$
+를 얻습니다.
+\end{example}
+
+\subsection*{주의}
+\begin{warning}
+$\chi_A(t)=0$은 스칼라 변수 $t$에 대한 식이고, $\chi_A(A)=0$은 행렬식입니다. 두 식을 혼동하지 마십시오.
+\end{warning}
+\begin{warning}
+대입 순서는 다항식 계산 규칙을 따릅니다. 항별로 $A^k$를 계산해야 합니다.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item $2\times2$ 행렬 하나를 택해 Cayley--Hamilton을 직접 확인하십시오.
+\item $A^{-1}$을 $A$의 다항식으로 표현할 수 있는 조건을 쓰십시오.
+\item 최소다항식이 특성다항식을 나눈다는 사실을 설명하십시오.
+\end{enumerate}
+
+\chapterapplicationtemplate{점화식 $u_{k+2}=3u_{k+1}-2u_k$를 동반행렬로 표현하고 Cayley--Hamilton으로 일반항 구조를 설명해 보십시오.}
+
+\chaptersummarytemplate
+\chapterexercisestemplate

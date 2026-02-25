@@ -1,0 +1,101 @@
+\chapter{벡터공간과 부분공간}
+
+\chapterintro{이 장에서는 선형대수의 공통 언어인 벡터공간을 정식으로 도입합니다. 좌표벡터뿐 아니라 다항식, 함수, 수열도 같은 규칙으로 다룰 수 있음을 확인하겠습니다.}
+\chaptergoals{벡터공간 공리를 정확히 사용할 수 있다.}{부분공간 판정 조건을 적용할 수 있다.}{생성, 독립, 기저의 기초 언어를 준비할 수 있다.}
+
+\sectiontemplate{벡터공간 공리}{벡터공간의 핵심은 대상의 모양이 아니라 연산 규칙입니다. 공리는 이후 모든 정리의 출발점입니다.}{\item 벡터공간 공리를 정확히 진술할 수 있습니다.\item 표준 예시와 비예시를 구분할 수 있습니다.\item 공리 검증 절차를 설명할 수 있습니다.}{\item 체의 공리\item 함수의 기본 개념}
+
+\begin{definition}
+체 $K$ 위의 집합 $V$가 덧셈과 스칼라곱에 대해 벡터공간 공리를 만족하면 $V$를 \emph{$K$-벡터공간}이라 한다.
+\end{definition}
+
+\begin{example}
+$K^n$, 다항식공간 $K[t]$, 구간 $[a,b]$에서 $K$값 연속함수공간 $C([a,b],K)$는 모두 $K$-벡터공간입니다.
+\end{example}
+
+\subsection*{주의}
+\begin{warning}
+연산이 정의되어 있다고 해서 벡터공간은 아닙니다. 공리 검증이 반드시 필요합니다.
+\end{warning}
+\begin{warning}
+스칼라체를 바꾸면 같은 집합도 다른 벡터공간이 될 수 있습니다. 예를 들어 $\mathbb{C}$는 $\mathbb{R}$-벡터공간으로도 볼 수 있습니다.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item $\mathbb{R}^2$의 부분집합 $\{(x,y):x+y=1\}$이 벡터공간이 아닌 이유를 쓰십시오.
+\item $K[t]_{\le 2}$가 벡터공간임을 공리로 점검해 보십시오.
+\item 스칼라체 변경이 차원에 미치는 영향을 짧게 설명하십시오.
+\end{enumerate}
+
+\sectiontemplate{부분공간 판정}{부분공간은 큰 공간 안의 작은 선형세계입니다. 판정 정리를 익히면 많은 구조를 빠르게 확인할 수 있습니다.}{\item 부분공간 판정 정리를 적용할 수 있습니다.\item 교집합과 합공간의 성질을 설명할 수 있습니다.\item 반례를 통해 조건의 필요성을 확인할 수 있습니다.}{\item 벡터공간 공리\item 집합 연산}
+
+\begin{theorem}[부분공간 판정]
+벡터공간 $V$의 부분집합 $W$에 대해 다음이 동치이다.
+\begin{enumerate}[label=(\roman*)]
+\item $W$는 $V$의 부분공간이다.
+\item $0\in W$이고, $u,v\in W$, $a,b\in K$이면 $au+bv\in W$이다.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(i)$\Rightarrow$(ii)는 공리에서 즉시 따른다.  
+(ii)$\Rightarrow$(i)는 $a=1,b=1$로 덧셈 닫힘, $a=-1,b=0$으로 덧셈 역원, $b=0$으로 스칼라곱 닫힘을 얻어 공리를 만족함을 확인하면 된다.
+\end{proof}
+
+\begin{example}
+$V=\mathbb{R}^3$에서
+$$W=\{(x,y,z):x-2y+z=0\}$$
+는 선형방정식의 해집합이므로 부분공간입니다.
+\end{example}
+
+\subsection*{주의}
+\begin{warning}
+$W$가 비어 있지 않다는 사실만으로는 부분공간이 아닙니다. $0\in W$ 확인이 먼저입니다.
+\end{warning}
+\begin{warning}
+아핀 부분집합(예: $x+y=1$)과 부분공간(예: $x+y=0$)을 구분하십시오.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item 두 부분공간의 교집합이 부분공간임을 보이십시오.
+\item 합집합이 항상 부분공간이 아님을 반례로 보이십시오.
+\item 해집합 형태 $Ax=0$이 왜 부분공간인지 설명하십시오.
+\end{enumerate}
+
+\sectiontemplate{생성과 일차독립 기초}{생성(span)과 일차독립은 기저 개념의 두 축입니다. 이 절에서 두 개념의 역할을 분명히 구분합니다.}{\item 생성집합과 span을 정의할 수 있습니다.\item 일차독립/종속을 판정할 수 있습니다.\item 최소 생성의 의미를 설명할 수 있습니다.}{\item 선형결합\item 동차시스템}
+
+\begin{definition}
+집합 $S\subset V$에 대해 $S$의 모든 선형결합의 집합을 $\operatorname{span}(S)$라 한다.
+\end{definition}
+
+\begin{definition}
+벡터열 $(v_1,\dots,v_k)$가
+$$a_1v_1+\cdots+a_kv_k=0 \Rightarrow a_1=\cdots=a_k=0$$
+을 만족하면 일차독립이라 한다.
+\end{definition}
+
+\begin{example}
+$\mathbb{R}^2$에서 $(1,0),(0,1)$은 독립이고 $\operatorname{span}\{(1,0),(0,1)\}=\mathbb{R}^2$입니다.
+\end{example}
+
+\subsection*{주의}
+\begin{warning}
+"생성한다"와 "독립이다"는 서로 다른 조건입니다. 둘 다 만족해야 기저가 됩니다.
+\end{warning}
+\begin{warning}
+독립 판정을 할 때는 동차방정식만 보면 됩니다. 비동차식을 섞지 마십시오.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item 세 벡터가 종속임을 계수관계로 보여 보십시오.
+\item $\operatorname{span}(S)$가 부분공간임을 증명하십시오.
+\item 생성집합의 원소를 줄일 수 있는 조건을 서술하십시오.
+\end{enumerate}
+
+\chapterapplicationtemplate{다항식공간 $P_2$에서 $\{1,t,t^2\}$가 기저가 되는 이유를 생성과 독립 관점에서 설명해 보십시오.}
+
+\chaptersummarytemplate
+\chapterexercisestemplate
