@@ -1,17 +1,39 @@
+% !TEX program = xelatex
+% !TEX TS-program = xelatex
+
+\newif\ifchapterstandalone
+\ifdefined\chapter
+  \chapterstandalonefalse
+\else
+  \chapterstandalonetrue
+\fi
+
+\let\chapterstandaloneend\relax
+\ifchapterstandalone
+  \documentclass[11pt,a4paper]{book}
+  \InputIfFileExists{../preamble.tex}{}{
+    \InputIfFileExists{preamble.tex}{}{
+      \InputIfFileExists{latex/linear-algebra/preamble.tex}{}{
+        \errmessage{preamble.tex not found}
+      }
+    }
+  }
+  \begin{document}
+  \mainmatter
+  \def\chapterstandaloneend{\end{document}}
+\fi
+
 \chapter{벡터공간}
 
 \section{체(Field)와 벡터공간의 공리}
 
-\subsection*{동기}
-선형대수에서 우리가 반복하는 기본 연산은 두 가지다.
-\begin{enumerate}
-  \item 벡터를 더한다.
-  \item 벡터를 스칼라(숫자)로 늘리거나 줄인다.
-\end{enumerate}
-이 연산이 항상 일관되게 작동하려면, 스칼라의 구조와 벡터 연산 규칙을 먼저 엄밀히 고정해야 한다.
-이 절은 이후의 기저, 차원, 선형사상, 고유값 이론 전체를 지탱하는 출발점이다.
+선형대수의 문은 대개 계산으로 열린다. 우리는 \(A\vect{x}=\vect{b}\) 같은 식 앞에 서서 해를 구하고, 행을 바꾸고, 소거하고, 다시 정리한다. 처음에는 이 모든 과정이 기법의 문제처럼 보인다. 그러나 계산을 조금 더 오래 붙들고 있으면, 기술보다 먼저 물어야 할 질문이 드러난다. 우리는 지금 어떤 대상에서, 어떤 규칙으로 계산하고 있는가.
 
-\subsection*{정의}
+독자는 이미 \(\R^n\)에서 벡터를 더하고 실수를 곱하는 연산에 익숙하다. 그런데 선형대수의 시야는 거기서 멈추지 않는다. 다항식도, 함수도, 수열도 같은 방식으로 다룰 수 있다면, 서로 다른 대상을 관통하는 공통의 틀이 있다는 뜻이다. 벡터공간은 바로 그 틀을 이름 붙인 개념이다. 모양이 아니라 구조를 본다는 것, 그것이 선형대수에서 말하는 추상화의 첫걸음이다.
+
+이제 관심은 “무엇을 계산하느냐”보다 “어떤 공리가 허용되느냐”로 옮겨간다. 덧셈과 스칼라곱이 만족해야 할 최소한의 규칙만 정해두면, 대상이 달라져도 논리의 틀은 그대로 적용된다. 그래서 공리에서 출발한 증명은 특정 예시에 기대지 않고 구조 자체에 근거한다.
+
+실제로 이 절에서 보게 되듯, 공리만으로도 영벡터와 역벡터의 유일성, 소거법칙, \(0\vect{v}=\vect{0}\), \(a\vect{0}=\vect{0}\), \((-1)\vect{v}=-\vect{v}\) 같은 기본 성질이 따라 나온다. 따라서, 이 절의 목표는 정의를 나열하는 데 있지 않다. 이후의 기저, 차원, 선형사상, 고유값 이론의 논리적 기반을 분명히 하는 데 있다.
 
 \begin{definition}[체]
 집합 $K$와 연산 $+$, $\cdot$가 다음을 만족하면 $K$를 \textbf{체}라 한다.
@@ -25,17 +47,17 @@
 대표적인 예는 $\Q,\R,\C$이며, $\Z$는 체가 아니다. 예를 들어 $2\in\Z$의 곱셈 역원 $\frac{1}{2}$는 $\Z$에 속하지 않는다.
 
 \begin{definition}[벡터공간]
-체 $K$ 위의 집합 $\V$에 대해
+체 $K$ 위의 집합 $V$에 대해
 \begin{itemize}
-  \item 벡터 덧셈 $\V\times\V\to\V$, $(\vect{u},\vect{v})\mapsto \vect{u}+\vect{v}$,
-  \item 스칼라곱 $K\times\V\to\V$, $(a,\vect{v})\mapsto a\vect{v}$
+  \item 벡터 덧셈 $V\times V\to V$, $(\vect{u},\vect{v})\mapsto \vect{u}+\vect{v}$,
+  \item 스칼라곱 $K\times V\to V$, $(a,\vect{v})\mapsto a\vect{v}$
 \end{itemize}
-가 정의되어 있고, 임의의 $a,b\in K$, $\vect{u},\vect{v},\vect{w}\in\V$에 대해 다음 공리가 성립하면 $\V$를 $K$ 위의 \textbf{벡터공간}이라 한다.
+가 정의되어 있고, 임의의 $a,b\in K$, $\vect{u},\vect{v},\vect{w}\in V$에 대해 다음 공리가 성립하면 $V$를 $K$ 위의 \textbf{벡터공간}이라 한다.
 \begin{enumerate}[label=(VS\arabic*)]
   \item $(\vect{u}+\vect{v})+\vect{w}=\vect{u}+(\vect{v}+\vect{w})$
   \item $\vect{u}+\vect{v}=\vect{v}+\vect{u}$
-  \item 영벡터 $\vect{0}\in\V$가 존재하여 $\vect{v}+\vect{0}=\vect{v}$
-  \item 각 $\vect{v}\in\V$에 대해 $\vect{v}+(-\vect{v})=\vect{0}$인 $-\vect{v}$가 존재
+  \item 영벡터 $\vect{0}\in V$가 존재하여 $\vect{v}+\vect{0}=\vect{v}$
+  \item 각 $\vect{v}\in V$에 대해 $\vect{v}+(-\vect{v})=\vect{0}$인 $-\vect{v}$가 존재
   \item $a(\vect{u}+\vect{v})=a\vect{u}+a\vect{v}$
   \item $(a+b)\vect{v}=a\vect{v}+b\vect{v}$
   \item $(ab)\vect{v}=a(b\vect{v})$
@@ -43,10 +65,8 @@
 \end{enumerate}
 \end{definition}
 
-\subsection*{정리와 증명}
-
 \begin{theorem}[영벡터와 역벡터의 유일성]
-$K$ 위의 벡터공간 $\V$에서 영벡터는 유일하고, 각 벡터의 덧셈 역벡터도 유일하다.
+$K$ 위의 벡터공간 $V$에서 영벡터는 유일하고, 각 벡터의 덧셈 역벡터도 유일하다.
 \end{theorem}
 
 \begin{proof}
@@ -66,8 +86,28 @@ $\vect{v}+\vect{w}=\vect{0}$, $\vect{v}+\vect{w}'=\vect{0}$이고,
 이므로 역벡터도 유일하다.
 \end{proof}
 
+\begin{theorem}[소거법칙]
+$K$ 위의 벡터공간 $V$에서 임의의 $\vect{u},\vect{v},\vect{w}\in V$에 대해
+\[
+\vect{u}+\vect{w}=\vect{v}+\vect{w}
+\]
+이면 $\vect{u}=\vect{v}$이다.
+\end{theorem}
+
+\begin{proof}
+가정한 식의 양변에 $-\vect{w}$를 더하면
+\[
+(\vect{u}+\vect{w})+(-\vect{w})=(\vect{v}+\vect{w})+(-\vect{w})
+\]
+이고 결합법칙과 역벡터의 정의에 의해
+\[
+\vect{u}+\vect{0}=\vect{v}+\vect{0}
+\]
+을 얻는다. 따라서 $\vect{u}=\vect{v}$이다.
+\end{proof}
+
 \begin{theorem}[기본 계산 법칙]
-임의의 $a\in K$, $\vect{v}\in\V$에 대해 다음이 성립한다.
+임의의 $a\in K$, $\vect{v}\in V$에 대해 다음이 성립한다.
 \begin{enumerate}[label=(\arabic*)]
   \item $0\vect{v}=\vect{0}$
   \item $a\vect{0}=\vect{0}$
@@ -90,9 +130,7 @@ $0\vect{v}=0\vect{v}+0\vect{v}$. 양변에 $-(0\vect{v})$를 더하면 $0\vect{v
 따라서 $(-a)\vect{v}$는 $a\vect{v}$의 역벡터이므로 $(-a)\vect{v}=-(a\vect{v})$.
 \end{proof}
 
-\subsection*{예제}
-
-\begin{example}[기초: $\R^n$]
+\begin{example}[$\R^n$의 표준 벡터공간]
 벡터를
 \[
 \vect{x}=(x_1,\dots,x_n),\quad \vect{y}=(y_1,\dots,y_n)
@@ -105,7 +143,7 @@ a\vect{x}=(ax_1,\dots,ax_n)
 로 정의하면 벡터공간 공리 8개가 모두 성립한다. 따라서 $\R^n$은 $\R$ 위의 벡터공간이다.
 \end{example}
 
-\begin{example}[연결: 다항식 공간 $P_n(\R)$]
+\begin{example}[다항식 공간 $P_n(\R)$]
 \[
 P_n(\R)=\{a_0+a_1x+\cdots+a_nx^n\mid a_i\in\R\}
 \]
@@ -117,8 +155,6 @@ $P_n(\R)$도 $\R$ 위의 벡터공간이다.
 $\R^2$는 표준 연산으로는 $\R$ 위의 벡터공간이다. 이때 스칼라곱이 실수배로 정의되어 있으므로,
 같은 연산을 그대로 둔 채 스칼라 체만 $\C$로 바꾸는 것은 불가능하다.
 \end{remark}
-
-\subsection*{연습문제 (4단계 + 힌트)}
 
 \paragraph{Level 1. 기초 확인}
 \begin{exercise}
@@ -144,7 +180,7 @@ $\W=\{(x,y,z)\in\R^3\mid x+y+z=0\}$가 $\R^3$의 부분공간인지 판정하시
 
 \paragraph{Level 3. 연결 추론}
 \begin{exercise}
-벡터공간 $\V$에서
+벡터공간 $V$에서
 \[
 a(\vect{u}-\vect{v})=a\vect{u}-a\vect{v}
 \]
@@ -153,9 +189,9 @@ a(\vect{u}-\vect{v})=a\vect{u}-a\vect{v}
 \textbf{힌트.} $\vect{u}-\vect{v}=\vect{u}+(-\vect{v})$로 바꾸고 $(-a)\vect{v}=-(a\vect{v})$를 사용하라.
 
 \begin{exercise}
-$\vect{u}+\vect{w}=\vect{v}+\vect{w}$이면 $\vect{u}=\vect{v}$임을 보여라.
+$\vect{u}+\vect{w}_1=\vect{v}+\vect{w}_2$이면 $\vect{u}-\vect{v}=\vect{w}_2-\vect{w}_1$임을 보여라.
 \end{exercise}
-\textbf{힌트.} 양변에 $-\vect{w}$를 더하라.
+\textbf{힌트.} 양변에 $-\vect{v}$와 $-\vect{w}_1$을 순서대로 더하라.
 
 \paragraph{Level 4. 도전 확장}
 \begin{exercise}
@@ -173,7 +209,6 @@ a\odot(x,y)=(ax,y)
 \end{exercise}
 \textbf{힌트.} division ring(또는 skew field) 키워드를 참고하라.
 
-\subsection*{요약}
 \begin{itemize}
   \item 벡터공간의 스칼라는 체 $K$에서 온다.
   \item 벡터공간 공리는 덧셈 구조와 스칼라곱 호환성을 동시에 요구한다.
@@ -187,3 +222,4 @@ a\odot(x,y)=(ax,y)
 \sectionoutline{기저(Basis)와 좌표표현}
 \sectionoutline{차원(Dimension)과 기저교환법}
 \sectionoutline{부분공간의 합, 교집합, 직합}
+\chapterstandaloneend
