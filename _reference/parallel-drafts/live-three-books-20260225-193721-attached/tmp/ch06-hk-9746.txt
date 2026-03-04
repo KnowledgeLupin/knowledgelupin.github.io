@@ -1,0 +1,5 @@
+to A, for B = P-‘AP
+and C = Q-‘BQ imply that C = (PQ)-IA(
+Thus, similarity is an equivalence relation on the set of n X n matrices
+over the field F. Also note that the only matrix similar to the identity
+matrix I is I itself, and that the only matrix similar to the zero matrix is

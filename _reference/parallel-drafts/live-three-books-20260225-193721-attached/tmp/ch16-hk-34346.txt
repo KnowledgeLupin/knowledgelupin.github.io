@@ -1,0 +1,5 @@
+in Chapter 5 and of inner
+products and forms in Chapter 8 and in Chapter 9. The relation between
+bilinear forms and inner products is particularly
+strong; however, this
+chapter does not presuppose any of the material in Chapter 8 or Chapter 9.

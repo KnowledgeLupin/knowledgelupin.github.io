@@ -1,0 +1,30 @@
+851:제 13 장의 triangularization = matrix size 에 관한 귀납법
+1143:T-Invariant Subspace « skis bes p@e eee we Hw we woe 213
+1280:‘Triangularizations «as ss6 2 ae e BRE RAE ABE GRR BS 382
+1827:연 습 문제 1.1.6. 4" = 0 for some r > 1] square matrix 를 nilpotent
+1830:(4+ 2) nilpotent Y- 보
+1892:12 따라서, strictly upper-triangular matrix nilpotent.
+2140:(나) A,U €EMan(F) lat 가 가 역 일 때, 만약 A 가 nilpotent ] 4, 040
+2141:도 nilpotent @-& 보
+9702:operator L € £(V. nilpotent operator 라고 부른다. 만약 LW Ee L(V.V)
+9704:가 nilpotent °]31, / 027 = 27 0/. 이 면 , (/, + 27) 도 nilpotent YS 보
+11102:4 ᄋ 90\,.,,(/) 가 nilpotento|H, 실 제 로 는 항
+15121:mial, eigen-vector 와: eigen-value, diagonalization} triangularization 그러고 Cayley새로운 등 장 인 물들 —
+15516:연 습 문제 7.2.4. Acm,.,(F) 2 때. 만약 (A—J) 7} nilpotent] 8° 우 리 는
+15519:(가) 4 가 nilpotent 이고 0180804011280110 이 면 ,
+16023:7.3. Triangularization
+16045:설 명하려면 triangularization 의 개 넘 이 필 요 하 다 .30
+16047:정리 7.3.1. (Triangularization) / = Cola, T ᄋ gmol|g, (T|R 7k uppertriangular matrix 2! 의 basis 가 존 재 한다?!
+16111:7.3. TRIANGULARIZATION 187
+16215:Woe 설 명 할 수도 있을 것이다. (그러나, B= triangularizationS 생 각 하 는
+16241:따 름 정리 7.3.6. Te LM] nilpotent o| a, ér(t) =t".
+16243:SB: 17} nilpotento|22, 7" =0 인 자연수 po} 존재할 것이다. 이번에
+16270:참고 7.3.7. ( 질 문 5.4.6 의 답 ) 위 증 명은 Te] LM} nilpotent o] a, 128 =10
+16284:(가) 7' 가 nilpotent? 필 요 충 분 조 건 은 TI 모든 eigen-value 7} zero.
+16431:첫 번째 SB: (TriangularizationS 이용한 증명) Characteristic polynomial
+16875:보기 7.5.9. (25.462) = 번째 Et) 만약 N 6 LIM] nilpotent o] 8 (4,
+17841:Ut} triangularization 2] 결 과 인 따 름 정 리 7.3.6 을 명제 8.1.5 를 이용해 다
+17852:보기 8.1.9. Ne LM] nilpotent], my(t) = "인 자연수 ro] 존 재 하 므
+18005:8.2. T-INVARIANT SUBSPACE
+18009:8.2. T-Invariant Subspace
+18010:이 fiiAE T-invariant subspace 2} 개 념

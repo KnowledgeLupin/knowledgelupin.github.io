@@ -1,0 +1,5 @@
+the Principal Axis theorem, which is essentially just another formulation
+of
+Theorem 18 on the orthogonal diagonalization
+of self adjoint operators, and
+the other results on forms in Section 9.2, the material presented here is

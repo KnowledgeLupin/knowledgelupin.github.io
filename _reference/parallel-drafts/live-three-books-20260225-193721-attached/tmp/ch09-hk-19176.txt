@@ -1,0 +1,5 @@
+ideal is characterized by being the manic polynomial
+of
+minimum degree in the ideal. That means that the minimal polynomial p
+for the linear operator T is uniquely determined by these three properties:
+(1) p is a manic polynomial over the scalar field F.

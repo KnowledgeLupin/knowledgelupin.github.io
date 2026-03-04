@@ -1,0 +1,720 @@
+\chapter{수반연산자, 정규 연산자, 스펙트럴 정리}
+
+\chapterintro{이 장에서는 내적공간에서 선형연산자를 분류하는 기준을 정리하고, 그 분류가 왜 대각화 이론의 완성으로 이어지는지 확인하겠습니다. 먼저 수반연산자(adjoint)를 정확히 세운 뒤 자기수반(self-adjoint), 유니터리(unitary), 정규(normal) 연산자의 구조를 비교하겠습니다. 마지막으로 스펙트럴 정리(spectral theorem)를 완전한 증명과 함께 제시하여, 연산자의 계산과 해석을 하나의 틀로 통합하겠습니다.}
+
+\chaptergoals{수반연산자의 존재와 유일성, 그리고 기본 연산법칙을 엄밀히 증명할 수 있다.}{자기수반/유니터리/정규 연산자의 판정 정리와 고유벡터 성질을 정확히 사용할 수 있다.}{복소수 정규연산자와 실수 자기수반연산자의 스펙트럴 정리를 증명하고 스펙트럴 분해를 계산에 적용할 수 있다.}
+
+\sectiontemplate{수반연산자(Adjoint)와 기본 연산법칙}{수반연산자는 ``내적과 연산자''를 연결하는 핵심 도구입니다. 이 절에서는 정의를 좌표 독립적으로 세우고, 실제 계산에 필요한 공식까지 모두 확보하겠습니다.}{\item 수반연산자의 정의를 내적식으로 정확히 진술할 수 있습니다.\item 수반연산자의 존재와 유일성을 완전하게 증명할 수 있습니다.\item 켤레전치 행렬 공식과 핵/상 직교관계를 계산에 적용할 수 있습니다.}{\item 유한차원 내적공간의 정규직교기저\item 선형사상과 행렬표현\item 복소수 내적의 켤레선형성}
+
+이 절에서 $V$는 유한차원 복소 내적공간, $T:V\to V$는 선형연산자라고 하겠습니다. 내적은 첫 번째 변수에 선형, 두 번째 변수에 켤레선형인 관례를 사용하겠습니다.
+
+\begin{definition}
+선형연산자 $T\in\mathcal{L}(V)$에 대하여
+$$
+\langle Tx,y\rangle=\langle x,T^*y\rangle\qquad(\forall x,y\in V)
+$$
+를 만족하는 선형연산자 $T^*\in\mathcal{L}(V)$를 $T$의 수반연산자(adjoint)라 한다.
+\end{definition}
+
+\begin{theorem}
+임의의 $T\in\mathcal{L}(V)$에 대하여 수반연산자 $T^*$는 존재하고 유일하다.
+\end{theorem}
+
+\paragraph{증명 전략.}
+$y$를 고정했을 때 $x\mapsto\langle Tx,y\rangle$를 선형함수로 보고, 정규직교기저를 이용해 이 선형함수를 내적으로 표현하는 벡터를 직접 구성하겠습니다. 그 벡터를 $T^*y$로 정의하면 존재가 나오고, 마지막에 내적의 비퇴화성을 써서 유일성을 보이겠습니다.
+
+\begin{proof}
+$V$의 정규직교기저를 $\{e_1,\dots,e_n\}$이라 하자. $y\in V$를 고정하고
+$$
+f_y(x):=\langle Tx,y\rangle\qquad(x\in V)
+$$
+로 두면 $f_y$는 선형함수이다. 이제
+$$
+z_y:=\sum_{k=1}^n \overline{f_y(e_k)}\,e_k
+$$
+를 정의한다. 임의의 $x=\sum_{k=1}^n x_k e_k$에 대해
+$$
+\langle x,z_y\rangle
+=\sum_{k=1}^n f_y(e_k)\langle x,e_k\rangle
+=\sum_{k=1}^n f_y(e_k)x_k
+=f_y(x)
+=\langle Tx,y\rangle
+$$
+가 성립한다. 따라서 $\langle Tx,y\rangle=\langle x,z_y\rangle$이다.
+
+이제 $T^*y:=z_y$로 정의하면, 모든 $x,y$에 대하여
+$$
+\langle Tx,y\rangle=\langle x,T^*y\rangle
+$$
+가 성립한다. 또한 $y_1,y_2\in V$, $\alpha,\beta\in\C$에 대해 임의의 $x\in V$에 대하여
+\begin{align*}
+\langle x,T^*(\alpha y_1+\beta y_2)\rangle
+&=\langle Tx,\alpha y_1+\beta y_2\rangle \\
+&=\overline{\alpha}\langle Tx,y_1\rangle+\overline{\beta}\langle Tx,y_2\rangle \\
+&=\overline{\alpha}\langle x,T^*y_1\rangle+\overline{\beta}\langle x,T^*y_2\rangle \\
+&=\langle x,\alpha T^*y_1+\beta T^*y_2\rangle.
+\end{align*}
+내적의 비퇴화성으로 $T^*(\alpha y_1+\beta y_2)=\alpha T^*y_1+\beta T^*y_2$이므로 $T^*$는 선형이다.
+
+유일성을 보이자. $S\in\mathcal{L}(V)$도
+$\langle Tx,y\rangle=\langle x,Sy\rangle$를 만족한다고 하자. 그러면 모든 $x,y$에 대해
+$$
+\langle x,(T^*-S)y\rangle=0
+$$
+이다. $x=(T^*-S)y$를 대입하면
+$$
+\|(T^*-S)y\|^2=0
+$$
+이므로 $(T^*-S)y=0$이다. 임의의 $y$에 대해 성립하므로 $T^*=S$이다.
+\end{proof}
+
+\paragraph{의미 해석.}
+이 정리는 ``내적이 주어지면 모든 연산자에 대응되는 반대쪽 연산자 $T^*$가 정확히 하나 존재한다''는 사실을 보장합니다. 이후의 분류(self-adjoint, unitary, normal)는 모두 이 대응을 기준으로 정의됩니다.
+
+\begin{theorem}
+$S,T\in\mathcal{L}(V)$, $\alpha\in\C$에 대하여 다음이 성립한다.
+\begin{align*}
+(\alpha T+S)^*&=\overline{\alpha}\,T^*+S^*,\\
+(ST)^*&=T^*S^*,\\
+(T^*)^*&=T.
+\end{align*}
+또한 정규직교기저에서 $T$의 행렬을 $A$라 하면 $T^*$의 행렬은 $\overline{A}^{\,T}$이다.
+\end{theorem}
+
+\paragraph{증명 전략.}
+각 항등식은 정의식 $\langle Tx,y\rangle=\langle x,T^*y\rangle$에 대입한 뒤 유일성을 쓰면 얻어집니다. 행렬 공식은 기저벡터의 계수 비교로 증명하겠습니다.
+
+\begin{proof}
+임의의 $x,y\in V$에 대해
+\begin{align*}
+\langle (\alpha T+S)x,y\rangle
+&=\alpha\langle Tx,y\rangle+\langle Sx,y\rangle\\
+&=\alpha\langle x,T^*y\rangle+\langle x,S^*y\rangle\\
+&=\langle x,\overline{\alpha}\,T^*y+S^*y\rangle.
+\end{align*}
+유일성으로 $(\alpha T+S)^*=\overline{\alpha}\,T^*+S^*$이다.
+
+또한
+$$
+\langle STx,y\rangle
+=\langle Tx,S^*y\rangle
+=\langle x,T^*S^*y\rangle
+$$
+이므로 $(ST)^*=T^*S^*$이다.
+
+다시
+$$
+\langle T^*x,y\rangle=\langle x,Ty\rangle
+$$
+이므로 정의에 의해 $(T^*)^*=T$이다.
+
+마지막으로 정규직교기저 $\{e_1,\dots,e_n\}$에서
+$$
+Te_j=\sum_{i=1}^n a_{ij}e_i,\qquad
+T^*e_j=\sum_{i=1}^n b_{ij}e_i
+$$
+라 두자. 그러면
+$$
+a_{ij}=\langle Te_j,e_i\rangle=\langle e_j,T^*e_i\rangle
+=\overline{\langle T^*e_i,e_j\rangle}
+=\overline{b_{ji}}.
+$$
+따라서 $b_{ij}=\overline{a_{ji}}$이고, $[T^*]=\overline{A}^{\,T}$이다.
+\end{proof}
+
+\paragraph{의미 해석.}
+수반은 덧셈, 스칼라곱, 합성에 대해 체계적으로 작동하는 반전 연산입니다. 특히 행렬 수준에서는 ``수반 = 켤레전치''로 계산되므로, 추상 이론과 계산 알고리즘이 정확히 연결됩니다.
+
+\begin{theorem}
+다음 등식이 성립한다.
+$$
+\ker(T^*)=(\operatorname{Im}T)^\perp,\qquad
+\operatorname{Im}T=(\ker T^*)^\perp.
+$$
+\end{theorem}
+
+\paragraph{증명 전략.}
+첫 등식은 정의를 직접 풀어서 보이겠습니다. 둘째 등식은 유한차원에서의 이중직교여공간 성질 $W^{\perp\perp}=W$를 적용해 얻겠습니다.
+
+\begin{proof}
+$y\in\ker(T^*)$라 하자. 그러면 $T^*y=0$이므로 임의의 $x\in V$에 대해
+$$
+\langle Tx,y\rangle=\langle x,T^*y\rangle=0.
+$$
+즉 $y$는 $\operatorname{Im}T$의 모든 원소와 직교하므로
+$y\in(\operatorname{Im}T)^\perp$이다. 따라서
+$\ker(T^*)\subset(\operatorname{Im}T)^\perp$이다.
+
+반대로 $y\in(\operatorname{Im}T)^\perp$라 하자. 그러면 모든 $x$에 대해
+$\langle Tx,y\rangle=0$이고, 따라서
+$\langle x,T^*y\rangle=0$이다. 특히 $x=T^*y$를 대입하면
+$\|T^*y\|^2=0$이므로 $T^y=0$, 즉 $y\in\ker(T^*)$이다.
+따라서 $\ker(T^*)=(\operatorname{Im}T)^\perp$.
+
+양변에 직교여공간을 취하면
+$$
+(\ker T^*)^\perp=((\operatorname{Im}T)^\perp)^\perp.
+$$
+유한차원에서 $W^{\perp\perp}=W$이므로
+$\operatorname{Im}T=(\ker T^*)^\perp$가 성립한다.
+\end{proof}
+
+\paragraph{의미 해석.}
+이 정리는 ``$T$가 보내는 방향''과 ``$T^*$가 지우는 방향''이 정확히 직교쌍을 이룬다는 사실을 보여 줍니다. 랭크, 해공간, 직교분해를 한 번에 연결할 때 매우 자주 사용됩니다.
+
+\begin{example}
+표준 내적을 갖는 $\C^3$에서
+$$
+A=
+\begin{bmatrix}
+1&i&0\\
+0&2&1\\
+0&0&-i
+\end{bmatrix}
+$$
+로 주어진 연산자의 수반행렬은
+$$
+A^*=\overline{A}^{\,T}=
+\begin{bmatrix}
+1&0&0\\
+-i&2&0\\
+0&1&i
+\end{bmatrix}
+$$
+이다.
+\end{example}
+
+\subsection*{주의}
+\begin{warning}
+행렬공식 $A^*=\overline{A}^{\,T}$는 정규직교기저에서만 그대로 성립한다. 일반 기저에서는 Gram 행렬이 함께 들어간다.
+\end{warning}
+\begin{warning}
+복소수 내적에서 어느 변수에 선형성을 둘지 관례를 바꾸면 수식의 켤레 위치가 달라진다. 장 전체에서 하나의 관례를 고정해야 한다.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item $A=\begin{bmatrix}2&i\\0&1-i\end{bmatrix}$의 수반행렬을 계산하고 $(A^*)^*=A$를 직접 확인하십시오.
+\item 위 정리를 이용하여 $\operatorname{rank}(T)=\operatorname{rank}(T^*)$를 짧게 증명하십시오.
+\item $\ker(T^*)=(\operatorname{Im}T)^\perp$를 $2\times3$ 구체적 행렬 하나로 검산하십시오.
+\end{enumerate}
+
+\sectiontemplate{자기수반(Self-adjoint), 유니터리(Unitary), 정규(Normal)}{이제 수반연산자를 기준으로 중요한 세 부류를 분류하겠습니다. 각 부류는 기하적 의미가 다르며, 이후 스펙트럴 정리의 가정으로 직접 등장합니다.}{\item 자기수반/유니터리/정규 연산자의 정의를 구분할 수 있습니다.\item 유니터리 판정의 동치조건을 증명하고 적용할 수 있습니다.\item 자기수반의 고유값 성질과 정규성 판정식을 엄밀히 사용할 수 있습니다.}{\item 수반연산자의 기본 연산법칙\item 고유값/고유벡터\item 정규직교기저와 직교성}
+
+\begin{definition}
+$T\in\mathcal{L}(V)$에 대하여 다음과 같이 정의한다.
+\begin{itemize}
+\item $T=T^*$이면 $T$를 자기수반연산자(self-adjoint operator)라 한다.
+\item $T^*T=TT^*=I$이면 $T$를 유니터리연산자(unitary operator)라 한다.
+\item $T^*T=TT^*$이면 $T$를 정규연산자(normal operator)라 한다.
+\end{itemize}
+\end{definition}
+
+\begin{theorem}
+$U\in\mathcal{L}(V)$에 대하여 다음 조건은 서로 동치이다.
+\begin{enumerate}[label=(\roman*)]
+\item $U$는 유니터리이다.
+\item $\langle Ux,Uy\rangle=\langle x,y\rangle\quad(\forall x,y\in V)$.
+\item 어떤 정규직교기저를 정규직교기저로 보낸다.
+\end{enumerate}
+\end{theorem}
+
+\paragraph{증명 전략.}
+$(i)\Rightarrow(ii)$는 정의를 바로 대입하겠습니다. $(ii)\Rightarrow(i)$는 $U^*U=I$를 먼저 얻은 뒤 유한차원에서 역연산자의 존재로 $UU^*=I$를 얻겠습니다. $(ii)\Leftrightarrow(iii)$는 기저 좌표 전개로 내적 보존을 확인하겠습니다.
+
+\begin{proof}
+$(i)\Rightarrow(ii)$:
+$U^*U=I$이면
+$$
+\langle Ux,Uy\rangle=\langle x,U^*Uy\rangle=\langle x,y\rangle
+$$
+이다.
+
+$(ii)\Rightarrow(i)$:
+임의의 $x,y$에 대해
+$$
+\langle x,U^*Uy\rangle=\langle Ux,Uy\rangle=\langle x,y\rangle
+$$
+이므로 $U^*U=I$이다. 따라서 $\ker U=\{0\}$이고 유한차원에서 $U$는 전사이므로 가역이다.
+$U^*U=I$에서 $U^{-1}=U^*$가 되어 $UU^*=I$도 성립한다. 따라서 $U$는 유니터리이다.
+
+$(ii)\Rightarrow(iii)$:
+정규직교기저 $\{e_1,\dots,e_n\}$에 대해
+$$
+\langle Ue_i,Ue_j\rangle=\langle e_i,e_j\rangle=\delta_{ij}
+$$
+이므로 $\{Ue_i\}$는 정규직교집합이다. $U$가 가역이므로 기저가 된다.
+
+$(iii)\Rightarrow(ii)$:
+$\{e_i\}$를 (iii)의 정규직교기저, $f_i:=Ue_i$를 그 상이라 하자. 임의의
+$$
+x=\sum_i \xi_i e_i,\qquad y=\sum_i \eta_i e_i
+$$
+에 대해
+$$
+Ux=\sum_i \xi_i f_i,\qquad Uy=\sum_i \eta_i f_i
+$$
+이고 $\{f_i\}$가 정규직교기저이므로
+$$
+\langle Ux,Uy\rangle=\sum_i \xi_i\overline{\eta_i}
+=\langle x,y\rangle.
+$$
+\end{proof}
+
+\paragraph{의미 해석.}
+유니터리 연산자는 길이와 각도를 정확히 보존하는 ``내적공간의 등거리 동형''입니다. 따라서 유니터리성은 행렬식 계산이 아니라 기하적 보존법칙으로 이해하는 것이 더 본질적입니다.
+
+\begin{theorem}
+$T=T^*$라 하자.
+\begin{enumerate}[label=(\roman*)]
+\item $Tx=\lambda x$ ($x\neq0$)이면 $\lambda\in\R$.
+\item $Tx=\lambda x$, $Ty=\mu y$, $\lambda\neq\mu$이면 $\langle x,y\rangle=0$.
+\end{enumerate}
+\end{theorem}
+
+\paragraph{증명 전략.}
+(i)는 같은 벡터에 대한 두 내적 표현을 비교해 켤레관계를 얻겠습니다. (ii)는 자기수반성을 이용해 $\lambda\langle x,y\rangle=\mu\langle x,y\rangle$를 만들겠습니다.
+
+\begin{proof}
+(i) $Tx=\lambda x$라 하자. 그러면
+$$
+\lambda\langle x,x\rangle=\langle Tx,x\rangle=\langle x,Tx\rangle
+=\langle x,\lambda x\rangle=\overline{\lambda}\langle x,x\rangle.
+$$
+$x\neq0$이므로 $\langle x,x\rangle>0$이고, 따라서 $\lambda=\overline{\lambda}$, 즉 $\lambda\in\R$.
+
+(ii) $Tx=\lambda x$, $Ty=\mu y$라 하자. 그러면
+$$
+\lambda\langle x,y\rangle=\langle Tx,y\rangle=\langle x,Ty\rangle
+=\langle x,\mu y\rangle=\overline{\mu}\langle x,y\rangle.
+$$
+(i)에 의해 $\mu\in\R$이므로 $\overline{\mu}=\mu$이다. 따라서
+$(\lambda-\mu)\langle x,y\rangle=0$이고 $\lambda\neq\mu$이므로
+$\langle x,y\rangle=0$이다.
+\end{proof}
+
+\paragraph{의미 해석.}
+자기수반연산자는 고유값이 실수이며 서로 다른 고유값 방향이 직교합니다. 이 성질이 바로 ``직교대각화''의 핵심 재료입니다.
+
+\begin{theorem}
+$T\in\mathcal{L}(V)$에 대하여 다음이 동치이다.
+\begin{enumerate}[label=(\roman*)]
+\item $T$는 정규연산자이다.
+\item $\|Tx\|=\|T^*x\|$가 모든 $x\in V$에 대해 성립한다.
+\end{enumerate}
+\end{theorem}
+
+\paragraph{증명 전략.}
+$(i)\Rightarrow(ii)$는 $T^*T=TT^*$를 내적에 넣어 노름을 비교하겠습니다. $(ii)\Rightarrow(i)$는 $A:=T^*T-TT^*$를 두고 $\langle Ax,x\rangle=0$에서 시작해 $A=0$을 직접 유도하겠습니다.
+
+\begin{proof}
+$(i)\Rightarrow(ii)$:
+$T^*T=TT^*$이면
+$$
+\|Tx\|^2=\langle Tx,Tx\rangle=\langle T^*Tx,x\rangle
+=\langle TT^*x,x\rangle=\langle T^*x,T^*x\rangle=\|T^*x\|^2.
+$$
+따라서 $\|Tx\|=\|T^*x\|$이다.
+
+$(ii)\Rightarrow(i)$:
+$A:=T^*T-TT^*$라 두자. 그러면
+$$
+\langle Ax,x\rangle=\|Tx\|^2-\|T^*x\|^2=0\qquad(\forall x\in V).
+$$
+또한 $A^*=A$이다. 임의의 $x,y$에 대해
+\begin{align*}
+0&=\langle A(x+y),x+y\rangle
+=\langle Ax,y\rangle+\langle Ay,x\rangle,\\
+0&=\langle A(x+iy),x+iy\rangle
+=-i\langle Ax,y\rangle+i\langle Ay,x\rangle.
+\end{align*}
+두 식을 합치면 $\langle Ax,y\rangle=0$이 모든 $x,y$에 대해 성립한다.
+특히 $y=Ax$를 대입하면 $\|Ax\|^2=0$이므로 $Ax=0$이다. 따라서
+$A=0$, 즉 $T^*T=TT^*$이다.
+\end{proof}
+
+\paragraph{의미 해석.}
+정규성은 ``$T$와 $T^*$가 같은 크기 변형을 만든다''는 노름 조건으로도 읽을 수 있습니다. 이 표현은 이론 판정뿐 아니라 계산 검산에도 매우 유용합니다.
+
+\begin{example}
+실수공간 $\R^2$에서
+$$
+R=\begin{bmatrix}0&-1\\1&0\end{bmatrix}
+$$
+는 $R^TR=RR^T=I$이므로 직교(실수 유니터리) 연산자이다. 따라서 정규연산자이지만
+$R^T\neq R$이므로 자기수반은 아니다.
+\end{example}
+
+\subsection*{주의}
+\begin{warning}
+정규연산자라는 사실만으로 자기수반을 결론지을 수 없다. ``정규''와 ``자기수반''은 포함관계가 다르다.
+\end{warning}
+\begin{warning}
+$U^*U=I$를 확인했으면 유한차원에서는 이미 가역성이 따라온다. 이때 $UU^*=I$를 다시 독립적으로 계산하지 않아도 된다.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item $\begin{bmatrix}1&1\\0&1\end{bmatrix}$가 정규인지 판정하고 이유를 쓰십시오.
+\item 자기수반 행렬 $A$에 대해 서로 다른 고유값의 고유벡터가 직교함을 직접 계산 예제로 확인하십시오.
+\item ``$\|Tx\|=\|T^*x\|$이면 정규'' 증명의 핵심 단계에서 왜 $x+iy$를 넣는지 설명하십시오.
+\end{enumerate}
+
+\sectiontemplate{스펙트럴 정리(Spectral Theorem)와 스펙트럴 분해}{이 절의 목표는 정규연산자를 정규직교기저에서 완전히 대각화하는 것입니다. 이를 위해 Schur 분해에서 출발해 상삼각 정규행렬의 구조를 먼저 밝히겠습니다.}{\item Schur 단위삼각화 정리를 증명할 수 있습니다.\item 상삼각 정규행렬이 대각행렬임을 엄밀히 보일 수 있습니다.\item 복소 정규연산자와 실수 자기수반연산자의 스펙트럴 정리를 적용할 수 있습니다.}{\item 유니터리 유사변환\item 고유값 존재 정리(복소수)\item 직교여공간과 귀납법}
+
+\begin{theorem}[Schur 단위삼각화]
+유한차원 복소 내적공간 $V$의 임의의 선형연산자 $T$에 대해, 어떤 정규직교기저에서 $T$의 행렬은 상삼각행렬이 된다.
+\end{theorem}
+
+\paragraph{증명 전략.}
+차원에 대한 귀납법을 사용하겠습니다. 먼저 고유벡터 하나를 첫 기저벡터로 놓아 첫 열을 정리하고, 남은 블록에 귀납가정을 적용해 전체를 상삼각으로 만들겠습니다.
+
+\begin{proof}
+$n:=\dim V$에 대한 귀납법을 쓴다. $n=1$은 자명하다.
+
+$n\ge2$라 하자. 복소수 체에서 특성다항식은 근을 가지므로 $T$는 고유값 $\lambda$와 단위 고유벡터 $v_1$을 가진다. 이를 정규직교기저
+$\mathcal{B}_1=(v_1,\dots,v_n)$로 확장하자. 이 기저에서의 행렬을 $A_1$이라 하면 $Tv_1=\lambda v_1$이므로 첫 열은
+$(\lambda,0,\dots,0)^T$이다. 따라서
+$$
+A_1=
+\begin{bmatrix}
+\lambda & *\\
+0 & B
+\end{bmatrix}
+$$
+형태가 된다.
+
+귀납가정에 의해 $(n-1)\times(n-1)$ 행렬 $B$에 대해 어떤 유니터리 $V$가 존재하여
+$V^*BV$가 상삼각이다. 이제
+$$
+M=
+\begin{bmatrix}
+1&0\\
+0&V
+\end{bmatrix}
+$$
+를 두면 $M$은 유니터리이고
+$$
+M^*A_1M=
+\begin{bmatrix}
+\lambda & *\\
+0 & V^*BV
+\end{bmatrix}
+$$
+는 상삼각이다. 이 행렬에 대응하는 기저는 정규직교기저이므로 결론이 성립한다.
+\end{proof}
+
+\paragraph{의미 해석.}
+Schur 정리는 ``복소수에서는 일단 유니터리로 상삼각까지는 항상 간다''는 보편적 출발점을 제공합니다. 스펙트럴 정리는 여기에 정규성을 추가해 상삼각을 대각으로 밀어붙이는 정리입니다.
+
+\begin{theorem}
+상삼각행렬 $R$이 정규($R^*R=RR^*$)이면 $R$은 대각행렬이다.
+\end{theorem}
+
+\paragraph{증명 전략.}
+대각 성분 비교를 통해 첫 행의 비대각 성분이 모두 0임을 보인 뒤, 블록 분해와 귀납법으로 전체 대각성을 얻겠습니다.
+
+\begin{proof}
+$n:=\dim R$에 대한 귀납법을 쓴다. $n=1$은 자명하다.
+
+$n\ge2$라 하자. $R=(r_{ij})$라 두면 상삼각성이므로 $r_{k1}=0$ ($k\ge2$)이다.
+정규성 $R^*R=RR^*$의 $(1,1)$ 성분을 비교하면
+\begin{align*}
+(R^*R)_{11}&=\sum_{k=1}^n \overline{r_{k1}}r_{k1}=|r_{11}|^2,\\
+(RR^*)_{11}&=\sum_{k=1}^n r_{1k}\overline{r_{1k}}
+=|r_{11}|^2+\sum_{k=2}^n |r_{1k}|^2.
+\end{align*}
+따라서 $\sum_{k=2}^n|r_{1k}|^2=0$이므로 $r_{1k}=0$ ($k\ge2$)이다.
+결국
+$$
+R=\begin{bmatrix}
+r_{11}&0\\
+0&R_1
+\end{bmatrix}
+$$
+꼴이며 $R_1$은 상삼각이다. 블록대각행렬의 정규성에서 $R_1$도 정규임을 얻는다. 귀납가정으로 $R_1$은 대각행렬이므로 $R$도 대각행렬이다.
+\end{proof}
+
+\paragraph{의미 해석.}
+정규성은 상삼각행렬의 비대각 성분을 강제로 제거합니다. 이 한 단계가 스펙트럴 정리의 핵심 메커니즘입니다.
+
+\begin{theorem}[복소 정규연산자의 스펙트럴 정리]
+유한차원 복소 내적공간의 정규연산자 $T$는 어떤 정규직교기저에서 대각행렬로 표현된다. 즉, 어떤 유니터리 $U$가 존재하여
+$$
+U^*TU=\operatorname{diag}(\lambda_1,\dots,\lambda_n)
+$$
+가 된다.
+\end{theorem}
+
+\paragraph{증명 전략.}
+Schur 정리로 상삼각화한 뒤, 유니터리 유사변환이 정규성을 보존함을 이용하여 앞 정리를 적용하겠습니다.
+
+\begin{proof}
+Schur 정리에 의해 어떤 유니터리 $U$가 존재하여
+$$
+R:=U^*TU
+$$
+가 상삼각이다. $T$가 정규이므로
+\begin{align*}
+R^*R
+&=(U^*TU)^*(U^*TU)
+=U^*T^*UU^*TU
+=U^*T^*TU,\\
+RR^*
+&=(U^*TU)(U^*TU)^*
+=U^*TUU^*T^*U
+=U^*TT^*U.
+\end{align*}
+$T^*T=TT^*$이므로 $R^*R=RR^*$, 즉 $R$도 정규이다. 앞 정리에 의해 $R$은 대각행렬이다. 따라서 $T$는 정규직교기저에서 대각화된다.
+\end{proof}
+
+\paragraph{의미 해석.}
+정규연산자는 ``직교 구조를 보존하는 기저''에서 완전히 분해됩니다. 그래서 정규연산자는 Jordan 형식보다 훨씬 안정적이며 계산 해석이 단순해집니다.
+
+\begin{definition}
+정규연산자 $T$의 서로 다른 고유값을 $\lambda_1,\dots,\lambda_m$이라 하고, 각 고유공간을 $E_{\lambda_k}$, 그 직교사영을 $P_k$라 하자. 이때
+$$
+T=\sum_{k=1}^m \lambda_k P_k
+$$
+를 $T$의 스펙트럴 분해(spectral decomposition)라 한다.
+\end{definition}
+
+\begin{theorem}
+위 정의의 표기에서 다음이 성립한다.
+\begin{align*}
+I&=\sum_{k=1}^m P_k,\\
+P_iP_j&=\delta_{ij}P_i,\\
+T&=\sum_{k=1}^m \lambda_k P_k,\\
+T^*&=\sum_{k=1}^m \overline{\lambda_k}\,P_k.
+\end{align*}
+또한 임의의 다항식 $p$에 대해
+$$
+p(T)=\sum_{k=1}^m p(\lambda_k)P_k
+$$
+가 성립한다.
+\end{theorem}
+
+\paragraph{증명 전략.}
+스펙트럴 정리로 얻은 정규직교 고유기저를 고유값별로 묶어 직교직합 분해를 만들고, 그 위에서 연산자의 작용을 성분별로 계산하겠습니다.
+
+\begin{proof}
+스펙트럴 정리에 의해 $V$는 고유공간들의 직교직합
+$$
+V=E_{\lambda_1}\oplus\cdots\oplus E_{\lambda_m}
+$$
+으로 분해된다. 임의의 $x\in V$를
+$$
+x=x_1+\cdots+x_m,\qquad x_k\in E_{\lambda_k}
+$$
+로 쓰면 $x_k=P_kx$이다. 따라서
+$$
+x=\sum_{k=1}^m P_kx
+$$
+가 모든 $x$에 대해 성립하므로 $I=\sum_k P_k$이다.
+
+서로 다른 고유공간은 직교하므로 직교사영의 성질에서
+$P_iP_j=0$ ($i\neq j$), $P_i^2=P_i$가 성립한다. 즉
+$P_iP_j=\delta_{ij}P_i$.
+
+또한
+$$
+Tx=\sum_{k=1}^m T(P_kx)=\sum_{k=1}^m \lambda_k P_kx
+$$
+이므로 $T=\sum_k \lambda_k P_k$이다.
+
+$P_k$는 직교사영이므로 $P_k^*=P_k$이다. 따라서
+$$
+T^*=\left(\sum_{k=1}^m \lambda_k P_k\right)^*
+=\sum_{k=1}^m \overline{\lambda_k}\,P_k.
+$$
+
+다항식 $p(t)=\sum_{r=0}^d c_rt^r$에 대해
+$$
+p(T)=\sum_{r=0}^d c_r T^r.
+$$
+$P_iP_j=\delta_{ij}P_i$를 이용하면 $T^r=\sum_k \lambda_k^r P_k$이므로
+$$
+p(T)=\sum_{r=0}^d c_r\sum_{k=1}^m \lambda_k^r P_k
+=\sum_{k=1}^m \left(\sum_{r=0}^d c_r\lambda_k^r\right)P_k
+=\sum_{k=1}^m p(\lambda_k)P_k.
+$$
+\end{proof}
+
+\paragraph{의미 해석.}
+스펙트럴 분해는 연산자 계산을 ``고유값에 함수 적용''으로 환원합니다. 거듭제곱, 지수함수, 역함수 계산이 모두 성분별 계산으로 바뀌기 때문에 이론과 수치해석 모두에서 결정적입니다.
+
+\begin{theorem}[실수 자기수반연산자의 직교대각화]
+유한차원 실수 내적공간 $V$에서 $T=T^*$이면, $V$는 $T$의 실수 고유벡터들로 이루어진 정규직교기저를 가진다.
+\end{theorem}
+
+\paragraph{증명 전략.}
+Rayleigh 몫의 최대점을 이용해 고유벡터 하나를 먼저 얻고, 그 직교여공간이 불변임을 보여 차원을 줄여 귀납하겠습니다.
+
+\begin{proof}
+$n:=\dim V$에 대한 귀납법을 쓴다. $n=1$은 자명하다.
+
+$n\ge2$라 하자. 단위구면
+$$
+S:=\{x\in V:\|x\|=1\}
+$$
+위의 함수 $q(x):=\langle Tx,x\rangle$는 연속이고 $S$는 콤팩트이므로 $u\in S$가 존재하여
+$q(u)=\max_{x\in S}q(x)$.
+
+$\lambda:=q(u)$라 두고 $y\in u^\perp$를 임의로 잡자. $t\in\R$에 대해
+$$
+h(t):=\langle T(u+ty),u+ty\rangle-\lambda\|u+ty\|^2
+$$
+로 두면, $q(u)$의 최대성 때문에 $h(t)\le0$가 모든 $t$에 대해 성립한다. 또한 $h(0)=0$이다.
+전개하면
+$$
+h(t)=2t\langle Tu,y\rangle+t^2\big(\langle Ty,y\rangle-\lambda\|y\|^2\big).
+$$
+만약 $\langle Tu,y\rangle\neq0$이면 $t$의 부호를 적절히 택해 충분히 작은 $|t|$에서 $h(t)>0$가 되어 모순이다. 따라서 $\langle Tu,y\rangle=0$가 모든 $y\in u^\perp$에 대해 성립한다. 즉 $Tu\in(u^\perp)^\perp=\operatorname{span}\{u\}$이므로
+$Tu=\lambda u$이다. 따라서 $u$는 고유벡터이다.
+
+이제 $v\in u^\perp$이면
+$$
+\langle Tv,u\rangle=\langle v,Tu\rangle=\langle v,\lambda u\rangle=\lambda\langle v,u\rangle=0
+$$
+이므로 $Tv\in u^\perp$이다. 따라서 $u^\perp$는 $T$-불변이며, 제한연산자 $T|_{u^\perp}$는 자기수반이다.
+귀납가정으로 $u^\perp$에 정규직교 고유기저가 존재한다. 여기에 $u$를 추가하면 $V$의 정규직교 고유기저를 얻는다.
+\end{proof}
+
+\paragraph{의미 해석.}
+실수 자기수반연산자는 복소 확장을 거치지 않아도 직접 직교대각화됩니다. 따라서 실대칭 행렬의 주축 분해, 에너지 최소화, 이차형식 해석이 모두 같은 구조로 설명됩니다.
+
+\begin{example}
+실대칭행렬
+$$
+A=\begin{bmatrix}2&1\\1&2\end{bmatrix}
+$$
+의 고유값은 $3,1$이고, 정규직교 고유벡터를
+$$
+u_1=\frac1{\sqrt2}\begin{bmatrix}1\\1\end{bmatrix},\qquad
+u_2=\frac1{\sqrt2}\begin{bmatrix}1\\-1\end{bmatrix}
+$$
+로 잡으면
+$$
+P_1=u_1u_1^T=\frac12\begin{bmatrix}1&1\\1&1\end{bmatrix},\qquad
+P_2=u_2u_2^T=\frac12\begin{bmatrix}1&-1\\-1&1\end{bmatrix}
+$$
+이고
+$$
+A=3P_1+1P_2
+$$
+가 된다.
+\end{example}
+
+\subsection*{주의}
+\begin{warning}
+스펙트럴 정리는 임의의 연산자에 대해 성립하지 않는다. 복소수에서는 정규성, 실수에서는 보통 자기수반성이 핵심 가정이다.
+\end{warning}
+\begin{warning}
+중복 고유값이 있을 때 고유벡터 자체는 유일하지 않다. 유일한 대상은 고유공간과 그 직교사영이다.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item Schur 단위삼각화 증명에서 왜 첫 열만 먼저 고정해도 귀납이 작동하는지 설명하십시오.
+\item ``상삼각 정규행렬은 대각행렬'' 정리에서 $(1,1)$ 성분 비교가 왜 결정적인지 설명하십시오.
+\item $A=\begin{bmatrix}4&0&0\\0&1&2\\0&2&1\end{bmatrix}$의 스펙트럴 분해를 구하십시오.
+\end{enumerate}
+
+\chapterapplicationtemplate{데이터 행렬 $X\in\R^{m\times n}$의 표본 공분산행렬 $\Sigma=\frac1m X^TX$는 실수 자기수반이며 양의 준정부호입니다. 스펙트럴 정리에 의해 $\Sigma=Q\Lambda Q^T$로 직교대각화되며, 열벡터 $q_i$는 주성분 방향, $\lambda_i$는 해당 방향 분산을 나타냅니다. 따라서 차원축소는 ``작은 고유값 성분의 사영 제거''로 해석되고, 잡음 제거는 스펙트럴 필터 $p(\Sigma)=Qp(\Lambda)Q^T$의 선택 문제로 정식화됩니다.}
+
+\chaptersummarytemplate
+
+\section*{종합 연습문제}
+
+\subsection*{연습문제 A (기초 확인)}
+
+\begin{exercise}
+$A=\begin{bmatrix}1&i&0\\2&0&-i\end{bmatrix}$일 때 $A^*$를 계산하시오.
+\end{exercise}
+
+\begin{exercise}
+$T:\C^3\to\C^3$의 행렬이
+$\begin{bmatrix}1&0&0\\0&0&1\\0&0&0\end{bmatrix}$일 때
+$\ker(T^*)$와 $(\operatorname{Im}T)^\perp$를 각각 구해 일치함을 확인하시오.
+\end{exercise}
+
+\begin{exercise}
+다음 행렬을 자기수반/유니터리/정규로 분류하시오.
+$$
+\begin{bmatrix}2&0\\0&-1\end{bmatrix},\quad
+\frac1{\sqrt2}\begin{bmatrix}1&1\\-1&1\end{bmatrix},\quad
+\begin{bmatrix}1&1\\0&1\end{bmatrix}.
+$$
+\end{exercise}
+
+\begin{exercise}
+행벡터가 아니라 열벡터 관점에서, ``열들이 정규직교이면 행렬이 유니터리''임을 직접 증명하시오.
+\end{exercise}
+
+\begin{exercise}
+$A=\begin{bmatrix}3&1\\1&3\end{bmatrix}$의 정규직교 고유기저를 구하고 $A=Q\Lambda Q^T$를 계산하시오.
+\end{exercise}
+
+\begin{exercise}
+정규행렬 $A=\begin{bmatrix}0&1\\-1&0\end{bmatrix}$에 대해 $A^*A$와 $AA^*$를 구해 정규성을 확인하고, 복소수에서 유니터리 대각화하시오.
+\end{exercise}
+
+\begin{exercise}
+$T=\lambda_1P_1+\lambda_2P_2$ ($P_iP_j=\delta_{ij}P_i$, $P_1+P_2=I$)일 때
+$T^3-2T+I$를 $P_1,P_2$로 표현하시오.
+\end{exercise}
+
+\subsection*{연습문제 B (개념 연결)}
+
+\begin{exercise}
+유한차원 복소 내적공간에서 $U$가 모든 $x$에 대해 $\|Ux\|=\|x\|$를 만족하면 유니터리임을 증명하시오.
+\end{exercise}
+
+\begin{exercise}
+$\ker(T^*)=(\operatorname{Im}T)^\perp$를 이용하여
+$$
+\operatorname{rank}(T)=\operatorname{rank}(T^*)
+$$
+를 증명하시오.
+\end{exercise}
+
+\begin{exercise}
+자기수반연산자 $T$가 $\langle Tx,x\rangle=0$를 모든 $x$에 대해 만족하면 $T=0$임을 증명하시오.
+\end{exercise}
+
+\begin{exercise}
+실수행렬
+$$
+R=\begin{bmatrix}0&-1\\1&0\end{bmatrix}
+$$
+가 정규이지만 실수 직교대각화되지 않음을 설명하고, 복소수에서는 어떻게 대각화되는지 쓰시오.
+\end{exercise}
+
+\begin{exercise}
+서로 가환하는 두 정규연산자 $S,T$가 있을 때, $S$의 고유값이 모두 단순(simple)하다고 가정하면 $S,T$를 동시에 유니터리 대각화할 수 있음을 증명하시오.
+\end{exercise}
+
+\subsection*{연습문제 C (증명/종합)}
+
+\begin{exercise}
+정규연산자 $T$에 대해 연산자 노름과 스펙트럼 반지름이 일치함을 증명하시오:
+$$
+\|T\|=\max_{\lambda\in\sigma(T)}|\lambda|.
+$$
+\end{exercise}
+
+\begin{exercise}
+실수 자기수반연산자 $T$에 대해 Rayleigh 몫
+$$
+\rho(x)=\frac{\langle Tx,x\rangle}{\langle x,x\rangle}
+$$
+의 최댓값과 최솟값이 각각 최대/최소 고유값과 일치함을 증명하시오.
+\end{exercise}
+
+\begin{exercise}
+정규연산자 $T$와 다항식 $p$에 대해
+$$
+\|p(T)\|=\max_{\lambda\in\sigma(T)}|p(\lambda)|
+$$
+를 스펙트럴 분해를 이용하여 증명하시오.
+\end{exercise}

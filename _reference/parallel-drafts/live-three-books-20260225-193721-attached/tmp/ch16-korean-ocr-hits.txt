@@ -1,0 +1,30 @@
+641:그러나 이 AoyAl= bilinear form 의 classification-2 다루지 않았다. 예
+1286:Bilinear Form
+1308:Non-degenerate Bilinear Form... 2 2 2 이
+1341:제 14 Zt Hermitian Form
+1353:Non-degenerate Hermitian Form ............0005 437
+12622:bilinear form 이라고 부른다. ( 우리
+12797:, BE det (Jz) =1°]31, det 7} alternating bilinear form 인 것은 4]
+23271:라서, 이 경 우에 inner product 는 ‘symmetric’ bilinear form 이 다."
+31305:제 13 장 Bilinear Form
+31316:그런데, inner product 810800 를 제대로 공부하려면 bilinear forms} gece form
+31331:13.1. Bilinear Form
+31383:제 13 2 BILINEAR FORM
+31385:이제 우리는 inner oe 대신 bilinear form 2 생각할 것 이 다 (정의 6.1.1
+31405:7} n-dimensional F-vector space 의 bilinear form 일 때. B= {v;}S 의
+31420:가 된다. 이를 달리 HAS, bilinear form BE n?-72] scalar B(v;,v;) Ml
+31426:관찰 13.1.1. B:VxV— FI} bilinear form 일 때, B= {1.........“,} 을
+31452:13.1. BILINEAR FORM
+31456:표기법 13.1.2. Jem,,,(F) 일 때. F" 의 bilinear form Bz :F"°x PF" 3 FS
+31461:자. 실제로 22 가 7 의 bilinear form] 것은 거의 자
+31548:자. JEM n(F)S 때, V2) bilinear form BA: VxVAFS
+31551:로 정 의 하자. 그러면. By 가 실제로 의 bilinear form el 것도 거의 자 명 하다.
+31560:가 [V2] bilinear form 전체
+31575:제 13 2 BILINEAR FORM
+31581:흉내 내어, [bilinear form 2} 기본
+31603:다음 Bey [bilinear form 2] 기 본 정 리 ] 라 고 부를 만하다.
+31625:터 공간 V2) bilinear form Be 의 기저 SS 고정할 레 - 모두 a hg
+31630:[V2] bilinear form B 7} 주
+31635:이 된다. 따라서, ‘bilinear form 은
+31694:13.1. BILINEAR FORM
+31731:관찰 13.1.8. "에 bilinear form ^ 가 주어져 있다고 하자. 가 가 역 일 때,

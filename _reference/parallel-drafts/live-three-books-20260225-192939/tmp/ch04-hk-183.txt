@@ -1,0 +1,5 @@
+It provides the student with some picture of the
+origins of linear algebra and with the computational
+technique necessary to understand examples of the more abstract ideas occurring in the later chapters. Chapter 2 deals with vector spaces, subspaces, bases, and dimension.
+Chapter 3 treats
+linear transformations,

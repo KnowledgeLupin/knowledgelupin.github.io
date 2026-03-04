@@ -1,0 +1,5 @@
+§4. Application to the Decomposition of a Vector Space.
+§5. Schur's Lemma. . . . . . . .
+§6. The Jordan Normal Form . . . . . . . . . . . . . . . . .
+
+245

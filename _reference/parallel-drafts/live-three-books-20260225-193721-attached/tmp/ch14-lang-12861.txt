@@ -1,0 +1,5 @@
+A, then A w = Aw, and A i= 0 beca use A preserves length.
+By Theorem 1.2, we can find a fan for A, say {V1 , ... , Vn }. Let
+{v 1 , ... ,vn } be a fan basis. We can use the Gram-Schmidt orthogonaliza-
+
+tion process to orthogonalize it. We recall the process:

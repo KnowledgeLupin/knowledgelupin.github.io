@@ -1,0 +1,5 @@
+Generate 6, 248
+Gradient 129
+Gram-Schmidt orthogonalization
+Greatest common divisor 250
+Group 283

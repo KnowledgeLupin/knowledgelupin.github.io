@@ -1,0 +1,5 @@
+hence b = O. From the first relation, it follows that aet = 0, and hence
+a = O. Hence et , e 2t are linearly independent.
+If elements v 1 , ••• 'V n of V generate V and in addition are linearly independent, then {v 1 , •• ,vn } is called a basis of V. We shall also say that the
+elements v 1 , ••• 'V n constitute or form a basis of V.
+The vectors E 1 , ••• ,En of Example 1 form a basis of Kn.

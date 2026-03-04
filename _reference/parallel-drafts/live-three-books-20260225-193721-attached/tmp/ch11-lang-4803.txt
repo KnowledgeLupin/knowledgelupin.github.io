@@ -1,0 +1,5 @@
+(f) {sin t, cos t}
+9. (a) Let N be a square matrix. We say that N is nilpotent if there exists a
+positive integer r such that N r = O. Prove that if N is nilpotent, then
+I - N is invertible.
+(b) State and prove the analogous statement for linear maps of a vector

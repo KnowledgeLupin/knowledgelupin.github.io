@@ -1,0 +1,5 @@
+(i) T = D + N,
+(ii) DN = ND.
+The diagonalixable operator D and the nilpotent operator N are uniquely
+determined by (i) and (ii) and each of them is a polynomial in T.
+Proof. We have just observed that we can write T = D + N

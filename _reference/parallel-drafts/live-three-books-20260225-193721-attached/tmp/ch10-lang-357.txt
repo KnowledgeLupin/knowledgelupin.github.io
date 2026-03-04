@@ -1,0 +1,5 @@
+§2. The Characteristic Polynomial. .
+§3. Eigenvalues and Eigenvectors of Symmetric Matrices
+§4. Diagonalization of a Symmetric Linear Map. .
+§5. The Hermitian Case.
+. . . . . . . . . . .

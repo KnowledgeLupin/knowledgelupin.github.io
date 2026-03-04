@@ -1,0 +1,30 @@
+183:technique necessary to understand examples of the more abstract ideas occurring in the later chapters. Chapter 2 deals with vector spaces, subspaces, bases, and dimension.
+209:on a finite-dimensional
+226:Chapter 8 treats finite-dimensional
+356:Bases and Dimension
+3314:experience with vectors in three-dimensional
+3667:Let us consider the vector space R3. In analytic geometry, one identifies triples (x1, x2, x3) of real numbers with the points in three-dimensional
+4424:Dimension
+4427:a dimension
+4433:‘dimension’
+4438:of the dimension
+4441:the concept of a basis for the space.
+4474:Bases and Dimension
+4495:Let V be a vector space. A basis for V is a lineady
+4496:independent set of vectors in V ‘which spans the space V. The space V is finitedimensional
+4498:basis.
+4568:set S = {q, . . . , en} is accordingly a basis for Fn. We shall call this particular basis the standard
+4569:basis of P.
+4579:the field F. Then PI, . . . , P,, the columns of P, form a basis for the space
+4588:so (Pl, . . . , Pn) is a basis for Fnxl.
+4630:vectors Ej, j in J, form a basis for the solution space.
+4644:Bases and Dimension
+4648:EXAMPLE 16. We shall now give an example of an infinite basis. Let
+4655:Let 5(z) = xk, Ic = 0, 1, 2, . . . . The (infinite) set {fo, fr, fi, . . .} is a basis
+4690:We have exhibited an infinite basis for V. Does that mean that V is
+4691:not finite-dimensional?
+4694:a finite basis. That possibility is easily eliminated.
+4700:finite-dimensional.
+4713:to finitedimensional spaces from now on.
+4775:1. If V is a finite-dimensional
+4781:Since V is finite-dimensional,

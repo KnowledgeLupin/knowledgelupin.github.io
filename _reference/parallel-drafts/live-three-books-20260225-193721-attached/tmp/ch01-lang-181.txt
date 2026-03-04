@@ -1,0 +1,5 @@
+
+method. I have also omitted a discussion of elementary matrices, and
+Gauss elimination, which are thoroughly covered in my Introduction to
+Linear Algebra. Hence the first part of the present book is not a substitute for the introductory text. It is only meant to make the present book
+self contained, with a relatively quick treatment of the more basic material, and with the emphasis on the more advanced chapters. Today's

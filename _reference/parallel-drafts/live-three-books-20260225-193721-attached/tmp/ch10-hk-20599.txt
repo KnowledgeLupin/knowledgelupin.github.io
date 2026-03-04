@@ -1,0 +1,5 @@
+nalize the operators in 5, i.e., find one basis @ such that all of the matrices
+[?“]a, T in 3, are triangular
+(or diagonal). In the case of diagonalization,
+it
+is necessary that F be a commuting family of operators: UT = T U for all

@@ -1,0 +1,5 @@
+up to the general theory. We have split Chapter 8 so that the basic material
+on
+inner product spaces and unitary diagonalization
+is followed by a Chapter 9 which
+treats sesqui-linear

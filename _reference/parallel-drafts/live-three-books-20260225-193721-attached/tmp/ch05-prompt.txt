@@ -1,0 +1,187 @@
+Use $linear-algebra-chapter-writer.
+
+Task:
+Rewrite and complete chapter ch05 in file ch05-linear-maps-kernel-image.tex.
+
+Strict requirements:
+1. Output raw LaTeX chapter content only.
+2. Do not include markdown code fences or commentary.
+3. Keep Korean textbook voice with polite explanatory paragraphs.
+4. Keep formal blocks (`정의`, `정리`, `증명`) rigorous.
+5. Use full proof policy for every theorem.
+6. Include proof-strategy paragraph before each proof.
+7. Include interpretation paragraph after each proof.
+8. Include at least two warning blocks.
+9. Include at least one self-diagnosis quiz block with three or more items.
+10. Include graded exercises A/B/C with minimum counts A>=6, B>=4, C>=2.
+11. Keep chapter macros and templates compatible with preamble macros.
+12. Never copy textbook sentences verbatim.
+13. Never include visible citation tags, reference notes, or footnotes in chapter body.
+
+Repository context:
+- Chapter file: /Users/kwkwon/Desktop/Obsidian/Mathematician/github-blog/latex/linear-algebra/chapters/ch05-linear-maps-kernel-image.tex
+- Style guide: /Users/kwkwon/Desktop/Obsidian/Mathematician/github-blog/_reference/2026-02-24-linear-algebra-writing-style-guide.md
+- Project plan: /Users/kwkwon/Desktop/Obsidian/Mathematician/github-blog/_reference/2026-02-25-linear-algebra-final-plan.md
+- Preamble/macros: /Users/kwkwon/Desktop/Obsidian/Mathematician/github-blog/latex/linear-algebra/preamble.tex
+- Proof policy: full
+- Reference mode: three-books
+- Source priority: korean-ocr,hk,lang
+- Reference context path (required): /Users/kwkwon/Desktop/Obsidian/Mathematician/github-blog/_reference/parallel-drafts/live-three-books-20260225-193721-attached/references/ch05-context.md
+
+Reference usage policy:
+- Use reference context for concept flow, theorem order, and proof strategy only.
+- Rewrite all content in fresh wording.
+- Do not copy textbook phrasing.
+- Do not expose source citations in the chapter output.
+
+Reference context excerpt:
+# Reference Context for ch05
+
+- source_priority: korean-ocr,hk,lang
+- keyword_pattern: linear map|kernel|image|rank[- ]?nullity|선형사상|핵|상|랭크-널리티
+- generated_at: 2026-02-25 19:45:01 +0900
+
+## Source: korean-ocr
+### Hit line 14
+' 이 야기'를 시 작하기 에
+짐 작 하 기 에 아마도, 확인할 길은 없지만, 현재 이 MAK 에는 1000 종 이상
+가 하리라고 생 각 된다.
+의 “ 선 형 대수학” 하
+
+### Hit line 29
+저 자 는 지 금 까 지의 책 들 이 고이 모셔
+이나 고 상함 ,  sbo] Ut 패
+실 에서
+
+### Hit line 138
+주느 냐가 강 의의 point 7} 된다. (물론 이 두 종 류 의 중 간 도 상당수 있겠
+2242 때에 김
+
+### Hit line 176
+정말 우 리 말을 사랑하는 저 자 가 한글 [를 포 기 하는 데에는 적지 않은 망설
+임이 있 었 다 .『 그러나 수학 용 어 의 한 글 《[ 가 ᆞ자 기 준 동 형 사 상 " 이 나 ᆞ 먹 영 행 렬 '
+등 의 중 국 어 인지 일 본 어 인지 알 수 없는 용 어 의 ASS #\ 한 다면, BFE
+포기할 수밖에 없었다.
+
+### Hit line 191
+자`의 말씀 대
+로 “영어 단 어 에 우 리 말 로 BS 단 괴상한 2 뽑 ” 가 된 경 우 도 피할 수
+는 없었
+다. 그리고, 혹 영어 숭
+
+### Hit line 340
+였던 것이다. 어 린 이 들은 이 수십 쪽
+의 EAS 통해 가 상 세 계 의 단 어 를 이해
+하고 또 기 억 하게된 것이다. 이 책
+의 독자들 도
+
+### Hit line 402
+추상 8 직관
+[째인 언 어 의 훈
+련 ] 과 [804 이고 구체적인
+
+### Hit line 405
+[째인 언 어 의 훈
+련 ] 과 [804 이고 구체적인
+상황에 서 의 대응
+라는 상 충 된 입 장 의
+
+## Source: hk
+### Hit line 7364
+, . . . , m.
+by the images o  the standard
+
+### Hit line 8404
+rom which it  ollows that each ci = 0 because S is an independent
+This argument shows that the image o  X under T is independent.
+Suppose that T carries independent subsets onto independent subsets.
+Let a! be a non-zero vector in V. Then the set S consisting o  the one vector
+
+### Hit line 8407
+Suppose that T carries independent subsets onto independent subsets.
+Let a! be a non-zero vector in V. Then the set S consisting o  the one vector
+a is independent. The image o  S is the set consisting o  the one vector Tu,,
+and this set is independent.
+There ore TCY # 0, because the set consisting
+
+### Hit line 8828
+that is, any  inite-dimensional
+subspace o  V has the same dimension as its
+image under T. Here is a very simple illustration
+o  this idea. Suppose A
+is an m X n matrix over the  ield F. We have really given two de initions
+
+### Hit line 9954
+or some invertible
+U, let (I?, be any
+ordered basis  or V and let a3’ be its image under U. Then show that [S]a = [T]~J.)
+10. We have seen that the linear operator T on R2 de ined
+is represented in the standard ordered basis by the matrix
+
+### Hit line 12756
+Polynomials
+and since T  [T]a is a linear mapping
+[ (Ulc% = iio dU"lc5.
+
+### Hit line 17118
+T maps Mr( V) onto h’(V). In  act, in that case it is more natural  rom one
+point o  view to use the map ?rl = (l/r!)?r rather than ?r, because al is a
+projection o  W(V) onto Ar(V), i.e., a linear map o  MT(V) onto k(V)
+such that rl(L) = L i  and only i  L is in Ar(V).
+
+### Hit line 30864
+= cT   To
+so j  T  is a linear map. For each T in L( V, V) the eauation
+b, P>= P’QIP)
+
+## Source: lang
+### Hit line 161
+rapidly at the end o  the introductory course); symmetric, hermitian and
+unitary operators, as well as their spectral theorem (diagonalization);
+triangulation o  matrices and linear maps; Jordan canonical  orm; convex
+sets and the Krein-Milman theorem. One chapter also provides a complete theory o  the basic properties o  determinants. Only a partial treatment could be given in the introductory text. O  course, some parts o
+this chapter can still be omitted in a given course.
+
+### Hit line 169
+continuous  unction on a closed bounded set has a maximum) I put it at
+the end. I  such results are known to a class, the chapter can be covered
+much earlier,  or instance a ter knowing the de inition o  a linear map.
+I hope that the present book can be used  or a one-term course. The
+irst six chapters review some o  the basic notions. I looked  or e  iciency. Thus the theorem that m homogeneous linear equations in n
+
+### Hit line 249
+CHAPTER III
+Linear Mappings .
+
+### Hit line 254
+§1. Mappings . . .
+§2. Linear Mappings. .
+§3. The Kernel and Image o  a Linear Map
+§4. Composition and Inverse o  Linear Mappings . .
+
+### Hit line 255
+§1. Mappings . . .
+§2. Linear Mappings. .
+§3. The Kernel and Image o  a Linear Map
+§4. Composition and Inverse o  Linear Mappings . .
+§5. Geometric Applications. . . . . . . . . . . . . . . .
+
+### Hit line 256
+§2. Linear Mappings. .
+§3. The Kernel and Image o  a Linear Map
+§4. Composition and Inverse o  Linear Mappings . .
+§5. Geometric Applications. . . . . . . . . . . . . . . .
+
+### Hit line 268
+CHAPTER IV
+Linear Maps and Matrices. . . . . . . . . . . . .
+
+### Hit line 272
+§1. The Linear Map Associated with a Matrix. .
+§2. The Matrix Associated with a Linear Map.
+§3. Bases, Matrices, and Linear Maps . . . . . . .
+
+
+Output:
+- Return final chapter content only.
+- Do not wrap output in code fences.

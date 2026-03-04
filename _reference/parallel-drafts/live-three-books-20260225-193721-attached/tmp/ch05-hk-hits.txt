@@ -1,0 +1,9 @@
+7364:by the images of the standard
+8404:This argument shows that the image of X under T is independent.
+8407:a is independent. The image of S is the set consisting of the one vector Tu,,
+8828:image under T. Here is a very simple illustration
+9954:ordered basis for V and let a3’ be its image under U. Then show that [S]a = [T]~J.)
+12756:and since T + [T]a is a linear mapping
+17118:projection of W(V) onto Ar(V), i.e., a linear map of MT(V) onto k(V)
+30864:so j + Tf is a linear map. For each T in L( V, V) the eauation
+37085:If f is a function from X into Y, the range (or image)

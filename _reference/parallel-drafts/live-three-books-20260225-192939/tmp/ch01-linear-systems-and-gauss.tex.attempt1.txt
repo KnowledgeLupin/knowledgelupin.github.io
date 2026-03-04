@@ -1,0 +1,539 @@
+\chapter{연립일차방정식과 Gauss 소거법}
+
+\chapterintro{이 장에서는 연립일차방정식을 행렬 언어로 바꾸고, Gauss 소거법으로 해를 체계적으로 구하는 방법을 정리하겠습니다. 계산 절차를 단순히 암기하기보다, 왜 각 단계가 정당한지 함께 확인해 두시면 이후의 벡터공간·선형사상 내용을 훨씬 안정적으로 이해하실 수 있습니다.}
+
+\chaptergoals{연립일차방정식을 $A\mathbf{x}=\mathbf{b}$와 증강행렬로 정확히 표현할 수 있다.}{기본 행연산이 해집합을 보존한다는 사실을 엄밀히 설명할 수 있다.}{RREF를 이용해 해의 존재성, 유일성, 매개화 구조를 판정할 수 있다.}
+
+\sectiontemplate{연립일차방정식의 행렬 모델링}{연립일차방정식(linear system)은 여러 선형 조건을 동시에 만족하는 미지수를 찾는 문제입니다. 이 문제를 행렬 형태로 바꾸면 계산 규칙이 통일되어, 장 전체의 논리를 한 가지 언어로 다룰 수 있습니다.}{\item 연립일차방정식의 표준형을 쓸 수 있습니다.\item 계수행렬(coefficient matrix)과 증강행렬(augmented matrix)을 구분할 수 있습니다.\item 동차(homogeneous)와 비동차(inhomogeneous) 시스템을 분류할 수 있습니다.}{\item 선형결합\item 행렬곱의 좌표식}
+
+\begin{definition}
+체 $K$에서 미지수 $x_1,\dots,x_n$에 대한 $m$개의 식
+\[
+\sum_{j=1}^n a_{ij}x_j=b_i\quad(1\le i\le m)
+\]
+으로 이루어진 계를 연립일차방정식이라 한다.
+\end{definition}
+
+\begin{definition}
+위 연립일차방정식에 대하여
+\[
+A=(a_{ij})\in M_{m,n}(K),\quad \mathbf{x}=(x_1,\dots,x_n)^T,\quad \mathbf{b}=(b_1,\dots,b_m)^T
+\]
+를 두면 식은
+\[
+A\mathbf{x}=\mathbf{b}
+\]
+로 쓸 수 있다. $A$를 계수행렬, $\left(A\mid \mathbf{b}\right)$를 증강행렬이라 한다. 특히 $\mathbf{b}=\mathbf{0}$이면 동차시스템이라 한다.
+\end{definition}
+
+\paragraph{증명 전략.}
+행렬곱의 $i$번째 좌표가 $\sum_{j=1}^n a_{ij}x_j$라는 사실을 이용하여, 좌표식과 방정식 계를 항목별로 대응시킨다.
+
+\begin{theorem}
+체 $K$ 위의 연립일차방정식
+\[
+\sum_{j=1}^n a_{ij}x_j=b_i\quad(1\le i\le m)
+\]
+과 행렬식
+\[
+A\mathbf{x}=\mathbf{b}
+\]
+은 같은 해집합을 갖는다.
+\end{theorem}
+
+\begin{proof}
+$\mathbf{x}=(x_1,\dots,x_n)^T\in K^n$를 임의로 잡는다.
+
+$(\Rightarrow)$ $\mathbf{x}$가 연립일차방정식의 해라고 하자. 그러면 각 $i$에 대해
+\[
+\sum_{j=1}^n a_{ij}x_j=b_i
+\]
+가 성립한다. 따라서 행렬곱의 정의로
+\[
+(A\mathbf{x})_i=\sum_{j=1}^n a_{ij}x_j=b_i=(\mathbf{b})_i
+\]
+가 모든 $i$에 대해 성립하므로 $A\mathbf{x}=\mathbf{b}$이다.
+
+$(\Leftarrow)$ 반대로 $A\mathbf{x}=\mathbf{b}$라고 하자. 그러면 각 $i$에 대해
+\[
+\sum_{j=1}^n a_{ij}x_j=(A\mathbf{x})_i=(\mathbf{b})_i=b_i
+\]
+이므로 원래 연립일차방정식을 모두 만족한다.
+
+따라서 두 표현은 같은 해집합을 갖는다.
+\end{proof}
+
+\paragraph{의미 해석.}
+이 정리는 ``방정식 계''와 ``행렬 방정식''이 본질적으로 같은 문제라는 사실을 보장합니다. 따라서 이후에는 상황에 따라 더 편한 표현을 자유롭게 선택하셔도 됩니다.
+
+\begin{example}
+다음 연립일차방정식을 보자.
+\[
+\begin{cases}
+x_1+2x_2-x_3=3,\\
+2x_1+x_2+x_3=4,\\
+-\,x_1+x_2+2x_3=1.
+\end{cases}
+\]
+계수행렬과 증강행렬은
+\[
+A=
+\begin{bmatrix}
+1&2&-1\\
+2&1&1\\
+-1&1&2
+\end{bmatrix},\qquad
+\left(A\mid\mathbf{b}\right)=
+\left[
+\begin{array}{ccc|c}
+1&2&-1&3\\
+2&1&1&4\\
+-1&1&2&1
+\end{array}
+\right]
+\]
+이다.
+\end{example}
+
+\subsection*{주의}
+\begin{warning}
+미지수 순서를 바꾸면 행렬의 열 순서도 함께 바뀐다. 식만 바꾸고 열 순서를 유지하면 다른 시스템을 계산하게 된다.
+\end{warning}
+\begin{warning}
+증강행렬의 마지막 열은 계수열이 아니다. 랭크나 피벗을 해석할 때 계수부분과 상수부분을 구분하지 않으면 존재성 판정이 틀어진다.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item $4$개의 미지수와 $3$개의 방정식을 갖는 임의의 연립일차방정식을 하나 만들고, 계수행렬과 증강행렬을 적으시오.
+\item 동차시스템과 비동차시스템의 차이를 해집합의 형태 관점에서 설명하시오.
+\item $A\mathbf{x}=\mathbf{b}$에서 $\mathbf{b}=\mathbf{0}$일 때 $\mathbf{x}=\mathbf{0}$이 항상 해가 되는 이유를 좌표식으로 쓰시오.
+\end{enumerate}
+
+\sectiontemplate{기본 행연산과 동치시스템}{소거법의 핵심은 식을 바꾸되 해를 바꾸지 않는 변형만 사용하는 데 있습니다. 이를 보장하는 연산이 기본 행연산(elementary row operation)입니다.}{\item 세 가지 기본 행연산을 정확히 정의할 수 있습니다.\item 행연산 후에도 해집합이 보존되는 이유를 증명할 수 있습니다.\item 행동치(row equivalence)의 의미를 설명할 수 있습니다.}{\item 등식의 동치 변형\item 스칼라배와 선형결합}
+
+\begin{definition}
+다음 세 연산을 기본 행연산이라 한다.
+\begin{enumerate}[label=(\alph*)]
+\item 두 행의 교환: $R_i\leftrightarrow R_j$.
+\item 한 행의 영이 아닌 스칼라배: $R_i\leftarrow cR_i\ (c\ne 0)$.
+\item 다른 행의 스칼라배를 더하는 연산: $R_i\leftarrow R_i+cR_j\ (i\ne j)$.
+\end{enumerate}
+유한 번의 기본 행연산으로 서로 변환되는 두 행렬을 행동치라고 한다.
+\end{definition}
+
+\paragraph{증명 전략.}
+각 연산을 방정식 수준에서 해석하여 ``정방향 보존''과 ``역방향 복원''을 모두 확인한다. 한 번의 연산에 대한 결론을 얻은 뒤, 유한 번의 연산은 귀납적으로 처리한다.
+
+\begin{theorem}
+연립일차방정식의 증강행렬에 기본 행연산을 한 번 적용해 얻은 새 시스템은 원래 시스템과 같은 해집합을 갖는다. 따라서 유한 번의 기본 행연산으로 얻은 모든 시스템은 원래 시스템과 동치이다.
+\end{theorem}
+
+\begin{proof}
+원래 시스템의 방정식을 $E_1,\dots,E_m$이라 하자.
+
+(1) $R_i\leftrightarrow R_j$의 경우: 방정식의 나열 순서만 바뀐다. 해는 방정식들의 집합을 동시에 만족하는 것이므로 순서와 무관하다. 따라서 해집합이 같다.
+
+(2) $R_i\leftarrow cR_i\ (c\ne 0)$의 경우: $E_i$를 $cE_i$로 바꾼 것이다. 어떤 $\mathbf{x}$에 대해 $E_i$가 성립하면 양변에 $c$를 곱해 $cE_i$가 성립한다. 반대로 $cE_i$가 성립하면 $c\ne 0$이므로 $c^{-1}$을 곱해 $E_i$가 성립한다. 나머지 방정식은 변하지 않으므로 해집합이 같다.
+
+(3) $R_i\leftarrow R_i+cR_j\ (i\ne j)$의 경우: $E_i$를 $E_i+cE_j$로 바꾼 것이다. 원래 시스템의 해 $\mathbf{x}$는 $E_i,E_j$를 모두 만족하므로 $E_i+cE_j$도 만족한다. 반대로 새 시스템의 해 $\mathbf{x}$는 $E_j$와 $E_i+cE_j$를 만족하므로 두 식의 차를 취해 $E_i=(E_i+cE_j)-cE_j$를 얻는다. 따라서 원래 시스템도 만족한다.
+
+세 경우 모두 한 번의 행연산은 해집합을 보존한다. 유한 번의 행연산 결과는 이 사실을 단계마다 반복 적용하면 되므로, 최종 시스템도 원래 시스템과 같은 해집합을 갖는다.
+\end{proof}
+
+\paragraph{의미 해석.}
+이 정리 덕분에 우리는 계산하기 쉬운 형태로 시스템을 바꾸어도 ``문제 자체''는 바뀌지 않는다는 확신을 얻습니다. 소거법의 모든 절차는 이 보존 성질 위에 세워집니다.
+
+\begin{example}
+\[
+\left[
+\begin{array}{cc|c}
+1&1&3\\
+2&5&8
+\end{array}
+\right]
+\overset{R_2\leftarrow R_2-2R_1}{\longrightarrow}
+\left[
+\begin{array}{cc|c}
+1&1&3\\
+0&3&2
+\end{array}
+\right]
+\]
+이므로 새 시스템은
+\[
+x_1+x_2=3,\qquad 3x_2=2
+\]
+이다. 둘째 식에서 $x_2=\frac23$, 첫째 식에서 $x_1=\frac73$을 얻는다. 원래 시스템에 대입해도 같은 해가 확인된다.
+\end{example}
+
+\subsection*{주의}
+\begin{warning}
+열연산은 일반적으로 해집합을 보존하지 않는다. 연립일차방정식의 해법에서는 행연산만 사용해야 한다.
+\end{warning}
+\begin{warning}
+$R_i\leftarrow 0\cdot R_i$는 허용되지 않는다. 이 연산은 정보를 소거하여 역연산이 존재하지 않으므로 동치성이 무너진다.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item 세 가지 기본 행연산 각각의 역연산을 쓰시오.
+\item 왜 $R_i\leftarrow R_i+cR_j$에서 $i\ne j$ 조건을 둬도 이론이 충분한지 설명하시오.
+\item 두 시스템이 행동치이면 해집합이 같다는 명제를 ``한 번의 행연산 보존''만으로 논리적으로 정리하시오.
+\end{enumerate}
+
+\sectiontemplate{사다리꼴, RREF, 그리고 해의 분류}{소거가 끝난 행렬을 표준 형태로 읽을 수 있어야 해석이 쉬워집니다. 특히 기약행 사다리꼴(RREF)은 피벗과 자유변수를 즉시 드러내므로 해 구조 판정에 가장 유용합니다.}{\item REF와 RREF의 조건을 말할 수 있습니다.\item 피벗변수(pivot variable)와 자유변수(free variable)를 구분할 수 있습니다.\item RREF로 해의 존재성과 유일성을 판정할 수 있습니다.}{\item 기본 행연산\item 행렬의 행과 열 인덱스}
+
+\begin{definition}
+행렬 $R\in M_{m,n}(K)$가 다음을 만족하면 행 사다리꼴(REF)이라 한다.
+\begin{enumerate}[label=(\roman*)]
+\item 영이 아닌 각 행의 첫 비영원소(leading entry)는 바로 위 행의 leading entry보다 오른쪽에 있다.
+\item 영행은 모두 아래쪽에 모여 있다.
+\end{enumerate}
+또한 REF가 다음 조건을 추가로 만족하면 기약행 사다리꼴(RREF)이라 한다.
+\begin{enumerate}[label=(\roman*)]
+\setcounter{enumi}{2}
+\item 각 leading entry는 $1$이다.
+\item leading entry가 있는 열에서 그 leading entry 이외의 원소는 모두 $0$이다.
+\end{enumerate}
+leading entry가 있는 열을 피벗열이라 하고, 해당 미지수를 피벗변수라 한다. 피벗열이 아닌 열의 미지수를 자유변수라 한다.
+\end{definition}
+
+\paragraph{증명 전략.}
+명시적인 Gauss--Jordan 절차를 제시하고, 각 반복에서 행/열 인덱스가 단조 증가한다는 점으로 종료성을 보인다. 종료 후 얻는 형태가 RREF 조건을 정확히 만족함을 항목별로 확인한다.
+
+\begin{theorem}
+모든 행렬은 유한 번의 기본 행연산으로 어떤 RREF로 변환된다.
+\end{theorem}
+
+\begin{proof}
+$M\in M_{m,n}(K)$를 고정한다. 다음 절차를 수행한다.
+
+초기값을 $r=1$, $c=1$로 둔다.  
+반복 규칙:
+\begin{enumerate}[label=\arabic*.]
+\item $r\le m$, $c\le n$인 동안 진행한다.
+\item 열 $c$의 $r$행 이하에서 비영원소를 찾는다.
+\item 없으면 $c\leftarrow c+1$로 두고 2로 간다.
+\item 있으면 그 원소가 있는 행을 $s$라 하고 $R_r\leftrightarrow R_s$를 수행한다.
+\item 피벗 원소를 $p\ne 0$라 하면 $R_r\leftarrow p^{-1}R_r$로 leading entry를 $1$로 만든다.
+\item 모든 $i\ne r$에 대해 $R_i\leftarrow R_i-a_{ic}R_r$를 수행하여 피벗열의 나머지 원소를 $0$으로 만든다.
+\item $r\leftarrow r+1$, $c\leftarrow c+1$로 두고 1로 간다.
+\end{enumerate}
+
+이 절차의 종료성을 보이자. 반복마다 $c$는 적어도 $1$씩 증가하며 $c\le n+1$ 범위를 벗어나지 않는다. 또한 피벗을 하나 만들 때마다 $r$이 $1$ 증가하고 $r\le m+1$이다. 각 반복 안에서 수행되는 행연산 수는 유한하다. 따라서 전체 절차는 유한 단계에서 끝난다.
+
+종료 후 행렬을 $R$이라 하자. 구성상 각 피벗은 $1$이고(5단계), 피벗열의 다른 성분은 모두 $0$(6단계)이다. 새로운 피벗을 잡을 때 열 인덱스 $c$를 오른쪽으로만 이동하므로 아래 행의 피벗은 위 행보다 오른쪽에 놓인다. 또 어떤 행이 피벗을 얻지 못한 채 남는다면, 종료 시점까지 그 행 이하 부분에서 모든 열이 비영이 아님을 뜻하므로 그 행은 영행이다. 따라서 영행은 아래에 모인다. 네 조건이 모두 성립하므로 $R$은 RREF이다.
+
+모든 단계가 기본 행연산으로 이루어졌으므로 $R$은 원래 행렬과 행동치이다.
+\end{proof}
+
+\paragraph{의미 해석.}
+이 정리는 ``RREF는 계산 절차로 실제로 얻을 수 있다''는 존재 보장을 줍니다. 즉, 해석 가능한 표준형이 이론적 개념에 그치지 않고 알고리즘으로 구현됩니다.
+
+\paragraph{증명 전략.}
+RREF에서 방정식을 읽으면 피벗변수는 자유변수의 선형식으로 유일하게 결정된다. 모순행의 존재 여부가 존재성의 필요충분조건임을 양방향으로 보인다.
+
+\begin{theorem}
+증강행렬 $\left(R\mid \mathbf{d}\right)$가 RREF인 시스템을 생각하자.
+\begin{enumerate}[label=(\alph*)]
+\item 해가 없을 필요충분조건은 $\left[0\ \cdots\ 0\mid \delta\right]$ ($\delta\ne 0$) 꼴의 행이 존재하는 것이다.
+\item 해가 존재하면, 자유변수 값을 임의로 정할 때 피벗변수 값이 유일하게 정해진다.
+\item 해가 유일할 필요충분조건은 자유변수가 하나도 없는 것이다.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(a) 그러한 행이 있으면 방정식 $0=\delta$가 생겨 모순이므로 해가 없다.  
+반대로 그런 행이 없다고 하자. 그러면 증강열에 피벗이 생기지 않는다. 따라서 각 비영행의 피벗은 계수부분에 있으며, 각 피벗행은 피벗변수를 자유변수와 상수로 나타내는 식을 준다. 자유변수에 임의 값을 주면 적어도 하나의 해가 구성되므로 해가 존재한다. 따라서 모순행 존재와 무해성은 동치이다.
+
+(b) 해가 존재한다고 하자. 피벗열 집합을 $P$, 자유열 집합을 $F$라 두면, 각 $p\in P$에 대응하는 피벗행은
+\[
+x_p+\sum_{j\in F} r_{pj}x_j=d_p
+\]
+형태이다. RREF 조건 때문에 같은 피벗변수 $x_p$는 다른 행에 나타나지 않으므로, 자유변수 $x_j\ (j\in F)$가 주어지면 $x_p$는 위 식으로 정확히 하나로 정해진다.
+
+(c) 자유변수가 없으면 모든 변수가 피벗변수이므로 (b)에 의해 해가 존재할 때 유일하다. 자유변수가 하나 이상이면 그 자유변수 값을 둘 이상으로 선택할 수 있고, 그때마다 서로 다른 해가 만들어진다. 따라서 유일해가 아니다.  
+결국 유일해 $\Leftrightarrow$ 자유변수 부재가 성립한다.
+\end{proof}
+
+\paragraph{의미 해석.}
+해의 판정은 복잡한 직관이 아니라 RREF의 단순한 형태 읽기로 끝납니다. ``모순행 확인 $\to$ 자유변수 개수 확인'' 순서만 지키면 존재성과 유일성을 안정적으로 판단할 수 있습니다.
+
+\begin{example}
+다음 RREF를 보자.
+\[
+\left[
+\begin{array}{cccc|c}
+1&0&-2&0&3\\
+0&1&5&0&-1\\
+0&0&0&1&4\\
+0&0&0&0&0
+\end{array}
+\right].
+\]
+피벗변수는 $x_1,x_2,x_4$, 자유변수는 $x_3=t$이다. 따라서
+\[
+x_1=3+2t,\quad x_2=-1-5t,\quad x_4=4,\quad x_3=t
+\]
+이므로 일반해는
+\[
+\mathbf{x}=
+\begin{bmatrix}
+3\\-1\\0\\4
+\end{bmatrix}
++t
+\begin{bmatrix}
+2\\-5\\1\\0
+\end{bmatrix}
+\]
+이다.
+\end{example}
+
+\subsection*{주의}
+\begin{warning}
+피벗의 개수와 방정식의 개수는 일반적으로 다르다. 해의 자유도는 ``미지수 개수 $-$ 피벗 개수''로 계산해야 한다.
+\end{warning}
+\begin{warning}
+소거를 끝낸 뒤 바로 값을 읽기 전에 반드시 모순행 $\left[0\ \cdots\ 0\mid \delta\right]$ 존재 여부를 먼저 확인해야 한다.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item REF와 RREF의 차이를 조건 단위로 비교하여 쓰시오.
+\item 자유변수가 두 개인 일관된 시스템에서 해집합이 어떤 형태로 매개화되는지 설명하시오.
+\item 모순행이 없는 RREF에서 자유변수 값을 먼저 정해 해를 구성하는 절차를 단계별로 적으시오.
+\end{enumerate}
+
+\sectiontemplate{동차해공간과 비동차해의 매개화}{동차 문제를 이해하면 비동차 문제도 한 번에 정리됩니다. 이 절에서는 해집합을 부분공간과 평행이동 관점으로 해석하여, 계산 결과를 구조적으로 읽는 연습을 하겠습니다.}{\item 동차시스템 해집합이 부분공간임을 증명할 수 있습니다.\item 비동차해가 ``특수해 + 동차해'' 꼴임을 증명할 수 있습니다.\item 일반해를 벡터 매개화로 정리할 수 있습니다.}{\item 부분공간 판정\item 선형사상과 kernel}
+
+\begin{definition}
+$A\in M_{m,n}(K)$에 대하여
+\[
+\mathcal{N}(A)=\{\mathbf{x}\in K^n: A\mathbf{x}=\mathbf{0}\}
+\]
+를 $A$의 영공간(null space)이라 한다. 또한 $A\mathbf{x}=\mathbf{b}$의 해 $\mathbf{x}_p$를 하나 고정하면 이를 특수해(particular solution)라 한다.
+\end{definition}
+
+\paragraph{증명 전략.}
+부분공간 판정의 세 조건(영벡터 포함, 덧셈 닫힘, 스칼라곱 닫힘)을 영공간 정의에 직접 대입해 확인한다.
+
+\begin{theorem}
+$\mathcal{N}(A)$는 $K^n$의 부분공간이다.
+\end{theorem}
+
+\begin{proof}
+영벡터 $\mathbf{0}$에 대해 $A\mathbf{0}=\mathbf{0}$이므로 $\mathbf{0}\in\mathcal{N}(A)$이다.
+
+$\mathbf{u},\mathbf{v}\in\mathcal{N}(A)$이면 $A\mathbf{u}=\mathbf{0}$, $A\mathbf{v}=\mathbf{0}$이다. 선형성으로
+\[
+A(\mathbf{u}+\mathbf{v})=A\mathbf{u}+A\mathbf{v}=\mathbf{0}+\mathbf{0}=\mathbf{0}
+\]
+이므로 $\mathbf{u}+\mathbf{v}\in\mathcal{N}(A)$이다.
+
+$\alpha\in K$, $\mathbf{u}\in\mathcal{N}(A)$이면
+\[
+A(\alpha\mathbf{u})=\alpha A\mathbf{u}=\alpha\mathbf{0}=\mathbf{0}
+\]
+이므로 $\alpha\mathbf{u}\in\mathcal{N}(A)$이다.
+
+세 조건이 모두 성립하므로 $\mathcal{N}(A)$는 부분공간이다.
+\end{proof}
+
+\paragraph{의미 해석.}
+동차해집합은 단순한 해의 목록이 아니라 벡터공간 구조를 갖습니다. 따라서 기저와 차원으로 정리할 수 있고, 이후 rank-nullity 정리와 자연스럽게 연결됩니다.
+
+\paragraph{증명 전략.}
+특수해 하나를 기준점으로 잡아 임의의 해와의 차를 계산한다. 차가 영공간에 들어감을 보이고, 반대로 영공간 원소를 더하면 다시 해가 됨을 보여 양포함을 완성한다.
+
+\begin{theorem}
+$A\mathbf{x}=\mathbf{b}$가 해를 가진다고 하자. 특수해 $\mathbf{x}_p$를 하나 고정하면 해집합은
+\[
+\{\mathbf{x}\in K^n:A\mathbf{x}=\mathbf{b}\}
+=
+\mathbf{x}_p+\mathcal{N}(A)
+\]
+이다.
+\end{theorem}
+
+\begin{proof}
+먼저 좌변의 임의의 원소 $\mathbf{x}$를 잡자. 그러면
+\[
+A(\mathbf{x}-\mathbf{x}_p)=A\mathbf{x}-A\mathbf{x}_p=\mathbf{b}-\mathbf{b}=\mathbf{0}
+\]
+이므로 $\mathbf{x}-\mathbf{x}_p\in\mathcal{N}(A)$이고
+\[
+\mathbf{x}=\mathbf{x}_p+(\mathbf{x}-\mathbf{x}_p)\in \mathbf{x}_p+\mathcal{N}(A).
+\]
+따라서 좌변 $\subset$ 우변이다.
+
+반대로 우변의 임의의 원소 $\mathbf{x}_p+\mathbf{z}$를 잡고 $\mathbf{z}\in\mathcal{N}(A)$라 하자. 그러면
+\[
+A(\mathbf{x}_p+\mathbf{z})=A\mathbf{x}_p+A\mathbf{z}=\mathbf{b}+\mathbf{0}=\mathbf{b}
+\]
+이므로 $\mathbf{x}_p+\mathbf{z}$는 원래 비동차시스템의 해이다. 따라서 우변 $\subset$ 좌변이다.
+
+양포함으로 두 집합이 같다.
+\end{proof}
+
+\paragraph{의미 해석.}
+비동차 문제는 ``기준점 하나(특수해)''와 ``방향 정보(영공간)''로 완전히 분해됩니다. 그래서 실제 계산에서는 특수해 하나를 찾고 동차해 기저를 덧붙이는 방식이 가장 효율적입니다.
+
+\begin{example}
+다음 시스템을 보자.
+\[
+\begin{cases}
+x_1+2x_3=1,\\
+x_2-x_3=0,\\
+x_4=-2.
+\end{cases}
+\]
+자유변수 $x_3=t$로 두면
+\[
+x_1=1-2t,\quad x_2=t,\quad x_4=-2.
+\]
+따라서
+\[
+\mathbf{x}=
+\begin{bmatrix}
+1\\0\\0\\-2
+\end{bmatrix}
++t
+\begin{bmatrix}
+-2\\1\\1\\0
+\end{bmatrix}.
+\]
+여기서 첫 벡터는 특수해, 둘째 벡터는 영공간의 기저벡터이다.
+\end{example}
+
+\subsection*{주의}
+\begin{warning}
+특수해는 보통 유일하지 않다. 서로 다른 특수해의 차는 항상 영공간에 속하므로, 특수해가 바뀌어도 전체 해집합은 변하지 않는다.
+\end{warning}
+\begin{warning}
+비동차 문제에서 동차해를 생략하면 전체 해집합을 잃는다. 특수해 하나만 제시하는 것은 ``한 점''만 준 것이지 ``전체 해''를 준 것이 아니다.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item $\mathcal{N}(A)$가 부분공간임을 부분공간 판정 세 조건으로 직접 다시 증명하시오.
+\item $A\mathbf{x}=\mathbf{b}$의 특수해 $\mathbf{u},\mathbf{v}$에 대해 $\mathbf{u}-\mathbf{v}\in\mathcal{N}(A)$임을 보이시오.
+\item 자유변수가 $2$개인 시스템의 일반해를 ``특수해 + 기저벡터 두 개의 선형결합'' 형태로 일반식으로 쓰시오.
+\end{enumerate}
+
+\chapterapplicationtemplate{세 전류 $i_1,i_2,i_3$에 대한 단순 회로에서 키르히호프 법칙으로 연립일차방정식을 세우고, 증강행렬 소거로 해를 구해 보십시오. 이어서 계수행렬의 영공간을 계산하여 측정 오차가 있을 때 해의 민감도가 어떤 방향에서 커지는지도 해석해 보십시오.}
+
+\chaptersummarytemplate
+
+\section*{종합 연습문제}
+
+\subsection*{연습문제 A (기초 확인)}
+
+\begin{exercise}[A1]
+다음 시스템을 $A\mathbf{x}=\mathbf{b}$와 증강행렬로 각각 쓰시오.
+\[
+\begin{cases}
+2x_1-x_2+x_3=1,\\
+x_1+3x_2-2x_3=4.
+\end{cases}
+\]
+\end{exercise}
+
+\begin{exercise}[A2]
+\[
+\left[
+\begin{array}{ccc|c}
+1&2&-1&3\\
+2&1&1&4\\
+-1&1&2&1
+\end{array}
+\right]
+\]
+에 $R_2\leftarrow R_2-2R_1$, $R_3\leftarrow R_3+R_1$을 순서대로 적용하고 새 시스템을 적으시오.
+\end{exercise}
+
+\begin{exercise}[A3]
+다음 시스템의 RREF를 구하고, 해의 존재성과 유일성을 판정하시오.
+\[
+\begin{cases}
+x_1+x_2+x_3=2,\\
+2x_1+2x_2+2x_3=4,\\
+x_1-x_2+x_3=0.
+\end{cases}
+\]
+\end{exercise}
+
+\begin{exercise}[A4]
+동차시스템
+\[
+\begin{cases}
+x_1+2x_2-x_3=0,\\
+2x_1+4x_2-2x_3=0
+\end{cases}
+\]
+의 일반해를 매개변수로 구하시오.
+\end{exercise}
+
+\begin{exercise}[A5]
+다음 RREF에 해당하는 비동차시스템의 일반해를 구하시오.
+\[
+\left[
+\begin{array}{cccc|c}
+1&0&3&-1&2\\
+0&1&-2&4&-3\\
+0&0&0&0&0
+\end{array}
+\right].
+\]
+\end{exercise}
+
+\begin{exercise}[A6]
+$\mathbf{x}_p=(1,-2,0,3)^T$가 $A\mathbf{x}=\mathbf{b}$의 특수해이고
+\[
+\mathcal{N}(A)=\operatorname{span}\left\{
+\begin{bmatrix}
+1\\0\\-1\\2
+\end{bmatrix},
+\begin{bmatrix}
+0\\1\\2\\-1
+\end{bmatrix}
+\right\}
+\]
+일 때 전체 해집합을 쓰시오.
+\end{exercise}
+
+\subsection*{연습문제 B (개념 연결)}
+
+\begin{exercise}[B1]
+기본 행연산을 유한 번 적용해 얻은 두 증강행렬이 항상 같은 해집합을 갖는다는 사실을, ``한 번의 행연산 보존''만을 사용해 귀납적으로 정리하시오.
+\end{exercise}
+
+\begin{exercise}[B2]
+$A\mathbf{x}=\mathbf{b}$의 RREF에서 자유변수 개수가 $k$일 때, 해집합이 $k$개의 매개변수로 기술된다는 사실을 증명하시오.
+\end{exercise}
+
+\begin{exercise}[B3]
+체 $K$가 무한체일 때, 일관된 시스템에 자유변수가 하나 이상 있으면 해가 무한히 많음을 보이시오. 또한 $K$가 유한체일 때 해의 개수를 $|K|$와 자유변수 개수로 표현하시오.
+\end{exercise}
+
+\begin{exercise}[B4]
+다음 시스템에서 해가 존재하는 $\lambda\in\R$의 조건을 구하고, 조건이 성립할 때 일반해를 구하시오.
+\[
+\begin{cases}
+x_1+x_2+x_3=1,\\
+2x_1+2x_2+2x_3=\lambda,\\
+x_1-x_2+2x_3=0.
+\end{cases}
+\]
+\end{exercise}
+
+\subsection*{연습문제 C (증명/종합)}
+
+\begin{exercise}[C1]
+$m\times n$ 행렬 $A$와 벡터 $\mathbf{b}$에 대하여, $A\mathbf{x}=\mathbf{b}$가 해를 가지면 모든 해가 $\mathbf{x}_p+\mathcal{N}(A)$ 꼴임을 처음 정의부터 다시 완전증명하시오.
+\end{exercise}
+
+\begin{exercise}[C2]
+다음 명제를 증명하시오.  
+``$A\mathbf{x}=\mathbf{b}$의 RREF가 모순행을 갖지 않고, 계수부분의 모든 열이 피벗열이면 해는 유일하다. 반대로 해가 유일하면 계수부분의 모든 열은 피벗열이다.''
+\end{exercise}

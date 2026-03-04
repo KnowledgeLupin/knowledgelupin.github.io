@@ -1,0 +1,186 @@
+{
+  "run_id": "live-three-books-20260225-193721-attached",
+  "generated_at": "2026-02-25T21:04:43",
+  "review_type": "anti-copy manual review (round 2, near-duplicate + fuzzy)",
+  "thresholds": {
+    "hard_ratio": 0.86,
+    "soft_ratio": 0.78,
+    "soft_lcs_len": 28,
+    "min_common_tokens": 3
+  },
+  "overall": {
+    "pass_count": 16,
+    "review_needed_count": 0,
+    "review_needed_chapters": []
+  },
+  "chapters": [
+    {
+      "chapter_file": "ch01-linear-systems-and-gauss.tex",
+      "status": "pass",
+      "sentences_total": 155,
+      "sentences_tested": 149,
+      "suspicious_count": 0,
+      "max_ratio": 0.0,
+      "max_lcs_len": 0,
+      "top_suspicious": []
+    },
+    {
+      "chapter_file": "ch02-matrix-operations-invertibility-rank.tex",
+      "status": "pass",
+      "sentences_total": 98,
+      "sentences_tested": 98,
+      "suspicious_count": 0,
+      "max_ratio": 0.0,
+      "max_lcs_len": 0,
+      "top_suspicious": []
+    },
+    {
+      "chapter_file": "ch03-vector-spaces-and-subspaces.tex",
+      "status": "pass",
+      "sentences_total": 140,
+      "sentences_tested": 128,
+      "suspicious_count": 0,
+      "max_ratio": 0.0,
+      "max_lcs_len": 0,
+      "top_suspicious": []
+    },
+    {
+      "chapter_file": "ch04-basis-and-dimension.tex",
+      "status": "pass",
+      "sentences_total": 129,
+      "sentences_tested": 128,
+      "suspicious_count": 0,
+      "max_ratio": 0.0,
+      "max_lcs_len": 0,
+      "top_suspicious": []
+    },
+    {
+      "chapter_file": "ch05-linear-maps-kernel-image.tex",
+      "status": "pass",
+      "sentences_total": 101,
+      "sentences_tested": 91,
+      "suspicious_count": 0,
+      "max_ratio": 0.0,
+      "max_lcs_len": 0,
+      "top_suspicious": []
+    },
+    {
+      "chapter_file": "ch06-matrix-representation-and-similarity.tex",
+      "status": "pass",
+      "sentences_total": 104,
+      "sentences_tested": 104,
+      "suspicious_count": 0,
+      "max_ratio": 0.0,
+      "max_lcs_len": 0,
+      "top_suspicious": []
+    },
+    {
+      "chapter_file": "ch07-dual-spaces-and-transpose.tex",
+      "status": "pass",
+      "sentences_total": 136,
+      "sentences_tested": 122,
+      "suspicious_count": 0,
+      "max_ratio": 0.0,
+      "max_lcs_len": 0,
+      "top_suspicious": []
+    },
+    {
+      "chapter_file": "ch08-determinants.tex",
+      "status": "pass",
+      "sentences_total": 130,
+      "sentences_tested": 130,
+      "suspicious_count": 0,
+      "max_ratio": 0.0,
+      "max_lcs_len": 0,
+      "top_suspicious": []
+    },
+    {
+      "chapter_file": "ch09-operator-polynomials.tex",
+      "status": "pass",
+      "sentences_total": 126,
+      "sentences_tested": 125,
+      "suspicious_count": 0,
+      "max_ratio": 0.0,
+      "max_lcs_len": 0,
+      "top_suspicious": []
+    },
+    {
+      "chapter_file": "ch10-eigenvalues-and-diagonalization.tex",
+      "status": "pass",
+      "sentences_total": 108,
+      "sentences_tested": 102,
+      "suspicious_count": 0,
+      "max_ratio": 0.0,
+      "max_lcs_len": 0,
+      "top_suspicious": []
+    },
+    {
+      "chapter_file": "ch11-invariant-subspaces-and-triangularization.tex",
+      "status": "pass",
+      "sentences_total": 121,
+      "sentences_tested": 118,
+      "suspicious_count": 0,
+      "max_ratio": 0.0,
+      "max_lcs_len": 0,
+      "top_suspicious": []
+    },
+    {
+      "chapter_file": "ch12-primary-and-cyclic-decomposition.tex",
+      "status": "pass",
+      "sentences_total": 131,
+      "sentences_tested": 120,
+      "suspicious_count": 0,
+      "max_ratio": 0.0,
+      "max_lcs_len": 0,
+      "top_suspicious": []
+    },
+    {
+      "chapter_file": "ch13-jordan-canonical-form.tex",
+      "status": "pass",
+      "sentences_total": 129,
+      "sentences_tested": 129,
+      "suspicious_count": 0,
+      "max_ratio": 0.0,
+      "max_lcs_len": 0,
+      "top_suspicious": []
+    },
+    {
+      "chapter_file": "ch14-inner-product-and-orthogonalization.tex",
+      "status": "pass",
+      "sentences_total": 140,
+      "sentences_tested": 137,
+      "suspicious_count": 0,
+      "max_ratio": 0.0,
+      "max_lcs_len": 0,
+      "top_suspicious": []
+    },
+    {
+      "chapter_file": "ch15-adjoint-normal-spectral.tex",
+      "status": "pass",
+      "sentences_total": 150,
+      "sentences_tested": 148,
+      "suspicious_count": 0,
+      "max_ratio": 0.0,
+      "max_lcs_len": 0,
+      "top_suspicious": []
+    },
+    {
+      "chapter_file": "ch16-bilinear-hermitian-forms.tex",
+      "status": "pass",
+      "sentences_total": 125,
+      "sentences_tested": 122,
+      "suspicious_count": 0,
+      "max_ratio": 0.0,
+      "max_lcs_len": 0,
+      "top_suspicious": []
+    }
+  ],
+  "cross_chapter_duplication": {
+    "flagged_pair_count": 0,
+    "pairs": []
+  },
+  "notes": [
+    "Round 2 checks near-duplicate risk using token-overlap candidate search + SequenceMatcher ratio + longest common substring.",
+    "False positives can occur on canonical theorem statements or standard mathematical vocabulary."
+  ]
+}

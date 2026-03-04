@@ -1,0 +1,5 @@
+eigenvalue A, then Bv is an eigenvector of A, with eigenvalue A also if Bv #- O.
+
+VIII, §2. THE CHARACTERISTIC POLYNOMIAL
+We shall now see how we can use determinants to find the eigenvalue of
+a matrix.

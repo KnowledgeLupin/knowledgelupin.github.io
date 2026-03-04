@@ -1,0 +1,137 @@
+Use $linear-algebra-chapter-writer.
+
+Task:
+Rewrite and complete chapter ch01 in file ch01-linear-systems-and-gauss.tex.
+
+Strict requirements:
+1. Output raw LaTeX chapter content only.
+2. Do not include markdown code fences or commentary.
+3. Keep Korean textbook voice with polite explanatory paragraphs.
+4. Keep formal blocks (`정의`, `정리`, `증명`) rigorous.
+5. Use full proof policy for every theorem.
+6. Include proof-strategy paragraph before each proof.
+7. Include interpretation paragraph after each proof.
+8. Include at least two warning blocks.
+9. Include at least one self-diagnosis quiz block with three or more items.
+10. Include graded exercises A/B/C with minimum counts A>=6, B>=4, C>=2.
+11. Keep chapter macros and templates compatible with preamble macros.
+12. Never copy textbook sentences verbatim.
+13. Never include visible citation tags, reference notes, or footnotes in chapter body.
+
+Repository context:
+- Chapter file: /Users/kwkwon/Desktop/Obsidian/Mathematician/github-blog/latex/linear-algebra/chapters/ch01-linear-systems-and-gauss.tex
+- Style guide: /Users/kwkwon/Desktop/Obsidian/Mathematician/github-blog/_reference/2026-02-24-linear-algebra-writing-style-guide.md
+- Project plan: /Users/kwkwon/Desktop/Obsidian/Mathematician/github-blog/_reference/2026-02-25-linear-algebra-final-plan.md
+- Preamble/macros: /Users/kwkwon/Desktop/Obsidian/Mathematician/github-blog/latex/linear-algebra/preamble.tex
+- Proof policy: full
+- Reference mode: three-books
+- Source priority: korean-ocr,hk,lang
+- Reference context path (required): /Users/kwkwon/Desktop/Obsidian/Mathematician/github-blog/_reference/parallel-drafts/live-three-books-20260225-193621-bg2/references/ch01-context.md
+
+Reference usage policy:
+- Use reference context for concept flow, theorem order, and proof strategy only.
+- Rewrite all content in fresh wording.
+- Do not copy textbook phrasing.
+- Do not expose source citations in the chapter output.
+
+Reference context excerpt:
+# Reference Context for ch01
+
+- source_priority: korean-ocr,hk,lang
+- keyword_pattern: gauss|elimination|row[- ]?reduction|rref|linear systems|증강행렬|소거법|연립일차
+- generated_at: 2026-02-25 19:36:23 +0900
+
+## Source: korean-ocr
+### Hit line 937
+제 12 Bax} Gauss 소거법
+
+### Hit line 942
+Leds MMOGs oo esi see sues Home nome oie ES REEDS 1
+1.2. Gaussian Elimination .
+
+### Hit line 1406
+Ml 1 2 행 렬
+과 Gauss 소거법
+수학 과목 의 A 강의 에는 이
+
+### Hit line 1478
+제 1 장 행 렬 과 GAUSS 소거법
+
+### Hit line 1664
+겠 다고 다두지 않는다.
+제 1 장 행 렬과 GAUSS 소거법
+
+### Hit line 1825
+행 렬과 GAUSS 소거법
+연 습 문제 1.1.6. 4" = 0  or some r > 1] square matrix 를 nilpotent
+
+### Hit line 1966
+제 1 장 행 렬과 GAUSS 소거법
+명 하라.
+
+### Hit line 2114
+Ml 12 Bax GAUSS 소거법
+연 습 문제 1.1.18. O(n) = {Ae Mr n( R)|A is invertible and A~! = At} B 정
+
+## Source: hk
+### Hit line 917
+Perhaps the most  undamental
+technique  or  inding the solutions
+o  a system o  linear equations is the technique o  elimination.
+illustrate this technique on the homogeneous system
+
+### Hit line 1002
+also be a solution o  this new equation. This is the  undamental
+the elimination
+process. I  we have another system o  linear equations
+
+### Hit line 1047
+same solutions.
+I  the elimination
+process is to be e  ective
+in  inding
+
+### Hit line 6393
+are any r scalars, there is one and only one vector p in W which has ci as
+its k&h coordinate.
+The signi icant point here is this: Given the vectors ai, row-reduction
+is a straight orward
+method o  determining
+
+### Hit line 10524
+In other words, we are seeking the subspace annihilated
+by  i, . . . ,  m.
+Row-reduction
+o  the coe  icient matrix provides us with a systematic
+method o   inding this subspace. The n-tuple (Ail, . . . , Ai,) gives the
+
+### Hit line 10573
+that is, that (cl, . . . , c,) be a solution o  the system AX = 0. From this
+point o  view, row-reduction
+gives us a systematic method o   inding the
+annihilator
+
+## Source: lang
+### Hit line 181
+method. I have also omitted a discussion o  elementary matrices, and
+Gauss elimination, which are thoroughly covered in my Introduction to
+Linear Algebra. Hence the  irst part o  the present book is not a substitute  or the introductory text. It is only meant to make the present book
+sel  contained, with a relatively quick treatment o  the more basic material, and with the emphasis on the more advanced chapters. Today's
+
+### Hit line 1801
+O  course, to solve explicitly a system o  linear equations, we have so
+ar no other method than the elementary method o  elimination  rom elementary school. Some computational aspects o  solving linear equations
+are discussed at length in my Introduction to Linear Algebra, and will
+not be repeated here.
+
+### Hit line 7050
+need o  a method to determine when vectors are linearly independent.
+Up to now, the only method available to us was to solve a system o
+linear equations by the elimination method. In this chapter, we shall
+exhibit a very e  icient computational method to solve linear equations,
+and determine when vectors are linearly independent.
+
+
+Output:
+- Return final chapter content only.
+- Do not wrap output in code fences.

@@ -1,0 +1,30 @@
+630:과 unitary group o] 관한 내 용 들은 기 존 의 선 형 대수학 교
+1098:Adjoint: Matix. «ac c2as.eun tea wn
+1219:Orthogonal Group 과 Unitary Group
+1223:Adjoint Matrix 2} 2-9-8 2... ee
+1357:H-Identification 과 Adjoint Operator... ........... 439
+1359:제 15 2 Spectral Theorem
+13985:는 것을 알 수 있다. Adjoint 1 ᄆ 811& 를 이용하는 [정리 6.4.7 의 두
+14902:6.7. Adjoint Matrix
+14906:adjoint matrix 의 motivation
+14923:(classical) adjoint matrix 라고 부른다?!
+14969:6.7. ADJOINT MATRIX
+15097:정리 6.7.22} adjoint matrix 의 올해 역 할 은 여
+16515:지가 더 알려져 있다. Adjoint
+24765:10.6. Orthogonal Group 과 Unitary Group
+24800:기하 고, [unitary group on V with respect to (,)]
+24805:U(V)2] 원 소 를 unitary 0000[0 라
+24838:31 모든 rigid motion 이 unitary operator?! 것은 아니다. 연
+24847:10.6. ORTHOGONAL GROUP 과 UNITARY GROUP
+24853:다음 순서는 unitary matrix 의 개 념 을 정
+24866:하고, 이를 (complex) unitary 61948 이라고 부른다. 그리고. U(n) 2]
+24869:원 소 를 (complex) unitary 080018 라
+24945:그러므로. 이번에도 orthogonal/unitary operatorE 거 리 와 길이, 그리고
+24948:810.5 의 language S 사 용 하여 멋을 좀 부리면. orthogonal /unitary operator
+24966:10.6. ORTHOGONAIL GROUP 과 UNITARY GROUP
+24980:로 표 기 하고, A*S 4 의 adjoint matrix +3) 부른다. (4 9), (KR) 일 때에
+24991:찰 9.3.6 의 unitary version
+25018:3986.72] classical adjoint = 전혀관련 이 없다.
+25064:은 이제 익 숙 하다. 물론 SU(n) 2] 이 름은 506 디 리 unitary group.
+25102:10.7. ADJOINT MATRIX 와 그 응용
+25106:10.7. Adjoint Matrix 와 그 응용

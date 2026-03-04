@@ -1,0 +1,667 @@
+\chapter{내적공간과 직교화}
+
+\chapterintro{이 장에서는 선형대수에 길이와 각도를 도입하는 내적공간을 다룹니다. 먼저 내적의 공리와 기본 부등식을 정리한 뒤, Gram--Schmidt 직교화로 정규직교기저를 구성하겠습니다. 이어서 직교여공간, 직교투영, 최소제곱을 하나의 흐름으로 연결하여 과잉결정 선형시스템의 표준 해법까지 완성하겠습니다.}
+\chaptergoals{내적공간의 기본 정리(Cauchy--Schwarz, 직교분해)를 엄밀히 증명하고 적용할 수 있다.}{Gram--Schmidt 직교화와 QR 분해를 계산 절차로 수행할 수 있다.}{직교투영과 최소제곱의 동치 구조를 이해하고 정상방정식을 해석할 수 있다.}
+
+\sectiontemplate{내적의 공리와 기본 부등식}{이 절에서는 내적공간의 출발점이 되는 공리와 표준 부등식을 정리합니다. 이후 절에서 등장하는 직교화와 투영의 모든 계산은 여기서 얻는 부등식 위에서 작동합니다.}{\item 내적의 공리를 정확히 진술할 수 있습니다.\item 노름과 직교의 정의를 내적과 연결할 수 있습니다.\item Cauchy--Schwarz 부등식과 삼각부등식을 증명할 수 있습니다.}{\item 벡터공간 공리\item 복소수 켤레\item 선형결합과 일차독립}
+
+\begin{definition}
+체가 $\R$ 또는 $\C$인 벡터공간 $V$에서 함수 $\langle\cdot,\cdot\rangle:V\times V\to\mathbb{F}$가 다음을 만족하면 내적(inner product)이라 한다.
+\begin{enumerate}[label=\arabic*.]
+\item $\langle ax_1+bx_2,y\rangle=a\langle x_1,y\rangle+b\langle x_2,y\rangle$
+\item $\langle x,ay_1+by_2\rangle=\overline{a}\langle x,y_1\rangle+\overline{b}\langle x,y_2\rangle$
+\item $\langle x,y\rangle=\overline{\langle y,x\rangle}$
+\item $x\neq0$이면 $\langle x,x\rangle>0$
+\end{enumerate}
+\end{definition}
+
+\begin{definition}
+내적공간 $V$에서
+$$\|x\|:=\sqrt{\langle x,x\rangle},\qquad d(x,y):=\|x-y\|$$
+를 각각 노름(norm), 거리(distance)라 한다. 또한 $\langle x,y\rangle=0$이면 $x$와 $y$가 직교(orthogonal)한다고 한다.
+\end{definition}
+
+\begin{theorem}[Cauchy--Schwarz 부등식]
+내적공간 $V$의 임의의 $x,y\in V$에 대하여
+$$|\langle x,y\rangle|\le \|x\|\,\|y\|$$
+가 성립한다. 또한 등호는 $x,y$가 일차종속일 때 그리고 그때에만 성립한다.
+\end{theorem}
+
+\paragraph{증명 전략.}
+비음수량 $\|x-\alpha y\|^2$를 적절한 $\alpha$에 대해 전개하면 내적의 절댓값을 포함한 이차식이 나옵니다. 그중 $\alpha=\langle x,y\rangle/\langle y,y\rangle$를 대입해 교차항을 소거하면 원하는 부등식이 바로 얻어집니다.
+
+\begin{proof}
+$y=0$이면 부등식은 자명하다. 이제 $y\neq0$이라 하자. 임의의 $\alpha\in\mathbb{F}$에 대해
+\[
+0\le \|x-\alpha y\|^2
+=\langle x-\alpha y,x-\alpha y\rangle
+=\|x\|^2-\alpha\langle y,x\rangle-\overline{\alpha}\langle x,y\rangle+|\alpha|^2\|y\|^2.
+\]
+$\alpha=\dfrac{\langle x,y\rangle}{\|y\|^2}$를 택하면
+\[
+0\le \|x\|^2-\frac{|\langle x,y\rangle|^2}{\|y\|^2},
+\]
+따라서
+\[
+|\langle x,y\rangle|^2\le \|x\|^2\|y\|^2.
+\]
+양변이 음이 아니므로 제곱근을 취해
+\[
+|\langle x,y\rangle|\le \|x\|\,\|y\|
+\]
+를 얻는다.
+
+등호 성립 조건을 보이자. 위 전개에서 등호는 $\|x-\alpha y\|^2=0$일 때와 동치이고, 이는 $x=\alpha y$와 동치이다. 즉 $x,y$가 일차종속이면 등호가 성립한다. 반대로 등호가 성립하면 위의 선택한 $\alpha$에 대해 $\|x-\alpha y\|^2=0$이므로 $x=\alpha y$이다. 따라서 일차종속과 정확히 동치이다.
+\end{proof}
+
+\paragraph{의미 해석.}
+이 정리는 내적이 만들어내는 ``각도'' 개념이 항상 일관됨을 보장합니다. 특히 $\dfrac{|\langle x,y\rangle|}{\|x\|\|y\|}\le1$이므로 코사인 값이 정의되고, 이후 직교화 과정에서 투영 계수가 안정적으로 계산됩니다.
+
+\begin{theorem}[삼각부등식과 평행사변형 법칙]
+임의의 $x,y\in V$에 대하여
+\[
+\|x+y\|\le \|x\|+\|y\|
+\]
+및
+\[
+\|x+y\|^2+\|x-y\|^2=2\|x\|^2+2\|y\|^2
+\]
+가 성립한다.
+\end{theorem}
+
+\paragraph{증명 전략.}
+삼각부등식은 $\|x+y\|^2$를 전개한 뒤 실수부를 Cauchy--Schwarz로 제어하면 얻어집니다. 평행사변형 법칙은 $\|x+y\|^2$, $\|x-y\|^2$를 각각 전개해 교차항이 상쇄되는 구조를 이용합니다.
+
+\begin{proof}
+먼저
+\[
+\|x+y\|^2
+=\langle x+y,x+y\rangle
+=\|x\|^2+2\operatorname{Re}\langle x,y\rangle+\|y\|^2.
+\]
+따라서
+\[
+\|x+y\|^2
+\le \|x\|^2+2|\langle x,y\rangle|+\|y\|^2
+\le \|x\|^2+2\|x\|\,\|y\|+\|y\|^2
+=(\|x\|+\|y\|)^2.
+\]
+양변의 제곱근을 취하면 삼각부등식이 성립한다.
+
+다음으로
+\[
+\|x+y\|^2=\|x\|^2+2\operatorname{Re}\langle x,y\rangle+\|y\|^2,
+\]
+\[
+\|x-y\|^2=\|x\|^2-2\operatorname{Re}\langle x,y\rangle+\|y\|^2.
+\]
+두 식을 더하면 교차항이 소거되어
+\[
+\|x+y\|^2+\|x-y\|^2=2\|x\|^2+2\|y\|^2
+\]
+를 얻는다.
+\end{proof}
+
+\paragraph{의미 해석.}
+삼각부등식은 내적공간이 거리공간으로 작동한다는 핵심 조건입니다. 평행사변형 법칙은 노름이 내적에서 유도되었음을 판정하는 중요한 신호이며, 이후 직교분해에서 피타고라스 관계를 사용할 수 있는 근거가 됩니다.
+
+\begin{example}
+$V=\C^2$에 표준 내적
+\[
+\langle (z_1,z_2),(w_1,w_2)\rangle=z_1\overline{w_1}+z_2\overline{w_2}
+\]
+를 주자. $x=(1+i,2)$, $y=(2,i)$이면
+\[
+\langle x,y\rangle=(1+i)\cdot2+2\cdot(-i)=2,
+\]
+\[
+\|x\|=\sqrt{|1+i|^2+|2|^2}=\sqrt{6},\qquad
+\|y\|=\sqrt{|2|^2+|i|^2}=\sqrt{5}.
+\]
+따라서
+\[
+|\langle x,y\rangle|=2\le \sqrt{30}=\|x\|\,\|y\|
+\]
+로 Cauchy--Schwarz가 확인된다.
+\end{example}
+
+\subsection*{주의}
+\begin{warning}
+복소수 내적에서 어느 변수가 선형이고 어느 변수가 켤레선형인지 약속을 바꾸면 투영 계수 공식이 달라진다. 장 전체에서 약속을 고정해야 한다.
+\end{warning}
+\begin{warning}
+$\|x\|=0\Rightarrow x=0$은 양의정부호에서 직접 따라오며, 단순한 계산 규칙이 아니다. 이 사실을 놓치면 직교분해의 유일성 증명에서 논리가 끊긴다.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item $\R^3$의 표준 내적에서 $\|(1,2,-2)\|$와 $\langle (1,2,-2),(2,-1,0)\rangle$를 계산하십시오.
+\item Cauchy--Schwarz 부등식의 등호 조건이 ``일차종속''과 동치임을 자신의 언어로 다시 설명하십시오.
+\item 평행사변형 법칙을 이용하여 $\|x+y\|^2$를 $\|x\|,\|y\|,\|x-y\|$로 표현해 보십시오.
+\end{enumerate}
+
+\sectiontemplate{Gram--Schmidt 직교화와 정규직교기저}{직교화는 ``아무 기저''를 ``계산이 쉬운 기저''로 바꾸는 과정입니다. 이 절에서는 절차 자체를 정리로 증명하고, 유한차원 내적공간에서 정규직교기저가 항상 존재함을 확인하겠습니다.}{\item Gram--Schmidt 직교화 과정을 엄밀히 수행할 수 있습니다.\item 직교화 과정에서 span 보존이 왜 중요한지 설명할 수 있습니다.\item 유한차원 내적공간의 정규직교기저 존재를 증명할 수 있습니다.}{\item 일차독립과 span\item Cauchy--Schwarz 부등식\item 노름과 직교}
+
+\begin{definition}
+벡터열 $\{u_1,\dots,u_k\}\subset V$가
+\[
+\langle u_i,u_j\rangle=0\quad(i\neq j)
+\]
+를 만족하면 직교집합(orthogonal set)이라 하고, 추가로 $\|u_i\|=1$을 모두 만족하면 정규직교집합(orthonormal set)이라 한다.
+\end{definition}
+
+\begin{theorem}[Gram--Schmidt 직교화]
+내적공간 $V$의 일차독립 벡터열 $v_1,\dots,v_n$에 대하여
+\[
+u_1=v_1,\qquad
+u_k=v_k-\sum_{j=1}^{k-1}\frac{\langle v_k,u_j\rangle}{\langle u_j,u_j\rangle}u_j\quad(k\ge2)
+\]
+로 정의하면 다음이 성립한다.
+\begin{enumerate}[label=\arabic*.]
+\item $u_1,\dots,u_n$은 서로 직교하고 각 $u_k\neq0$이다.
+\item 각 $k$에 대해 $\operatorname{span}(v_1,\dots,v_k)=\operatorname{span}(u_1,\dots,u_k)$이다.
+\item $e_k:=u_k/\|u_k\|$로 두면 $e_1,\dots,e_n$은 정규직교집합이며 같은 부분공간 사슬을 생성한다.
+\end{enumerate}
+\end{theorem}
+
+\paragraph{증명 전략.}
+점화식이 ``이전 성분을 투영으로 제거''한다는 구조를 이용합니다. 직교성은 내적 계산으로 직접 확인하고, $u_k\neq0$은 원래 벡터열의 일차독립성과 모순을 통해 보입니다. span 보존은 양방향 포함관계로 정리합니다.
+
+\begin{proof}
+$k=1$일 때 $u_1=v_1\neq0$이다. $k\ge2$로 가정하고 $i<k$를 택하면
+\[
+\langle u_k,u_i\rangle
+=
+\left\langle
+v_k-\sum_{j=1}^{k-1}\frac{\langle v_k,u_j\rangle}{\langle u_j,u_j\rangle}u_j,\,
+u_i
+\right\rangle
+=
+\langle v_k,u_i\rangle
+-\sum_{j=1}^{k-1}\frac{\langle v_k,u_j\rangle}{\langle u_j,u_j\rangle}\langle u_j,u_i\rangle.
+\]
+귀납가정으로 $u_1,\dots,u_{k-1}$가 서로 직교하므로 $\langle u_j,u_i\rangle=0$ ($j\neq i$), $\langle u_i,u_i\rangle\neq0$이다. 따라서 위 식은
+\[
+\langle u_k,u_i\rangle
+=
+\langle v_k,u_i\rangle
+-\frac{\langle v_k,u_i\rangle}{\langle u_i,u_i\rangle}\langle u_i,u_i\rangle
+=0
+\]
+이 된다. 즉 $u_k$는 이전 모든 $u_i$와 직교한다.
+
+이제 $u_k=0$이라고 가정하면
+\[
+v_k=\sum_{j=1}^{k-1}\frac{\langle v_k,u_j\rangle}{\langle u_j,u_j\rangle}u_j
+\in\operatorname{span}(u_1,\dots,u_{k-1})
+=\operatorname{span}(v_1,\dots,v_{k-1}),
+\]
+이는 $v_1,\dots,v_n$의 일차독립성과 모순이다. 따라서 $u_k\neq0$이다.
+
+span 보존을 보이자. 점화식으로 $u_k\in\operatorname{span}(v_1,\dots,v_k)$이므로
+\[
+\operatorname{span}(u_1,\dots,u_k)\subset\operatorname{span}(v_1,\dots,v_k).
+\]
+반대로 점화식을 정리하면
+\[
+v_k=u_k+\sum_{j=1}^{k-1}\frac{\langle v_k,u_j\rangle}{\langle u_j,u_j\rangle}u_j
+\in\operatorname{span}(u_1,\dots,u_k),
+\]
+따라서
+\[
+\operatorname{span}(v_1,\dots,v_k)\subset\operatorname{span}(u_1,\dots,u_k).
+\]
+양방향 포함으로 두 span이 같다. 마지막으로 $e_k=u_k/\|u_k\|$는 정규화이므로 직교성과 span을 보존한다.
+\end{proof}
+
+\paragraph{의미 해석.}
+이 정리는 ``기하적으로 독립인 방향''을 순차적으로 추출하는 표준 알고리즘을 제공합니다. 이후 직교투영 공식, QR 분해, 최소제곱해 계산은 모두 이 절차를 선형대수적으로 재해석한 결과입니다.
+
+\begin{theorem}[정규직교기저의 존재]
+유한차원 내적공간 $V$는 정규직교기저(orthonormal basis)를 가진다.
+\end{theorem}
+
+\paragraph{증명 전략.}
+유한차원이므로 임의의 기저를 먼저 고른 다음 Gram--Schmidt 직교화를 적용합니다. 직교화가 span을 보존하므로 얻어진 정규직교집합이 전체 공간을 생성한다는 점이 핵심입니다.
+
+\begin{proof}
+$\dim V=n$이라 하고 임의의 기저 $v_1,\dots,v_n$을 택한다. 이전 정리에 의해 $v_1,\dots,v_n$에서 생성된 $u_1,\dots,u_n$은 서로 직교하고 모두 영이 아니며
+\[
+\operatorname{span}(u_1,\dots,u_n)=\operatorname{span}(v_1,\dots,v_n)=V.
+\]
+각 $i$에 대해 $e_i=u_i/\|u_i\|$로 두면 $\|e_i\|=1$이고 $e_i$들은 서로 직교한다. 따라서 $e_1,\dots,e_n$은 정규직교집합이며 같은 span을 가지므로 $V$의 기저이다.
+\end{proof}
+
+\paragraph{의미 해석.}
+유한차원 내적공간에서는 항상 좌표계를 ``길이 1이고 서로 수직''인 형태로 선택할 수 있습니다. 이 사실이 성립하기 때문에 내적공간 계산은 표준좌표처럼 단순한 내적합 계산으로 환원됩니다.
+
+\begin{example}
+$\R^3$의 벡터열
+\[
+v_1=(1,1,0),\quad v_2=(1,0,1),\quad v_3=(0,1,1)
+\]
+에 Gram--Schmidt를 적용하자.
+\[
+e_1=\frac{1}{\sqrt2}(1,1,0),\qquad
+e_2=\frac{1}{\sqrt6}(1,-1,2),\qquad
+e_3=\frac{1}{\sqrt3}(-1,1,1)
+\]
+을 얻으며, $\{e_1,e_2,e_3\}$는 $\R^3$의 정규직교기저가 된다.
+\end{example}
+
+\subsection*{주의}
+\begin{warning}
+직교화 도중 어떤 $u_k$가 $0$이 되면 계산 실수가 아니라 원래 벡터열이 일차종속이라는 신호이다. 입력 데이터의 독립성을 먼저 점검해야 한다.
+\end{warning}
+\begin{warning}
+각 단계에서 ``이전 벡터들에 대한 투영''을 모두 빼야 한다. 일부 성분만 제거하면 직교성이 깨지고, 뒤 단계의 계수 전체가 연쇄적으로 오염된다.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item Gram--Schmidt의 $k$번째 단계에서 왜 분모 $\langle u_j,u_j\rangle$가 0이 될 수 없는지 설명하십시오.
+\item 직교집합이 자동으로 일차독립이 되는 이유를 증명해 보십시오.
+\item $\R^3$의 벡터열 $(1,0,1),(1,1,0),(0,1,1)$에 대해 첫 두 단계만 직접 계산해 보십시오.
+\end{enumerate}
+
+\sectiontemplate{직교여공간과 직교투영}{이 절에서는 부분공간을 직교 방향으로 분해하는 구조를 다룹니다. 직교분해 정리를 통해 ``벡터를 부분공간 성분 + 수직 성분''으로 유일하게 나누고, 이때 얻어지는 성분이 최적근사를 준다는 사실을 증명하겠습니다.}{\item 직교여공간의 정의와 기본 성질을 설명할 수 있습니다.\item $V=W\oplus W^\perp$ 직교분해를 완전증명할 수 있습니다.\item 직교투영이 최적근사를 준다는 정리를 사용할 수 있습니다.}{\item 정규직교기저 존재\item Gram--Schmidt 직교화\item 피타고라스 항등식}
+
+\begin{definition}
+내적공간 $V$의 부분공간 $W$에 대하여
+\[
+W^\perp:=\{x\in V:\langle x,w\rangle=0\ \text{for all }w\in W\}
+\]
+를 $W$의 직교여공간(orthogonal complement)이라 한다.
+\end{definition}
+
+\begin{theorem}[직교분해 정리]
+유한차원 내적공간 $V$와 부분공간 $W$에 대하여 다음이 성립한다.
+\begin{enumerate}[label=\arabic*.]
+\item 임의의 $v\in V$는 유일하게 $v=w+z$ ($w\in W,\ z\in W^\perp$)로 쓸 수 있다.
+\item $V=W\oplus W^\perp$.
+\item $\dim V=\dim W+\dim W^\perp$ 및 $(W^\perp)^\perp=W$.
+\end{enumerate}
+\end{theorem}
+
+\paragraph{증명 전략.}
+$W$의 정규직교기저를 먼저 만들고 이를 $V$의 정규직교기저로 확장합니다. 그러면 계수 분해만으로 존재성과 유일성이 동시에 정리됩니다. 차원 공식과 이중여공간 식은 포함관계와 차원 계산으로 마무리합니다.
+
+\begin{proof}
+$\dim W=k$, $\dim V=n$이라 하자. $W$의 정규직교기저 $e_1,\dots,e_k$를 잡는다. 이를 어떤 기저 확장으로 $e_1,\dots,e_k,v_{k+1},\dots,v_n$이라 두고, 이 순서에 Gram--Schmidt를 적용하면 앞의 $e_1,\dots,e_k$는 그대로 유지되면서 $V$의 정규직교기저
+\[
+e_1,\dots,e_k,e_{k+1},\dots,e_n
+\]
+를 얻는다.
+
+임의의 $v\in V$를
+\[
+v=\sum_{i=1}^n c_i e_i
+\]
+로 쓰고
+\[
+w:=\sum_{i=1}^k c_i e_i,\qquad
+z:=\sum_{i=k+1}^n c_i e_i
+\]
+로 두면 $w\in W$, $v=w+z$이다. 또한 임의의 $u=\sum_{j=1}^k d_j e_j\in W$에 대해
+\[
+\langle z,u\rangle
+=\sum_{i=k+1}^n\sum_{j=1}^k c_i\overline{d_j}\langle e_i,e_j\rangle
+=0
+\]
+이므로 $z\in W^\perp$이다. 따라서 존재성이 증명되었다.
+
+유일성을 보이자. $v=w_1+z_1=w_2+z_2$ ($w_i\in W,\ z_i\in W^\perp$)이면
+\[
+w_1-w_2=-(z_1-z_2)\in W\cap W^\perp.
+\]
+$x\in W\cap W^\perp$이면 $\langle x,x\rangle=0$이므로 $x=0$. 따라서 $w_1=w_2$, $z_1=z_2$이다.
+
+이제 $V=W+W^\perp$와 $W\cap W^\perp=\{0\}$이므로 $V=W\oplus W^\perp$이다.
+
+또한 $W^\perp=\operatorname{span}(e_{k+1},\dots,e_n)$임을 보이면 된다. 한 포함은 이미 명백하다. 반대로 $y\in W^\perp$라 하고 $y=\sum_{i=1}^n \alpha_i e_i$라 쓰면, $j\le k$에 대해
+\[
+0=\langle y,e_j\rangle=\alpha_j.
+\]
+따라서 $y=\sum_{i=k+1}^n\alpha_i e_i$이므로 원하는 포함이 성립한다. 결국
+\[
+\dim W^\perp=n-k,\qquad \dim V=\dim W+\dim W^\perp.
+\]
+
+마지막으로 $W\subset (W^\perp)^\perp$는 자명하다. 한편
+\[
+\dim (W^\perp)^\perp = n-\dim W^\perp = n-(n-k)=k=\dim W.
+\]
+포함과 차원이 같으므로 $(W^\perp)^\perp=W$이다.
+\end{proof}
+
+\paragraph{의미 해석.}
+이 정리는 유한차원 내적공간의 핵심 구조 정리입니다. 부분공간 $W$를 고르면 나머지 정보가 자동으로 $W^\perp$에 정리되어, 임의 벡터를 ``관심 성분 + 오차 성분''으로 정확히 분해할 수 있습니다.
+
+\begin{theorem}[직교투영과 최적근사]
+유한차원 내적공간 $V$의 부분공간 $W$와 $v\in V$를 택하자. $W$의 정규직교기저를 $e_1,\dots,e_k$라 하면
+\[
+P_W(v):=\sum_{i=1}^k \langle v,e_i\rangle e_i
+\]
+는 $W$로의 직교투영(orthogonal projection)이며 다음이 성립한다.
+\begin{enumerate}[label=\arabic*.]
+\item $P_W(v)\in W$, $v-P_W(v)\in W^\perp$.
+\item 임의의 $w\in W$에 대해
+\[
+\|v-w\|^2=\|v-P_W(v)\|^2+\|P_W(v)-w\|^2.
+\]
+\item $\|v-w\|$를 최소로 하는 $w\in W$는 유일하며 $w=P_W(v)$이다.
+\end{enumerate}
+\end{theorem}
+
+\paragraph{증명 전략.}
+투영 공식은 정규직교기저의 좌표공식으로 직접 확인합니다. 그 다음 오차벡터와 보정벡터가 서로 직교함을 보여 피타고라스 분해를 얻고, 최소성은 제곱노름 분해식의 두 번째 항 비음수성으로 결론냅니다.
+
+\begin{proof}
+$P_W(v)$가 $W$의 기저 벡터 선형결합이므로 $P_W(v)\in W$이다. 또한 $j=1,\dots,k$에 대해
+\[
+\langle v-P_W(v),e_j\rangle
+=\langle v,e_j\rangle-\sum_{i=1}^k\langle v,e_i\rangle\langle e_i,e_j\rangle
+=\langle v,e_j\rangle-\langle v,e_j\rangle=0.
+\]
+따라서 $v-P_W(v)\in W^\perp$.
+
+이제 임의의 $w\in W$에 대해 $P_W(v)-w\in W$이므로
+\[
+\langle v-P_W(v),\,P_W(v)-w\rangle=0.
+\]
+따라서
+\[
+v-w=\bigl(v-P_W(v)\bigr)+\bigl(P_W(v)-w\bigr)
+\]
+는 직교합이고,
+\[
+\|v-w\|^2=\|v-P_W(v)\|^2+\|P_W(v)-w\|^2
+\]
+가 된다.
+
+마지막 식에서 두 번째 항은 항상 $\ge0$이므로
+\[
+\|v-w\|^2\ge \|v-P_W(v)\|^2
+\]
+이며, 등호는 $\|P_W(v)-w\|=0$, 즉 $w=P_W(v)$일 때 그리고 그때에만 성립한다. 따라서 최소점은 유일하다.
+\end{proof}
+
+\paragraph{의미 해석.}
+직교투영은 단순한 좌표 계산이 아니라 ``가장 가까운 벡터''를 선택하는 최적화 연산입니다. 이 관점이 그대로 최소제곱 해석으로 이어지며, 데이터 적합 문제를 기하적으로 이해하게 해 줍니다.
+
+\begin{example}
+$\R^3$에서 $W=\operatorname{span}\{(1,1,1)\}$, $v=(2,1,0)$라 하자. $e=\dfrac{1}{\sqrt3}(1,1,1)$이면
+\[
+P_W(v)=\langle v,e\rangle e
+=\frac{2+1+0}{\sqrt3}\cdot \frac{1}{\sqrt3}(1,1,1)
+=(1,1,1).
+\]
+따라서 잔차는
+\[
+r=v-P_W(v)=(1,0,-1),\qquad \langle r,(1,1,1)\rangle=0
+\]
+이므로 실제로 직교분해가 확인된다.
+\end{example}
+
+\subsection*{주의}
+\begin{warning}
+벡터공간의 임의의 여공간(complement)과 직교여공간은 다르다. 직교여공간은 내적 구조가 추가될 때만 정해지는 특수한 여공간이다.
+\end{warning}
+\begin{warning}
+$P_W(v)=\sum\langle v,e_i\rangle e_i$ 공식은 $e_i$가 정규직교기저일 때만 바로 쓸 수 있다. 일반 기저에서는 그람행렬 역행렬이 필요하다.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item $W=\operatorname{span}\{(1,0,1),(0,1,1)\}\subset\R^3$에 대해 $W^\perp$를 구하십시오.
+\item 직교분해의 유일성에서 왜 $W\cap W^\perp=\{0\}$가 핵심인지 설명하십시오.
+\item 임의의 $v$에 대해 $\|v\|^2=\|P_W(v)\|^2+\|v-P_W(v)\|^2$를 증명하십시오.
+\end{enumerate}
+
+\sectiontemplate{최소제곱과 QR 분해}{이 절에서는 과잉결정 시스템 $Ax\approx b$를 직교투영 문제로 바꾸어 해석합니다. 정상방정식, QR 분해, 수치적으로 안정한 계산 절차가 하나의 이론으로 연결되는 과정을 확인하겠습니다.}{\item 최소제곱해와 정상방정식의 동치를 증명할 수 있습니다.\item 열독립 조건에서 해의 유일성과 공식을 유도할 수 있습니다.\item QR 분해의 존재와 유일성을 증명하고 계산에 적용할 수 있습니다.}{\item 직교투영 정리\item 열공간과 행렬곱\item Gram--Schmidt 직교화}
+
+\begin{definition}
+$A\in M_{m,n}(\R)$, $b\in\R^m$에 대해
+\[
+\min_{x\in\R^n}\|Ax-b\|
+\]
+를 최소제곱 문제(least squares problem)라 하고, 최소값을 만드는 $\hat x$를 최소제곱해라 한다.
+\end{definition}
+
+\begin{theorem}[정상방정식]
+$A\in M_{m,n}(\R)$, $b\in\R^m$에 대하여 $x\in\R^n$가 최소제곱해일 필요충분조건은
+\[
+A^T(Ax-b)=0
+\]
+이다. 즉 잔차 $r=b-Ax$가 $\operatorname{col}(A)$에 직교하는 조건과 동치이다. 또한 $A$의 열벡터들이 일차독립이면 최소제곱해는 유일하고
+\[
+\hat x=(A^TA)^{-1}A^Tb
+\]
+로 주어진다.
+\end{theorem}
+
+\paragraph{증명 전략.}
+핵심은 ``$Ax$는 열공간 안에서 움직인다''는 점입니다. 따라서 최소제곱은 $b$를 $\operatorname{col}(A)$에 직교투영하는 문제와 동일합니다. 직교 조건을 열벡터 기준으로 쓰면 곧바로 정상방정식이 나오고, 열독립일 때는 $A^TA$의 양의정부호성으로 유일성을 얻습니다.
+
+\begin{proof}
+$W=\operatorname{col}(A)\subset\R^m$이라 두자. $Ax$는 정확히 $W$의 원소들을 훑는다. 그러므로
+\[
+\min_{x\in\R^n}\|Ax-b\|
+\]
+는
+\[
+\min_{y\in W}\|y-b\|
+\]
+와 같은 문제이다. 이전 절의 직교투영 정리에 의해 최소점을 주는 $y$는 유일하며 $y=P_W(b)$이고, 필요충분조건은
+\[
+b-y\in W^\perp.
+\]
+이제 $y=Ax$라 쓰면 $r=b-Ax\in W^\perp$와 동치이다.
+
+$r\in W^\perp$는 $A$의 각 열벡터 $a_j$에 대해 $a_j^Tr=0$와 동치이므로
+\[
+A^Tr=0
+\iff
+A^T(b-Ax)=0
+\iff
+A^T(Ax-b)=0.
+\]
+따라서 정상방정식과 최소제곱 조건은 동치이다.
+
+이제 $A$의 열벡터들이 일차독립이라 하자. 임의의 $0\neq u\in\R^n$에 대해 $Au\neq0$이므로
+\[
+u^TA^TAu=\|Au\|^2>0.
+\]
+따라서 $A^TA$는 양의정부호이고 가역이다. 정상방정식은
+\[
+A^TAx=A^Tb
+\]
+가 되어 해가 유일하며
+\[
+\hat x=(A^TA)^{-1}A^Tb
+\]
+를 얻는다.
+\end{proof}
+
+\paragraph{의미 해석.}
+최소제곱은 ``방정식을 정확히 푼다''가 아니라 ``오차를 직교 방향으로 밀어낸다''는 관점입니다. 정상방정식은 이 기하적 조건을 행렬식으로 기록한 식이며, 데이터 적합의 표준 언어가 됩니다.
+
+\begin{theorem}[QR 분해]
+$A\in M_{m,n}(\R)$의 열벡터들이 일차독립이면 다음을 만족하는 행렬 $Q,R$가 존재하고 유일하다.
+\begin{enumerate}[label=\arabic*.]
+\item $A=QR$
+\item $Q\in M_{m,n}(\R)$의 열벡터들은 정규직교이다($Q^TQ=I_n$)
+\item $R\in M_{n,n}(\R)$은 상삼각행렬이고 대각원소가 모두 양수이다
+\end{enumerate}
+\end{theorem}
+
+\paragraph{증명 전략.}
+$A$의 열벡터에 Gram--Schmidt를 적용해 정규직교 열벡터 $q_i$를 만들고, 원래 열벡터를 $q_i$의 선형결합으로 쓰면 상삼각 계수행렬 $R$이 생깁니다. 유일성은 두 분해를 비교해 ``직교이면서 상삼각이고 대각양수인 행렬은 항등행렬뿐''임을 보이는 방식으로 마무리합니다.
+
+\begin{proof}
+$A$의 열벡터를 $a_1,\dots,a_n$이라 하자. Gram--Schmidt로 정규직교벡터 $q_1,\dots,q_n$을 얻는다. 각 $j$에 대해
+\[
+a_j=\sum_{i=1}^{j} r_{ij}q_i,\qquad r_{ij}:=\langle a_j,q_i\rangle\ (i\le j),\quad r_{ij}=0\ (i>j).
+\]
+또한 직교화 과정에서
+\[
+r_{jj}=\|u_j\|>0
+\]
+이다. $Q=[q_1\ \cdots\ q_n]$, $R=(r_{ij})$로 두면 열별 식을 모아 $A=QR$를 얻고, 정의상 $R$은 상삼각이며 대각원소 양수, $Q^TQ=I_n$이다. 존재성이 증명되었다.
+
+유일성을 보이자. $A=Q_1R_1=Q_2R_2$가 두 분해이고 두 $R_i$ 모두 상삼각 대각양수라 하자. 그러면
+\[
+U:=Q_2^TQ_1=R_2R_1^{-1}.
+\]
+왼쪽 표현으로 $U$는 직교행렬이고, 오른쪽 표현으로 $U$는 상삼각이며 대각원소가 양수이다.
+
+이제 ``직교이면서 상삼각이고 대각원소 양수인 행렬은 $I$''임을 보인다. 첫 번째 열은 상삼각성 때문에 $(u_{11},0,\dots,0)^T$꼴이고 노름 1이므로 $u_{11}=1$. 또한 첫 번째 열과 $j$번째 열($j>1$)의 직교성에서 $u_{1j}=0$. 첫 행과 첫 열을 제거한 $(n-1)\times(n-1)$ 부분행렬도 같은 성질을 가지므로 귀납적으로 전체가 항등행렬이다. 따라서 $U=I_n$이고, 곧 $Q_1=Q_2$, $R_1=R_2$이다.
+\end{proof}
+
+\paragraph{의미 해석.}
+QR 분해는 Gram--Schmidt를 행렬 언어로 압축한 결과입니다. 특히 최소제곱 계산에서 정상방정식 대신 $Rx=Q^Tb$를 풀면 수치적으로 더 안정한 절차를 얻습니다.
+
+\begin{example}
+점 $(0,1),(1,2),(2,2)$에 대해 직선 $y\approx \beta_0+\beta_1 t$를 최소제곱으로 적합하자.
+\[
+A=\begin{bmatrix}
+1&0\\
+1&1\\
+1&2
+\end{bmatrix},\qquad
+b=\begin{bmatrix}
+1\\2\\2
+\end{bmatrix}.
+\]
+열벡터 직교화로
+\[
+Q=\begin{bmatrix}
+\frac1{\sqrt3}&-\frac1{\sqrt2}\\
+\frac1{\sqrt3}&0\\
+\frac1{\sqrt3}&\frac1{\sqrt2}
+\end{bmatrix},\qquad
+R=\begin{bmatrix}
+\sqrt3&\sqrt3\\
+0&\sqrt2
+\end{bmatrix}
+\]
+를 얻는다. $Rx=Q^Tb$를 풀면
+\[
+\hat\beta_0=\frac76,\qquad \hat\beta_1=\frac12
+\]
+이므로 적합 직선은
+\[
+y=\frac76+\frac12 t
+\]
+이다.
+\end{example}
+
+\subsection*{주의}
+\begin{warning}
+정상방정식 $A^TAx=A^Tb$는 이론적으로 정확하지만, 수치 계산에서는 조건수를 제곱시키는 문제가 있다. 실제 계산에서는 QR 기반 해법이 더 안정적이다.
+\end{warning}
+\begin{warning}
+$A$가 열독립이 아니면 최소제곱해는 존재해도 유일하지 않을 수 있다. 이 경우 ``최소노름 해''를 구하려면 추가 조건(의사역행렬 등)이 필요하다.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item 복소수 경우 최소제곱의 정상방정식이 $A^*(Ax-b)=0$으로 바뀌는 이유를 설명하십시오.
+\item $A=\begin{bmatrix}1&0\\1&1\\1&2\end{bmatrix}$, $b=\begin{bmatrix}1\\0\\2\end{bmatrix}$에 대해 정상방정식을 세우고 $\hat x$를 구하십시오.
+\item 잔차 $r=b-A\hat x$가 항상 $\operatorname{col}(A)$에 직교함을 투영 정리로 다시 증명해 보십시오.
+\end{enumerate}
+
+\chapterapplicationtemplate{센서 보정 문제를 생각해 보겠습니다. 입력 신호 $t$와 출력 $y$가 주어졌을 때 $y\approx c_0+c_1t+c_2t^2$ 형태의 2차 모델을 최소제곱으로 맞추면 설계행렬 $A$의 열공간으로 $b$를 투영하는 문제가 됩니다. 먼저 Gram--Schmidt로 $A=QR$을 만든 뒤 상삼각계 $Rc=Q^Tb$를 풀어 계수 $c=(c_0,c_1,c_2)^T$를 구하고, 잔차 벡터가 열공간에 직교하는지 확인하여 모델 품질을 해석해 보십시오.}
+
+\chaptersummarytemplate
+
+\section*{종합 연습문제}
+
+\subsection*{연습문제 A (기초 확인)}
+\begin{exercise}[A1]
+$\R^3$에서
+\[
+\langle x,y\rangle=2x_1y_1+x_2y_2+3x_3y_3
+\]
+가 내적인지 판정하고, 내적이라면 $\|(1,-1,2)\|$를 계산하라.
+\end{exercise}
+
+\begin{exercise}[A2]
+$x=(1,2,-1)$, $y=(2,0,3)$에 대해 $|\langle x,y\rangle|$, $\|x\|\|y\|$를 계산하여 Cauchy--Schwarz 부등식을 확인하라.
+\end{exercise}
+
+\begin{exercise}[A3]
+$\R^3$의 벡터열 $(1,1,0),(1,0,1),(0,1,1)$에 Gram--Schmidt를 적용하여 정규직교기저를 구하라.
+\end{exercise}
+
+\begin{exercise}[A4]
+$W=\operatorname{span}\{(1,1,0),(1,-1,0)\}\subset\R^3$에 대해 $W^\perp$를 구하고, $v=(2,1,3)$을 $w+z$ ($w\in W,\ z\in W^\perp$)로 분해하라.
+\end{exercise}
+
+\begin{exercise}[A5]
+$W=\operatorname{span}\{(1,2)\}\subset\R^2$에서 $v=(3,1)$의 직교투영 $P_W(v)$와 잔차 $v-P_W(v)$를 구하라.
+\end{exercise}
+
+\begin{exercise}[A6]
+\[
+A=\begin{bmatrix}
+1&0\\
+1&1\\
+1&2
+\end{bmatrix},\quad
+b=\begin{bmatrix}
+1\\2\\2
+\end{bmatrix}
+\]
+에 대해 정상방정식을 세워 최소제곱해 $\hat x$를 구하고 $\|A\hat x-b\|$를 계산하라.
+\end{exercise}
+
+\subsection*{연습문제 B (개념 연결)}
+\begin{exercise}[B1]
+정규직교집합 $\{e_1,\dots,e_k\}$가 항상 일차독립임을 증명하라.
+\end{exercise}
+
+\begin{exercise}[B2]
+부분공간 $W$로의 직교투영 $P_W$가 선형사상이고
+\[
+P_W^2=P_W,\qquad P_W^T=P_W
+\]
+를 만족함을 증명하라(실수 내적공간).
+\end{exercise}
+
+\begin{exercise}[B3]
+$V$의 정규직교기저 $\{e_1,\dots,e_n\}$에 대해
+\[
+\|v\|^2=\sum_{i=1}^n |\langle v,e_i\rangle|^2
+\]
+(Parseval 항등식)을 증명하라.
+\end{exercise}
+
+\begin{exercise}[B4]
+$A$가 열독립일 때 최소제곱 잔차 $r=b-A\hat x$에 대해
+\[
+\|b\|^2=\|A\hat x\|^2+\|r\|^2
+\]
+가 성립함을 증명하고, 이것이 투영 정리의 어떤 특별한 형태인지 설명하라.
+\end{exercise}
+
+\subsection*{연습문제 C (증명/종합)}
+\begin{exercise}[C1]
+$A=QR=\widetilde Q\widetilde R$이 QR 분해이고 $R,\widetilde R$의 대각원소가 모두 양수일 때 $Q=\widetilde Q$, $R=\widetilde R$임을 완전하게 증명하라.
+\end{exercise}
+
+\begin{exercise}[C2]
+$A$가 열독립이 아닐 때 최소제곱해의 집합이 공집합이 아님을 보이고, 임의의 하나의 최소제곱해 $x_0$에 대해 모든 최소제곱해가
+\[
+x_0+\ker(A)
+\]
+형태임을 증명하라.
+\end{exercise}
+
+\begin{exercise}[C3]
+복소수 경우 $A\in M_{m,n}(\C)$에 대해 최소제곱 조건이
+\[
+A^*(Ax-b)=0
+\]
+임을 증명하고, $A^*A$가 가역일 필요충분조건이 $A$의 열독립임을 보이라.
+\end{exercise}

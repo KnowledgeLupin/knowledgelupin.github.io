@@ -1,0 +1,17 @@
+914:대 수 의 ... 들어. Jordan canonical form 의 응용) 을 마지막 1 주
+1162:Jordan Canonical Forms 2 니니 asia nas 에 어겨 에 매기 aie oye 237
+19798:8.7. JORDAN CANONICAL FORM
+19802:8.7. Jordan Canonical Form
+19805:에서는 Jordan canonical form- 공 부 한 다. 이 내 용 은 앞
+19827:Jordan canonical form- 소
+19969:8.7. JORDAN CANONICAL FORM
+19997:Jordan canonical form 이라고 부른다. 이때 hj 와 jj 는 similarity relation 의
+19998:invariant 의 므로. Jordan canonical form = similarity relation 의 invariant 인
+19999:am 자 명 하다. 그리고, 역 으 로, Jordan canonical 1010 으로부터 h; Sb rj;
+20000:를 알수 있으 BE (My )『 는 (rj) rij)-matrix), Jordan canonical form ©] 7' 의
+20014:가) A 의 Jordan canonical form-& 라고 표 기 하
+20055:이제 Jordan canonical form ol] 관한 구체적인 example -& 살
+20063:결 정 된 다. 이때 7' 의 Jordan
+20071:우 리 가 Jordan canonical form-& 예
+20103:연 습 문제 8.7.8. Ji) =Al;-+N 으로 표기할 때, 다음 행 렬 의 Jordan canonical
+39421:Jordan canonical form, 239

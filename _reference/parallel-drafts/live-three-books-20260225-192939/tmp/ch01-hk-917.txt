@@ -1,0 +1,5 @@
+Perhaps the most fundamental
+technique for finding the solutions
+of a system of linear equations is the technique of elimination.
+We can
+illustrate this technique on the homogeneous system

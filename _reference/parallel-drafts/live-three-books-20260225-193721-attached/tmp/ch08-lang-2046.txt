@@ -1,0 +1,5 @@
+
+(Cf. Exercise 1.) This matrix B will be called the inverse of A and will be
+denoted by A - 1. When we study determinants, we shall find an explicit
+way of finding it, whenever it exists.
+Let A be a square matrix. Then we can form the product of A with

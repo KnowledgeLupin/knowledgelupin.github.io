@@ -1,0 +1,15 @@
+918:diagonalization S 다루는 것도 의미 있는 AHA 것이다. 이에 필요한 자 료 들
+1112:Diagonalization «a5 ese: wee uaa oe
+15121:mial, eigen-vector 와: eigen-value, diagonalization} triangularization 그러고 Cayley새로운 등 장 인 물들 —
+15151:과 대각화
+15440:7.2. Diagonalization
+15514:7.2. DIAGONALIZATION 179
+15693:7.2. DIAGONALIZATION 181
+15808:7.2. DIAGONALIZATION 183
+15872:과 대각화
+15938:7.2. DIAGONALIZATION 185
+17002:부하 고. diagonalizable operator 2] eigenspace decomposition ol] 대해 알 아 본 다. AFA direct sum 2] 개 념
+36233:에 이어 다시 diagonalization ol] 관 심 을 갖는다. 다
+36608:명제 15.3.2. (가) Te LM Ol symmetric operator 이면, T= 항상 (real) eigenvalue S$ 갖는다.
+39112:diagonalization, 173, 178, 179, 448.
+39816:simultaneous diagonalization, 225

@@ -1,0 +1,5 @@
+a polynomial.
+It also deals with roots, Taylor’s formula, and the Lagrange interpolation formula. Chapter 5 develops determinants
+of square matrices, the determinant being viewed as an alternating
+n-linear function of the rows of a matrix,
+and then proceeds to multilinear

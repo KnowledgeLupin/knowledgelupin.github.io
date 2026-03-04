@@ -1,0 +1,6 @@
+917:of a system of linear equations is the technique of elimination.
+1002:the elimination
+1047:If the elimination
+6393:The significant point here is this: Given the vectors ai, row-reduction
+10524:Row-reduction
+10573:point of view, row-reduction

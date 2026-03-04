@@ -1,0 +1,5 @@
+point of view, row-reduction
+gives us a systematic method of finding the
+annihilator
+of the subspace spanned by a given finite set of vectors in Fn.
+EXAMPLE

@@ -1,0 +1,5 @@
+sesqui-linear
+forms, relates them to positive and
+self-adjoint
+operators on an inner product space, moves on to the spectral theory
+of normal operators and then to more sophisticated

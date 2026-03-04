@@ -1,0 +1,5 @@
+manic generator of the ideal of polynomials over F which annihilate T.
+
+The name ‘minimal polynomial’ stems from the fact that the generator
+of a polynomial
+ideal is characterized by being the manic polynomial

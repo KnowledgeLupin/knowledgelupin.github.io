@@ -1,0 +1,5 @@
+{"type":"thread.started","thread_id":"019c945f-1273-7681-a8cf-4e09e907d4b9"}
+{"type":"turn.started"}
+2026-02-25T10:36:24.593047Z  WARN codex_core::state_db: state db record_discrepancy: find_thread_path_by_id_str_in_subdir, falling_back
+2026-02-25T10:36:24.616337Z  WARN codex_core::state_db: state db record_discrepancy: find_thread_path_by_id_str_in_subdir, falling_back
+2026-02-25T10:36:24.641049Z  WARN codex_core::state_db: state db record_discrepancy: find_thread_path_by_id_str_in_subdir, falling_back

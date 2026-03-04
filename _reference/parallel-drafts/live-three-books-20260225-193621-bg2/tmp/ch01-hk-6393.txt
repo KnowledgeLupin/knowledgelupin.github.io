@@ -1,0 +1,5 @@
+are any r scalars, there is one and only one vector p in W which has ci as
+its k&h coordinate.
+The significant point here is this: Given the vectors ai, row-reduction
+is a straightforward
+method of determining

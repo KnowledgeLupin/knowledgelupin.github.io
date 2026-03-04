@@ -1,0 +1,30 @@
+1050:Rank Theorem , 2as sme aE ERE EH
+1993:면 , 우 리 는 AS 7-4 S4H (invertible matrix) 이라고
+2017:관찰 1.1.15. Invertible matrix AE M,,,(F) 의 1006156 는 유 일 하다.
+2104:(가) A 가 invertible symmetric matrix 의 면 , 4} 도 symmetric 인가 ?
+2107:(다) A, B 가 invertible 이면, (A+B) 도 invertible 인가?
+2116:연 습 문제 1.1.18. O(n) = {Ae Mr n( R)|A is invertible and A~! = At} B 정
+2170:<3] (/ 로 나타낸다. (/ 는 unit2) 첫 글 자 이고, unit 2} 의 미는 invertible element.
+2941:관찰 1.3.5. Invertible row-reduced echelon 1007 은 항 등 행 렬 뿐 이다.
+2942:BQ: 먼저 invertible matrix 가 zero 10\ 를 가질 수 없는 것은 자
+2971:(1) # 는 가역.
+3005:도 가역 행 렬
+3015:역행렬
+6881:서 Rank Theorem
+7222:같은 방 법 으로 column space$} column rank= 정 의 한 다. 정의 4.5.1 참조.
+7230:[56601] Row space 7} 같으면, 그의 dimension(S, row rank) 같다. 그리고
+7231:row-reduced echelon form 의 row rank = 당연히 [ 최 초
+7234:제 RLS 의 ( 공 통 의) row rank 를 로 표
+7315:조 에 서는 Linear Extension Theorem, Dimension Theorem, Rank Theorem
+8219:로 [4 invertible] 추가 하 는 것은
+8581:( 마 ) Rot invertible (isomorphism) 이고. (420)! = R-9 임을 보
+9117:4.5. Rank Theorem
+9120:이 ffi 에서는 Dimension Theorem 이 용 하 여 행 렬의 rank S$ 공
+9123:정의 4.5.1. ACMann(F) 2 때, 앞 정의 3.8.1 의 row space 와 row rank 처럼.
+9125:은 41 의 column rank @}3! 부른다.
+9126:우 리는 이미 4 의 column space 2} im Ly 가 같다는 사 실 을 잘 알고 있다
+9179:와 A'S) row rank 7} 같다고 말하고 있다. [AEs “ 우 리 의 lave a
+9180:row rank 2} column rank 가 같다는 사 실 을 이미 알고 있는 듯하다.”
+9186:| ‘intuition’ voi row rank 7} | 증 가 했 다 고 ( 해 집 합 의
+9192:4.5. RANK THEOREM
+9196:이제우리 는 항상 [4 의 row rank] 2} [A 의 column rank] 7} 같다는 Rank

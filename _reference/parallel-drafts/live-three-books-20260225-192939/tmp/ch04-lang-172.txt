@@ -1,0 +1,5 @@
+I hope that the present book can be used for a one-term course. The
+first six chapters review some of the basic notions. I looked for efficiency. Thus the theorem that m homogeneous linear equations in n
+unknowns has a non-trivial soluton if n > m is deduced from the dimension theorem rather than the other way around as in the introductory
+text. And the proof that two bases have the same number of elements
+(i.e. that dimension is defined) is done rapidly by the "interchange"

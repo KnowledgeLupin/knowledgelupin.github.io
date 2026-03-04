@@ -1,0 +1,5 @@
+on V
+forms a vector space in a natural way. It is the space L(V, F). We denote
+this space by V* and call it the dual space of V:
+V* = L(V, F).
+If V is finite-dimensional,

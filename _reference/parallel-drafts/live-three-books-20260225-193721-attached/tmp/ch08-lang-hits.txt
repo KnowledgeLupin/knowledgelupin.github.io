@@ -1,0 +1,30 @@
+162:sets and the Krein-Milman theorem. One chapter also provides a complete theory of the basic properties of determinants. Only a partial treatment could be given in the introductory text. Of course, some parts of
+312:Determinants
+314:§1. Determinants of Order 2 ..
+315:§2. Existence of Determinants
+316:§3. Additional Properties of Determinants.
+320:§7. Expansion Formula and Uniqueness of Determinants
+322:§9. The Rank of a Matrix and Subdeterminants . . . . ..
+2046:denoted by A - 1. When we study determinants, we shall find an explicit
+2262:(This win be useful in finding the determinant of a product.)
+7035:If we view (x, y, z) as the coordinates of A then we see that f is a quadratic form on V. Note that f(A) is the determinant of A, which could be
+7053:The cases of 2 x 2 and 3 x 3 determinants will be carried out separately in full, because the general case of n x n determinants involves notation which adds to the difficulties of understanding determinants. In a
+7056:VI, §1. DETERMINANTS OF ORDER 2
+7057:Before stating the general properties of an arbitrary determinant, we shall
+7061:be a 2 x 2 matrix in a field K. We define its determinant to be
+7062:ad - be. Thus the determinant is an element of K. We denote it by
+7074:DETERMINANTS OF ORDER 2
+7078:For example, the determinant of the matrix
+7082:to 2·4 - 1 . 1 = 7. The determinant of
+7085:The determinant can be viewed as a function of the matrix A. It can
+7087:as usual. Then we write the determinant as
+7096:As a function of the column vectors, the determinant is linear.
+7115:Chapter V, §4 we may say that the determinant is bilinear.
+7116:If the two columns are equal, then the determinant is equal to O.
+7120:DETERMINANTS
+7127:The determinant also satisfies the following additional properties.
+7130:determinant does not change.
+7131:In other words, let t be a number. The determinant of the matrix
+7142:If the two columns are interchanged, then the determinant changes by a
+7146:The determinant of A is equal to the determinant of its transpose, i.e.
+7166:EXISTENCE OF DETERMINANTS

@@ -1,0 +1,5 @@
+연 습 문제 1.1.17. _4,2 ᄋ 9,,,(/) 일 때,
+
+(가) A 가 invertible symmetric matrix 의 면 , 4} 도 symmetric 인가 ?
+(나) A,B 가 6001040000 이 면 , ABE symmetric 27}? 만약 42 = 24 이 면 ?
+

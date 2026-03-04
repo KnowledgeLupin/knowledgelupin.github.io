@@ -1,0 +1,5 @@
+mial, eigen-vector 와: eigen-value, diagonalization} triangularization 그러고 Cayley새로운 등 장 인 물들 —
+의 다양한 개념
+Hamilton Theorem 과 minimal polynomial 등
+을 만난다.
+

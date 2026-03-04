@@ -1,0 +1,30 @@
+607:의 의 견 으 로는 [11087 operator 7} 주어진 vector space] F[t]module 2 보지
+973:2:2. SUBSPACE gic ame 2eee Ae BMD RMLs 에에 게 이메 세 BE Hae 31
+1001:Bids Vector Space 의 Basis .. 6... . cee ee 이에 이 이아 49
+1056:Vector Space of Linear Maps .......
+1143:T-Invariant Subspace « skis bes p@e eee we Hw we woe 213
+3495:2.1. Vector Space
+3608:는 VE F-9|2| HHE}SZ! (vector space over F, 혹은 F-
+3635:관찰 2.1.3. (가) Vector space 의 덧 셈 의 항등원 06 는 유 일 하다.
+3669:2.1. VECTOR SPACE
+3678:이제 vector space 2] ( 초 보 적인) PASS 알 아 보 자. BE 이를 위해서는
+3777:2.2. SUBSPACE
+3781:2.2. Subspace
+3783:정의 2.2.1. 17 가 F-vector space V2] subset 2 a(S, WCVe 때), Vee
+3785:터 물 려 받은 덧 셈 과 상 수 곱 에 관 하 여 ,'? W 4 F-vector space 7} 되면, 우리
+3797:2.2.2. F- vector space V2| non-empty subset W7} V 2| subspace 2!
+3805:혀 ' 있으면, We VI subspace 7} 된다.
+3823:관 찰 이 subspace 를 characterize 하고 있고
+3864:subspace = subspace O|C}.)
+3866:BS: 242225 생각할 ALE 없다. Subspace] 정 의 로부터
+3876:의 WAYS /” 의 F-subspace ©) C+ (AFA) 1.2.5 의 ‘linear property’).
+3890:질문 2.2.6. 의 모든 subspace solution space of (x) AX = 0 for some
+3917:2.3. VECTOR SPACE 2] 보기
+3921:2.3. Vector Space 2] 보기
+3924:이 fifo] A= vector space 2} subspace 2] 여러 보 기 들 을 살
+3929:주 의 할 BS 우 리가 vector space Mrn(F)S 생각할 때에는 Min(F)A 곱셈
+3936:보기 2.3.2. Vector space Mo2(F) 2 FA 사실상 같은 vector 50368 로 생각
+3976:하면, Moo(F) 2 FA vector space ZE — S, 덧 셈 과 상
+3988:명 하다. 이때 [vector space
+3991:scalar ©] AA] 동시에 10060『 이 다. 또 F 2} Flo] 사실상 ZL vector space 인
+4001:vector space C 2] R-subspace 인 and

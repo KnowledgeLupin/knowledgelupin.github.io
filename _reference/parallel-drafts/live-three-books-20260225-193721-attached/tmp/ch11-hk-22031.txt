@@ -1,0 +1,5 @@
+and D - D” is diagonalizable.
+Since N and N’ are both
+nilpotent
+and they commute, the operator (N’ - N) is nilpotent;
+for,

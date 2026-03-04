@@ -1,0 +1,30 @@
+172:unknowns has a non-trivial soluton if n > m is deduced from the dimension theorem rather than the other way around as in the introductory
+174:(i.e. that dimension is defined) is done rapidly by the "interchange"
+224:§3. Dimension of a Vector Space .
+891:If elements v 1 , ••• 'V n of V generate V and in addition are linearly independent, then {v 1 , •• ,vn } is called a basis of V. We shall also say that the
+892:elements v 1 , ••• 'V n constitute or form a basis of V.
+893:The vectors E 1 , ••• ,En of Example 1 form a basis of Kn.
+896:e , e 2t • Then {e t , e 2t } is a basis of W
+898:to a basis. The definition depends on the following fact.
+908:Let V be a vector space, and let {v 1 , ••• ,vn } be a basis of V. The elements of V can be represented by n-tuples relative to this basis, as follows. If an element v of V is written as a linear combination
+917:by v. We call (x 1, ... ,x n ) the coordinates of v with respect to our basis,
+919:usual basis E 1 , ••• En of K n are the coordinates of the n-tuple X. We say
+920:that the n-tuple X = (Xl' ... ,X n) is the coordinate vector of v with respect
+921:to the basis {v 1 , ••• ,Vn }.
+925:with respect to the basis {e t , e2t } are (3, 5).
+938:Example 5. Find the coordinates of (1, 0) with respect to the two vectors (1, 1) and (-1, 2), which form a basis.
+951:Example 6. Show that the vectors (1, 1) and (-1, 2) form a basis of
+996:coordinates of (a, b) with respect to the basis {(1, 1), (-1, 2)}.
+1003:of elements of a vector space is a basis.
+1007:Then {v l , ... ,v,} is a basis of V.
+1038:generate V, and hence form a basis of V.
+1068:DIMENSION OF A VECTOR SPACE
+1078:to the basis {sin t, cos t}?
+1080:coordinates of the function Df(t) with respect to the basis of Exercise 7?
+1086:I, §3. DIMENSION OF A VECTOR SPACE
+1090:be a basis of V over K. Let w 1 , ••• ,W n be elements of V, and assume that
+1094:{v 1, . .. ,vm} is a basis, there exist elements a 1, ... ,am E K such that
+1138:Theorem 3.2. Let V be a vector space and suppose that one basis has n
+1139:elements, and another basis has m elements. Then m = n.
+1143:Let V be a vector space having a basis consisting of n elements. We
+1144:shall say that n is the dimension of V. If V consists of 0 alone, then V

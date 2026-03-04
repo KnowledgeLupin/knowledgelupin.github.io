@@ -1,0 +1,30 @@
+18407:This lemma enables us to define sensibly the characteristic polynomial
+18412:characteristic values of T will be the roots of the characteristic polynomial
+18571:In Example 2, the operator T has characteristic values; in fact, the characteristic polynomial
+18716:(ii) The characteristic polynomial
+19172:The name ‘minimal polynomial’ stems from the fact that the generator
+19176:minimum degree in the ideal. That means that the minimal polynomial p
+19204:similar matrices have the same minimal polynomial. That fact is also clear
+19219:we obtain two different minimal polynomials
+19260:The degree of the minimal polynomial is the least positive integer k such
+19263:by the uniqueness of the minimal polynomial,
+19267:that (6-5) holds. They are the coefficients of the minimal polynomial.
+19275:What do we know thus far about the minimal polynomial for a lineaa
+19281:characteristic polynomial. First, let us observe a more elementary fact.
+19295:Proof. Let p be the minimal polynomial for T. Let c be a scalar.
+19348:then the minimal polynomial for T is a product of distinct linear factors.
+19350:EXAMPLE 4. Let’s try to find the minimal polynomials for the operators
+19383:In Example 2, the operator T also had the characteristic polynomial
+19386:that the minimal polynomial is (Z - 1) (Z - 2). What do we know about
+19387:the minimal polynomial in this case? From Theorem 3 we know that its
+19419:Thus, the minimal polynomial has degree at least 3. So, next we should try
+19420:either (II: - 1)s1(x - 2) or (X - 1) (x - 2)z. The second, being the characteristic polynomial,
+19422:compute that (A - I)(A - 21)2 = 0. Thus the minimal polynomial for T
+19423:is its characteristic polynomial.
+19442:determine the minimal polynomial, forget about T and concentrate on A.
+19445:Both roots must appear in the minimal polynomial.
+19448:So the minimal polynomial is x2 + 1.
+19450:4 (Cayley-Hamilton).
+19452:jinite dimensional vector space V. If f is the characteristic polynomial for T,
+19453:then f(T) = 0; in other words, the minimal polynomial divides the characteristic polynowlial for T.
+19664:The Cayley-Hamilton

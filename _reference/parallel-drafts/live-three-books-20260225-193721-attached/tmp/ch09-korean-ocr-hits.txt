@@ -1,0 +1,30 @@
+1117:Minimal Polynomial ............
+1122:Cayley-Hamilton Theorem ........
+1959:을 만 족 시 킨 다 는 AS 배운 적이 YS 것 이 다 ((2×2)- 행렬의 Cayley-Hamilton
+1969:문제 1.1.13. 위 (2×2)- 행렬의 Cayley-Hamilton Theorem & 증
+15121:mial, eigen-vector 와: eigen-value, diagonalization} triangularization 그러고 Cayley새로운 등 장 인 물들 —
+15123:Hamilton Theorem 과 minimal polynomial 등
+15315:의 characteristic polynomial (SACHSt4}) 07(0) € F[t]
+15324:이 Wo], characteristic polynomial 의 similarity relation] 14\04184( 인 것
+15327:관찰 7.1.10. Characteristic polynomial 은 similarity relation 의 invariant. 따라
+15350:Characteristic polynomial] invariant >], 그의 root el eigen-
+15369:같 다 (01804-\8140 는 characteristic polynomial 2] 1001 이 므로
+15375:rank, trace, determinant, characteristic polynomial.
+15400:ASLA 7.1.13. 다음 B22] characteristic polynomial 7} eigen-value(S) 및
+15531:다음 보 기 는 characteristic polynomial ©] Ai fe (multiple root) -& 3
+15617:a 다면, similar matrix 의 characteristic polynomial-2 같 으 므 로
+15637:갖게 되었다. 왜냐하면 characteristic polynomial 2] root 2] 개 수는 F =R
+15653:Figen-value 는 characteristic polynomial 2] root ©], diagonalizability 도
+15701:(가) 만약 Roe A+I°]¥, 70 의 characteristic polynomial real root = 갖지
+16177:따 름 정리 7.3.3. Tecoma 때, 7' 의 characteristic polynomial
+16195:증명 : 서로 91411@ 한 행 렬 은 characteristic polynomial 및 determinant 2+
+16217:(가) Characteristic polynomial 0 € Fo]A] evaluate +21,
+16257:이다. 한편, strictly upper-triangular matrix 의 characteristic polynomial 의
+16292:물론, 다음 tie) Cayley-Hamilton '11001011 을
+16306:7.4. Cayley-Hamilton Theorem
+16350:7.4. CAYLEY-HAMILTON THEOREM
+16369:characteristic polynomial 에게 빼 앗 겼 었 다. 위 관 찰 로 인해 현재 우
+16402:것을 배웠다. Cayley-Hamilton 11100101 은 이를 일 반 화 한 것이다.
+16412:정리 7.4.7. (Cayley-Hamilton Theorem) 7 ¢ 90/4, 07(7')=0 이 다. 즉 ,
+16415:Cayley-Hamilton Theorem -& 그 거창한
+16431:첫 번째 SB: (TriangularizationS 이용한 증명) Characteristic polynomial

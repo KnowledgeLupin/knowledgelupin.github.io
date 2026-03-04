@@ -1,0 +1,30 @@
+190:and dual spaces. Chapter 4 defines the algebra of
+264:and the transpose of a linear transformation.
+373:The Transpose of a Linear Transformation
+523:Cyclic Subspaces and Annihilators
+10148:this space by V* and call it the dual space of V:
+10151:of the dual space V*. From
+10413:the annihilator
+10440:The claim is that {jk+l, . . . , jn} is a basis for the annihilator
+10537:and we wish to find the annihilator
+10554:that j be in this annihilator
+10575:annihilator
+10755:How does one describe W”, the annihilator
+11034:are in the annihilator
+11099:on V which is in the annihilator
+11207:V**, the dual space of V*.
+11321:If L is a linear junctional on the dual space V* of V, then there is a unique
+11356:‘is’ the dual space of V* or that the spaces V, V* are naturally in duality
+11357:with one another. Each is the dual space of the other. In the last corollary
+11360:If E is a subset of V*, then the annihilator E” is (technically) a subset
+11365:by its annihilator
+11369:spaces of all j’s in W”. In our present notation for annihilators, the answer
+11395:not tackle annihilators for general vector spaces. But, there are two results
+11501:The Transpose
+11556:(b) Show that the dual space IV’* of W can be ‘naturally’
+11602:Transpose
+11653:We shall call Tt the transpose
+11659:be a linear transformation from V into W. The null space of Tt is the annihilator of the range of T. If V and W are jlnite-dimensional,
+11663:(ii) the range of Tt is the annihilator
+11675:annihilator
+11680:of T. By Theorem 16, the annihilator of the range of T then has dimension

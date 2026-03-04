@@ -1,0 +1,5 @@
+
+Let V be again a finite dimensional vector space over the field K. Let
+g be a scalar product, and f its quadratic form. Then we can recover the
+values of g entirely from those of f, because for v, WE V,
+

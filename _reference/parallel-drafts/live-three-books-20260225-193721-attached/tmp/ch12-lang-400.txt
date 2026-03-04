@@ -1,0 +1,5 @@
+CHAPTER XI
+
+Polynomials and Primary Decomposition. .
+
+§1. The Euclidean Algorithm ..

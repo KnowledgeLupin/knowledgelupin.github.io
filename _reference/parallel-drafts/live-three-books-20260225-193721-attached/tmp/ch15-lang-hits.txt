@@ -1,0 +1,30 @@
+160:unitary operators, as well as their spectral theorem (diagonalization);
+339:- Symmetric, Hermitian, and Unitary Operators. .
+343:§3. Unitary Operators . .
+360:§6. Unitary Operators . . . . . . . . . . . . . . . . .
+391:§3. Diagonalization of Unitary Maps.
+9757:Unitary Operators
+9831:SYMMETRIC, HERMITIAN, AND UNITARY OPERATORS
+9932:SYMMETRIC, HERMITIAN, AND UNITARY OPERATORS
+10001:The operator A * is called the adjoint of A. Note that A *: V ---+ V is
+10015:for the adjoint of an operator over C, as for the transpose over R.
+10016:An operator A is called hermitian (or self-adjoint) if A * = A. This
+10022:SYMMETRIC, HERMITIAN, AND UNITARY OPERATORS
+10111:SYMMETRIC, HERMITIAN, AND UNITARY OPERATORS
+10162:VII, §3. UNITARY OPERATORS
+10165:Let A: V -+ V be a linear map. We shall say that A is real unitary if
+10169:for all v, WE V. We may say that A is unitary means that A preserves the
+10170:product. You will find that in the literature, a real unitary map is also
+10172:unitary is given by the next theorem.
+10178:UNITARY OPERATORS
+10185:A is unitary.
+10207:Theorem 3.1 shows why we called our maps unitary: They are characterized by the fact that they map unit vectors into unit vectors.
+10208:A unitary map U of course preserves perpendicularity, i.e. if v, ware
+10212:On the other hand, it does not follow that a map which preserves perpendicularity is necessarily unitary. For instance, over the real numbers,
+10214:not unitary. Unfortunately, it is standard terminology to call real unitary
+10218:positive definite scalar product. A linear map A: V ---+ V is unitary if and
+10224:SYMMETRIC, HERMITIAN, AND UNITARY OPERATORS
+10228:Proof. The operator A is unitary if and only if
+10236:A be unitary. First we observe that a unitary map is invertible. Indeed,
+10237:if A is unitary and Av = 0, then v = 0 because A preserves the norm.
+10240:is natural to define a real matrix A to be unitary (or orthogonal) if

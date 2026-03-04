@@ -1,0 +1,130 @@
+# Reference Context for ch16
+
+- source_priority: hk,lang,korean-ocr
+- keyword_pattern: bilinear form|hermitian form|quadratic form|쌍선형형식|에르미트형식|이차형식
+- generated_at: 2026-02-25 20:06:49 +0900
+
+## Source: hk
+### Hit line 641
+Bilinear Forms
+Symmetric
+Bilinear Forms
+
+### Hit line 643
+Bilinear Forms
+Symmetric
+Bilinear Forms
+Skew-Symmetric
+Bilinear
+
+### Hit line 26617
+Occasionally it is very use ul to know that an inner product on a real
+or complex vector space is determined by another  unction, the so-called
+quadratic  orm determined by the inner product. To de ine it, we  irst
+denote the positive square root o  (CX]CX)by ]]a]]; ]]a]] is called the norm
+o  O(with respect to the inner product. By looking at the standard inner
+
+### Hit line 30041
+operator on R4 (with the standard
+which preserves the quadratic  orm
+11(x, y, 2, t)p
+
+### Hit line 34340
+In this chapter, we treat bilinear  orms on  inite-dimensional
+spaces. The reader will probably observe a similarity between some o  the
+
+### Hit line 34346
+in Chapter 5 and o  inner
+products and  orms in Chapter 8 and in Chapter 9. The relation between
+bilinear  orms and inner products is particularly
+strong; however, this
+chapter does not presuppose any o  the material in Chapter 8 or Chapter 9.
+
+### Hit line 34352
+by reading the  irst part o  Chapter 8 as he reads the discussion o  bilinear
+This  irst section treats the space o  bilinear  orms on a vector space
+o  dimension n. The matrix o  a bilinear  orm in an ordered basis is introduced, and the isomorphism between the space o   orms and the space o
+n X n matrices is established. The rank o  a bilinear  orm is de ined, and
+
+### Hit line 34353
+This  irst section treats the space o  bilinear  orms on a vector space
+o  dimension n. The matrix o  a bilinear  orm in an ordered basis is introduced, and the isomorphism between the space o   orms and the space o
+n X n matrices is established. The rank o  a bilinear  orm is de ined, and
+non-degenerate
+
+## Source: lang
+### Hit line 297
+§5. General Orthogonal Bases . . . . . . . .
+§6. The Dual Space and Scalar Products
+§7. Quadratic Forms . . . . . . . . . . . . . . .
+§8. Sylvester's Theorem . . . . . . . . . . . .
+
+### Hit line 6641
+[V, §7]
+V, §7. QUADRATIC FORMS
+A scalar product on a vector space V is also called a symmetric bilinear
+orm. The word "symmetric" is used because o  condition SP 1 in
+
+### Hit line 6655
+g(v, w) = <v, w).
+Let V be a  inite dimensional space over the  ield K. Let g = < , ) be
+a scalar product on V. By the quadratic  orm determined by g, we shall
+mean the  unction
+
+### Hit line 6660
+: V --+ K
+such that  (v) = g(v, v) = <v, v).
+Example 1. I  V = K n , then  (X) = X· X = xi  ...  x; is the quadratic  orm determined by the ordinary dot product.
+In general, i  V = K n and C is a symmetric matrix in K, representing
+a symmetric bilinear  orm, then the quadratic  orm is given as a  unction
+
+### Hit line 6662
+Example 1. I  V = K n , then  (X) = X· X = xi  ...  x; is the quadratic  orm determined by the ordinary dot product.
+In general, i  V = K n and C is a symmetric matrix in K, representing
+a symmetric bilinear  orm, then the quadratic  orm is given as a  unction
+
+### Hit line 6696
+then the quadratic  orm has a simpler expression, namely
+[V, §7]
+
+### Hit line 6700
+[V, §7]
+QUADRATIC FORMS
+
+### Hit line 6705
+Let V be again a  inite dimensional vector space over the  ield K. Let
+g be a scalar product, and   its quadratic  orm. Then we can recover the
+values o  g entirely  rom those o   , because  or v, WE V,
+
+## Source: korean-ocr
+### Hit line 641
+그러나 이 AoyAl= bilinear  orm 의 classi ication-2 다루지 않았다. 예
+기에 해 당 된다. 저 자 는, 그 동 안 의 ize 경험
+들면, Sylvester’s Theorem ©] 여
+
+### Hit line 1286
+Bilinear Form
+
+### Hit line 1308
+Non-degenerate Bilinear Form... 2 2 2 이
+
+### Hit line 1341
+제 14 Zt Hermitian Form
+
+### Hit line 1353
+Non-degenerate Hermitian Form ............0005 437
+
+### Hit line 12622
+일 때. 우리 는 pS k-linear  orm 이라고 부른다. 특히. k= 29 때에는
+bilinear  orm 이라고 부른다. ( 우리
+는 주로 41 = .... ᆞ = = 인 AGS
+
+### Hit line 12797
+, BE det (Jz) =1°]31, det 7} alternating bilinear  orm 인 것은 4]
+있다. 이제 그 유
+
+### Hit line 23271
+(나) F=R 2 때에는, complex conjugation? 없는 것으로 생 각 하면 된다. ᄆ
+라서, 이 경 우에 inner product 는 ‘symmetric’ bilinear  orm 이 다."
+31, 뒷 자 리 에
+

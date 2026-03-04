@@ -1,0 +1,5 @@
+ii-component of A(BC) we would have found exactly the same sum,
+thereby proving the theorem.
+Let A be a square n x n matrix. We shall say that A is invertible or
+non-singular if there exists an n x n matrix B such that
+

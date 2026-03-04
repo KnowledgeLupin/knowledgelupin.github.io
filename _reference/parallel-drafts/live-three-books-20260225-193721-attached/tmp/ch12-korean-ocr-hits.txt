@@ -1,0 +1,30 @@
+603:그리고. 이 AS] 또 하 나 의 $4 Cyclic Decomposition Theorem (Secondary
+1147:Primary Decomposition Theorem... ..........00.
+1157:Cyclic Decomposition Theorem... 1... 0.0.0.2 에이 이아 232
+16336:기 하고, 이를 (Tol 관한) annihilator 10601 이 라고 부른다.“
+16354:관찰 7.4.5. SoTeELMolA, 74 =277/... 따라서 annihilator ideal & similarity
+16432:과 annihilator ideal 이
+16546:새로운 motivation 이다. Annihilator ideal 전 부 를 묘 사 하 :
+16598:위 ene 3-2) annihilator ideal ol] 속하는 다항식 중 AA 차 수 의 다
+16626:정의 7.5.1. TELM] annihilator ideal 27 의 non-zero polynomial 중에서
+16706:minimal polynomial my(¢) 7} annihilator ideal 27 를 완전히 describe 3+
+17419:에서 Primary Decomposition Theorem 생 각 하는 첫 1101181101 이
+17538:문에 대한 답 으로, dS, primary decomposition
+17540:과 cyclic decomposition 생 각 하기는 쉽지 않다. 독 자들은 얼마나 많은 Kreg
+17722:이 호의 목 표 의 하 나인 Primary Decomposition Theorem 2] 증 명 에는 다항
+17860:교 재 에 서는 이 명 제 를 Primary Decomposition Theorem 2] 결 과 로 보 거 나 ( 연
+18224:8.3. Primary Decomposition Theorem
+18226:대한 답 으 로. US primary decomposition 과 cyclic decomposition 을 생 각 하 기
+18230:이 0 에서는 Primary Decomposition Theorem- 증
+18232:은 의외로 쉽다. 그러므로 왜 그리고 어떻게 Primary Decomposition Theorem
+18283:PRIMARY DECOMPOSITION THEOREM
+18330:보 기 를 일 반 화 한 것이 다름 아닌 Primary Decomposition Theorem ©] Ch.
+18386:정리 8.3.3. (Primary Decomposition Theorem) 7' ᄋ 207 이 면 ,
+18390:= decompose & 수 있다. (이를 의 Tol] 관한 primary decomposition ©] 2} a2
+18411:8.3. PRIMARY DECOMPOSITION THEOREM
+18477:primary decomposition 2 자
+18489:정리 8.3.4 Primary Decomposition Theorem °] 22.2 하는
+18534:8.3. PRIMARY DECOMPOSITION THEOREM
+18537:그럼 Primary Decomposition Theorem 2] 증
+18581:) F* 의 primary decomposition-& 묘 사 하고. 이에 관한 Ly 2] BARS (*%)
+18598:례 이다. 다 음 은 Primary Decomposition

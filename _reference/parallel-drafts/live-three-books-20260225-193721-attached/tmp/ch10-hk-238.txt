@@ -1,0 +1,5 @@
+of a subspace. The chapter treats
+unitary operators and culminates
+in the diagonalization
+of self-adjoint
+and normal

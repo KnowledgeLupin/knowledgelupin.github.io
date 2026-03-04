@@ -1,0 +1,5 @@
+201
+
+Example 1. The characteristic polynomial of the matrix
+
+A =

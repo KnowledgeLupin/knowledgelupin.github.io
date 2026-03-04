@@ -1,0 +1,5 @@
+operators, to round out the analysis of a single operator.
+Chapter 8 treats finite-dimensional
+inner product spaces in some detail. It covers
+the basic geometry,
+relating orthogonalization

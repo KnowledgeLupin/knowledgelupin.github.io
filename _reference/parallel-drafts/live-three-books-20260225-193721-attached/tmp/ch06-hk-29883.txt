@@ -1,0 +1,5 @@
+Let (~3 be a vector of norm 1 which is orthogonal
+to W. Find the matrix of U in
+the basis {LL~, 02, cyQ}. Perform a change of basis.)
+6. Let V be a finite-dimensional
+inner product space, and let W be a subspace

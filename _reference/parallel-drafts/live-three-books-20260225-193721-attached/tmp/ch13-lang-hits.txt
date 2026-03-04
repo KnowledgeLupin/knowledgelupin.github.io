@@ -1,0 +1,14 @@
+161:triangulation of matrices and linear maps; Jordan canonical form; convex
+407:§6. The Jordan Normal Form . . . . . . . . . . . . . . . . .
+13579:XI, §6. THE JORDAN NORMAL FORM
+13603:THE JORDAN NORMAL FORM
+13661:The basis (*) is called a Jordan basis for V with respect to A.
+13670:and suppose that each Vi is cyclic. If we select a Jordan basis for each
+13672:a Jordan basis for V with respect to A. With resp(;'ct to this basis, t!le
+13694:above the diagonal, and 0 everywhere else. This matrix is called the Jordan normal form for A. Our main theorem in this section is that this
+13713:THE JORDAN NORMAL FORM
+13782:However, let [J4' be a Jordan basis of V'. We can extend [J4' to a basis of
+13802:THE JORDAN NORMAL FORM
+15069:Jordan basis 263
+15070:Jordan normal form
+15283:unitary linear maps and matrices, triangulation, and Jordan canonical

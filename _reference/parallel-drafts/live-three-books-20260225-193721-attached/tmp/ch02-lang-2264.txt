@@ -1,0 +1,5 @@
+(This win be useful in finding the determinant of a product.)
+18. Let A be a square matrix.
+(a) If A 2 = 0 show that I - A is invertible.
+(b) If A 3 = 0 show that I - A is invertible.
+(c) In general, if An = 0 for some positive integer n, show that I - A is invertible.

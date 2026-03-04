@@ -1,0 +1,5 @@
+thoroughly,
+possibly excluding Sections 3.6 and 3.7 which deal with the double dual
+and the transpose of a linear transformation.
+Chapters 4 and 5, on polynomials
+and

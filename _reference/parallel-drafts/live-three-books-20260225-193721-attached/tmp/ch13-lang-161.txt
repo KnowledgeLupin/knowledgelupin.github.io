@@ -1,0 +1,5 @@
+rapidly at the end of the introductory course); symmetric, hermitian and
+unitary operators, as well as their spectral theorem (diagonalization);
+triangulation of matrices and linear maps; Jordan canonical form; convex
+sets and the Krein-Milman theorem. One chapter also provides a complete theory of the basic properties of determinants. Only a partial treatment could be given in the introductory text. Of course, some parts of
+this chapter can still be omitted in a given course.

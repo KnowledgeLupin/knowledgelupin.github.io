@@ -1,0 +1,5 @@
+know the matrices C and D of (B-10).
+DeJinition.
+Let W be an invariant subspace for T and let o( be a vecto?
+in V. The T-conductor
+of LYinto

@@ -1,0 +1,30 @@
+123:inner product spaces and unitary diagonalization
+128:normal operators on real inner product spaces.
+227:inner product spaces in some detail. It covers
+245:operators on an inner product space, moves on to the spectral theory
+249:operators on real or complex inner product spaces. Chapter 10 discusses bilinear
+572:Inner Products
+573:Inner Product Spaces
+624:Forms on Inner Product Spaces
+26354:function on pairs of vectors, known as an inner product. One example of
+26355:an inner product is the scalar or dot product of vectors in R3. The scalar
+26384:An inner product on a vector space is a function with properties
+26385:similar to the dot product in R3, and in terms of such an inner product
+26396:Inner Products
+26399:properties of inner products.
+26406:numbers, and V a vector space over F. An inner product
+26445:EXAMPLE 1. On Fn there is an inner product which we call the
+26480:Inner Product Spaces
+26484:defines an inner product on V. Furthermore,
+26487:matrix B*, where Bzj = Bjk, we may express this inner product
+26510:When Q is the identity matrix, this inner product is essentially the same
+26516:‘standard inner product’ is
+26519:over F, there is no obvious inner product that one may call standard.
+26529:EXAMPLE 6. This is really a whole class of examples. One may construct new inner products from a given one by the following
+26531:Let V and W be vector spaces over F and suppose ( 1 ) is an inner product
+26537:defines an inner product pr on V. The inner product in Example
+26547:Inner Products
+26556:onto Fn that is determined by a. If we take the standard inner product
+26559:Thus, for any basis for V there is an inner product on V with the property
+26561:inner product. Later we shall show that every inner product on V is
+26570:f(0) = 0 as well, or f = 0. Now using the inner product of Example 5,

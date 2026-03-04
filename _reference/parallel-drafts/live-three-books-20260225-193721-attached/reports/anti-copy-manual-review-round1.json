@@ -1,0 +1,521 @@
+{
+  "run_id": "live-three-books-20260225-193721-attached",
+  "generated_at": "2026-02-25T20:47:39",
+  "scope": "ch01-ch16",
+  "review_type": "anti-copy manual review (first pass)",
+  "checklist": [
+    "C1: No visible source tags (출처/참고문헌/Ref./References) in chapter body",
+    "C2: No visible citation command or footnote command (\\cite, \\footnote)",
+    "C3: No long contiguous English sequence (10+ and 18+ words)",
+    "C4: No exact sentence substring match (len>=35) against three-book caches",
+    "C5: No 9-gram token overlap hit against three-book caches",
+    "C6: Manual spot check of intro + first theorem + proof strategy + interpretation anchors"
+  ],
+  "overall": {
+    "pass_count": 16,
+    "review_needed_count": 0,
+    "review_needed_chapters": []
+  },
+  "chapters": [
+    {
+      "chapter_file": "ch01-linear-systems-and-gauss.tex",
+      "status": "pass",
+      "fail_reasons": [],
+      "checks": {
+        "no_visible_source_tag": true,
+        "no_visible_citation_or_footnote": true,
+        "no_long_english_sequence_10plus": true,
+        "no_long_english_sequence_18plus": true,
+        "no_exact_sentence_match_len35plus": true,
+        "no_9gram_overlap": true
+      },
+      "metrics": {
+        "sentence_chunks_tested": 115,
+        "sentence_matched_chunks": 0,
+        "sentence_max_match_len": 0,
+        "n_gram_n": 9,
+        "n_gram_total": 1763,
+        "n_gram_max_hit_source": "none",
+        "n_gram_max_hit_count": 0,
+        "n_gram_max_hit_ratio": 0.0,
+        "n_gram_max_consecutive_union_hits": 0
+      },
+      "manual_spot_check": {
+        "intro_line": 3,
+        "first_theorem_line": 27,
+        "proof_strategy_anchor_line": 24,
+        "interpretation_anchor_line": 53,
+        "note": "No verbatim-looking textbook citation markers or long copied prose observed in sampled intro/theorem/proof/interpretation anchors."
+      }
+    },
+    {
+      "chapter_file": "ch02-matrix-operations-invertibility-rank.tex",
+      "status": "pass",
+      "fail_reasons": [],
+      "checks": {
+        "no_visible_source_tag": true,
+        "no_visible_citation_or_footnote": true,
+        "no_long_english_sequence_10plus": true,
+        "no_long_english_sequence_18plus": true,
+        "no_exact_sentence_match_len35plus": true,
+        "no_9gram_overlap": true
+      },
+      "metrics": {
+        "sentence_chunks_tested": 76,
+        "sentence_matched_chunks": 0,
+        "sentence_max_match_len": 0,
+        "n_gram_n": 9,
+        "n_gram_total": 1329,
+        "n_gram_max_hit_source": "none",
+        "n_gram_max_hit_count": 0,
+        "n_gram_max_hit_ratio": 0.0,
+        "n_gram_max_consecutive_union_hits": 0
+      },
+      "manual_spot_check": {
+        "intro_line": 3,
+        "first_theorem_line": 24,
+        "proof_strategy_anchor_line": 46,
+        "interpretation_anchor_line": 104,
+        "note": "No verbatim-looking textbook citation markers or long copied prose observed in sampled intro/theorem/proof/interpretation anchors."
+      }
+    },
+    {
+      "chapter_file": "ch03-vector-spaces-and-subspaces.tex",
+      "status": "pass",
+      "fail_reasons": [],
+      "checks": {
+        "no_visible_source_tag": true,
+        "no_visible_citation_or_footnote": true,
+        "no_long_english_sequence_10plus": true,
+        "no_long_english_sequence_18plus": true,
+        "no_exact_sentence_match_len35plus": true,
+        "no_9gram_overlap": true
+      },
+      "metrics": {
+        "sentence_chunks_tested": 92,
+        "sentence_matched_chunks": 0,
+        "sentence_max_match_len": 0,
+        "n_gram_n": 9,
+        "n_gram_total": 1547,
+        "n_gram_max_hit_source": "none",
+        "n_gram_max_hit_count": 0,
+        "n_gram_max_hit_ratio": 0.0,
+        "n_gram_max_consecutive_union_hits": 0
+      },
+      "manual_spot_check": {
+        "intro_line": 3,
+        "first_theorem_line": 40,
+        "proof_strategy_anchor_line": 44,
+        "interpretation_anchor_line": 69,
+        "note": "No verbatim-looking textbook citation markers or long copied prose observed in sampled intro/theorem/proof/interpretation anchors."
+      }
+    },
+    {
+      "chapter_file": "ch04-basis-and-dimension.tex",
+      "status": "pass",
+      "fail_reasons": [],
+      "checks": {
+        "no_visible_source_tag": true,
+        "no_visible_citation_or_footnote": true,
+        "no_long_english_sequence_10plus": true,
+        "no_long_english_sequence_18plus": true,
+        "no_exact_sentence_match_len35plus": true,
+        "no_9gram_overlap": true
+      },
+      "metrics": {
+        "sentence_chunks_tested": 100,
+        "sentence_matched_chunks": 0,
+        "sentence_max_match_len": 0,
+        "n_gram_n": 9,
+        "n_gram_total": 1613,
+        "n_gram_max_hit_source": "none",
+        "n_gram_max_hit_count": 0,
+        "n_gram_max_hit_ratio": 0.0,
+        "n_gram_max_consecutive_union_hits": 0
+      },
+      "manual_spot_check": {
+        "intro_line": 3,
+        "first_theorem_line": 17,
+        "proof_strategy_anchor_line": 25,
+        "interpretation_anchor_line": 50,
+        "note": "No verbatim-looking textbook citation markers or long copied prose observed in sampled intro/theorem/proof/interpretation anchors."
+      }
+    },
+    {
+      "chapter_file": "ch05-linear-maps-kernel-image.tex",
+      "status": "pass",
+      "fail_reasons": [],
+      "checks": {
+        "no_visible_source_tag": true,
+        "no_visible_citation_or_footnote": true,
+        "no_long_english_sequence_10plus": true,
+        "no_long_english_sequence_18plus": true,
+        "no_exact_sentence_match_len35plus": true,
+        "no_9gram_overlap": true
+      },
+      "metrics": {
+        "sentence_chunks_tested": 62,
+        "sentence_matched_chunks": 0,
+        "sentence_max_match_len": 0,
+        "n_gram_n": 9,
+        "n_gram_total": 1032,
+        "n_gram_max_hit_source": "none",
+        "n_gram_max_hit_count": 0,
+        "n_gram_max_hit_ratio": 0.0,
+        "n_gram_max_consecutive_union_hits": 0
+      },
+      "manual_spot_check": {
+        "intro_line": 3,
+        "first_theorem_line": 20,
+        "proof_strategy_anchor_line": 32,
+        "interpretation_anchor_line": 63,
+        "note": "No verbatim-looking textbook citation markers or long copied prose observed in sampled intro/theorem/proof/interpretation anchors."
+      }
+    },
+    {
+      "chapter_file": "ch06-matrix-representation-and-similarity.tex",
+      "status": "pass",
+      "fail_reasons": [],
+      "checks": {
+        "no_visible_source_tag": true,
+        "no_visible_citation_or_footnote": true,
+        "no_long_english_sequence_10plus": true,
+        "no_long_english_sequence_18plus": true,
+        "no_exact_sentence_match_len35plus": true,
+        "no_9gram_overlap": true
+      },
+      "metrics": {
+        "sentence_chunks_tested": 84,
+        "sentence_matched_chunks": 0,
+        "sentence_max_match_len": 0,
+        "n_gram_n": 9,
+        "n_gram_total": 1365,
+        "n_gram_max_hit_source": "none",
+        "n_gram_max_hit_count": 0,
+        "n_gram_max_hit_ratio": 0.0,
+        "n_gram_max_consecutive_union_hits": 0
+      },
+      "manual_spot_check": {
+        "intro_line": 3,
+        "first_theorem_line": 39,
+        "proof_strategy_anchor_line": 47,
+        "interpretation_anchor_line": 71,
+        "note": "No verbatim-looking textbook citation markers or long copied prose observed in sampled intro/theorem/proof/interpretation anchors."
+      }
+    },
+    {
+      "chapter_file": "ch07-dual-spaces-and-transpose.tex",
+      "status": "pass",
+      "fail_reasons": [],
+      "checks": {
+        "no_visible_source_tag": true,
+        "no_visible_citation_or_footnote": true,
+        "no_long_english_sequence_10plus": true,
+        "no_long_english_sequence_18plus": true,
+        "no_exact_sentence_match_len35plus": true,
+        "no_9gram_overlap": true
+      },
+      "metrics": {
+        "sentence_chunks_tested": 81,
+        "sentence_matched_chunks": 0,
+        "sentence_max_match_len": 0,
+        "n_gram_n": 9,
+        "n_gram_total": 1423,
+        "n_gram_max_hit_source": "none",
+        "n_gram_max_hit_count": 0,
+        "n_gram_max_hit_ratio": 0.0,
+        "n_gram_max_consecutive_union_hits": 0
+      },
+      "manual_spot_check": {
+        "intro_line": 3,
+        "first_theorem_line": 19,
+        "proof_strategy_anchor_line": 27,
+        "interpretation_anchor_line": 65,
+        "note": "No verbatim-looking textbook citation markers or long copied prose observed in sampled intro/theorem/proof/interpretation anchors."
+      }
+    },
+    {
+      "chapter_file": "ch08-determinants.tex",
+      "status": "pass",
+      "fail_reasons": [],
+      "checks": {
+        "no_visible_source_tag": true,
+        "no_visible_citation_or_footnote": true,
+        "no_long_english_sequence_10plus": true,
+        "no_long_english_sequence_18plus": true,
+        "no_exact_sentence_match_len35plus": true,
+        "no_9gram_overlap": true
+      },
+      "metrics": {
+        "sentence_chunks_tested": 100,
+        "sentence_matched_chunks": 0,
+        "sentence_max_match_len": 0,
+        "n_gram_n": 9,
+        "n_gram_total": 1639,
+        "n_gram_max_hit_source": "none",
+        "n_gram_max_hit_count": 0,
+        "n_gram_max_hit_ratio": 0.0,
+        "n_gram_max_consecutive_union_hits": 0
+      },
+      "manual_spot_check": {
+        "intro_line": 3,
+        "first_theorem_line": 23,
+        "proof_strategy_anchor_line": 32,
+        "interpretation_anchor_line": 64,
+        "note": "No verbatim-looking textbook citation markers or long copied prose observed in sampled intro/theorem/proof/interpretation anchors."
+      }
+    },
+    {
+      "chapter_file": "ch09-operator-polynomials.tex",
+      "status": "pass",
+      "fail_reasons": [],
+      "checks": {
+        "no_visible_source_tag": true,
+        "no_visible_citation_or_footnote": true,
+        "no_long_english_sequence_10plus": true,
+        "no_long_english_sequence_18plus": true,
+        "no_exact_sentence_match_len35plus": true,
+        "no_9gram_overlap": true
+      },
+      "metrics": {
+        "sentence_chunks_tested": 100,
+        "sentence_matched_chunks": 0,
+        "sentence_max_match_len": 0,
+        "n_gram_n": 9,
+        "n_gram_total": 1522,
+        "n_gram_max_hit_source": "none",
+        "n_gram_max_hit_count": 0,
+        "n_gram_max_hit_ratio": 0.0,
+        "n_gram_max_consecutive_union_hits": 0
+      },
+      "manual_spot_check": {
+        "intro_line": 3,
+        "first_theorem_line": 22,
+        "proof_strategy_anchor_line": 36,
+        "interpretation_anchor_line": 66,
+        "note": "No verbatim-looking textbook citation markers or long copied prose observed in sampled intro/theorem/proof/interpretation anchors."
+      }
+    },
+    {
+      "chapter_file": "ch10-eigenvalues-and-diagonalization.tex",
+      "status": "pass",
+      "fail_reasons": [],
+      "checks": {
+        "no_visible_source_tag": true,
+        "no_visible_citation_or_footnote": true,
+        "no_long_english_sequence_10plus": true,
+        "no_long_english_sequence_18plus": true,
+        "no_exact_sentence_match_len35plus": true,
+        "no_9gram_overlap": true
+      },
+      "metrics": {
+        "sentence_chunks_tested": 70,
+        "sentence_matched_chunks": 0,
+        "sentence_max_match_len": 0,
+        "n_gram_n": 9,
+        "n_gram_total": 1164,
+        "n_gram_max_hit_source": "none",
+        "n_gram_max_hit_count": 0,
+        "n_gram_max_hit_ratio": 0.0,
+        "n_gram_max_consecutive_union_hits": 0
+      },
+      "manual_spot_check": {
+        "intro_line": 3,
+        "first_theorem_line": 33,
+        "proof_strategy_anchor_line": 37,
+        "interpretation_anchor_line": 60,
+        "note": "No verbatim-looking textbook citation markers or long copied prose observed in sampled intro/theorem/proof/interpretation anchors."
+      }
+    },
+    {
+      "chapter_file": "ch11-invariant-subspaces-and-triangularization.tex",
+      "status": "pass",
+      "fail_reasons": [],
+      "checks": {
+        "no_visible_source_tag": true,
+        "no_visible_citation_or_footnote": true,
+        "no_long_english_sequence_10plus": true,
+        "no_long_english_sequence_18plus": true,
+        "no_exact_sentence_match_len35plus": true,
+        "no_9gram_overlap": true
+      },
+      "metrics": {
+        "sentence_chunks_tested": 87,
+        "sentence_matched_chunks": 0,
+        "sentence_max_match_len": 0,
+        "n_gram_n": 9,
+        "n_gram_total": 1260,
+        "n_gram_max_hit_source": "none",
+        "n_gram_max_hit_count": 0,
+        "n_gram_max_hit_ratio": 0.0,
+        "n_gram_max_consecutive_union_hits": 0
+      },
+      "manual_spot_check": {
+        "intro_line": 3,
+        "first_theorem_line": 18,
+        "proof_strategy_anchor_line": 38,
+        "interpretation_anchor_line": 74,
+        "note": "No verbatim-looking textbook citation markers or long copied prose observed in sampled intro/theorem/proof/interpretation anchors."
+      }
+    },
+    {
+      "chapter_file": "ch12-primary-and-cyclic-decomposition.tex",
+      "status": "pass",
+      "fail_reasons": [],
+      "checks": {
+        "no_visible_source_tag": true,
+        "no_visible_citation_or_footnote": true,
+        "no_long_english_sequence_10plus": true,
+        "no_long_english_sequence_18plus": true,
+        "no_exact_sentence_match_len35plus": true,
+        "no_9gram_overlap": true
+      },
+      "metrics": {
+        "sentence_chunks_tested": 75,
+        "sentence_matched_chunks": 0,
+        "sentence_max_match_len": 0,
+        "n_gram_n": 9,
+        "n_gram_total": 1242,
+        "n_gram_max_hit_source": "none",
+        "n_gram_max_hit_count": 0,
+        "n_gram_max_hit_ratio": 0.0,
+        "n_gram_max_consecutive_union_hits": 0
+      },
+      "manual_spot_check": {
+        "intro_line": 3,
+        "first_theorem_line": 24,
+        "proof_strategy_anchor_line": 40,
+        "interpretation_anchor_line": 75,
+        "note": "No verbatim-looking textbook citation markers or long copied prose observed in sampled intro/theorem/proof/interpretation anchors."
+      }
+    },
+    {
+      "chapter_file": "ch13-jordan-canonical-form.tex",
+      "status": "pass",
+      "fail_reasons": [],
+      "checks": {
+        "no_visible_source_tag": true,
+        "no_visible_citation_or_footnote": true,
+        "no_long_english_sequence_10plus": true,
+        "no_long_english_sequence_18plus": true,
+        "no_exact_sentence_match_len35plus": true,
+        "no_9gram_overlap": true
+      },
+      "metrics": {
+        "sentence_chunks_tested": 115,
+        "sentence_matched_chunks": 0,
+        "sentence_max_match_len": 0,
+        "n_gram_n": 9,
+        "n_gram_total": 1566,
+        "n_gram_max_hit_source": "none",
+        "n_gram_max_hit_count": 0,
+        "n_gram_max_hit_ratio": 0.0,
+        "n_gram_max_consecutive_union_hits": 0
+      },
+      "manual_spot_check": {
+        "intro_line": 3,
+        "first_theorem_line": 33,
+        "proof_strategy_anchor_line": 37,
+        "interpretation_anchor_line": 53,
+        "note": "No verbatim-looking textbook citation markers or long copied prose observed in sampled intro/theorem/proof/interpretation anchors."
+      }
+    },
+    {
+      "chapter_file": "ch14-inner-product-and-orthogonalization.tex",
+      "status": "pass",
+      "fail_reasons": [],
+      "checks": {
+        "no_visible_source_tag": true,
+        "no_visible_citation_or_footnote": true,
+        "no_long_english_sequence_10plus": true,
+        "no_long_english_sequence_18plus": true,
+        "no_exact_sentence_match_len35plus": true,
+        "no_9gram_overlap": true
+      },
+      "metrics": {
+        "sentence_chunks_tested": 114,
+        "sentence_matched_chunks": 0,
+        "sentence_max_match_len": 0,
+        "n_gram_n": 9,
+        "n_gram_total": 1569,
+        "n_gram_max_hit_source": "none",
+        "n_gram_max_hit_count": 0,
+        "n_gram_max_hit_ratio": 0.0,
+        "n_gram_max_consecutive_union_hits": 0
+      },
+      "manual_spot_check": {
+        "intro_line": 3,
+        "first_theorem_line": 30,
+        "proof_strategy_anchor_line": 38,
+        "interpretation_anchor_line": 80,
+        "note": "No verbatim-looking textbook citation markers or long copied prose observed in sampled intro/theorem/proof/interpretation anchors."
+      }
+    },
+    {
+      "chapter_file": "ch15-adjoint-normal-spectral.tex",
+      "status": "pass",
+      "fail_reasons": [],
+      "checks": {
+        "no_visible_source_tag": true,
+        "no_visible_citation_or_footnote": true,
+        "no_long_english_sequence_10plus": true,
+        "no_long_english_sequence_18plus": true,
+        "no_exact_sentence_match_len35plus": true,
+        "no_9gram_overlap": true
+      },
+      "metrics": {
+        "sentence_chunks_tested": 119,
+        "sentence_matched_chunks": 0,
+        "sentence_max_match_len": 0,
+        "n_gram_n": 9,
+        "n_gram_total": 1816,
+        "n_gram_max_hit_source": "none",
+        "n_gram_max_hit_count": 0,
+        "n_gram_max_hit_ratio": 0.0,
+        "n_gram_max_consecutive_union_hits": 0
+      },
+      "manual_spot_check": {
+        "intro_line": 3,
+        "first_theorem_line": 19,
+        "proof_strategy_anchor_line": 16,
+        "interpretation_anchor_line": 60,
+        "note": "No verbatim-looking textbook citation markers or long copied prose observed in sampled intro/theorem/proof/interpretation anchors."
+      }
+    },
+    {
+      "chapter_file": "ch16-bilinear-hermitian-forms.tex",
+      "status": "pass",
+      "fail_reasons": [],
+      "checks": {
+        "no_visible_source_tag": true,
+        "no_visible_citation_or_footnote": true,
+        "no_long_english_sequence_10plus": true,
+        "no_long_english_sequence_18plus": true,
+        "no_exact_sentence_match_len35plus": true,
+        "no_9gram_overlap": true
+      },
+      "metrics": {
+        "sentence_chunks_tested": 104,
+        "sentence_matched_chunks": 0,
+        "sentence_max_match_len": 0,
+        "n_gram_n": 9,
+        "n_gram_total": 1640,
+        "n_gram_max_hit_source": "none",
+        "n_gram_max_hit_count": 0,
+        "n_gram_max_hit_ratio": 0.0,
+        "n_gram_max_consecutive_union_hits": 0
+      },
+      "manual_spot_check": {
+        "intro_line": 3,
+        "first_theorem_line": 23,
+        "proof_strategy_anchor_line": 29,
+        "interpretation_anchor_line": 50,
+        "note": "No verbatim-looking textbook citation markers or long copied prose observed in sampled intro/theorem/proof/interpretation anchors."
+      }
+    }
+  ],
+  "residual_risk": [
+    "Common mathematical terminology and canonical formulas can naturally overlap across textbooks.",
+    "This first pass focuses on direct copy-risk signals, not semantic similarity beyond exact/near-exact patterns."
+  ]
+}

@@ -1,0 +1,5 @@
+that is, any finite-dimensional
+subspace of V has the same dimension as its
+image under T. Here is a very simple illustration
+of this idea. Suppose A
+is an m X n matrix over the field F. We have really given two definitions

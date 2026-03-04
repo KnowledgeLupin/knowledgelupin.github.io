@@ -1,0 +1,5 @@
+for some invertible
+U, let (I?, be any
+ordered basis for V and let a3’ be its image under U. Then show that [S]a = [T]~J.)
+10. We have seen that the linear operator T on R2 defined
+is represented in the standard ordered basis by the matrix

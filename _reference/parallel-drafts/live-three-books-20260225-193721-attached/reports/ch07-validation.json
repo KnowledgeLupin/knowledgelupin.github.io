@@ -1,0 +1,32 @@
+{
+  "chapter": "ch07",
+  "draft": "/Users/kwkwon/Desktop/Obsidian/Mathematician/github-blog/_reference/parallel-drafts/live-three-books-20260225-193721-attached/chapters/ch07-dual-spaces-and-transpose.tex",
+  "gate": "strict",
+  "status": "pass",
+  "counts": {
+    "theorem": 8,
+    "proof": 8,
+    "definition": 4,
+    "example": 4,
+    "warning": 8,
+    "quiz_heading": 4,
+    "quiz_item": 16,
+    "exercise_a": 8,
+    "exercise_b": 5,
+    "exercise_c": 3
+  },
+  "checks": [
+    {"id":"required_chapter_macros","pass":true,"detail":"Found chapter, intro, and goals macros."},
+    {"id":"section_templates_present","pass":true,"detail":"Found 4 section template blocks."},
+    {"id":"definition_and_example_present","pass":true,"detail":"Definitions and examples exist."},
+    {"id":"theorem_present","pass":true,"detail":"Found 8 theorem blocks."},
+    {"id":"theorem_proof_parity","pass":true,"detail":"Theorem/proof counts match (8)."},
+    {"id":"warning_minimum","pass":true,"detail":"Found 8 warning blocks."},
+    {"id":"quiz_minimum","pass":true,"detail":"Quiz heading found with 16 quiz items."},
+    {"id":"chapter_tail_blocks","pass":true,"detail":"Application and summary blocks found."},
+    {"id":"no_markdown_code_fence","pass":true,"detail":"No markdown code fence found."},
+    {"id":"graded_exercise_minimum","pass":true,"detail":"Exercise counts satisfy A/B/C minimums (8/5/3)."}
+  ],
+  "failed_rules": [
+  ]
+}

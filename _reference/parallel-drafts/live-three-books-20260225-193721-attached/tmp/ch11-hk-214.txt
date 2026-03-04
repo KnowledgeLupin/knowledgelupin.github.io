@@ -1,0 +1,5 @@
+transformations;
+the concepts of the diagonalizable
+and nilpotent
+parts of a more general transformation,
+and the rational and Jordan canonical forms. The primary and cyclic decomposition

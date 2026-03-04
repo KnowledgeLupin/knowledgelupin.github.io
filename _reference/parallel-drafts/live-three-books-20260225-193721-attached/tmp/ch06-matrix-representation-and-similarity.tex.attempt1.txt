@@ -1,0 +1,966 @@
+\chapter{행렬표현과 기저변환, 유사}
+
+\chapterintro{이 장에서는 선형사상을 좌표로 기록하는 방법을 정리하고, 기저를 바꿀 때 행렬이 어떻게 변하는지 체계적으로 설명하겠습니다. 같은 선형사상이라도 기저가 달라지면 행렬은 달라질 수 있지만, 그 변화는 임의가 아니라 정확한 공식으로 통제됩니다. 마지막으로 유사(similarity) 관계와 불변량(invariant)을 도입하여 ``표현은 달라도 본질은 같은'' 상황을 구분하는 기준을 마련하겠습니다.}
+\chaptergoals{선형사상의 행렬표현을 정의하고 좌표 계산 공식으로 사용할 수 있다.}{기저변환행렬을 이용해 표현행렬의 변화 공식을 유도하고 적용할 수 있다.}{유사관계의 의미를 이해하고 랭크, 행렬식, 트레이스, 특성다항식 같은 불변량을 판정 도구로 사용할 수 있다.}
+
+\sectiontemplate{선형사상의 행렬표현(matrix representation)}{기저를 정하면 벡터는 좌표벡터로 바뀌고, 선형사상은 행렬곱으로 바뀝니다. 이 절에서는 이 대응을 엄밀히 고정하여 이후 계산의 공통 언어를 만들겠습니다.}{\item 표현행렬의 정의를 정확히 쓸 수 있습니다.\item 좌표벡터에 대한 작용 공식을 증명할 수 있습니다.\item 합성사상과 행렬곱의 대응을 설명할 수 있습니다.}{\item 기저와 좌표벡터\item 선형사상의 선형성}
+
+\begin{definition}
+$V,W$를 각각 차원 $n,m$의 $K$-벡터공간이라 하자. 순서기저
+\[
+\mathcal{B}=(v_1,\dots,v_n),\qquad \mathcal{C}=(w_1,\dots,w_m)
+\]
+와 선형사상 $T:V\to W$가 주어졌을 때, $T(v_j)$의 $\mathcal{C}$-좌표벡터를 $j$번째 열로 모은 행렬
+\[
+[T]_{\mathcal{C}\leftarrow\mathcal{B}}
+=
+\begin{bmatrix}
+[T(v_1)]_{\mathcal{C}} & \cdots & [T(v_n)]_{\mathcal{C}}
+\end{bmatrix}
+\in M_{m,n}(K)
+\]
+를 $T$의 \emph{표현행렬}이라 한다.
+\end{definition}
+
+\paragraph{증명 전략.}
+임의의 벡터를 출발기저 $\mathcal{B}$의 선형결합으로 전개한 뒤, $T$의 선형성을 사용해 $T(x)$를 도착기저 $\mathcal{C}$ 좌표로 다시 정리하면 원하는 공식이 성분 수준에서 직접 나옵니다.
+
+\begin{theorem}[좌표 작용 공식]
+위 정의의 가정에서 모든 $x\in V$에 대해
+\[
+[T(x)]_{\mathcal{C}}=[T]_{\mathcal{C}\leftarrow\mathcal{B}}[x]_{\mathcal{B}}
+\]
+가 성립한다.
+\end{theorem}
+
+\begin{proof}
+임의의 $x\in V$를
+\[
+x=\sum_{j=1}^n \alpha_j v_j
+\]
+로 쓴다. 그러면
+\[
+[x]_{\mathcal{B}}=
+\begin{bmatrix}
+\alpha_1\\ \vdots\\ \alpha_n
+\end{bmatrix}.
+\]
+한편 $[T]_{\mathcal{C}\leftarrow\mathcal{B}}=(a_{ij})$라 두면
+\[
+T(v_j)=\sum_{i=1}^m a_{ij}w_i \qquad (1\le j\le n).
+\]
+따라서 선형성으로
+\[
+T(x)=\sum_{j=1}^n \alpha_j T(v_j)
+    =\sum_{j=1}^n \alpha_j\sum_{i=1}^m a_{ij}w_i
+    =\sum_{i=1}^m\left(\sum_{j=1}^n a_{ij}\alpha_j\right)w_i.
+\]
+즉 $[T(x)]_{\mathcal{C}}$의 $i$번째 성분은 $\sum_{j=1}^n a_{ij}\alpha_j$이고, 이는 정확히
+\[
+[T]_{\mathcal{C}\leftarrow\mathcal{B}}[x]_{\mathcal{B}}
+\]
+의 $i$번째 성분이다. 모든 성분이 일치하므로 결론이 성립한다.
+\end{proof}
+
+\paragraph{의미 해석.}
+이 정리는 ``선형사상을 계산한다''는 일을 ``행렬곱을 계산한다''는 일로 바꾸어 줍니다. 이후부터는 추상적 사상과 구체적 행렬이 같은 정보를 다른 언어로 표현한다는 관점을 일관되게 사용할 수 있습니다.
+
+\paragraph{증명 전략.}
+합성 $S\circ T$에 대해 좌표 작용 공식을 두 번 연속 적용하면 자연스럽게 행렬곱이 나타납니다. 마지막에는 좌표벡터의 임의성을 이용해 두 행렬이 같음을 결론짓습니다.
+
+\begin{theorem}[합성과 행렬곱]
+$T:V\to W$, $S:W\to U$가 선형사상이고 $V,W,U$의 순서기저를 각각 $\mathcal{B},\mathcal{C},\mathcal{D}$라 하자. 그러면
+\[
+[S\circ T]_{\mathcal{D}\leftarrow\mathcal{B}}
+=
+[S]_{\mathcal{D}\leftarrow\mathcal{C}}\,[T]_{\mathcal{C}\leftarrow\mathcal{B}}
+\]
+가 성립한다.
+\end{theorem}
+
+\begin{proof}
+임의의 $x\in V$에 대해 앞 정리를 $T$와 $S$에 각각 적용하면
+\[
+[T(x)]_{\mathcal{C}}=[T]_{\mathcal{C}\leftarrow\mathcal{B}}[x]_{\mathcal{B}},
+\]
+\[
+[S(T(x))]_{\mathcal{D}}=[S]_{\mathcal{D}\leftarrow\mathcal{C}}[T(x)]_{\mathcal{C}}
+\]
+이므로
+\[
+[(S\circ T)(x)]_{\mathcal{D}}
+=
+[S]_{\mathcal{D}\leftarrow\mathcal{C}}[T]_{\mathcal{C}\leftarrow\mathcal{B}}[x]_{\mathcal{B}}.
+\]
+또한 합성사상 $S\circ T$에 대해 좌표 작용 공식을 적용하면
+\[
+[(S\circ T)(x)]_{\mathcal{D}}
+=
+[S\circ T]_{\mathcal{D}\leftarrow\mathcal{B}}[x]_{\mathcal{B}}.
+\]
+따라서 모든 $x\in V$에 대해
+\[
+\Big([S\circ T]_{\mathcal{D}\leftarrow\mathcal{B}}
+-
+[S]_{\mathcal{D}\leftarrow\mathcal{C}}[T]_{\mathcal{C}\leftarrow\mathcal{B}}\Big)[x]_{\mathcal{B}}=0.
+\]
+좌표사상 $x\mapsto [x]_{\mathcal{B}}$는 $K^n$으로의 전단사이므로, 위 괄호 안의 행렬은 $K^n$의 모든 벡터를 $0$으로 보낸다. 따라서 그 행렬은 영행렬이고 정리가 성립한다.
+\end{proof}
+
+\paragraph{의미 해석.}
+행렬곱의 순서가 왜 ``오른쪽에서 먼저''인지가 이 정리에서 명확해집니다. 먼저 $T$가 작용하고 다음에 $S$가 작용하므로, 표현행렬은 $[S][T]$ 순서로 곱해집니다.
+
+\begin{example}
+$V=W=\mathbb{R}^2$, 
+\[
+\mathcal{B}=\big((1,0),(1,1)\big),\qquad
+\mathcal{C}=\big((1,0),(0,1)\big),
+\]
+\[
+T(x,y)=(x+2y,\,3x-y)
+\]
+로 두자. 그러면
+\[
+T(1,0)=(1,3),\qquad T(1,1)=(3,2),
+\]
+이므로
+\[
+[T]_{\mathcal{C}\leftarrow\mathcal{B}}
+=
+\begin{bmatrix}
+1&3\\
+3&2
+\end{bmatrix}.
+\]
+또한 $x=(2,-1)$이면
+\[
+[x]_{\mathcal{B}}=
+\begin{bmatrix}
+3\\-1
+\end{bmatrix}
+\]
+이고
+\[
+[T]_{\mathcal{C}\leftarrow\mathcal{B}}[x]_{\mathcal{B}}
+=
+\begin{bmatrix}
+0\\7
+\end{bmatrix}
+=
+[T(x)]_{\mathcal{C}}
+\]
+가 되어 정리의 공식을 직접 확인할 수 있다.
+\end{example}
+
+\subsection*{주의}
+\begin{warning}
+$[T]_{\mathcal{C}\leftarrow\mathcal{B}}$에서 화살표의 왼쪽은 \emph{도착기저}, 오른쪽은 \emph{출발기저}다. 순서를 바꾸면 전혀 다른 행렬이 된다.
+\end{warning}
+\begin{warning}
+열벡터는 $T(v_j)$의 좌표다. 행벡터로 읽거나 $T(w_i)$를 넣어 계산하면 정의 자체가 어긋난다.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item 선형사상 $T:\mathbb{R}^3\to\mathbb{R}^2$와 두 기저가 주어졌을 때, 열벡터 방식으로 표현행렬을 만드는 절차를 단계별로 설명해 보십시오.
+\item 좌표 작용 공식이 성립하려면 왜 ``기저가 순서기저''여야 하는지 설명해 보십시오.
+\item 합성공식에서 곱의 순서가 뒤바뀌면 어떤 계산 오류가 생기는지 간단한 반례를 드십시오.
+\end{enumerate}
+
+\sectiontemplate{기저변환(change of basis)과 변화 공식}{같은 벡터라도 기저가 바뀌면 좌표가 달라집니다. 이 절에서는 좌표 변화와 표현행렬 변화를 하나의 공식으로 묶어 유사식의 출발점을 만들겠습니다.}{\item 기저변환행렬을 정확히 정의할 수 있습니다.\item 좌표변환식 $[x]_{\mathcal{B}}=P[x]_{\mathcal{B}'}$를 증명할 수 있습니다.\item 표현행렬의 기저변환 공식 $A'=P^{-1}AP$를 유도할 수 있습니다.}{\item 역행렬과 가역성\item 좌표 작용 공식}
+
+\begin{definition}
+$V$의 두 순서기저
+\[
+\mathcal{B}=(v_1,\dots,v_n),\qquad
+\mathcal{B}'=(v_1',\dots,v_n')
+\]
+가 주어졌다고 하자. 행렬
+\[
+P_{\mathcal{B}\leftarrow\mathcal{B}'}
+=
+\begin{bmatrix}
+[v_1']_{\mathcal{B}} & \cdots & [v_n']_{\mathcal{B}}
+\end{bmatrix}
+\in M_n(K)
+\]
+를 $\mathcal{B}'$-좌표를 $\mathcal{B}$-좌표로 바꾸는 \emph{기저변환행렬}이라 한다.
+\end{definition}
+
+\paragraph{증명 전략.}
+벡터 $x$를 새 기저 $\mathcal{B}'$의 선형결합으로 쓴 뒤, 각 기저벡터 $v_j'$를 옛 기저 $\mathcal{B}$로 다시 전개하면 좌표 관계식이 행렬곱 꼴로 정리됩니다.
+
+\begin{theorem}[좌표변환식]
+위 정의에서 모든 $x\in V$에 대해
+\[
+[x]_{\mathcal{B}}
+=
+P_{\mathcal{B}\leftarrow\mathcal{B}'}[x]_{\mathcal{B}'}
+\]
+가 성립한다. 특히
+\[
+[x]_{\mathcal{B}'}
+=
+P_{\mathcal{B}\leftarrow\mathcal{B}'}^{-1}[x]_{\mathcal{B}}
+\]
+가 성립한다.
+\end{theorem}
+
+\begin{proof}
+$P=P_{\mathcal{B}\leftarrow\mathcal{B}'}=(p_{ij})$라 두자. 정의에 의해
+\[
+v_j'=\sum_{i=1}^n p_{ij}v_i\qquad(1\le j\le n).
+\]
+임의의 $x\in V$를
+\[
+x=\sum_{j=1}^n \beta_j v_j'
+\]
+로 쓰면
+\[
+[x]_{\mathcal{B}'}
+=
+\begin{bmatrix}
+\beta_1\\ \vdots\\ \beta_n
+\end{bmatrix}.
+\]
+또한
+\[
+x
+=
+\sum_{j=1}^n \beta_j\sum_{i=1}^n p_{ij}v_i
+=
+\sum_{i=1}^n\left(\sum_{j=1}^n p_{ij}\beta_j\right)v_i.
+\]
+따라서 $[x]_{\mathcal{B}}$의 $i$번째 성분은 $\sum_j p_{ij}\beta_j$이고,
+\[
+[x]_{\mathcal{B}}=P[x]_{\mathcal{B}'}.
+\]
+기저이므로 좌표사상은 동형이고 $P$는 가역이므로 역식
+\[
+[x]_{\mathcal{B}'}=P^{-1}[x]_{\mathcal{B}}
+\]
+도 따른다.
+\end{proof}
+
+\paragraph{의미 해석.}
+기저변환은 ``벡터를 바꾸는'' 일이 아니라 ``같은 벡터의 좌표계를 바꾸는'' 일입니다. 이 관점을 유지하면 이후 $P^{-1}AP$ 공식을 기계적으로 외우지 않고 자연스럽게 복원할 수 있습니다.
+
+\paragraph{증명 전략.}
+같은 선형사상 $T$에 대해 $[T(x)]_{\mathcal{B}}$를 한편으로는 $A$로, 다른 한편으로는 $A'$와 좌표변환식으로 계산해 두 식을 비교하면 $A'=P^{-1}AP$가 바로 나옵니다.
+
+\begin{theorem}[표현행렬의 기저변환 공식]
+$T:V\to V$를 선형사상이라 하고
+\[
+A=[T]_{\mathcal{B}\leftarrow\mathcal{B}},\qquad
+A'=[T]_{\mathcal{B}'\leftarrow\mathcal{B}'},\qquad
+P=P_{\mathcal{B}\leftarrow\mathcal{B}'}
+\]
+라 하자. 그러면
+\[
+A'=P^{-1}AP
+\]
+가 성립한다.
+\end{theorem}
+
+\begin{proof}
+임의의 $x\in V$에 대해 좌표변환식과 좌표 작용 공식을 이용하면
+\[
+[T(x)]_{\mathcal{B}}=A[x]_{\mathcal{B}}=AP[x]_{\mathcal{B}'}
+\]
+이고, 동시에
+\[
+[T(x)]_{\mathcal{B}}=P[T(x)]_{\mathcal{B}'}=PA'[x]_{\mathcal{B}'}.
+\]
+따라서 모든 $x\in V$에 대해
+\[
+AP[x]_{\mathcal{B}'}=PA'[x]_{\mathcal{B}'}.
+\]
+좌표벡터 $[x]_{\mathcal{B}'}$는 $K^n$의 임의 벡터를 모두 돈다. 그러므로
+\[
+AP=PA'.
+\]
+양변에 왼쪽에서 $P^{-1}$를 곱하면
+\[
+A'=P^{-1}AP
+\]
+를 얻는다.
+\end{proof}
+
+\paragraph{의미 해석.}
+동일한 선형사상을 다른 좌표계에서 기록하면 행렬은 유사식으로 연결됩니다. 즉 유사는 ``다른 기저에서 본 같은 연산''이라는 해석을 정확히 반영합니다.
+
+\paragraph{증명 전략.}
+유사식 $B=P^{-1}AP$가 주어졌을 때, $P$의 열벡터를 새 기저로 해석하면 역으로 ``같은 연산자의 두 표현행렬''을 구성할 수 있습니다.
+
+\begin{theorem}[유사식의 역해석]
+$A,B\in M_n(K)$와 가역행렬 $P$가
+\[
+B=P^{-1}AP
+\]
+를 만족한다고 하자. 그러면 어떤 $n$차원 벡터공간 $V$, 두 순서기저 $\mathcal{E},\mathcal{F}$, 선형사상 $T:V\to V$가 존재하여
+\[
+[T]_{\mathcal{E}\leftarrow\mathcal{E}}=A,\qquad
+[T]_{\mathcal{F}\leftarrow\mathcal{F}}=B
+\]
+가 된다.
+\end{theorem}
+
+\begin{proof}
+$V=K^n$와 표준기저 $\mathcal{E}=(e_1,\dots,e_n)$를 잡고
+\[
+T(x)=Ax
+\]
+로 정의한다. 그러면 정의상
+\[
+[T]_{\mathcal{E}\leftarrow\mathcal{E}}=A.
+\]
+이제 $P=(p_{ij})$의 $j$번째 열벡터를
+\[
+v_j=\sum_{i=1}^n p_{ij}e_i
+\]
+로 두고 $\mathcal{F}=(v_1,\dots,v_n)$라 하자. $P$가 가역이므로 열벡터들은 일차독립이며 $\mathcal{F}$는 $V$의 기저다. 또한 정의에 의해
+\[
+P=P_{\mathcal{E}\leftarrow\mathcal{F}}.
+\]
+앞 정리(기저변환 공식)를 $T,\mathcal{E},\mathcal{F}$에 적용하면
+\[
+[T]_{\mathcal{F}\leftarrow\mathcal{F}}
+=
+P^{-1}[T]_{\mathcal{E}\leftarrow\mathcal{E}}P
+=
+P^{-1}AP
+=
+B.
+\]
+따라서 주장한 $V,\mathcal{E},\mathcal{F},T$가 실제로 존재한다.
+\end{proof}
+
+\paragraph{의미 해석.}
+유사식은 단순한 형식 변형이 아니라 실제 기저변환에서 오는 구조적 관계입니다. 즉 ``유사하다''는 말은 ``어떤 좌표계에서는 같은 연산자다''라는 해석과 동치입니다.
+
+\begin{example}
+\[
+A=
+\begin{bmatrix}
+2&1\\
+0&2
+\end{bmatrix},\qquad
+P=
+\begin{bmatrix}
+1&0\\
+1&1
+\end{bmatrix}
+\]
+라 두면
+\[
+P^{-1}=
+\begin{bmatrix}
+1&0\\
+-1&1
+\end{bmatrix},
+\quad
+B=P^{-1}AP=
+\begin{bmatrix}
+3&1\\
+-1&1
+\end{bmatrix}.
+\]
+$A$와 $B$는 모양이 다르지만 유사하며, 같은 선형사상을 서로 다른 기저로 기록한 결과로 해석할 수 있다.
+\end{example}
+
+\subsection*{주의}
+\begin{warning}
+$P_{\mathcal{B}\leftarrow\mathcal{B}'}$의 열은 ``새 기저벡터 $\mathcal{B}'$를 옛 기저 $\mathcal{B}$로 본 좌표''다. 이 방향을 반대로 읽으면 공식 전체가 뒤집힌다.
+\end{warning}
+\begin{warning}
+$P^{-1}AP$는 자기공간 $V\to V$의 표현변화 공식이다. 서로 다른 두 공간 $V\to W$의 일반 경우에는 $Q^{-1}AP$ 꼴이 나타나며, 이를 유사라고 부르지 않는다.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item 두 기저 $\mathcal{B},\mathcal{B}'$가 주어졌을 때 $P_{\mathcal{B}\leftarrow\mathcal{B}'}$를 계산하는 알고리즘을 서술해 보십시오.
+\item $A'=P^{-1}AP$를 $AP=PA'$ 형태로 바꾸어 해석할 때 무엇이 ``교환''되는지 설명해 보십시오.
+\item 임의의 가역행렬 $P$가 실제 기저변환행렬로 나타난다는 사실을 직접 증명해 보십시오.
+\end{enumerate}
+
+\sectiontemplate{유사(similarity) 관계와 불변량(invariant)}{이제 행렬 자체 사이의 관계로 유사를 정의하겠습니다. 유사관계 아래에서 변하지 않는 양을 찾으면, 두 행렬이 절대 유사할 수 없는 상황을 빠르게 판정할 수 있습니다.}{\item 유사를 등가관계로 증명할 수 있습니다.\item 랭크, 행렬식, 트레이스의 유사 불변성을 증명할 수 있습니다.\item 특성다항식 불변성을 이용해 분류의 첫 단계를 수행할 수 있습니다.}{\item 가역행렬\item 행렬식, 랭크, 트레이스}
+
+\begin{definition}
+$A,B\in M_n(K)$에 대해, 어떤 가역행렬 $P\in GL_n(K)$가 존재하여
+\[
+B=P^{-1}AP
+\]
+를 만족하면 $A$와 $B$가 \emph{유사(similar)}하다고 하고
+\[
+A\sim B
+\]
+로 쓴다.
+\end{definition}
+
+\paragraph{증명 전략.}
+등가관계의 세 조건(반사성, 대칭성, 추이성)을 각각 유사식의 형태로 직접 확인하면 됩니다. 핵심은 가역행렬의 곱과 역행렬이 다시 가역이라는 점입니다.
+
+\begin{theorem}[유사의 등가관계]
+집합 $M_n(K)$ 위에서 $\sim$은 등가관계이다.
+\end{theorem}
+
+\begin{proof}
+\textbf{반사성:} 항등행렬 $I_n$은 가역이고
+\[
+A=I_n^{-1}AI_n
+\]
+이므로 $A\sim A$.
+
+\textbf{대칭성:} $A\sim B$라면 어떤 가역 $P$에 대해 $B=P^{-1}AP$다. 양변을 정리하면
+\[
+A=PBP^{-1}=(P^{-1})^{-1}B(P^{-1}),
+\]
+따라서 $B\sim A$.
+
+\textbf{추이성:} $A\sim B$, $B\sim C$라면 가역 $P,Q$가 존재하여
+\[
+B=P^{-1}AP,\qquad C=Q^{-1}BQ.
+\]
+대입하면
+\[
+C=Q^{-1}(P^{-1}AP)Q=(PQ)^{-1}A(PQ).
+\]
+$PQ$도 가역이므로 $A\sim C$.
+세 조건이 모두 성립하므로 $\sim$은 등가관계이다.
+\end{proof}
+
+\paragraph{의미 해석.}
+유사류(similarity class)는 ``표현은 다를 수 있지만 본질적으로 같은 연산''의 집합입니다. 이후 분류 문제는 각 유사류를 대표하는 표준형을 찾는 문제로 바뀝니다.
+
+\paragraph{증명 전략.}
+$B=P^{-1}AP$를 선형사상 관점으로 읽으면 $B$의 상공간은 $A$의 상공간을 가역사상으로 옮긴 것입니다. 차원 보존으로 랭크 불변이 바로 나옵니다.
+
+\begin{theorem}[랭크 불변성]
+$A\sim B$이면
+\[
+\operatorname{rank}(A)=\operatorname{rank}(B)
+\]
+가 성립한다.
+\end{theorem}
+
+\begin{proof}
+$B=P^{-1}AP$라 하자. $K^n$의 벡터 $x$를 임의로 잡으면
+\[
+Bx=P^{-1}A(Px).
+\]
+따라서
+\[
+\operatorname{Im}(B)=P^{-1}\big(A(P(K^n))\big).
+\]
+$P$는 전단사이므로 $P(K^n)=K^n$이고
+\[
+\operatorname{Im}(B)=P^{-1}(\operatorname{Im}(A)).
+\]
+$P^{-1}$는 동형사상이므로 부분공간의 차원을 보존한다. 그러므로
+\[
+\dim\operatorname{Im}(B)=\dim\operatorname{Im}(A),
+\]
+즉
+\[
+\operatorname{rank}(B)=\operatorname{rank}(A).
+\]
+\end{proof}
+
+\paragraph{의미 해석.}
+기저를 바꾸어도 ``몇 차원 정보를 실제로 전달하는가''는 변하지 않습니다. 랭크는 연산자의 정보량을 재는 기저독립적 수치입니다.
+
+\paragraph{증명 전략.}
+행렬식은 곱셈성으로 즉시 처리되고, 트레이스는 먼저 $\operatorname{tr}(XY)=\operatorname{tr}(YX)$를 성분 합으로 증명한 뒤 유사식에 적용합니다.
+
+\begin{theorem}[행렬식과 트레이스의 불변성]
+$A\sim B$이면
+\[
+\det(B)=\det(A),\qquad \operatorname{tr}(B)=\operatorname{tr}(A)
+\]
+가 성립한다.
+\end{theorem}
+
+\begin{proof}
+$B=P^{-1}AP$라 하자.
+
+먼저 행렬식은
+\[
+\det(B)=\det(P^{-1})\det(A)\det(P)=\det(A)
+\]
+이다.
+
+다음으로 트레이스를 보이기 위해 임의의 $X=(x_{ij}),Y=(y_{ij})\in M_n(K)$에 대해
+\[
+\operatorname{tr}(XY)
+=
+\sum_{i=1}^n (XY)_{ii}
+=
+\sum_{i=1}^n\sum_{j=1}^n x_{ij}y_{ji}
+=
+\sum_{j=1}^n\sum_{i=1}^n y_{ji}x_{ij}
+=
+\operatorname{tr}(YX)
+\]
+를 얻는다. 이를 이용하면
+\[
+\operatorname{tr}(B)
+=
+\operatorname{tr}(P^{-1}AP)
+=
+\operatorname{tr}((P^{-1}A)P)
+=
+\operatorname{tr}(P(P^{-1}A))
+=
+\operatorname{tr}((PP^{-1})A)
+=
+\operatorname{tr}(A).
+\]
+따라서 두 불변식이 모두 성립한다.
+\end{proof}
+
+\paragraph{의미 해석.}
+행렬식과 트레이스는 유사류 내부에서 일정합니다. 따라서 두 행렬의 이 값이 다르면 추가 계산 없이 즉시 ``유사 아님''을 결론낼 수 있습니다.
+
+\paragraph{증명 전략.}
+$B=P^{-1}AP$에서 $tI-B$를 $P^{-1}(tI-A)P$로 묶어낸 다음, 행렬식의 곱셈성을 적용하면 특성다항식이 그대로 보존됩니다.
+
+\begin{theorem}[특성다항식 불변성]
+$A\sim B$이면
+\[
+\chi_A(t)=\chi_B(t)
+\]
+가 성립한다. 여기서 $\chi_A(t)=\det(tI_n-A)$이다.
+\end{theorem}
+
+\begin{proof}
+$B=P^{-1}AP$라 하자. 그러면
+\[
+tI_n-B=tI_n-P^{-1}AP=P^{-1}(tI_n-A)P
+\]
+이고 따라서
+\[
+\chi_B(t)
+=
+\det(tI_n-B)
+=
+\det\!\big(P^{-1}(tI_n-A)P\big)
+=
+\det(P^{-1})\det(tI_n-A)\det(P)
+=
+\chi_A(t).
+\]
+정리가 성립한다.
+\end{proof}
+
+\paragraph{의미 해석.}
+특성다항식은 유사류 수준에서 공유되는 다항식 데이터입니다. 이후 고유값, 대수적 중복도 같은 정보가 유사 불변량으로 등장하는 기반이 됩니다.
+
+\paragraph{증명 전략.}
+정의식 $B=P^{-1}AP$에 $A=I_n$ 또는 $A=0$을 직접 대입하면 각각 항등성과 영행렬성이 즉시 고정됨을 확인할 수 있습니다.
+
+\begin{theorem}[특수한 고정 유사류]
+$B\sim I_n$이면 $B=I_n$이고, $B\sim 0$이면 $B=0$이다.
+\end{theorem}
+
+\begin{proof}
+$B\sim I_n$이면 어떤 가역 $P$가 존재하여
+\[
+B=P^{-1}I_nP=I_n.
+\]
+또한 $B\sim 0$이면
+\[
+B=P^{-1}0P=0.
+\]
+두 주장 모두 성립한다.
+\end{proof}
+
+\paragraph{의미 해석.}
+모든 행렬이 유사변환으로 크게 바뀌는 것은 아닙니다. 항등행렬과 영행렬은 유사변환으로도 더 단순해지지 않는 절대 기준점입니다.
+
+\begin{example}
+\[
+A=
+\begin{bmatrix}
+1&0\\
+0&2
+\end{bmatrix},\qquad
+P=
+\begin{bmatrix}
+1&1\\
+0&1
+\end{bmatrix}
+\]
+이면
+\[
+B=P^{-1}AP=
+\begin{bmatrix}
+1&-1\\
+0&2
+\end{bmatrix}.
+\]
+$A$와 $B$는 모양이 다르지만
+\[
+\det A=\det B=2,\quad
+\operatorname{tr}A=\operatorname{tr}B=3,\quad
+\chi_A(t)=\chi_B(t)=(t-1)(t-2)
+\]
+를 만족하며 실제로 유사하다.
+\end{example}
+
+\subsection*{주의}
+\begin{warning}
+행동치(row equivalence)와 유사(similarity)는 전혀 다른 관계다. 행동치는 연립방정식 해집합 분석에, 유사는 선형연산자 분류에 쓰인다.
+\end{warning}
+\begin{warning}
+불변량이 같다는 것은 유사의 \emph{필요조건}일 뿐 일반적으로 \emph{충분조건}이 아니다. 값이 같아도 유사하지 않을 수 있다.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item $A\sim B$일 때 $\operatorname{nullity}(A)=\operatorname{nullity}(B)$가 왜 성립하는지 랭크-널리티 정리로 설명해 보십시오.
+\item $\operatorname{tr}(XY)=\operatorname{tr}(YX)$를 성분 계산으로 직접 써 보십시오.
+\item 두 행렬의 특성다항식이 다를 때 왜 유사가 즉시 배제되는지 논리 구조를 말해 보십시오.
+\end{enumerate}
+
+\sectiontemplate{유사와 대각화 관점}{유사는 분류를 위한 언어이고, 대각화는 그 분류가 가장 간단해지는 경우입니다. 이 절에서는 유사와 대각화의 정확한 연결을 정리하고, 무엇이 충분조건이고 무엇이 아닌지를 분명히 구분하겠습니다.}{\item 대각화 가능성과 유사의 동치를 증명할 수 있습니다.\item 같은 특성다항식이 유사를 보장하지 않음을 반례로 설명할 수 있습니다.\item 대각행렬의 유사 분류를 순열 관점으로 정리할 수 있습니다.}{\item 고유값과 고유벡터의 기초 개념\item 특성다항식과 유사 불변량}
+
+\begin{definition}
+$A\in M_n(K)$에 대해, 어떤 가역행렬 $P$와 대각행렬 $D$가 존재하여
+\[
+P^{-1}AP=D
+\]
+가 되면 $A$를 \emph{대각화 가능(diagonalizable)}하다고 한다.
+\end{definition}
+
+\paragraph{증명 전략.}
+한 방향은 고유벡터기저를 열로 모아 $P$를 만들면 되고, 반대 방향은 $P^{-1}AP=D$를 $AP=PD$로 바꿔 $P$의 열벡터가 고유벡터임을 확인하면 됩니다.
+
+\begin{theorem}[대각화와 유사의 동치]
+$A\in M_n(K)$에 대해 다음 두 조건은 동치이다.
+\begin{enumerate}[label=(\roman*)]
+\item $A$는 대각화 가능하다.
+\item $A$는 어떤 대각행렬과 유사하다.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(i)$\Rightarrow$(ii): 대각화 가능성의 정의 자체가 가역행렬 $P$와 대각행렬 $D$의 존재
+\[
+P^{-1}AP=D
+\]
+를 말하므로 $A\sim D$이다.
+
+(ii)$\Rightarrow$(i): $A\sim D$라면 어떤 가역행렬 $P$에 대해 $P^{-1}AP=D$이고, 이를
+\[
+AP=PD
+\]
+로 쓴다. $P$의 $i$번째 열벡터를 $p_i$, $D=\operatorname{diag}(\lambda_1,\dots,\lambda_n)$라 하면
+\[
+Ap_i=A(Pe_i)=PDe_i=P(\lambda_i e_i)=\lambda_i p_i.
+\]
+즉 각 $p_i$는 $A$의 고유벡터다. $P$가 가역이므로 $\{p_1,\dots,p_n\}$은 기저이며, $A$는 고유벡터기저를 가진다. 따라서 $A$는 대각화 가능하다.
+\end{proof}
+
+\paragraph{의미 해석.}
+대각화는 유사류 안에서 가장 계산이 쉬운 대표행렬(대각행렬)을 찾는 과정입니다. 가능하면 연산의 구조가 좌표축별 스칼라배로 완전히 분해됩니다.
+
+\paragraph{증명 전략.}
+동일한 특성다항식을 갖는 두 행렬을 골라 놓고, 유사가 성립한다고 가정했을 때 랭크 불변성과 모순이 생기도록 구성하면 됩니다.
+
+\begin{theorem}[같은 특성다항식은 유사의 충분조건이 아니다]
+\[
+D=
+\begin{bmatrix}
+1&0\\
+0&1
+\end{bmatrix},
+\qquad
+J=
+\begin{bmatrix}
+1&1\\
+0&1
+\end{bmatrix}
+\]
+에 대해 $\chi_D(t)=\chi_J(t)=(t-1)^2$이지만 $D\not\sim J$이다.
+\end{theorem}
+
+\begin{proof}
+먼저
+\[
+\chi_D(t)=\det\!\begin{bmatrix}t-1&0\\0&t-1\end{bmatrix}=(t-1)^2,
+\quad
+\chi_J(t)=\det\!\begin{bmatrix}t-1&-1\\0&t-1\end{bmatrix}=(t-1)^2.
+\]
+이제 $D\sim J$라고 가정하자. 그러면 유사 불변성에 의해
+\[
+\operatorname{rank}(D-I_2)=\operatorname{rank}(J-I_2)
+\]
+여야 한다. 그런데
+\[
+D-I_2=
+\begin{bmatrix}
+0&0\\
+0&0
+\end{bmatrix}
+\Rightarrow \operatorname{rank}(D-I_2)=0,
+\]
+\[
+J-I_2=
+\begin{bmatrix}
+0&1\\
+0&0
+\end{bmatrix}
+\Rightarrow \operatorname{rank}(J-I_2)=1.
+\]
+모순이므로 $D\sim J$는 성립하지 않는다. 따라서 같은 특성다항식은 유사의 충분조건이 아니다.
+\end{proof}
+
+\paragraph{의미 해석.}
+특성다항식은 강력하지만 완전한 분류자는 아닙니다. 실제 분류에는 추가 불변량이 필요하며, 이것이 이후 정준형 이론으로 이어집니다.
+
+\paragraph{증명 전략.}
+(i)$\Rightarrow$(ii)는 유사 불변성으로 즉시 얻고, (ii)$\Rightarrow$(iii)는 선형인수의 지수 비교(중복도 비교)로 처리합니다. (iii)$\Rightarrow$(i)는 순열행렬의 켤레작용이 대각원소를 재배열한다는 사실을 이용합니다.
+
+\begin{theorem}[대각행렬의 유사 분류]
+대각행렬
+\[
+D=\operatorname{diag}(d_1,\dots,d_n),\qquad
+E=\operatorname{diag}(e_1,\dots,e_n)
+\]
+에 대해 다음은 서로 동치이다.
+\begin{enumerate}[label=(\roman*)]
+\item $D\sim E$.
+\item $\chi_D(t)=\chi_E(t)$.
+\item 어떤 순열 $\sigma\in S_n$가 존재하여 $e_i=d_{\sigma(i)}$ ($1\le i\le n$).
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(i)$\Rightarrow$(ii): 앞 절의 특성다항식 불변성 정리로 즉시 성립한다.
+
+(ii)$\Rightarrow$(iii): $d_i,e_i$들에 실제로 등장하는 서로 다른 스칼라를 $a_1,\dots,a_r$라 하자. 각 $s$에 대해
+\[
+m_s=\#\{i:d_i=a_s\},\qquad n_s=\#\{i:e_i=a_s\}
+\]
+로 두면
+\[
+\chi_D(t)=\prod_{s=1}^r (t-a_s)^{m_s},\qquad
+\chi_E(t)=\prod_{s=1}^r (t-a_s)^{n_s}.
+\]
+가정 $\chi_D=\chi_E$와 $K[t]$의 인수분해 유일성으로 $m_s=n_s$가 모든 $s$에 대해 성립한다. 따라서 값 $a_s$를 갖는 인덱스 집합
+\[
+I_s=\{i:d_i=a_s\},\qquad J_s=\{i:e_i=a_s\}
+\]
+는 같은 크기를 가진다. 각 $s$마다 임의의 전단사 $\phi_s:I_s\to J_s$를 택하면, 이를 합쳐 $\{1,\dots,n\}$의 순열 $\sigma$를 만들 수 있고 $e_i=d_{\sigma(i)}$가 성립한다.
+
+(iii)$\Rightarrow$(i): 순열 $\sigma$에 대응하는 순열행렬 $\Pi$를 $\Pi e_i=e_{\sigma(i)}$로 정의하자. 그러면
+\[
+\Pi^{-1}D\Pi\,e_i
+=
+\Pi^{-1}D e_{\sigma(i)}
+=
+\Pi^{-1}(d_{\sigma(i)}e_{\sigma(i)})
+=
+d_{\sigma(i)}e_i
+=
+e_i e_i
+\]
+와 같은 성분 계산으로
+\[
+\Pi^{-1}D\Pi=\operatorname{diag}(d_{\sigma(1)},\dots,d_{\sigma(n)})=E
+\]
+를 얻는다. 따라서 $D\sim E$.
+\end{proof}
+
+\paragraph{의미 해석.}
+대각행렬의 경우 유사 분류는 ``대각원소의 멀티집합이 같은가''와 완전히 같습니다. 이는 일반 행렬 분류에서 어떤 정보가 본질인지 감각을 주는 가장 기본적인 모델입니다.
+
+\begin{example}
+\[
+A=
+\begin{bmatrix}
+2&0\\
+1&3
+\end{bmatrix},
+\quad
+P=
+\begin{bmatrix}
+1&0\\
+-1&1
+\end{bmatrix},
+\quad
+P^{-1}=
+\begin{bmatrix}
+1&0\\
+1&1
+\end{bmatrix}
+\]
+이면
+\[
+P^{-1}AP=
+\begin{bmatrix}
+2&0\\
+0&3
+\end{bmatrix}
+\]
+이다. 따라서 $A$는 대각행렬과 유사하므로 대각화 가능하다.
+\end{example}
+
+\subsection*{주의}
+\begin{warning}
+고유값이 존재한다는 사실만으로 대각화가 보장되지는 않는다. 기저를 이루는 충분한 수의 일차독립 고유벡터가 실제로 필요하다.
+\end{warning}
+\begin{warning}
+대각화 가능성은 유사류의 성질이다. 행렬의 특정 위치 원소들이 ``대각에 가깝다''는 모양만 보고 판단하면 오판하기 쉽다.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item $AP=PD$ 식에서 왜 $P$의 열벡터들이 고유벡터가 되는지 성분으로 써서 확인해 보십시오.
+\item $2\times2$ 행렬 두 개가 같은 특성다항식을 가져도 유사하지 않을 수 있음을 다른 예로 구성해 보십시오.
+\item 대각행렬 두 개의 유사 여부를 순열행렬로 판정하는 절차를 설명해 보십시오.
+\end{enumerate}
+
+\chapterapplicationtemplate{컴퓨터 그래픽스와 로봇공학에서는 같은 선형변환을 로컬 좌표계와 월드 좌표계에서 번갈아 기록합니다. 로컬 좌표계 표현을 $A_{\text{local}}$, 월드 좌표계 표현을 $A_{\text{world}}$, 좌표변환행렬을 $P$라 하면
+\[
+A_{\text{world}}=P^{-1}A_{\text{local}}P
+\]
+가 됩니다. 따라서 계산은 편한 좌표계에서 수행하고, 결과는 필요한 좌표계로 다시 옮기는 전략을 안정적으로 사용할 수 있습니다.}
+
+\chaptersummarytemplate
+
+\section*{종합 연습문제}
+
+\subsection*{연습문제 A (기초 확인)}
+
+\begin{exercise}
+$T:\mathbb{R}^3\to\mathbb{R}^2$, $T(x,y,z)=(x+2y-z,\;3x+y+z)$라 하자. 
+\[
+\mathcal{B}=\big((1,0,0),(1,1,0),(1,1,1)\big),\quad
+\mathcal{C}=\big((1,0),(0,1)\big)
+\]
+일 때 $[T]_{\mathcal{C}\leftarrow\mathcal{B}}$를 구하여라.
+\end{exercise}
+
+\begin{exercise}
+연습문제 6.4.1의 $T$와 $\mathcal{B},\mathcal{C}$에 대해 $x=(2,-1,3)$일 때
+\[
+[T(x)]_{\mathcal{C}}=[T]_{\mathcal{C}\leftarrow\mathcal{B}}[x]_{\mathcal{B}}
+\]
+를 직접 계산으로 확인하여라.
+\end{exercise}
+
+\begin{exercise}
+\[
+\mathcal{B}=\big((1,0),(0,1)\big),\qquad
+\mathcal{B}'=\big((1,1),(1,-1)\big)
+\]
+에 대해 $P_{\mathcal{B}\leftarrow\mathcal{B}'}$와 $P_{\mathcal{B}'\leftarrow\mathcal{B}}$를 구하여라.
+\end{exercise}
+
+\begin{exercise}
+\[
+A=
+\begin{bmatrix}
+1&2\\
+0&3
+\end{bmatrix},
+\qquad
+P=
+\begin{bmatrix}
+1&1\\
+0&1
+\end{bmatrix}
+\]
+일 때 $B=P^{-1}AP$를 계산하고 $\det,\operatorname{tr}$가 보존되는지 확인하여라.
+\end{exercise}
+
+\begin{exercise}
+다음 두 행렬이 유사한지 판정하여라.
+\[
+A=
+\begin{bmatrix}
+1&1\\
+0&1
+\end{bmatrix},
+\qquad
+B=
+\begin{bmatrix}
+1&0\\
+0&1
+\end{bmatrix}.
+\]
+가능한 가장 짧은 근거를 제시하여라.
+\end{exercise}
+
+\begin{exercise}
+$A\sim I_3$이면 $A=I_3$임을 유사 정의만 사용해 증명하여라.
+\end{exercise}
+
+\begin{exercise}
+임의의 $A\in M_n(K)$, 가역 $P$에 대해
+\[
+\chi_{P^{-1}AP}(t)=\chi_A(t)
+\]
+를 계산식으로 다시 증명하여라.
+\end{exercise}
+
+\begin{exercise}
+\[
+A=
+\begin{bmatrix}
+2&0\\
+1&3
+\end{bmatrix}
+\]
+을 대각화하여라. 즉 가역행렬 $P$와 대각행렬 $D$를 찾아 $P^{-1}AP=D$를 만족시켜라.
+\end{exercise}
+
+\subsection*{연습문제 B (개념 연결)}
+
+\begin{exercise}
+$A\sim B$이면 $\operatorname{nullity}(A)=\operatorname{nullity}(B)$임을 랭크-널리티 정리로 증명하여라.
+\end{exercise}
+
+\begin{exercise}
+$A\sim B$이면 모든 양의 정수 $k$에 대해 $A^k\sim B^k$임을 증명하여라.
+\end{exercise}
+
+\begin{exercise}
+$A\sim B$이고 $A$가 가역이면 $B$도 가역이며 $A^{-1}\sim B^{-1}$임을 증명하여라.
+\end{exercise}
+
+\begin{exercise}
+$T:V\to W$의 표현행렬 $M=[T]_{\mathcal{C}\leftarrow\mathcal{B}}$가 주어져 있다. 
+$\mathcal{B},\mathcal{B}'$ 사이의 변환행렬을 $P$, $\mathcal{C},\mathcal{C}'$ 사이의 변환행렬을 $Q$라 할 때
+\[
+[T]_{\mathcal{C}'\leftarrow\mathcal{B}'}=Q^{-1}MP
+\]
+를 유도하여라.
+\end{exercise}
+
+\begin{exercise}
+$\det$와 $\operatorname{tr}$가 같지만 유사하지 않은 $3\times3$ 행렬의 쌍을 하나 구성하고, 왜 유사하지 않은지 불변량 또는 랭크 비교로 설명하여라.
+\end{exercise}
+
+\subsection*{연습문제 C (증명/종합)}
+
+\begin{exercise}
+$2\times2$ nilpotent 행렬(즉 $N^2=0$)을 유사까지 분류하여라. 즉 가능한 유사류가 정확히 두 개뿐임을 증명하여라.
+\end{exercise}
+
+\begin{exercise}
+대각행렬
+\[
+D=\operatorname{diag}(d_1,\dots,d_n),\quad E=\operatorname{diag}(e_1,\dots,e_n)
+\]
+가 주어졌을 때, $D\sim E$일 필요충분조건이 ``$(d_1,\dots,d_n)$과 $(e_1,\dots,e_n)$가 순열만큼 차이난다''임을 처음부터 완전하게 증명하여라.
+\end{exercise}
+
+\begin{exercise}
+$A,B\in M_n(K)$가 모두 대각화 가능하다고 하자. 또한 모든 $\lambda\in K$에 대해
+\[
+\operatorname{rank}(A-\lambda I_n)=\operatorname{rank}(B-\lambda I_n)
+\]
+가 성립한다고 하자. 이때 $A\sim B$임을 증명하여라.
+\end{exercise}

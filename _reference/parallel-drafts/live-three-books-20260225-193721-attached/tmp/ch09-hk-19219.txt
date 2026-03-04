@@ -1,0 +1,5 @@
+field of complex numbers.) We may regard A either as an n X n matrix
+over F or as an n X n matrix over F,. On the surface, it might appear that
+we obtain two different minimal polynomials
+for A. Fortunately
+that is

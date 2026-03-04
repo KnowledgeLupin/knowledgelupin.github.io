@@ -1,0 +1,5 @@
+treats sesqui-linear
+forms and the more sophisticated
+properties of normal operators, including
+normal operators on real inner product spaces.
+We have also made a number of small changes and improvements

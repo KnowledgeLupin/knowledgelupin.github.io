@@ -1,0 +1,5 @@
+정의 7.2.3. AECMnn(F)A 때, 만약 A~ D2) diagonal matrix D € Mn n(F)
+
+7.2. DIAGONALIZATION 179
+
+연 습 문제 7.2.4. Acm,.,(F) 2 때. 만약 (A—J) 7} nilpotent] 8° 우 리 는

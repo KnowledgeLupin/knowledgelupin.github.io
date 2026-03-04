@@ -1,0 +1,132 @@
+# Reference Context for ch15
+
+- source_priority: lang,hk,korean-ocr
+- keyword_pattern: adjoint|normal operator|self[- ]adjoint|unitary|spectral theorem|수반|정규연산자|유니터리|스펙트럴
+- generated_at: 2026-02-25 20:01:39 +0900
+
+## Source: lang
+### Hit line 160
+theorems: eigenvalues and eigenvectors (which at best could occur only
+rapidly at the end o  the introductory course); symmetric, hermitian and
+unitary operators, as well as their spectral theorem (diagonalization);
+triangulation o  matrices and linear maps; Jordan canonical  orm; convex
+sets and the Krein-Milman theorem. One chapter also provides a complete theory o  the basic properties o  determinants. Only a partial treatment could be given in the introductory text. O  course, some parts o
+
+### Hit line 339
+CHAPTER VII
+- Symmetric, Hermitian, and Unitary Operators. .
+§1. Symmetric Operators
+
+### Hit line 343
+§1. Symmetric Operators
+§2. Hermitian Operators
+§3. Unitary Operators . .
+
+### Hit line 360
+§5. The Hermitian Case.
+. . . . . . . . . . .
+§6. Unitary Operators . . . . . . . . . . . . . . . . .
+
+### Hit line 391
+§1. Existence o  Triangulation . . . . . .
+§2. Theorem o  Hamilton-Cayley ...
+§3. Diagonalization o  Unitary Maps.
+
+### Hit line 9757
+Symmetric, Hermitian, and
+Unitary Operators
+Let V be a  inite dimensional vector space over the real or complex
+
+### Hit line 9831
+SYMMETRIC, HERMITIAN, AND UNITARY OPERATORS
+[VII, §1]
+
+### Hit line 9932
+SYMMETRIC, HERMITIAN, AND UNITARY OPERATORS
+[VII, §2]
+
+## Source: hk
+### Hit line 123
+up to the general theory. We have split Chapter 8 so that the basic material
+inner product spaces and unitary diagonalization
+is  ollowed by a Chapter 9 which
+treats sesqui-linear
+
+### Hit line 127
+treats sesqui-linear
+orms and the more sophisticated
+properties o  normal operators, including
+normal operators on real inner product spaces.
+We have also made a number o  small changes and improvements
+
+### Hit line 128
+orms and the more sophisticated
+properties o  normal operators, including
+normal operators on real inner product spaces.
+We have also made a number o  small changes and improvements
+
+### Hit line 237
+complement
+o  a subspace. The chapter treats
+unitary operators and culminates
+in the diagonalization
+o  sel -adjoint
+
+### Hit line 239
+unitary operators and culminates
+in the diagonalization
+o  sel -adjoint
+and normal
+operators. Chapter 9 introduces
+
+### Hit line 244
+sesqui-linear
+orms, relates them to positive and
+sel -adjoint
+operators on an inner product space, moves on to the spectral theory
+o  normal operators and then to more sophisticated
+
+### Hit line 246
+sel -adjoint
+operators on an inner product space, moves on to the spectral theory
+o  normal operators and then to more sophisticated
+results concerning
+
+### Hit line 256
+well as groups preserving non-degenerate
+orms, especially the orthogonal,
+unitary,
+pseudo-orthogonal
+and Lorentz groups.
+
+## Source: korean-ocr
+### Hit line 630
+애하 였다. 뿐만 아니라, orthogonal group
+과 unitary group o] 관한 내 용 들은 기 존 의 선 형 대수학 교
+재에서는 찾 아 볼 수
+
+### Hit line 1098
+Adjoint: Matix. «ac c2as.eun tea wn
+
+### Hit line 1219
+Orthogonal Group 과 Unitary Group
+
+### Hit line 1223
+Adjoint Matrix 2} 2-9-8 2... ee
+ee ee ee. 805
+
+### Hit line 1357
+H-Identi ication 과 Adjoint Operator... ........... 439
+제 15 2 Spectral Theorem
+
+### Hit line 1359
+H-Identi ication 과 Adjoint Operator... ........... 439
+제 15 2 Spectral Theorem
+
+### Hit line 13985
+는 것을 알 수 있다. Adjoint 1 ᄆ 811& 를 이용하는 [정리 6.4.7 의 두
+
+### Hit line 14902
+6.7. Adjoint Matrix
+이 의 SRE 아 래 의 정리 0.7.2 를 증 명 하 는 것이다. 사 실 은, 정
+

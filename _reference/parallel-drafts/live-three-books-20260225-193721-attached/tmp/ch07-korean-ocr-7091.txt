@@ -1,0 +1,5 @@
+column vector 만을 다루지 만, elementary operation-@ row operation 만 생각해
+
+기에 계속 transpose } 붙였다 BCp 반 복할 수밖에 Qh cp.52
+왔
+

@@ -1,0 +1,5 @@
+Chap. 3
+
+The claim is that {jk+l, . . . , jn} is a basis for the annihilator
+ji belongs to W” for i 2 lc + 1, because
+ji(aj)

@@ -1,0 +1,5 @@
+and 7 contain a discussion of the concepts which are basic to the analysis of a single
+linear transformation
+on a finite-dimensional
+vector space; the analysis of characteristic (eigen) values, triangulable
+and diagonalizable

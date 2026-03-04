@@ -1,0 +1,5 @@
+echelon form.
+(2) Let n be a positive integer and F a field. Let X be the set of all
+n X n matrices over F. Then similarity is an equivalence relation on X;
+each n X n matrix A is similar to itself; if A is similar to B, then B is
+similar to A; if A is similar to B and B is similar to C, then A is similar to

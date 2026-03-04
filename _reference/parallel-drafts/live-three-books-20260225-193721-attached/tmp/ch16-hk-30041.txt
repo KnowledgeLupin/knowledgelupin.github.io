@@ -1,0 +1,5 @@
+
+operator on R4 (with the standard
+which preserves the quadratic form
+11(x, y, 2, t)p
+

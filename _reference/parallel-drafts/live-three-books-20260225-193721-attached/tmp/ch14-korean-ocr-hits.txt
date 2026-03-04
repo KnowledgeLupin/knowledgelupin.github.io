@@ -1,0 +1,30 @@
+1193:제 10 장 내적 공간
+1199:Inner Product Space gn aun view 에여 제세 ema ee eee 275
+1203:Inner Product SpaceS] AQ. . 1 1 cw wae ewe ee 280
+1207:Gram-Schmidt Orthogonalization . . 2 2 이이 이이 이기기 이이 이아
+1215:Inner Product Space 의 Isomorphism
+9343:Rank Theorem 의 두 번째 BBS §5.4o A), 세 번째 SB inner product
+9345:space 2} Gram-Schmidt Orthogonalization Process 를 공 부 한
+22502:리가 눈 으로 보는 에서는 너무나 당 연 하다. §10.32] Gram-Schmidt
+23096:내적 공간
+23162:족 시키면, <.) 를 F" 2) inner product 2}a2 부른다. (특별히, F=Cel
+23173:10.1. INNER PRODUCT SPACE
+23176:관찰 10.1.5. (.) 7} F” 2] inner product 0], 다 음 이 성 립 한 다.
+23227:을 만 족 시키면. ( .) 를 "의 inner product 2}a! 부르고. inner product 가 주어
+23228:41 "를 inner product 50806( 내적 공간) 라고 부른다. (특별히. F=CA 경우
+23240:product = 당연히 inner product o] th. 먼저
+23271:라서, 이 경 우에 inner product 는 ‘symmetric’ bilinear form 이 다."
+23274:(다) F=C A 때에, inner product (,) 의 앞 자 리 에 서는 linear]
+23282:(2+) Inner product space 의 F-subspace = 항상 inner product space 이다.
+23284:이제 새로운 object S 만 났 으 니 먼저 example S-& 살 펴 보 자 . Inner product
+23318:보 기는 ※"- 공간에도 무한히 많은 inner product 7} 존재함
+23324:inner product 2 때,
+23331:면 , V2} 새로운 inner productS 얻는 것을 증
+23337:로 정 의 하 면 . 표 [/] 의 inner product S 얻는다. 확인해 보라.
+23346:10.1. INNER PRODUCT SPACE
+23370:로 정 의 하면, C[t] 2] inner productS 얻는다. 확인해 보라.
+23382:HAYS ClO, 2x] 2] inner product S$ 얻는다. 확인해 보라.
+23383:그 밖에도. 여러 7-4) inner product S 생각할 수 있다.
+23390:면 . <.) 는 Myzn(F) 의 inner product YS 보
+23401:내적 공간
+23403:10.2. Inner Product Space 의 성질

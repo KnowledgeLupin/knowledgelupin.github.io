@@ -1,0 +1,10 @@
+scope=ch1-ch16
+concurrency=4
+gate=strict
+proof_policy=full
+reference_mode=three-books
+reference_cache_mode=reuse
+chapters_filter=all
+pdf_korean=/Users/kwkwon/Library/Mobile Documents/com~apple~CloudDocs/Documents/전공/대수학/선형대수와 군 - OCR-TOC.pdf
+pdf_hk=/Users/kwkwon/Library/Mobile Documents/com~apple~CloudDocs/Documents/전공/대수학/Linear Algebra, 2nd ed - Kenneth Hoffman, Ray Kunze, 1971.pdf
+pdf_lang=/Users/kwkwon/Library/Mobile Documents/com~apple~CloudDocs/Documents/전공/대수학/serge-lang-linear-algebra.pdf

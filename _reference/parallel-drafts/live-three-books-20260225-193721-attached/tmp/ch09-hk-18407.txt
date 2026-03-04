@@ -1,0 +1,5 @@
+= det (x1 - A).
+1
+This lemma enables us to define sensibly the characteristic polynomial
+of the operator T as the characteristic
+polynomial

@@ -1,0 +1,30 @@
+195:It also deals with roots, Taylor’s formula, and the Lagrange interpolation formula. Chapter 5 develops determinants
+196:of square matrices, the determinant being viewed as an alternating
+201:on modules places the concept of determinant
+267:determinants,
+273:of determinants
+429:Determinants
+457:Determinant
+460:and the Uniqueness of Determinants
+463:of Determinants
+14105:5. Determinants
+14113:In this chapter we shall prove the essential facts about determinants
+14117:next chapter, we shall find it necessary to deal with determinants
+14121:of determinants which we present, one of the axioms for a field plays no role, namely,
+14126:determinants
+14152:Determinant Functions
+14203:Determinant
+14210:as the determinant
+14211:of the matrix. It is possible to define the determinant
+14212:of a square matrix A by simply writing down a formula for this determinant in terms of the entries of A. One can then deduce the various properties of determinants
+14217:as follows. We shall define a ‘determinant
+14224:Determinants
+14231:function. As we prove the uniqueness, an explicit formula for the determinant will be obtained, along with many of its useful properties.
+14232:This section will be devoted to the definition of ‘determinant
+14301:Determinant Functions
+14415:Determinants
+14420:any experience with determinants
+14422:will recognize (5-3) as the usual definition of the determinant
+14473:1~. We say that D is a determinant
+14480:one determinant
+14483:is a determinant

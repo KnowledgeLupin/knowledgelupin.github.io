@@ -1,0 +1,5 @@
+(a) If A 2 = 0 show that I - A is invertible.
+(b) If A 3 = 0 show that I - A is invertible.
+(c) In general, if An = 0 for some positive integer n, show that I - A is invertible.
+(d) Suppose that A 2 + 2A + I = o. Show that A is invertible.
+(e) Suppose that A 3 - A + I = o. Show that A is invertible.

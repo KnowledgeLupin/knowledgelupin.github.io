@@ -1,0 +1,5 @@
+1
+
+Thus if A has a left and a right inverse, A is invertible
+and has a
+unique two-sided inverse, which we shall denote by A-’ and simply call

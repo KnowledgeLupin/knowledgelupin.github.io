@@ -1,0 +1,5 @@
+Example 1. If V = K n , then f(X) = X· X = xi + ... + x; is the quadratic form determined by the ordinary dot product.
+In general, if V = K n and C is a symmetric matrix in K, representing
+a symmetric bilinear form, then the quadratic form is given as a function
+of X by
+n

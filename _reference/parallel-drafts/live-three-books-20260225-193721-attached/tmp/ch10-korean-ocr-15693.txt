@@ -1,0 +1,5 @@
+수 단위 1 는 index 7 와 구 분 하기 위하여 다른 font S 사 용 하였다.
+
+7.2. DIAGONALIZATION 181
+
+연 습 문제 7212 회 전 변환 r= (So)

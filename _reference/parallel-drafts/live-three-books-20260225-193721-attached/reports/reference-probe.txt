@@ -1,0 +1,3 @@
+korean-ocr=ok
+hk=ok
+lang=ok

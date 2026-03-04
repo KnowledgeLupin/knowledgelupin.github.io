@@ -1,0 +1,30 @@
+297:§7. Quadratic Forms . . . . . . . . . . . . . . .
+6641:V, §7. QUADRATIC FORMS
+6655:a scalar product on V. By the quadratic form determined by g, we shall
+6660:Example 1. If V = K n , then f(X) = X· X = xi + ... + x; is the quadratic form determined by the ordinary dot product.
+6662:a symmetric bilinear form, then the quadratic form is given as a function
+6696:then the quadratic form has a simpler expression, namely
+6700:QUADRATIC FORMS
+6705:g be a scalar product, and f its quadratic form. Then we can recover the
+6727:is a quadratic form. Let us find the matrix of its bilinear symmetric form
+6761:Then f is a quadratic form, that is there exists a symmetric matrix
+6781:a quadratic form, and determine a bilinear form from which it comes. Show
+6782:that this bilinear form is unique.
+6784:2. What is the associated matrix of the quadratic form
+6790:form associated with the following quadratic forms.
+6811:4. Show that if 11 is the quadratic form of the bilinear form g1' and 12 the quadratic form of the bilinear form g 2' then 11 + 12 is the quadratic form of the
+6812:bilinear form g 1 + g 2·
+6854:basis, and if f is the quadratic form associated with our scalar product,
+7035:If we view (x, y, z) as the coordinates of A then we see that f is a quadratic form on V. Note that f(A) is the determinant of A, which could be
+7039:quadratic form is negative definite on W.
+9958:A hermitian product is also called a hermitian form. If the readers
+9974:positive definite hermitian form
+10035:fixed positive definite hermitian form ( , ). Let A, B be operators of V,
+10285:Taking V = cn with the usual hermitian form given by
+11059:or complex numbers. By the quadratic formula, the roots of t 2 - 2t + 2
+11508:Such a function f is called the quadratic form associated with A. If
+11536:Then it is the quadratic form associated with the symmetric matrix
+11557:be the associated quadratic form. Let P be a point on the unit sphere
+11623:First we note that f is the quadratic form associated with the matrix
+11695:associated quadratic forms on the unit circle.
+14981:Bilinear form 118, 132

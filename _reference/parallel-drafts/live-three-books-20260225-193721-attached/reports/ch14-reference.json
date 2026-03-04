@@ -1,0 +1,16 @@
+{
+  "chapter": "ch14",
+  "reference_mode": "three-books",
+  "status": "ready",
+  "reason": "ok",
+  "attempt": 2,
+  "reference_retry_count": 0,
+  "context_path": "/Users/kwkwon/Desktop/Obsidian/Mathematician/github-blog/_reference/parallel-drafts/live-three-books-20260225-193721-attached/references/ch14-context.md",
+  "source_priority": "lang,hk,korean-ocr",
+  "sources_used": [
+    "lang",
+    "hk",
+    "korean-ocr"
+  ],
+  "hit_summary": "lang:5;hk:8;korean-ocr:8;"
+}

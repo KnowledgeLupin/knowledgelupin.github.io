@@ -1,0 +1,5 @@
+continuous function on a closed bounded set has a maximum) I put it at
+the end. If such results are known to a class, the chapter can be covered
+much earlier, for instance after knowing the definition of a linear map.
+I hope that the present book can be used for a one-term course. The
+first six chapters review some of the basic notions. I looked for efficiency. Thus the theorem that m homogeneous linear equations in n

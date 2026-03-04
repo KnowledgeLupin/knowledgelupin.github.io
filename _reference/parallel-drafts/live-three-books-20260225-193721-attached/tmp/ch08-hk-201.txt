@@ -1,0 +1,5 @@
+functions on modules as well as the Grassman ring.
+The material
+on modules places the concept of determinant
+in a wider and more
+comprehensive

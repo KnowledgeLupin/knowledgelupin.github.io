@@ -1,0 +1,5 @@
+onto a subspace and the orthogonal
+complement
+of a subspace. The chapter treats
+unitary operators and culminates
+in the diagonalization

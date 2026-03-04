@@ -1,0 +1,5 @@
+results concerning
+normal
+operators on real or complex inner product spaces. Chapter 10 discusses bilinear
+forms, emphasizing
+canonical forms for symmetric

@@ -1,0 +1,5 @@
+then
+f(a, P) = 4&y;.
+One consequence of the change of basis formula (10-4) is the following:
+If A and B are n X n matrices which represent the same bilinear form
+on V in (possibly) different ordered bases, then A and B have the same

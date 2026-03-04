@@ -1,0 +1,5 @@
+specification) if the reference to K is made clear by the context, or they
+will be called scalars.
+A vector space V over the field K is a set of objects which can be
+added and multiplied by elements of K, in such a way that the sum of
+two elements of V is again an element of V, the product of an element of

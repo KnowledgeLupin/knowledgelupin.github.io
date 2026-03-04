@@ -1,0 +1,5 @@
+elements which are mutually perpendicular, that is <Vi' vj) = 0 if i '# j. Show
+that they are linearly independent.
+3. Let M be a square n x n matrix which is equal to its transpose. If X, Yare
+column n-vectors, then
+

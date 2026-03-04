@@ -1,0 +1,5 @@
+Rank Theorem 의 두 번째 BBS §5.4o A), 세 번째 SB inner product
+
+space 2} Gram-Schmidt Orthogonalization Process 를 공 부 한
+
+후 $10.3 에 서 , 그

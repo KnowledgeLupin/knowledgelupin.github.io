@@ -1,0 +1,30 @@
+216:and the rational and Jordan canonical forms. The primary and cyclic decomposition
+523:Cyclic Subspaces and Annihilators
+524:Cyclic Decompositions
+10413:the annihilator
+10440:The claim is that {jk+l, . . . , jn} is a basis for the annihilator
+10537:and we wish to find the annihilator
+10554:that j be in this annihilator
+10575:annihilator
+10755:How does one describe W”, the annihilator
+11034:are in the annihilator
+11099:on V which is in the annihilator
+11360:If E is a subset of V*, then the annihilator E” is (technically) a subset
+11365:by its annihilator
+11369:spaces of all j’s in W”. In our present notation for annihilators, the answer
+11395:not tackle annihilators for general vector spaces. But, there are two results
+11659:be a linear transformation from V into W. The null space of Tt is the annihilator of the range of T. If V and W are jlnite-dimensional,
+11663:(ii) the range of Tt is the annihilator
+11675:annihilator
+11680:of T. By Theorem 16, the annihilator of the range of T then has dimension
+11693:of Tt is in the annihilator of N; for, suppose j = Ttg for some g in W*; then,
+20105:special case W = (0) the conductor is called the T-annihilator
+20148:W (the T-annihilator
+21713:The Primary Decomposition
+21855:described, since it works with the primary decomposition
+21891:The Primary Decomposition Theorem
+22026:The Primary Decomposition Theorem
+22068:illustrates some of the idea,s of the primary decomposition
+22073:14. In the primary decomposition theorem, it is not necessary that the vector space V be finite dimensional, nor is it necessary for
+22139:algebra, i.e., by the primary decomposition theorem.
+22314:such that the T-annihilator

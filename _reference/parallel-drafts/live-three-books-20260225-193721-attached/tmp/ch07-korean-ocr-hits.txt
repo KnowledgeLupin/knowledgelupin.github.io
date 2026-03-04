@@ -1,0 +1,30 @@
+570:고 게 1 134 dual space 개
+7091:기에 계속 transpose } 붙였다 BCp 반 복할 수밖에 Qh cp.52
+9362:리고 dual space S 이용한 ‘Yea’ ol : 고 상한 SYS 813.8 에
+9713:of 하고. linear map 의 transpose S 이 해 하 는 것은 이 책 후 반 부의 +:
+9754:로 정 의 하고. 우 리는 V*S 의 dual 508006( 쌍대공간 ) 라
+9764:시 등장 할 것이다. 이 AS] 목적 중 하 나 는 선 형 대 수 에 왜 dual space 7} 반드
+14963:때 문 이 다. ( 양 변 에 transpose S 취 하 면 두 번째 equality S 얻는다.)
+16336:기 하고, 이를 (Tol 관한) annihilator 10601 이 라고 부른다.“
+16354:관찰 7.4.5. SoTeELMolA, 74 =277/... 따라서 annihilator ideal & similarity
+16432:과 annihilator ideal 이
+16546:새로운 motivation 이다. Annihilator ideal 전 부 를 묘 사 하 :
+16598:위 ene 3-2) annihilator ideal ol] 속하는 다항식 중 AA 차 수 의 다
+16626:정의 7.5.1. TELM] annihilator ideal 27 의 non-zero polynomial 중에서
+16706:minimal polynomial my(¢) 7} annihilator ideal 27 를 완전히 describe 3+
+19144:Annihilator 9} 마
+21564:/,6 요 (06.11) 의 transpose /『 의 정 의 는 독 자 들을 제법 괴롭힐 것이다. 그리고,
+31324:우 리는 85.1 에서 dual space 공 부 한 적이 있다. 독
+33273:명제 13.5.10 의 두 번째 증명 dual space 를 이용하는 증명
+33586:13.6. DUAL SPACE 와 DUAL MAP
+33590:13.6. Dual Space 2} Dual Map
+33594:온 dual space 이
+33599:련 ') 로 SMS dual space 2] WAS 복
+33720:13.6. DUAL SPACE 2} DUAL MAP
+33823:그러고 보니, 행 렬의 transpose 선 형 사 상의 dual 에 대
+33828:제 1 절 에서 배운 행렬의 transpose 2] 참다운 뜻
+33830:렬의 transpose: 원래 이렇게 태 어 났 던 것 이다
+33852:13.6. DUAL SPACE 와 DUAL MAP
+33900:37 Fancy’ 한 ¥ 한마디 하자면, dual map L* = LY] 거 울
+34278:( 단 . /.*< ᄋ 요 (0^*.*) 는 /. 의 dual map).
+34293:앞 두 에서 2] 7} dual space 2+ dual map 그리고 duality S 공 부 한 것

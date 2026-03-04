@@ -1,0 +1,5 @@
+24. Let V be as in §4, and let A: V ~ V be a symmetric operator. A subspace W
+of V is said to be invariant or stable under A if Aw E W for all WE W, i.e.
+AWe W. Prove that if A has no invariant subspace other than 0 and V,
+then A = AI for some number A. [Hint: Show first that A has only one eigenvalue.]
+25. (For those who have read Sylvester's theorem.) Let A: V ~ V be a symmetric

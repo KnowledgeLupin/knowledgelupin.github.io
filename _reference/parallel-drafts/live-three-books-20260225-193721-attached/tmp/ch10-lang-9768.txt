@@ -1,0 +1,5 @@
+In Chapter VIII we shall study such maps further and show that a
+basis can be chosen such that the maps are represented by diagonal
+matrices. This ties up with the theory of eigenvectors and eigenvalues.
+
+VII, §1. SYMMETRIC OPERATORS

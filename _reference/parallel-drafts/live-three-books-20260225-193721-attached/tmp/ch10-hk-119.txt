@@ -1,0 +1,5 @@
+values
+in relation to triangulation
+and diagonalization
+theorems and then build our way
+up to the general theory. We have split Chapter 8 so that the basic material

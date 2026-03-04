@@ -1,0 +1,5 @@
+
+that is, that (cl, . . . , c,) be a solution of the system AX = 0. From this
+point of view, row-reduction
+gives us a systematic method of finding the
+annihilator

@@ -1,0 +1,5 @@
+
+(i) T is diagonalizable.
+(ii) The characteristic polynomial
+
+for T is

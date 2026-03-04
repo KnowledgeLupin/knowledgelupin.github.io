@@ -1,0 +1,331 @@
+{
+  "run_id": "live-three-books-20260225-193721-attached",
+  "n_gram": 9,
+  "source_token_counts": {
+    "korean-ocr": 31262,
+    "hk": 56843,
+    "lang": 58188
+  },
+  "chapters": [
+    {
+      "chapter_file": "ch01-linear-systems-and-gauss.tex",
+      "tokens": 1771,
+      "ngrams_n": 9,
+      "total_ngrams": 1763,
+      "hits": {
+        "korean-ocr": 0,
+        "hk": 0,
+        "lang": 0
+      },
+      "ratios": {
+        "korean-ocr": 0.0,
+        "hk": 0.0,
+        "lang": 0.0
+      },
+      "max_hit_source": "none",
+      "max_hit_count": 0,
+      "max_hit_ratio": 0.0,
+      "max_consecutive_union_hits": 0
+    },
+    {
+      "chapter_file": "ch02-matrix-operations-invertibility-rank.tex",
+      "tokens": 1337,
+      "ngrams_n": 9,
+      "total_ngrams": 1329,
+      "hits": {
+        "korean-ocr": 0,
+        "hk": 0,
+        "lang": 0
+      },
+      "ratios": {
+        "korean-ocr": 0.0,
+        "hk": 0.0,
+        "lang": 0.0
+      },
+      "max_hit_source": "none",
+      "max_hit_count": 0,
+      "max_hit_ratio": 0.0,
+      "max_consecutive_union_hits": 0
+    },
+    {
+      "chapter_file": "ch03-vector-spaces-and-subspaces.tex",
+      "tokens": 1555,
+      "ngrams_n": 9,
+      "total_ngrams": 1547,
+      "hits": {
+        "korean-ocr": 0,
+        "hk": 0,
+        "lang": 0
+      },
+      "ratios": {
+        "korean-ocr": 0.0,
+        "hk": 0.0,
+        "lang": 0.0
+      },
+      "max_hit_source": "none",
+      "max_hit_count": 0,
+      "max_hit_ratio": 0.0,
+      "max_consecutive_union_hits": 0
+    },
+    {
+      "chapter_file": "ch04-basis-and-dimension.tex",
+      "tokens": 1621,
+      "ngrams_n": 9,
+      "total_ngrams": 1613,
+      "hits": {
+        "korean-ocr": 0,
+        "hk": 0,
+        "lang": 0
+      },
+      "ratios": {
+        "korean-ocr": 0.0,
+        "hk": 0.0,
+        "lang": 0.0
+      },
+      "max_hit_source": "none",
+      "max_hit_count": 0,
+      "max_hit_ratio": 0.0,
+      "max_consecutive_union_hits": 0
+    },
+    {
+      "chapter_file": "ch05-linear-maps-kernel-image.tex",
+      "tokens": 1040,
+      "ngrams_n": 9,
+      "total_ngrams": 1032,
+      "hits": {
+        "korean-ocr": 0,
+        "hk": 0,
+        "lang": 0
+      },
+      "ratios": {
+        "korean-ocr": 0.0,
+        "hk": 0.0,
+        "lang": 0.0
+      },
+      "max_hit_source": "none",
+      "max_hit_count": 0,
+      "max_hit_ratio": 0.0,
+      "max_consecutive_union_hits": 0
+    },
+    {
+      "chapter_file": "ch06-matrix-representation-and-similarity.tex",
+      "tokens": 1373,
+      "ngrams_n": 9,
+      "total_ngrams": 1365,
+      "hits": {
+        "korean-ocr": 0,
+        "hk": 0,
+        "lang": 0
+      },
+      "ratios": {
+        "korean-ocr": 0.0,
+        "hk": 0.0,
+        "lang": 0.0
+      },
+      "max_hit_source": "none",
+      "max_hit_count": 0,
+      "max_hit_ratio": 0.0,
+      "max_consecutive_union_hits": 0
+    },
+    {
+      "chapter_file": "ch07-dual-spaces-and-transpose.tex",
+      "tokens": 1431,
+      "ngrams_n": 9,
+      "total_ngrams": 1423,
+      "hits": {
+        "korean-ocr": 0,
+        "hk": 0,
+        "lang": 0
+      },
+      "ratios": {
+        "korean-ocr": 0.0,
+        "hk": 0.0,
+        "lang": 0.0
+      },
+      "max_hit_source": "none",
+      "max_hit_count": 0,
+      "max_hit_ratio": 0.0,
+      "max_consecutive_union_hits": 0
+    },
+    {
+      "chapter_file": "ch08-determinants.tex",
+      "tokens": 1647,
+      "ngrams_n": 9,
+      "total_ngrams": 1639,
+      "hits": {
+        "korean-ocr": 0,
+        "hk": 0,
+        "lang": 0
+      },
+      "ratios": {
+        "korean-ocr": 0.0,
+        "hk": 0.0,
+        "lang": 0.0
+      },
+      "max_hit_source": "none",
+      "max_hit_count": 0,
+      "max_hit_ratio": 0.0,
+      "max_consecutive_union_hits": 0
+    },
+    {
+      "chapter_file": "ch09-operator-polynomials.tex",
+      "tokens": 1530,
+      "ngrams_n": 9,
+      "total_ngrams": 1522,
+      "hits": {
+        "korean-ocr": 0,
+        "hk": 0,
+        "lang": 0
+      },
+      "ratios": {
+        "korean-ocr": 0.0,
+        "hk": 0.0,
+        "lang": 0.0
+      },
+      "max_hit_source": "none",
+      "max_hit_count": 0,
+      "max_hit_ratio": 0.0,
+      "max_consecutive_union_hits": 0
+    },
+    {
+      "chapter_file": "ch10-eigenvalues-and-diagonalization.tex",
+      "tokens": 1172,
+      "ngrams_n": 9,
+      "total_ngrams": 1164,
+      "hits": {
+        "korean-ocr": 0,
+        "hk": 0,
+        "lang": 0
+      },
+      "ratios": {
+        "korean-ocr": 0.0,
+        "hk": 0.0,
+        "lang": 0.0
+      },
+      "max_hit_source": "none",
+      "max_hit_count": 0,
+      "max_hit_ratio": 0.0,
+      "max_consecutive_union_hits": 0
+    },
+    {
+      "chapter_file": "ch11-invariant-subspaces-and-triangularization.tex",
+      "tokens": 1268,
+      "ngrams_n": 9,
+      "total_ngrams": 1260,
+      "hits": {
+        "korean-ocr": 0,
+        "hk": 0,
+        "lang": 0
+      },
+      "ratios": {
+        "korean-ocr": 0.0,
+        "hk": 0.0,
+        "lang": 0.0
+      },
+      "max_hit_source": "none",
+      "max_hit_count": 0,
+      "max_hit_ratio": 0.0,
+      "max_consecutive_union_hits": 0
+    },
+    {
+      "chapter_file": "ch12-primary-and-cyclic-decomposition.tex",
+      "tokens": 1250,
+      "ngrams_n": 9,
+      "total_ngrams": 1242,
+      "hits": {
+        "korean-ocr": 0,
+        "hk": 0,
+        "lang": 0
+      },
+      "ratios": {
+        "korean-ocr": 0.0,
+        "hk": 0.0,
+        "lang": 0.0
+      },
+      "max_hit_source": "none",
+      "max_hit_count": 0,
+      "max_hit_ratio": 0.0,
+      "max_consecutive_union_hits": 0
+    },
+    {
+      "chapter_file": "ch13-jordan-canonical-form.tex",
+      "tokens": 1574,
+      "ngrams_n": 9,
+      "total_ngrams": 1566,
+      "hits": {
+        "korean-ocr": 0,
+        "hk": 0,
+        "lang": 0
+      },
+      "ratios": {
+        "korean-ocr": 0.0,
+        "hk": 0.0,
+        "lang": 0.0
+      },
+      "max_hit_source": "none",
+      "max_hit_count": 0,
+      "max_hit_ratio": 0.0,
+      "max_consecutive_union_hits": 0
+    },
+    {
+      "chapter_file": "ch14-inner-product-and-orthogonalization.tex",
+      "tokens": 1577,
+      "ngrams_n": 9,
+      "total_ngrams": 1569,
+      "hits": {
+        "korean-ocr": 0,
+        "hk": 0,
+        "lang": 0
+      },
+      "ratios": {
+        "korean-ocr": 0.0,
+        "hk": 0.0,
+        "lang": 0.0
+      },
+      "max_hit_source": "none",
+      "max_hit_count": 0,
+      "max_hit_ratio": 0.0,
+      "max_consecutive_union_hits": 0
+    },
+    {
+      "chapter_file": "ch15-adjoint-normal-spectral.tex",
+      "tokens": 1824,
+      "ngrams_n": 9,
+      "total_ngrams": 1816,
+      "hits": {
+        "korean-ocr": 0,
+        "hk": 0,
+        "lang": 0
+      },
+      "ratios": {
+        "korean-ocr": 0.0,
+        "hk": 0.0,
+        "lang": 0.0
+      },
+      "max_hit_source": "none",
+      "max_hit_count": 0,
+      "max_hit_ratio": 0.0,
+      "max_consecutive_union_hits": 0
+    },
+    {
+      "chapter_file": "ch16-bilinear-hermitian-forms.tex",
+      "tokens": 1648,
+      "ngrams_n": 9,
+      "total_ngrams": 1640,
+      "hits": {
+        "korean-ocr": 0,
+        "hk": 0,
+        "lang": 0
+      },
+      "ratios": {
+        "korean-ocr": 0.0,
+        "hk": 0.0,
+        "lang": 0.0
+      },
+      "max_hit_source": "none",
+      "max_hit_count": 0,
+      "max_hit_ratio": 0.0,
+      "max_consecutive_union_hits": 0
+    }
+  ]
+}

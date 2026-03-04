@@ -1,0 +1,30 @@
+161:triangulation of matrices and linear maps; Jordan canonical form; convex
+169:much earlier, for instance after knowing the definition of a linear map.
+249:Linear Mappings .
+254:§2. Linear Mappings. .
+255:§3. The Kernel and Image of a Linear Map
+256:§4. Composition and Inverse of Linear Mappings . .
+268:Linear Maps and Matrices. . . . . . . . . . . . .
+272:§1. The Linear Map Associated with a Matrix. .
+273:§2. The Matrix Associated with a Linear Map.
+274:§3. Bases, Matrices, and Linear Maps . . . . . . .
+294:§4. Bilinear Maps and Matrices . . . . . .
+357:§4. Diagonalization of a Symmetric Linear Map. .
+375:§2. Polynomials of Matrices and Linear Maps . .
+387:Triangulation of Matrices and Linear Maps
+1335:direct product of U and W When we discuss linear maps, we shall compare the direct product with the direct sum.
+2562:Linear Mappings
+2565:notion of a function. Among mappings, the linear mappings are the
+2567:questions concerning arbitrary mappings to linear mappings. For one
+2582:T. We call T(u) the value of T at u, or also the image of u under T.
+2584:u ranges over all elements of S, is called the image of T. If W is a subset
+2586:W, is called the image of Wunder T, and is denoted by T(W).
+2590:LINEAR MAPPINGS
+2598:with a special arrow 1---+ to denote the image of x under F. Thus, for
+2603:x 2 ). Then f is a mapping from R into R. Its image is the set of
+2646:Describe the image under F of the points lying on the circle x 2 + y2 = 1.
+2653:Hence (u, v) is a point on the circle of radius 2. Therefore the image
+2659:F(x, y) = (u, v). Hence every point on the circle of radius 2 is the image
+2660:of some point on the circle of radius 1. We conclude finally that the image of the circle of radius 1 under F is precisely the circle of radius 2.
+2676:LINEAR MAPPINGS
+2767:LINEAR MAPPINGS

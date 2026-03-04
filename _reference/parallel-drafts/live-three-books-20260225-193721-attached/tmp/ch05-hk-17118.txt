@@ -1,0 +1,5 @@
+T maps Mr( V) onto h’(V). In fact, in that case it is more natural from one
+point of view to use the map ?rl = (l/r!)?r rather than ?r, because al is a
+projection of W(V) onto Ar(V), i.e., a linear map of MT(V) onto k(V)
+such that rl(L) = L if and only if L is in Ar(V).
+

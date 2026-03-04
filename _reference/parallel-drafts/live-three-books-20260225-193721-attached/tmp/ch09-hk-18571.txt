@@ -1,0 +1,5 @@
+because it has no characteristic
+values.
+In Example 2, the operator T has characteristic values; in fact, the characteristic polynomial
+for T factors completely over the real number field:
+f = (X - 1) (X - Z)z. Nevertheless

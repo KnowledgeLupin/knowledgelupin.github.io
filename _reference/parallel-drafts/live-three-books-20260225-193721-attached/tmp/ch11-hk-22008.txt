@@ -1,0 +1,5 @@
+determined by (i) and (ii) and each of them is a polynomial in T.
+Proof. We have just observed that we can write T = D + N
+where D is diagonalizable and N is nilpotent, and where D and N not only
+commute but are polynomials in T. Now suppose that we also have T =
+D’ + N’ where D’ is diagonalizable,

@@ -1,0 +1,5 @@
+= 0 if and only if f(A) = 0.
+From the last remark about operators and matrices it follows that
+similar matrices have the same minimal polynomial. That fact is also clear
+from the definitions because
+f(P-IAP)

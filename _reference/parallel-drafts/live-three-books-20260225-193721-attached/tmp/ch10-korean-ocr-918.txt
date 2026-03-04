@@ -1,0 +1,5 @@
+다. 뿐 학 기 강 좌의 경 우 에는 real symmetric matrix 의
+
+diagonalization S 다루는 것도 의미 있는 AHA 것이다. 이에 필요한 자 료 들
+도
+

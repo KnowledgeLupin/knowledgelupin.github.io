@@ -1,0 +1,5 @@
+CHAPTER
+
+Vector Spaces
+
+As usual, a collection of objects will be called a set. A member of the

@@ -1,0 +1,12 @@
+9746:Thus, similarity is an equivalence relation on the set of n X n matrices
+24031:matrix up to similarity.
+24585:up to similarity
+24595:up to similarity
+29883:the basis {LL~, 02, cyQ}. Perform a change of basis.)
+34342:spaces. The reader will probably observe a similarity between some of the
+34852:One consequence of the change of basis formula (10-4) is the following:
+37747:n X n matrices over F. Then similarity is an equivalence relation on X;
+37755:each equivalence class for the relation of similarity contains precisely one
+37764:3 X 3 matrices over a field F. We consider the relation of similarity on X.
+37786:the following. If we consider the relation of similarity on the set of 3 X 3
+38396:similarity

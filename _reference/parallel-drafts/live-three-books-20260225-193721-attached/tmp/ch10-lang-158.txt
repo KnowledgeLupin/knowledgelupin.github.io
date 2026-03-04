@@ -1,0 +1,5 @@
+book is meant to serve at the next level, essentially for a second course
+in linear algebra, where the emphasis is on the various structure
+theorems: eigenvalues and eigenvectors (which at best could occur only
+rapidly at the end of the introductory course); symmetric, hermitian and
+unitary operators, as well as their spectral theorem (diagonalization);

@@ -1,0 +1,5 @@
+. . . ) A&)
+
+and we wish to find the annihilator
+of the subspace spanned
+vectors. Since a typical linear functional on Fn has the form

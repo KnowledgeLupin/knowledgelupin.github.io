@@ -1,0 +1,5 @@
+
+A? —(a+d)A+(ad—be)I =0
+을 만 족 시 킨 다 는 AS 배운 적이 YS 것 이 다 ((2×2)- 행렬의 Cayley-Hamilton
+Theorem).
+

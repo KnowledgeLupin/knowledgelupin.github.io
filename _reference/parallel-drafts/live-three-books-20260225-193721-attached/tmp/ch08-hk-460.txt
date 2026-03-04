@@ -1,0 +1,5 @@
+Functions
+Permutations
+and the Uniqueness of Determinants
+Additional
+Properties

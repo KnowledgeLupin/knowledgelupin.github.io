@@ -1,0 +1,5 @@
+commute but are polynomials in T. Now suppose that we also have T =
+D’ + N’ where D’ is diagonalizable,
+N’ is nilpotent,
+and D’N’ = N’D’.
+We shall prove that D = D’ and N = N’.

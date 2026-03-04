@@ -1,0 +1,5 @@
+and suppose that each Vi is cyclic. If we select a Jordan basis for each
+Vi' then the sequence of these bases forms a basis for V, again called
+a Jordan basis for V with respect to A. With resp(;'ct to this basis, t!le
+matrix for A therefore splits into blocks (Fig. 1).
+

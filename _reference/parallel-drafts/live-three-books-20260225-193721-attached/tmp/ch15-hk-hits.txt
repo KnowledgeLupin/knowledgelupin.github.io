@@ -1,0 +1,30 @@
+123:inner product spaces and unitary diagonalization
+127:properties of normal operators, including
+128:normal operators on real inner product spaces.
+237:unitary operators and culminates
+239:of self-adjoint
+244:self-adjoint
+246:of normal operators and then to more sophisticated
+256:unitary,
+575:and Adjoints
+576:Unitary
+629:of Normal Operators
+3906:(or self-adjoint)
+11656:called the adjoint of T; however, we shall not use this terminology.
+14862:adjoint
+15950:adjoint
+16256:1. Use the classical adjoint formula to,compute the inverses of each of the following 3 X 3 real matrices.
+16295:5. AAn n X n matrix A over the field of complex numbers is said to be unitary
+16297:transpose of A). If A is unitary,
+19587:In this case, the classical adjoint,
+24972:adjoint to show that (i) and (ii) are equivalent.
+26963:real inner product space is often called a EuclidA complex inner product space is often referred to as a unitary
+28237:Adjoints
+28247:the existence of the ‘adjoint’ of a linear operator T on V, this being a linear
+28250:basis, this adjoint operation on linear operators
+28253:the adjoint operation and conjugation on complex numbers.
+28259:Linear Functionals and Adjoints
+28443:Linear Functionals and Adjoints
+28453:We turn now to the concept of the adjoint of a linear operator.
+28595:Linear Functionals and Adjoints
+28622:Then we say that T has an adjoint

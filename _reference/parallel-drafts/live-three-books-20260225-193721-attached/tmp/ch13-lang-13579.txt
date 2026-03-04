@@ -1,0 +1,5 @@
+S-invariant subspaces.
+
+XI, §6. THE JORDAN NORMAL FORM
+In Chapter X, §1 we proved that a linear map over the complex numbers
+can always be triangularized. This result suffices for many applications,

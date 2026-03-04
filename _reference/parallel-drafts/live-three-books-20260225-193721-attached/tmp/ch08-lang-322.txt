@@ -1,0 +1,5 @@
+§7. Expansion Formula and Uniqueness of Determinants
+§8. Inverse of a Matrix . . . . . . . . . . . . . . . . .
+§9. The Rank of a Matrix and Subdeterminants . . . . ..
+
+.....

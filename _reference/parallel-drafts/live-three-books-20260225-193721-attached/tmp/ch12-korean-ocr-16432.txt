@@ -1,0 +1,5 @@
+
+첫 번째 SB: (TriangularizationS 이용한 증명) Characteristic polynomial
+과 annihilator ideal 이
+
+모두 similarity relation의의 1018118111 이 므로, 우 리 는 이

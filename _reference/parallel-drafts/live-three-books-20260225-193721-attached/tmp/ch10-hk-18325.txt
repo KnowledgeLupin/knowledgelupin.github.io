@@ -1,0 +1,5 @@
+Characteristic
+values are often called characteristic roots, latent roots,
+eigenvalues, proper values, or spectral values. In this book we shall use
+only the name ‘characteristic values.’
+If T is any linear operator and c is any scalar, the set of vectors (Y such

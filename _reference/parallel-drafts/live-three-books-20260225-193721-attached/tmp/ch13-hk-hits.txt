@@ -1,0 +1,30 @@
+216:and the rational and Jordan canonical forms. The primary and cyclic decomposition
+280:so well the basic ideas of linear algebra. An elementary course may now be concluded nicely with the first four sections of Chapter 6, together with (the new) Chapter 8. If the rational and Jordan forms are to
+526:The Jordan Form
+543:Jordan
+22336:and Jordan
+22391:The Rational and Jordan Forms
+22559:The Rational and Jordan Forms
+22757:The Rational and Jordan Forms
+22943:The Rational and Jordan Forms
+23255:The Rational and Jordan Forms
+23439:The Rational and Jordan Forms
+23566:The Rational and Jordan Forms
+23750:The Rational and Jordan FOIYS
+23974:The Rational and Jordan Forms
+23984:The Jordan
+24050:The Jordan Form
+24128:Jordan
+24138:The Rational and Jordan Forms
+24148:where each Jpl is an elementary Jordan matrix with characteristic
+24153:to be in Jordan
+24160:is in Jordan form. We should like to show now that this matrix is something uniquely associated with T, up to the order in which the characteristic values of T are written down. In other words, if two matrices are
+24161:in Jordan form and they are similar, then they can differ only in that the
+24164:for V in which T is represented by the Jordan matrix A described in the
+24185:T and the Jordan matrix A which represents T in some ordered basis.
+24195:The Jordan Form
+24206:Jordan matrices #’ with characteristic
+24220:A in Jordan form, and A is unique up to a rearrangement
+24222:of its characteristic values. We call A the Jordan
+24231:matrix in Jordan form.
+24266:The Rational and Jordan Forms

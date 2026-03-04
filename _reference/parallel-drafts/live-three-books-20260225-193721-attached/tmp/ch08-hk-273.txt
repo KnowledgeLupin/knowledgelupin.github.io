@@ -1,0 +1,5 @@
+polynomial
+ideals and basic properties
+of determinants
+may be covered quite
+sketchily without serious damage to the flow of the logic in the text; however, our

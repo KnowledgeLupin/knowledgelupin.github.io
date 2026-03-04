@@ -1,0 +1,5 @@
+( 라 ) 그러나 — Lagrange Interpolation Formula 0(1) 를 구 체 적 으 로 쓰는 방
+
+다. ( 연 습 문제 6.5.11 의 Vandermonde Determinant 및 정리 6.6.12] Cramer’s
+Rule 참 조 .)
+

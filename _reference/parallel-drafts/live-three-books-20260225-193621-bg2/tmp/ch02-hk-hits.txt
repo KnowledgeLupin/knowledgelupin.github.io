@@ -1,0 +1,30 @@
+350:Invertible
+2587:Invertible
+2659:Invertible
+2689:of A and A is said to be invertible.
+2704:Thus if A has a left and a right inverse, A is invertible
+2715:(i) If A is invertible, so is A-l and (A-l)-’
+2717:(ii) If both A and B are invertible, so is AR, and (AB)-l
+2729:A product of invertible
+2745:matrices is invertible.
+2747:An elementary matrix is invertible.
+2763:so that E is invertible
+2778:Invertible Matrices
+2794:(i) A is invertible.
+2803:where El, . . . , Ee are elementary matrices. Each Ei is invertible,
+2821:Since products of invertible
+2822:matrices are invertible,
+2823:we see that A is invertible if and only if R is invertible.
+2825:echelon matrix, R is invertible
+2828:is invertible
+2833:If A is an invertible n X n matrix and if a sequence of
+2838:to A if and only if B = PA where P is an invertible m X m matrix.
+2845:(i) A is invertible.
+2855:If A is invertible,
+2887:We know that R = PA, where P is invertible.
+2902:A is invertible.
+2905:AC = I. Then C has a left inverse and is therefore invertible.
+2907:follows that A = 6-l and so A is invertible with inverse C. 1
+2910:matrices. Then A is invertible if and only if each Aj is invertible.
+2912:Proof. We have already shown that the product of two invertible
+2913:matrices is invertible. From this one sees easily that if each Aj is invertible

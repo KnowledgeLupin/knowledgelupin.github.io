@@ -1,0 +1,5 @@
+algebra aspects. This appendix could (should?) also be treated in the
+general undergraduate algebra course.
+Although from the start I take vector spaces over fields which are
+subfields of the complex numbers, this is done for convenience, and to
+avoid drawn out foundations. Instructors can emphasize as they wish

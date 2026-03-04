@@ -1,0 +1,5 @@
+In other words, we are seeking the subspace annihilated
+by fi, . . . , fm.
+Row-reduction
+of the coefficient matrix provides us with a systematic
+method of finding this subspace. The n-tuple (Ail, . . . , Ai,) gives the

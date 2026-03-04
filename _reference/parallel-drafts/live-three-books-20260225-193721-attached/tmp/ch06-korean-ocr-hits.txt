@@ -1,0 +1,30 @@
+1072:Similarity Relation... ..........
+12058:(가끔 '0041\81001' 라는 용 어 도 사용 하는 듯하다). 정의 5.6.4 의 similarity relation ~- 과 는 분명히
+12240:5.6. SIMILARITY RELATION
+12244:5.6. Similarity Relation
+12287:정의 5.6.4 의 similarity relation 이 가장 : 재 미 ' 있 다는 뜻
+12322:다 음 에 정의 S similarity relation 은 제 7-8 장
+12407:연 하 다 . 따라서 rank+ similarity 10186004 의 10811811 이 다. 그리고 trace =
+12415:similarity relation 의 invariant 7} 된다.
+12423:SIMILARITY RELATION
+12538:고 있는 1008118 바들인 rank 2} ᅲ 806 만으로 는 similarity class 를 완전
+12546:있을까? Z, similarity relation 을 결정
+13497:similarity
+13901:는 of AB) similarity relation 이다.
+13904:을 Hole}. (따라서 determinant 는 similarity relation 의 invariant.)
+15270:A{ determinant = similarity relation 의 invariant.)
+15324:이 Wo], characteristic polynomial 의 similarity relation] 14\04184( 인 것
+15327:관찰 7.1.10. Characteristic polynomial 은 similarity relation 의 invariant. 따라
+15346:관찰 7.1.12. Eigen-value 는 similarity relation 의 invariant O/C}.
+16208:= similarity relation 의 invariant 인가? 이들은 F2] 원 소 인 가?
+16354:관찰 7.4.5. SoTeELMolA, 74 =277/... 따라서 annihilator ideal & similarity
+16362:가 $7.1 끝 부 분 에서 작성한 similarity
+16434:모두 similarity relation의의 1018118111 이 므로, 우 리 는 이
+16814:similarity relation 2| invariant.
+16819:그럼 여기서 한번 더 현재 우 리 가 갖고 QI similarity relation 의 invariant
+16829:이 invariant $¥t2 2+ similarity class 를 완전히
+17461:물론 cigen-space 는 similarity relation 의 invariant 7} 아
+17473:dim Ey = similarity relation 의 invariant.
+17483:이 제 similarity relation 의 invariant $2] list +
+19485:즉 . similarity relation
+19521:그리고. 자연수 //; 와 rj; 가 similarity relation 의 invariant Y-2 당연 하 다.

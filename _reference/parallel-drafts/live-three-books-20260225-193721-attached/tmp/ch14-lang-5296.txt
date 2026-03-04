@@ -1,0 +1,5 @@
+Proof The method of proof is as important as the theorem, and is
+
+called the Gram-Schmidt orthogonalization process. We know from
+Chapter II, §3 that we can find elements vm + 1, ... ,vn of V such that
+

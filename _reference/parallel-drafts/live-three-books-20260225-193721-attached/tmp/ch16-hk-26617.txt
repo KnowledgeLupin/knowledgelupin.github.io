@@ -1,0 +1,5 @@
+Occasionally it is very useful to know that an inner product on a real
+or complex vector space is determined by another function, the so-called
+quadratic form determined by the inner product. To define it, we first
+denote the positive square root of (CX]CX)by ]]a]]; ]]a]] is called the norm
+of O(with respect to the inner product. By looking at the standard inner

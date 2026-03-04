@@ -1,0 +1,5 @@
+
+Of course, to solve explicitly a system of linear equations, we have so
+far no other method than the elementary method of elimination from elementary school. Some computational aspects of solving linear equations
+are discussed at length in my Introduction to Linear Algebra, and will
+not be repeated here.

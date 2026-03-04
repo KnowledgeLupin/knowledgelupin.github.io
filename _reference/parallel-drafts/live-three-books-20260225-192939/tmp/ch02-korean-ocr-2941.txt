@@ -1,0 +1,5 @@
+이 항 등 행 렬 이 되었을 가 능 성 이 크다. 그 이
+유는 :
+관찰 1.3.5. Invertible row-reduced echelon 1007 은 항 등 행 렬 뿐 이다.
+BQ: 먼저 invertible matrix 가 zero 10\ 를 가질 수 없는 것은 자
+명하 다. 이

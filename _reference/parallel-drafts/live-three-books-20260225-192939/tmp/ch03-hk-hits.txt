@@ -1,0 +1,30 @@
+183:technique necessary to understand examples of the more abstract ideas occurring in the later chapters. Chapter 2 deals with vector spaces, subspaces, bases, and dimension.
+210:vector space; the analysis of characteristic (eigen) values, triangulable
+218:admissible subspaces. Chapter 7 includes a discussion of matrices over a polynomial
+234:onto a subspace and the orthogonal
+236:of a subspace. The chapter treats
+354:Vector Spaces
+355:Subspaces
+362:Subspaces
+502:Subspaces
+523:Cyclic Subspaces and Annihilators
+3346:Vector Spaces
+3370:may be part of a number of distinct vector spaces (see Example 5 below).
+3382:begin to study vector spaces.
+3438:Vector Spaces
+3519:Vector Spaces
+3525:vector space over the field R of real numbers. More generally, let F be the
+3530:obtain a vector space over the field R which is quite different from the
+3535:the definition of a vector space, and we proceed to derive these. If c is
+3614:Vector Spaces
+3659:‘vector’ to most people. As we proceed with our study of vector spaces,
+3663:section on vector spaces,
+3664:we shall consider the relation of vector spaces to geometry to an extent
+3665:which will at least indicate the origin of the name ‘vector space.’ This
+3667:Let us consider the vector space R3. In analytic geometry, one identifies triples (x1, x2, x3) of real numbers with the points in three-dimensional
+3684:point P. In our definition of the vector space R3, the vectors are simply
+3704:Vector Spaces
+3742:about vector spaces, that is, to draw pictures
+3754:with vector spaces as algebraic
+3768:2. If V is a vector space over the field F, verify
+3793:Vector Spaces

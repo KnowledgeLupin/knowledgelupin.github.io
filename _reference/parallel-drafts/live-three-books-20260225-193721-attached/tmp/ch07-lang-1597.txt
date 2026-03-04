@@ -1,0 +1,5 @@
+We define one more notion related to a matrix. Let A = (aij) be an
+m x n matrix. The n x m matrix B = (b ji ) such that bji = aij is called the
+transpose of A, and is also denoted by t A. Taking the transpose of a
+matrix amounts to changing rows into columns and vice versa. If A is
+the matrix which we wrote down at the beginning of this section, then l A

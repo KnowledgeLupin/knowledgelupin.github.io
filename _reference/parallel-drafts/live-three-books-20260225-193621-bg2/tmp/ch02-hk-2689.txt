@@ -1,0 +1,5 @@
+then B is called a two-sided
+inverse
+of A and A is said to be invertible.
+Lemma.
+

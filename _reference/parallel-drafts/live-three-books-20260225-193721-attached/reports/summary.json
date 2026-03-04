@@ -1,0 +1,71 @@
+{
+  "run_id": "live-three-books-20260225-193721-attached",
+  "run_dir": "/Users/kwkwon/Desktop/Obsidian/Mathematician/github-blog/_reference/parallel-drafts/live-three-books-20260225-193721-attached",
+  "scope": "ch1-ch16",
+  "concurrency": 4,
+  "gate": "strict",
+  "proof_policy": "full",
+  "reference_mode": "three-books",
+  "reference_cache_mode": "reuse",
+  "reference_status": "pass",
+  "reference_retry_count": 0,
+  "reference_retry_total": 0,
+  "reference_sources_used": [
+    "korean-ocr",
+    "hk",
+    "lang"
+  ],
+  "reference_ready_chapters": [
+    "ch01",
+    "ch02",
+    "ch03",
+    "ch04",
+    "ch05",
+    "ch06",
+    "ch07",
+    "ch08",
+    "ch09",
+    "ch10",
+    "ch11",
+    "ch12",
+    "ch13",
+    "ch14",
+    "ch15",
+    "ch16"
+  ],
+  "reference_failed_chapters": [
+  ],
+  "result": {
+    "success_count": 16,
+    "failure_count": 0,
+    "retry_total": 4,
+    "reference_ready_count": 16,
+    "reference_failed_count": 0,
+    "build_status": "pass",
+    "merge_status": "pass"
+  },
+  "chapters": [
+    {"chapter":"ch01","file":"ch01-linear-systems-and-gauss.tex","attempts":1,"retries":0,"generation_status":"success","generation_reason":"ok","reference_status":"ready","reference_reason":"ok","reference_retry_count":0,"reference_sources_used":"korean-ocr,hk,lang","source_priority":"korean-ocr,hk,lang"},
+    {"chapter":"ch02","file":"ch02-matrix-operations-invertibility-rank.tex","attempts":1,"retries":0,"generation_status":"success","generation_reason":"ok","reference_status":"ready","reference_reason":"ok","reference_retry_count":0,"reference_sources_used":"korean-ocr,hk,lang","source_priority":"korean-ocr,hk,lang"},
+    {"chapter":"ch03","file":"ch03-vector-spaces-and-subspaces.tex","attempts":1,"retries":0,"generation_status":"success","generation_reason":"ok","reference_status":"ready","reference_reason":"ok","reference_retry_count":0,"reference_sources_used":"korean-ocr,hk,lang","source_priority":"korean-ocr,hk,lang"},
+    {"chapter":"ch04","file":"ch04-basis-and-dimension.tex","attempts":1,"retries":0,"generation_status":"success","generation_reason":"ok","reference_status":"ready","reference_reason":"ok","reference_retry_count":0,"reference_sources_used":"korean-ocr,hk,lang","source_priority":"korean-ocr,hk,lang"},
+    {"chapter":"ch05","file":"ch05-linear-maps-kernel-image.tex","attempts":1,"retries":0,"generation_status":"success","generation_reason":"ok","reference_status":"ready","reference_reason":"ok","reference_retry_count":0,"reference_sources_used":"korean-ocr,hk,lang","source_priority":"korean-ocr,hk,lang"},
+    {"chapter":"ch06","file":"ch06-matrix-representation-and-similarity.tex","attempts":2,"retries":1,"generation_status":"success","generation_reason":"ok","reference_status":"ready","reference_reason":"ok","reference_retry_count":0,"reference_sources_used":"korean-ocr,hk","source_priority":"korean-ocr,hk,lang"},
+    {"chapter":"ch07","file":"ch07-dual-spaces-and-transpose.tex","attempts":1,"retries":0,"generation_status":"success","generation_reason":"ok","reference_status":"ready","reference_reason":"ok","reference_retry_count":0,"reference_sources_used":"hk,korean-ocr,lang","source_priority":"hk,korean-ocr,lang"},
+    {"chapter":"ch08","file":"ch08-determinants.tex","attempts":1,"retries":0,"generation_status":"success","generation_reason":"ok","reference_status":"ready","reference_reason":"ok","reference_retry_count":0,"reference_sources_used":"hk,korean-ocr,lang","source_priority":"hk,korean-ocr,lang"},
+    {"chapter":"ch09","file":"ch09-operator-polynomials.tex","attempts":1,"retries":0,"generation_status":"success","generation_reason":"ok","reference_status":"ready","reference_reason":"ok","reference_retry_count":0,"reference_sources_used":"lang,hk,korean-ocr","source_priority":"lang,hk,korean-ocr"},
+    {"chapter":"ch10","file":"ch10-eigenvalues-and-diagonalization.tex","attempts":1,"retries":0,"generation_status":"success","generation_reason":"ok","reference_status":"ready","reference_reason":"ok","reference_retry_count":0,"reference_sources_used":"lang,hk,korean-ocr","source_priority":"lang,hk,korean-ocr"},
+    {"chapter":"ch11","file":"ch11-invariant-subspaces-and-triangularization.tex","attempts":1,"retries":0,"generation_status":"success","generation_reason":"ok","reference_status":"ready","reference_reason":"ok","reference_retry_count":0,"reference_sources_used":"lang,hk,korean-ocr","source_priority":"lang,hk,korean-ocr"},
+    {"chapter":"ch12","file":"ch12-primary-and-cyclic-decomposition.tex","attempts":1,"retries":0,"generation_status":"success","generation_reason":"ok","reference_status":"ready","reference_reason":"ok","reference_retry_count":0,"reference_sources_used":"lang,hk,korean-ocr","source_priority":"lang,hk,korean-ocr"},
+    {"chapter":"ch13","file":"ch13-jordan-canonical-form.tex","attempts":1,"retries":0,"generation_status":"success","generation_reason":"ok","reference_status":"ready","reference_reason":"ok","reference_retry_count":0,"reference_sources_used":"lang,hk,korean-ocr","source_priority":"lang,hk,korean-ocr"},
+    {"chapter":"ch14","file":"ch14-inner-product-and-orthogonalization.tex","attempts":2,"retries":1,"generation_status":"success","generation_reason":"ok","reference_status":"ready","reference_reason":"ok","reference_retry_count":0,"reference_sources_used":"lang,hk,korean-ocr","source_priority":"lang,hk,korean-ocr"},
+    {"chapter":"ch15","file":"ch15-adjoint-normal-spectral.tex","attempts":2,"retries":1,"generation_status":"success","generation_reason":"ok","reference_status":"ready","reference_reason":"ok","reference_retry_count":0,"reference_sources_used":"lang,hk,korean-ocr","source_priority":"lang,hk,korean-ocr"},
+    {"chapter":"ch16","file":"ch16-bilinear-hermitian-forms.tex","attempts":2,"retries":1,"generation_status":"success","generation_reason":"ok","reference_status":"ready","reference_reason":"ok","reference_retry_count":0,"reference_sources_used":"hk,lang,korean-ocr","source_priority":"hk,lang,korean-ocr"}
+  ],
+  "failed_chapters": [
+  ],
+  "next_actions": [
+    "Merged chapters are ready. Run manual editorial review for mathematical clarity and anti-copy compliance.",
+    "Optionally run bash tools/test.sh for site-level checks."
+  ]
+}

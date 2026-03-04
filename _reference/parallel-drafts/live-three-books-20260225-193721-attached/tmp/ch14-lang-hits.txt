@@ -1,0 +1,5 @@
+5296:called the Gram-Schmidt orthogonalization process. We know from
+6314:case, i.e. the Gram-Schmidt orthogonalization. We shall in fact prove
+12861:{v 1 , ... ,vn } be a fan basis. We can use the Gram-Schmidt orthogonaliza-
+14558:Getting such a matrix B is merely applying the usual Gram Schmidt
+15093:Gram-Schmidt orthogonalization

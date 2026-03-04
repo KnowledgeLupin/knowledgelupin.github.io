@@ -1,0 +1,5 @@
+13. Let T be a linear operator on the finite-dimensional
+vector
+space V over the field F. Suppose that the minimal polynomial for T decomposes over F into a product of linear polynomials. Then there is a diagonalizable operator D on V and a nilpotent operator N on V such that
+
+(i) T = D + N,

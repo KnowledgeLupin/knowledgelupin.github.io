@@ -1,0 +1,5 @@
+
+“Hint: 2- 항 정리.
+12 따라서, strictly upper-triangular matrix nilpotent.
+
+1.1. MATRIX

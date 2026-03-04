@@ -1,0 +1,5 @@
+Cyclic Decompositions
+and the Rational
+The Jordan Form
+Computation
+of Invariant

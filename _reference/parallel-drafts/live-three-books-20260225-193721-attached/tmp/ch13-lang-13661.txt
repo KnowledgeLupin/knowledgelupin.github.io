@@ -1,0 +1,5 @@
+This matrix has a on the diagonal, 1 above the diagonal, and 0 everywhere else. The reader will observe that (A - aIr- 1 v is an eigenvector
+for A, with eigenvalue a.
+The basis (*) is called a Jordan basis for V with respect to A.
+Suppose that V is expressed as a direct sum of A-invariant subspaces,
+

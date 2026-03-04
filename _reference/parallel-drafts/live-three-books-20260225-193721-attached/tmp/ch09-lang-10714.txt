@@ -1,0 +1,5 @@
+
+We can also view A as as linear map from K n to K n, and we also say
+that PA(t) is the characteristic polynomial of this linear map.
+
+[VIII, §2]

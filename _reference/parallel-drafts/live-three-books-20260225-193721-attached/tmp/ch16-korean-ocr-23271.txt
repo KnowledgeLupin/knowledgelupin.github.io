@@ -1,0 +1,5 @@
+(나) F=R 2 때에는, complex conjugation? 없는 것으로 생 각 하면 된다. ᄆ
+
+라서, 이 경 우에 inner product 는 ‘symmetric’ bilinear form 이 다."
+
+31, 뒷 자 리 에

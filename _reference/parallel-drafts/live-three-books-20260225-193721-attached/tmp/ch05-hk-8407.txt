@@ -1,0 +1,5 @@
+Suppose that T carries independent subsets onto independent subsets.
+Let a! be a non-zero vector in V. Then the set S consisting of the one vector
+a is independent. The image of S is the set consisting of the one vector Tu,,
+and this set is independent.
+Therefore TCY # 0, because the set consisting

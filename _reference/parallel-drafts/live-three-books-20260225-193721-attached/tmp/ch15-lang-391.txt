@@ -1,0 +1,5 @@
+§1. Existence of Triangulation . . . . . .
+§2. Theorem of Hamilton-Cayley ...
+§3. Diagonalization of Unitary Maps.
+
+237

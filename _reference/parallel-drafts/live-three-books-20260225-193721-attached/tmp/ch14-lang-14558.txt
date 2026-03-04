@@ -1,0 +1,5 @@
+such that the diagonal elements are positive, that is b 11 , ... , b nn > 0, and
+such that the vectors ei, ... , e~ are mutually perpendicular unit vectors.
+Getting such a matrix B is merely applying the usual Gram Schmidt
+orthogonalization process, subtracting a linear combination of previous
+vectors to get orthogonality, and then dividing by the norms to get unit

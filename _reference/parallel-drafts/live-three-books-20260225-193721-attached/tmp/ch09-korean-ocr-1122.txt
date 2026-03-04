@@ -1,0 +1,5 @@
+a
+
+Cayley-Hamilton Theorem ........
+
+Direct Sum 과 Eigen-space Decomposition

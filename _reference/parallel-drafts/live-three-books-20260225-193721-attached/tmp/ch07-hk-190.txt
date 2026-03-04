@@ -1,0 +1,5 @@
+isomorphism,
+linear functionals,
+and dual spaces. Chapter 4 defines the algebra of
+polynomials
+over a field, the ideals in that algebra, and the prime factorization

@@ -1,0 +1,30 @@
+296:§6. The Dual Space and Scalar Products
+1597:transpose of A, and is also denoted by t A. Taking the transpose of a
+1627:A matrix A is said to be symmetric if it is equal to its transpose, i.e. if
+2057:The next result relates the transpose with multiplication of matrices.
+4450:written horizontally with a transpose sign for typographical reasons.
+4565:Then A turns out to be the transpose of the matrix
+4616:equal to the transpose of
+5268:3. Let M be a square n x n matrix which is equal to its transpose. If X, Yare
+6352:THE DUAL SPACE AND SCALAR PRODUCTS
+6388:V, §6. THE DUAL SPACE AND SCALAR PRODUCTS
+6400:called the dual space, and will be denoted by V*. Thus by definition
+6403:Elements of the dual space are usually called functionals.
+6433:THE DUAL SPACE AND SCALAR PRODUCTS
+6482:the dual space, namely the map such that
+6488:is a linear map of V into the dual space V*. The next theorem IS very
+6494:is an isomorphism of V with the dual space V*.
+6509:THE DUAL SPACE AND SCALAR PRODUCTS
+6575:gives an isomorphism of V with its dual space V*. Let W be a subspace
+6593:THE DUAL SPACE AND SCALAR PRODUCTS
+7146:The determinant of A is equal to the determinant of its transpose, i.e.
+7390:to rows and columns, and Det(A) = Det(~). In other words, the determinant of a matrix is equal to the determinant of its transpose.
+7398:This last assertion follows because taking the transpose of a matrix
+7561:matrix A is equal to the determinant of its transpose. When we have
+9209:The sum (**) is precisely the sum giving the expanded form of the determinant of the transpose of A. Hence we have proved what we wanted.
+9381:Taking transposes, we obtain tYA = I. Now we have
+9425:A - 1 = transpose of
+9800:be linear, so that L is a functional, L is an element of the dual space V*.
+9836:transpose of A and will be denoted by~. The operator A is said to be
+9853:where ~ now means the transpose of the matrix A. Thus when we deal
+9854:with the ordinary dot product of n-tuples, the transpose of the operator

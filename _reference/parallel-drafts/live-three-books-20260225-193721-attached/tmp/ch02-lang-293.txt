@@ -1,0 +1,5 @@
+§1. Scalar Products. . . . . . . . . . .
+§2. Orthogonal Bases, Positive Definite Case ..
+§3. Application to Linear Equations; the Rank ..
+§4. Bilinear Maps and Matrices . . . . . .
+§5. General Orthogonal Bases . . . . . . . .

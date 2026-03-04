@@ -1,0 +1,5 @@
+k I, . . . , k, such that k, + . . . + k,. = n and ki 2 ki+l, and these positive
+integers determine the rational form of the matrix, i.e., determine the
+matrix up to similarity.
+Here is one thing we should like to point out about the nilpotent
+operator N above. The positive integer r is precisely the nullity of N;

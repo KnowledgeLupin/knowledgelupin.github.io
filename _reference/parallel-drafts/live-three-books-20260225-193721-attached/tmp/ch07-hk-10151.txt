@@ -1,0 +1,5 @@
+V* = L(V, F).
+If V is finite-dimensional,
+of the dual space V*. From
+space V*, namely that
+

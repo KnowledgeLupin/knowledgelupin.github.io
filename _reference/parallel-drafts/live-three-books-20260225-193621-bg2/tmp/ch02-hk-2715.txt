@@ -1,0 +1,5 @@
+Let A and B be n X n matrices over E’.
+
+(i) If A is invertible, so is A-l and (A-l)-’
+= A.
+(ii) If both A and B are invertible, so is AR, and (AB)-l

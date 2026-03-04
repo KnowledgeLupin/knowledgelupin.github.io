@@ -1,0 +1,5 @@
+g(v, w) = <v, w).
+Let V be a finite dimensional space over the field K. Let g = < , ) be
+a scalar product on V. By the quadratic form determined by g, we shall
+mean the function
+

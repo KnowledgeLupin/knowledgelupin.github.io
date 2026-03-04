@@ -1,0 +1,30 @@
+641:Bilinear Forms
+643:Bilinear Forms
+26617:quadratic form determined by the inner product. To define it, we first
+30041:which preserves the quadratic form
+34340:In this chapter, we treat bilinear forms on finite-dimensional
+34346:bilinear forms and inner products is particularly
+34352:This first section treats the space of bilinear forms on a vector space
+34353:of dimension n. The matrix of a bilinear form in an ordered basis is introduced, and the isomorphism between the space of forms and the space of
+34354:n X n matrices is established. The rank of a bilinear form is defined, and
+34356:bilinear forms are introduced. The second section discusses
+34357:symmetric bilinear forms and their diagonalization.
+34360:bilinear forms. The fourth section discusses the
+34363:bilinear form, with special attention
+34380:Bilinear Forms
+34425:this definition can be rephrased as follows: A bilinear form on V is a function f from V X V into F which is linear as a function of either of its
+34427:is clearly a bilinear form. It is also true that any linear combination
+34429:bilinear forms on V is again a bilinear form. To prove this, it is sufficient
+34432:bilinear forms on V. The proof that cf + g satisfies (10-l) is similar to many
+34434:by saying that the set of all bilinear forms on V is a subspace of the space
+34436:denote the space of bilinear forms on V by L(V, V, F).
+34444:L2. Thus it is clear that f is a bilinear form on V.
+34466:XtAY is 1 X 1, i.e., a scalar, and the bilinear form is simply
+34471:We shall presently show that every bilinear form on the space of m X 1
+34474:Bilinear Forms
+34478:EXAMPLE 3. Let F be a field. Let us find all bilinear forms on the
+34479:space F2. Suppose f is such a bilinear form. If (Y = (21, Q) and @ = (~1, yz)
+34565:(10-2) defines a bilinear form on F2. We see that the bilinear forms on F2
+34568:bilinear forms on a finite-dimensional
+34570:an ordered basis for V. Suppose f is a bilinear form on V. If
+34602:basis a. Thus every bilinear form on V is of the type

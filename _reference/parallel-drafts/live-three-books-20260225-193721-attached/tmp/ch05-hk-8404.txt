@@ -1,0 +1,5 @@
+from which it follows that each ci = 0 because S is an independent
+set.
+This argument shows that the image of X under T is independent.
+Suppose that T carries independent subsets onto independent subsets.
+Let a! be a non-zero vector in V. Then the set S consisting of the one vector

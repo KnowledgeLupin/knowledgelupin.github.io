@@ -1,0 +1,179 @@
+Use $linear-algebra-chapter-writer.
+
+Task:
+Rewrite and complete chapter ch07 in file ch07-dual-spaces-and-transpose.tex.
+
+Strict requirements:
+1. Output raw LaTeX chapter content only.
+2. Do not include markdown code fences or commentary.
+3. Keep Korean textbook voice with polite explanatory paragraphs.
+4. Keep formal blocks (`정의`, `정리`, `증명`) rigorous.
+5. Use full proof policy for every theorem.
+6. Include proof-strategy paragraph before each proof.
+7. Include interpretation paragraph after each proof.
+8. Include at least two warning blocks.
+9. Include at least one self-diagnosis quiz block with three or more items.
+10. Include graded exercises A/B/C with minimum counts A>=6, B>=4, C>=2.
+11. Keep chapter macros and templates compatible with preamble macros.
+12. Never copy textbook sentences verbatim.
+13. Never include visible citation tags, reference notes, or footnotes in chapter body.
+
+Repository context:
+- Chapter file: /Users/kwkwon/Desktop/Obsidian/Mathematician/github-blog/latex/linear-algebra/chapters/ch07-dual-spaces-and-transpose.tex
+- Style guide: /Users/kwkwon/Desktop/Obsidian/Mathematician/github-blog/_reference/2026-02-24-linear-algebra-writing-style-guide.md
+- Project plan: /Users/kwkwon/Desktop/Obsidian/Mathematician/github-blog/_reference/2026-02-25-linear-algebra-final-plan.md
+- Preamble/macros: /Users/kwkwon/Desktop/Obsidian/Mathematician/github-blog/latex/linear-algebra/preamble.tex
+- Proof policy: full
+- Reference mode: three-books
+- Source priority: hk,korean-ocr,lang
+- Reference context path (required): /Users/kwkwon/Desktop/Obsidian/Mathematician/github-blog/_reference/parallel-drafts/live-three-books-20260225-193721-attached/references/ch07-context.md
+
+Reference usage policy:
+- Use reference context for concept flow, theorem order, and proof strategy only.
+- Rewrite all content in fresh wording.
+- Do not copy textbook phrasing.
+- Do not expose source citations in the chapter output.
+
+Reference context excerpt:
+# Reference Context for ch07
+
+- source_priority: hk,korean-ocr,lang
+- keyword_pattern: dual space|dual map|transpose|annihilator|쌍대공간|쌍대사상|전치|소멸자
+- generated_at: 2026-02-25 19:43:54 +0900
+
+## Source: hk
+### Hit line 190
+isomorphism,
+linear  unctionals,
+and dual spaces. Chapter 4 de ines the algebra o
+polynomials
+over a  ield, the ideals in that algebra, and the prime  actorization
+
+### Hit line 264
+thoroughly,
+possibly excluding Sections 3.6 and 3.7 which deal with the double dual
+and the transpose o  a linear trans ormation.
+Chapters 4 and 5, on polynomials
+
+### Hit line 373
+Linear Functionals
+The Double Dual
+The Transpose o  a Linear Trans ormation
+
+### Hit line 523
+Cyclic Subspaces and Annihilators
+Cyclic Decompositions
+and the Rational
+
+### Hit line 10148
+orms a vector space in a natural way. It is the space L(V, F). We denote
+this space by V* and call it the dual space o  V:
+V* = L(V, F).
+I  V is  inite-dimensional,
+
+### Hit line 10151
+V* = L(V, F).
+I  V is  inite-dimensional,
+o  the dual space V*. From
+space V*, namely that
+
+### Hit line 10413
+De inition.
+I  V is a vector space over the  ield F and S is a subset o  V,
+the annihilator
+o  S is the set So o  linear  unctionals   on V such that
+(ar) = 0  or every Q in S.
+
+### Hit line 10440
+The claim is that {jk+l, . . . , jn} is a basis  or the annihilator
+ji belongs to W”  or i 2 lc  1, because
+
+## Source: korean-ocr
+### Hit line 570
+이 나, 그리고
+고 게 1 134 dual space 개
+념의 강조 SS HEFL] (학부 2
+
+### Hit line 7091
+column vector 만을 다루지 만, elementary operation-@ row operation 만 생각해
+기에 계속 transpose } 붙였다 BCp 반 복할 수밖에 Qh cp.52
+
+### Hit line 9362
+리고 dual space S 이용한 ‘Yea’ ol : 고 상한 SYS 813.8 에
+서 만나게 된다.
+
+### Hit line 9713
+S 말하려 면
+계 속 하 기로 하자. 다만, linear operator 2] trace 를
+o  하고. linear map 의 transpose S 이 해 하 는 것은 이 책 후 반 부의 :
+
+### Hit line 9754
+V* = (0 2)
+로 정 의 하고. 우 리는 V*S 의 dual 508006( 쌍대공간 ) 라
+고 부른다. 또 , v*
+의 Qs linear [400100081( 또는 linear 010) 이라고 부른다. 뿐만 아니라, 우
+
+### Hit line 9764
+* 와 VFS 와 함께 태 어 난 ' 선 형 대 수 학 의 주 인 공 들이며, 제 13 장 에 다
+시 등장 할 것이다. 이 AS] 목적 중 하 나 는 선 형 대 수 에 왜 dual space 7} 반드
+시 등장 해 야만 하는지를 - 즉 , 왜 중 요 한
+지를 - 이 해 하는 것이다.“
+
+### Hit line 14963
+때 문 이 다. ( 양 변 에 transpose S 취 하 면 두 번째 equality S 얻는다.)
+민이 책 후반 부의 4* 와 구 분 하기 위하여, ‘classical’ 801011[ 라
+
+### Hit line 16336
+Tr ={/006200]|/(0)=0}
+으로 표
+기 하고, 이를 (Tol 관한) annihilator 10601 이 라고 부른다.“
+연 습 문제 7.4.4. Tegme 때. 다음
+
+## Source: lang
+### Hit line 296
+§4. Bilinear Maps and Matrices . . . . . .
+§5. General Orthogonal Bases . . . . . . . .
+§6. The Dual Space and Scalar Products
+§7. Quadratic Forms . . . . . . . . . . . . . . .
+§8. Sylvester's Theorem . . . . . . . . . . . .
+
+### Hit line 1597
+We de ine one more notion related to a matrix. Let A = (aij) be an
+m x n matrix. The n x m matrix B = (b ji ) such that bji = aij is called the
+transpose o  A, and is also denoted by t A. Taking the transpose o  a
+matrix amounts to changing rows into columns and vice versa. I  A is
+the matrix which we wrote down at the beginning o  this section, then l A
+
+### Hit line 1627
+is a column vector.
+A matrix A is said to be symmetric i  it is equal to its transpose, i.e. i
+lA = A. A symmetric matrix is necessarily a square matrix. For instance,
+the matrix
+
+### Hit line 2057
+r, S > o.
+The next result relates the transpose with multiplication o  matrices.
+
+### Hit line 4450
+IV, §2. EXERCISES
+1. Find the matrix associated with the  ollowing linear maps. The vectors are
+written horizontally with a transpose sign  or typographical reasons.
+(a) F: R4 --+ R2 given by F(t(Xl' X2 , X3 , x 4 )) = t(Xl' x 2 ) (the projection)
+(b) The projection  rom R4 to R3
+
+### Hit line 4565
+Then A turns out to be the transpose o  the matrix
+
+### Hit line 4616
+equal to the transpose o
+
+### Hit line 5268
+elements which are mutually perpendicular, that is <Vi' vj) = 0 i  i '# j. Show
+that they are linearly independent.
+3. Let M be a square n x n matrix which is equal to its transpose. I  X, Yare
+column n-vectors, then
+
+
+Output:
+- Return final chapter content only.
+- Do not wrap output in code fences.

@@ -1,0 +1,5 @@
+which will at least indicate the origin of the name ‘vector space.’ This
+will be a brief intuitive discussion.
+Let us consider the vector space R3. In analytic geometry, one identifies triples (x1, x2, x3) of real numbers with the points in three-dimensional
+Euclidean space. In that context, a vector is usually defined as a directed
+line segment PQ, from a point P in the space to another point Q. This

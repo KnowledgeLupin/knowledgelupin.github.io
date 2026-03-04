@@ -1,0 +1,5 @@
+IV, §2. EXERCISES
+1. Find the matrix associated with the following linear maps. The vectors are
+written horizontally with a transpose sign for typographical reasons.
+(a) F: R4 --+ R2 given by F(t(Xl' X2 , X3 , x 4 )) = t(Xl' x 2 ) (the projection)
+(b) The projection from R4 to R3

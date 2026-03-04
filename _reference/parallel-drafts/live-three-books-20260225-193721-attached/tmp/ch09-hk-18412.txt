@@ -1,0 +1,5 @@
+of any n X n matrix
+which represents T in some ordered basis for V. Just as for matrices, the
+characteristic values of T will be the roots of the characteristic polynomial
+for T. In particular, this shows us that T cannot have more than n distinct
+

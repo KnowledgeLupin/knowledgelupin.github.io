@@ -1,0 +1,5 @@
+10
+
+Ml 12 Bax GAUSS 소거법
+
+연 습 문제 1.1.18. O(n) = {Ae Mr n( R)|A is invertible and A~! = At} B 정

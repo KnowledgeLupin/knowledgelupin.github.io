@@ -1,0 +1,5 @@
+projection
+of a vector
+onto a subspace and the orthogonal
+complement
+of a subspace. The chapter treats

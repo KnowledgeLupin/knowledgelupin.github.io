@@ -1,0 +1,5 @@
+forms.
+This first section treats the space of bilinear forms on a vector space
+of dimension n. The matrix of a bilinear form in an ordered basis is introduced, and the isomorphism between the space of forms and the space of
+n X n matrices is established. The rank of a bilinear form is defined, and
+non-degenerate

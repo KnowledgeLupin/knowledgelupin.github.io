@@ -1,0 +1,5 @@
+a real unitary operator on V. Then V can be expressed as a direct sum
+
+of T-invariant subspaces, which are mutually orthogonal (i.e. Vi is orthogonal to Vj if i i= j) and dim Vi is 1 or 2, for each i.
+
+[VIII, §6]

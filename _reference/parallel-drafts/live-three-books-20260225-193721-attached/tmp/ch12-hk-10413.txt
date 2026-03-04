@@ -1,0 +1,5 @@
+Definition.
+If V is a vector space over the field F and S is a subset of V,
+the annihilator
+of S is the set So of linear functionals f on V such that
+f(ar) = 0 for every Q in S.

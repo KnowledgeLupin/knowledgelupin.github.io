@@ -1,0 +1,30 @@
+984:기저
+985:와 차원
+1001:Bids Vector Space 의 Basis .. 6... . cee ee 이에 이 이아 49
+1003:3.4. Basis2] 존재 oe
+1046:Dimension Theorem ............
+1211:Standard Basis = 바 Orthonormal Basis
+1519:로 정 의 하 고 ( 즉 , A+ BY (2,7)- 좌표가 aj +h; AE 뜻 ), BA 4 = (aij)
+1841:라 . 이때 AB S| 대 각 성 분 ((7.7)- 좌표 ) 을 묘 사 하라.
+1857:즉 , 4『 의 (7.7)- 좌표가 aj BE 뜻 이다. 따라서, 4『 는 AQ] 행
+2439:의 ( 왼 쪽 에서부터) 최 초의 non-zero 좌표
+2606:정리 1.2.32] 가능성 SAL: Non-zero 좌표 가
+2808:제 1.2.6 없이는 ' 본 질 적 으 로 ' dimension 정 의 할
+3505:째 좌표 ) 라고 부른
+4703:기 저 와 차원
+4760:기 저 와 차원
+4941:기 저 와 차원
+5138:제 3 장 기 저 와 차원
+5152:관 찰 은 거의 자 명 하 지만, 다음 tiie] basis 2] 뜻
+5194:3.3. VECTOR SPACE 의 BASIS
+5198:3.3. Vector Space 의 Basis
+5207:이면, 우 리 는 BS 의 기저 (/'-0299) 라
+5227:basis, Euclidean basis) 라고 부
+5240:는 얼 마 든지 BS basis 7} 존재할
+5247:을 생각해 왔다는 것도 깨 달 았 을 것이다. 이제 Fe) standard basis 7} 아닌
+5248:다른 basis = 생 각 하 자는 것이다.
+5249:“Basis 2] 복 수 형 은 bases
+5262:기저
+5263:와 차원
+5265:정의 3.3.5. 유한 집합 %8={01,........ Un} 이 V2] F-basis 2} 하자. v EV 7+
+5271:vector (ay..... 0,,) = [basis B Ol] 관한 v 2| BE (coordinate) | 2}3! 부르고.

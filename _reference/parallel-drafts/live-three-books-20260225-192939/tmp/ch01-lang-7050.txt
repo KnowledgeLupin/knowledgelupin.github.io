@@ -1,0 +1,5 @@
+need of a method to determine when vectors are linearly independent.
+Up to now, the only method available to us was to solve a system of
+linear equations by the elimination method. In this chapter, we shall
+exhibit a very efficient computational method to solve linear equations,
+and determine when vectors are linearly independent.

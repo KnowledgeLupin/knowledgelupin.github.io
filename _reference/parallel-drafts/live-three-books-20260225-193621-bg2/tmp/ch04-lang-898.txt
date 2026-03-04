@@ -1,0 +1,5 @@
+e , e 2t • Then {e t , e 2t } is a basis of W
+We shall now define the coordinates of an element v E V with respect
+to a basis. The definition depends on the following fact.
+Theorem 2.1. Let V be a vector space. Let V 1 , ••• 'V n be linearly independent elements of V. Let Xl' ... ,x n and Y1' ... ,Yn be numbers. Suppose
+that we have

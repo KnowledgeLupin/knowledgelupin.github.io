@@ -1,0 +1,5 @@
+
+is a column vector.
+A matrix A is said to be symmetric if it is equal to its transpose, i.e. if
+lA = A. A symmetric matrix is necessarily a square matrix. For instance,
+the matrix

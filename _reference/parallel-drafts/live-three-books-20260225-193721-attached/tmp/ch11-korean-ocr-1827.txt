@@ -1,0 +1,5 @@
+행 렬과 GAUSS 소거법
+
+연 습 문제 1.1.6. 4" = 0 for some r > 1] square matrix 를 nilpotent
+matrix 라고 부른다. 만약 A,B eEM,,,(F) 7} 1001041 이 고, 42 = BA),
+

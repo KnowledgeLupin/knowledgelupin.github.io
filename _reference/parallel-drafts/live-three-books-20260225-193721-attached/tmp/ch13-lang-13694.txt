@@ -1,0 +1,5 @@
+
+In each block we have an eigenvalue rx i on the diagonal. We have 1
+above the diagonal, and 0 everywhere else. This matrix is called the Jordan normal form for A. Our main theorem in this section is that this
+normal form can always be achieved, namely:
+

@@ -1,0 +1,3 @@
+181:Gauss elimination, which are thoroughly covered in my Introduction to
+1801:far no other method than the elementary method of elimination from elementary school. Some computational aspects of solving linear equations
+7050:linear equations by the elimination method. In this chapter, we shall

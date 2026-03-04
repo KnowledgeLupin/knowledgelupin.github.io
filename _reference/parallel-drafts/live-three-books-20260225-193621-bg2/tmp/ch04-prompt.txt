@@ -1,0 +1,184 @@
+Use $linear-algebra-chapter-writer.
+
+Task:
+Rewrite and complete chapter ch04 in file ch04-basis-and-dimension.tex.
+
+Strict requirements:
+1. Output raw LaTeX chapter content only.
+2. Do not include markdown code fences or commentary.
+3. Keep Korean textbook voice with polite explanatory paragraphs.
+4. Keep formal blocks (`정의`, `정리`, `증명`) rigorous.
+5. Use full proof policy for every theorem.
+6. Include proof-strategy paragraph before each proof.
+7. Include interpretation paragraph after each proof.
+8. Include at least two warning blocks.
+9. Include at least one self-diagnosis quiz block with three or more items.
+10. Include graded exercises A/B/C with minimum counts A>=6, B>=4, C>=2.
+11. Keep chapter macros and templates compatible with preamble macros.
+12. Never copy textbook sentences verbatim.
+13. Never include visible citation tags, reference notes, or footnotes in chapter body.
+
+Repository context:
+- Chapter file: /Users/kwkwon/Desktop/Obsidian/Mathematician/github-blog/latex/linear-algebra/chapters/ch04-basis-and-dimension.tex
+- Style guide: /Users/kwkwon/Desktop/Obsidian/Mathematician/github-blog/_reference/2026-02-24-linear-algebra-writing-style-guide.md
+- Project plan: /Users/kwkwon/Desktop/Obsidian/Mathematician/github-blog/_reference/2026-02-25-linear-algebra-final-plan.md
+- Preamble/macros: /Users/kwkwon/Desktop/Obsidian/Mathematician/github-blog/latex/linear-algebra/preamble.tex
+- Proof policy: full
+- Reference mode: three-books
+- Source priority: korean-ocr,hk,lang
+- Reference context path (required): /Users/kwkwon/Desktop/Obsidian/Mathematician/github-blog/_reference/parallel-drafts/live-three-books-20260225-193621-bg2/references/ch04-context.md
+
+Reference usage policy:
+- Use reference context for concept flow, theorem order, and proof strategy only.
+- Rewrite all content in fresh wording.
+- Do not copy textbook phrasing.
+- Do not expose source citations in the chapter output.
+
+Reference context excerpt:
+# Reference Context for ch04
+
+- source_priority: korean-ocr,hk,lang
+- keyword_pattern: basis|dimension|exchange theorem|coordinate vector|기저|차원|교체정리|좌표
+- generated_at: 2026-02-25 19:36:23 +0900
+
+## Source: korean-ocr
+### Hit line 984
+와 차원
+
+### Hit line 985
+와 차원
+Bde Linear Combination a... cis 시
+
+### Hit line 1001
+me 비제 40
+Bids Vector Space 의 Basis .. 6... . cee ee 이에 이 이아 49
+3.4. Basis2] 존재 oe
+
+### Hit line 1003
+Bids Vector Space 의 Basis .. 6... . cee ee 이에 이 이아 49
+3.4. Basis2] 존재 oe
+
+### Hit line 1046
+Dimension Theorem ............
+
+### Hit line 1211
+Standard Basis = 바 Orthonormal Basis
+
+### Hit line 1519
+A+B = (aij i)
+로 정 의 하 고 ( 즉 , A+ BY (2,7)- 좌표가 aj h; AE 뜻 ), BA 4 = (aij)
+scalar ce F 2} 상 수 곱 (5021 multiplication) 은
+cA = (008)
+
+### Hit line 1841
+(가) A, BE Mn »(F) 가 upper-triangular °] 3, ABE upper-triangular YS 보
+라 . 이때 AB S| 대 각 성 분 ((7.7)- 좌표 ) 을 묘 사 하라.
+(나) A,B 6 96(70) 가 strictly upper-triangular 이면, ABE strictly uppertriangular 임을 보
+
+## Source: hk
+### Hit line 183
+It provides the student with some picture o  the
+origins o  linear algebra and with the computational
+technique necessary to understand examples o  the more abstract ideas occurring in the later chapters. Chapter 2 deals with vector spaces, subspaces, bases, and dimension.
+Chapter 3 treats
+linear trans ormations,
+
+### Hit line 209
+and 7 contain a discussion o  the concepts which are basic to the analysis o  a single
+linear trans ormation
+on a  inite-dimensional
+vector space; the analysis o  characteristic (eigen) values, triangulable
+and diagonalizable
+
+### Hit line 226
+o  the Smith canonical  orm. The chapter ends with a discussion o  semi-simple
+operators, to round out the analysis o  a single operator.
+Chapter 8 treats  inite-dimensional
+inner product spaces in some detail. It covers
+the basic geometry,
+
+### Hit line 356
+Vector Spaces
+Subspaces
+Bases and Dimension
+Coordinates
+
+### Hit line 3314
+he has studied di  erential
+equations. Perhaps the reader has had some
+experience with vectors in three-dimensional
+Euclidean
+space, and in
+
+### Hit line 3667
+which will at least indicate the origin o  the name ‘vector space.’ This
+will be a brie  intuitive discussion.
+Let us consider the vector space R3. In analytic geometry, one identi ies triples (x1, x2, x3) o  real numbers with the points in three-dimensional
+Euclidean space. In that context, a vector is usually de ined as a directed
+line segment PQ,  rom a point P in the space to another point Q. This
+
+### Hit line 4424
+Bases and
+Dimension
+We turn now to the task o  assigning
+
+### Hit line 4427
+We turn now to the task o  assigning
+a dimension
+to certain
+
+## Source: lang
+### Hit line 172
+I hope that the present book can be used  or a one-term course. The
+irst six chapters review some o  the basic notions. I looked  or e  iciency. Thus the theorem that m homogeneous linear equations in n
+unknowns has a non-trivial soluton i  n > m is deduced  rom the dimension theorem rather than the other way around as in the introductory
+text. And the proo  that two bases have the same number o  elements
+(i.e. that dimension is de ined) is done rapidly by the "interchange"
+
+### Hit line 174
+unknowns has a non-trivial soluton i  n > m is deduced  rom the dimension theorem rather than the other way around as in the introductory
+text. And the proo  that two bases have the same number o  elements
+(i.e. that dimension is de ined) is done rapidly by the "interchange"
+
+### Hit line 224
+§2. Bases. . ..
+§3. Dimension o  a Vector Space .
+§4. Sums and Direct Sums . . . . .
+
+### Hit line 891
+hence b = O. From the  irst relation, it  ollows that aet = 0, and hence
+a = O. Hence et , e 2t are linearly independent.
+I  elements v 1 , ••• 'V n o  V generate V and in addition are linearly independent, then {v 1 , •• ,vn } is called a basis o  V. We shall also say that the
+elements v 1 , ••• 'V n constitute or  orm a basis o  V.
+The vectors E 1 , ••• ,En o  Example 1  orm a basis o  Kn.
+
+### Hit line 892
+a = O. Hence et , e 2t are linearly independent.
+I  elements v 1 , ••• 'V n o  V generate V and in addition are linearly independent, then {v 1 , •• ,vn } is called a basis o  V. We shall also say that the
+elements v 1 , ••• 'V n constitute or  orm a basis o  V.
+The vectors E 1 , ••• ,En o  Example 1  orm a basis o  Kn.
+Let W be the vector space o   unctions generated by the two  unctions
+
+### Hit line 893
+I  elements v 1 , ••• 'V n o  V generate V and in addition are linearly independent, then {v 1 , •• ,vn } is called a basis o  V. We shall also say that the
+elements v 1 , ••• 'V n constitute or  orm a basis o  V.
+The vectors E 1 , ••• ,En o  Example 1  orm a basis o  Kn.
+Let W be the vector space o   unctions generated by the two  unctions
+
+### Hit line 896
+Let W be the vector space o   unctions generated by the two  unctions
+e , e 2t • Then {e t , e 2t } is a basis o  W
+We shall now de ine the coordinates o  an element v E V with respect
+to a basis. The de inition depends on the  ollowing  act.
+
+### Hit line 898
+e , e 2t • Then {e t , e 2t } is a basis o  W
+We shall now de ine the coordinates o  an element v E V with respect
+to a basis. The de inition depends on the  ollowing  act.
+Theorem 2.1. Let V be a vector space. Let V 1 , ••• 'V n be linearly independent elements o  V. Let Xl' ... ,x n and Y1' ... ,Yn be numbers. Suppose
+that we have
+
+
+Output:
+- Return final chapter content only.
+- Do not wrap output in code fences.

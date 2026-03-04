@@ -1,0 +1,30 @@
+214:and nilpotent
+20091:Let W be an invariant subspace for T and let o( be a vecto?
+21993:that N is nilpotent
+22001:space V over the field F. Suppose that the minimal polynomial for T decomposes over F into a product of linear polynomials. Then there is a diagonalizable operator D on V and a nilpotent operator N on V such that
+22005:The diagonalixable operator D and the nilpotent operator N are uniquely
+22008:where D is diagonalizable and N is nilpotent, and where D and N not only
+22011:N’ is nilpotent,
+22031:nilpotent
+22032:and they commute, the operator (N’ - N) is nilpotent;
+22043:(N’ - N)? will be 0. (Actually, a nilpotent operator on an n-dimensional
+22047:operator which is also nilpotent. Such an operator is obviously the zero
+22057:and a nilpotent operator N which commute. These operators D and N are
+22062:the study of nilpotent operators. For vector spaces over non-algebraically
+22207:on R3 and a nilpotent operator N on R3 such that T = D + N and DN = ND.
+22211:field F, prove that the differentiation operator on V is nilpotent.
+22230:on Wi by T, then Ti - CJ is nilpotent;
+22252:or T is nilpotent,
+22268:that if A is a nilpotent
+22269:matrix, then T is a nilpotent
+22271:9. Give an example of two 4 X 4 nilpotent
+22303:N is nilpotent.
+22307:and nilpotent
+22325:15. If N is a nilpotent
+22357:of all Tinvariant subspaces which contain a; however, it is more profitable at the
+22665:vector space over the field F, and let N be a nilpotent
+22747:to W. We are asking when a Tinvariant subspace has a complementary
+22784:invariant subspace, then W is admissible. One of the consequences of Theorem 3 will be the converse, so that admissibility
+22788:invariant subspaces.
+23465:If T is a nilpotent linear operator on a vector space of
+23938:T-invariant subspace.

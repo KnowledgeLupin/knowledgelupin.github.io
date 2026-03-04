@@ -1,0 +1,5 @@
+§4. Bilinear Maps and Matrices . . . . . .
+§5. General Orthogonal Bases . . . . . . . .
+§6. The Dual Space and Scalar Products
+§7. Quadratic Forms . . . . . . . . . . . . . . .
+§8. Sylvester's Theorem . . . . . . . . . . . .

@@ -1,0 +1,5 @@
+In this chapter, we treat bilinear forms on finite-dimensional
+vector
+spaces. The reader will probably observe a similarity between some of the
+material and the discussion of determinants
+in Chapter 5 and of inner

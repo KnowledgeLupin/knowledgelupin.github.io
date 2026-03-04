@@ -1,0 +1,5 @@
+and nilpotent
+parts of a more general transformation,
+and the rational and Jordan canonical forms. The primary and cyclic decomposition
+theorems play a central role, the latter being arrived at through the study of
+admissible subspaces. Chapter 7 includes a discussion of matrices over a polynomial

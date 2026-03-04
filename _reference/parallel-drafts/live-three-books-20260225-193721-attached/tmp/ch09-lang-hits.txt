@@ -1,0 +1,30 @@
+355:§2. The Characteristic Polynomial. .
+390:§2. Theorem of Hamilton-Cayley ...
+10408:characteristic polynomial. In §3, we also get an elegant mixture of
+10692:VIII, §2. THE CHARACTERISTIC POLYNOMIAL
+10706:Let A be an n x n matrix, A = (aij). We define the characteristic polynomial PA to be the determinant
+10714:that PA(t) is the characteristic polynomial of this linear map.
+10718:THE CHARACTERISTIC POLYNOMIAL
+10722:Example 1. The characteristic polynomial of the matrix
+10749:For an arbitrary matrix A = (a ij ), the characteristic polynomial can be
+10753:< n. Hence the characteristic polynomial is of type
+10757:of A if and only if A is a root of the characteristic polynomial of A.
+10759:Chapter VI. Consequently A is a root of the characteristic polynomial.
+10760:Conversely, if A is a root of the characteristic polynomial, then
+10766:a matrix, provided that we can determine explicitly the roots of its characteristic polynomial. This is sometimes easy, especially in exercies at the
+10785:The characteristic polynomial is the determinant
+10818:THE CHARACTERISTIC POLYNOMIAL
+10833:The characteristic polynomial is the determinant
+10872:Example 4. The characteristic polynomial of the matrix
+10918:THE CHARACTERISTIC POLYNOMIAL
+10939:If A is a complex n x n matrix, then the characteristic polynomial of A
+10948:Theorem 2.4. Let A, B be two n x n matrices, and assume that B is invertible. Then the characteristic polynomial of A is equal to the characteristic polynomial of B- 1AB.
+10967:be the matrix associated with L with respect to this basis. We then define the characteristic polynomial of L to be the characteristic polynomial
+10968:of A. If we change basis, then A changes to B-1AB where B is invertible. By Theorem 2.4, this implies that the characteristic polynomial does
+10986:The characteristic polynomial is the determinant
+11005:THE CHARACTERISTIC POLYNOMIAL
+11022:because A is a root of the characteristic polynomial.
+11035:We compute the characteristic polynomial, which is the determinant
+11111:THE CHARACTERISTIC POLYNOMIAL
+11156:The characteristic polynomial is
+11213:THE CHARACTERISTIC POLYNOMIAL

@@ -1,0 +1,5 @@
+(A - AI)v = O. Hence Av - AV = 0, and Av = Av. Thus A is an eigenvalue of A. This proves our theorem.
+
+Let A be an n x n matrix, A = (aij). We define the characteristic polynomial PA to be the determinant
+PA(t) = Det(tI - A),
+

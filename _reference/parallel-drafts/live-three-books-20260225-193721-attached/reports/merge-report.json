@@ -1,0 +1,24 @@
+{
+  "run_dir": "/Users/kwkwon/Desktop/Obsidian/Mathematician/github-blog/_reference/parallel-drafts/live-three-books-20260225-193721-attached",
+  "merged_count": 16,
+  "forced": false,
+  "chapter_filter": "all",
+  "merged_files": [
+    "ch01-linear-systems-and-gauss.tex",
+    "ch02-matrix-operations-invertibility-rank.tex",
+    "ch03-vector-spaces-and-subspaces.tex",
+    "ch04-basis-and-dimension.tex",
+    "ch05-linear-maps-kernel-image.tex",
+    "ch06-matrix-representation-and-similarity.tex",
+    "ch07-dual-spaces-and-transpose.tex",
+    "ch08-determinants.tex",
+    "ch09-operator-polynomials.tex",
+    "ch10-eigenvalues-and-diagonalization.tex",
+    "ch11-invariant-subspaces-and-triangularization.tex",
+    "ch12-primary-and-cyclic-decomposition.tex",
+    "ch13-jordan-canonical-form.tex",
+    "ch14-inner-product-and-orthogonalization.tex",
+    "ch15-adjoint-normal-spectral.tex",
+    "ch16-bilinear-hermitian-forms.tex"
+  ]
+}

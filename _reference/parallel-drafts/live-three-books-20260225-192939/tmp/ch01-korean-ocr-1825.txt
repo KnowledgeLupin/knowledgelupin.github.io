@@ -1,0 +1,5 @@
+제 1장
+
+행 렬과 GAUSS 소거법
+
+연 습 문제 1.1.6. 4" = 0 for some r > 1] square matrix 를 nilpotent

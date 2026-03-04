@@ -1,0 +1,724 @@
+\chapter{쌍선형형식과 에르미트형식}
+
+\chapterintro{이 장에서는 벡터 두 개를 받아 스칼라를 만드는 형식(form)의 관점을 체계적으로 정리하겠습니다. 앞 장의 내적과 스펙트럴 정리에서 얻은 감각을 바탕으로, 쌍선형형식과 에르미트형식의 좌표 표현, 비퇴화성, 이차형식 복원 공식을 하나의 흐름으로 연결하겠습니다.}
+\chaptergoals{쌍선형형식과 에르미트형식을 엄밀히 정의하고 좌표 행렬로 표현할 수 있다.}{기저변환에서 형식의 행렬이 어떻게 변하는지 설명하고 비퇴화성을 판정할 수 있다.}{이차형식과 분극 공식을 통해 형식을 복원하고 부호 구조를 해석할 수 있다.}
+
+\sectiontemplate{쌍선형형식과 좌표 행렬}{먼저 유한차원 공간에서 쌍선형형식(bilinear form)을 좌표로 다루는 기본 틀을 잡겠습니다. 이 절을 마치면 형식을 행렬로 바꾸어 계산하고, 행렬을 다시 형식으로 되돌리는 과정을 정확히 수행하실 수 있습니다.}{\item 쌍선형형식의 정의를 쓰고 예를 확인할 수 있습니다.\item 고정한 기저에서 형식의 좌표 행렬을 구성할 수 있습니다.\item 기저변환 공식 $[B]_{\beta'}=P^T[B]_{\beta}P$를 유도할 수 있습니다.}{\item 벡터공간의 기저와 좌표벡터\item 전치행렬과 가역행렬}
+
+유한차원 벡터공간 $V$와 체 $K$를 고정합니다.
+
+\begin{definition}
+함수 $B:V\times V\to K$가 다음 두 조건을 만족하면 \emph{쌍선형형식(bilinear form)}이라 한다.
+\begin{enumerate}[label=(\alph*)]
+\item 임의의 $y\in V$에 대하여 $x\mapsto B(x,y)$는 선형사상이다.
+\item 임의의 $x\in V$에 대하여 $y\mapsto B(x,y)$는 선형사상이다.
+\end{enumerate}
+\end{definition}
+
+\begin{definition}
+순서기저 $\beta=(e_1,\dots,e_n)$를 잡을 때, 쌍선형형식 $B$의 \emph{좌표 행렬} $[B]_{\beta}=(b_{ij})\in M_n(K)$를
+\[
+b_{ij}=B(e_i,e_j)
+\]
+로 정의한다.
+\end{definition}
+
+\begin{theorem}[쌍선형형식 공간과 행렬공간의 동형]
+$\dim V=n$이고 순서기저 $\beta$를 고정하자. 사상
+\[
+\Phi_{\beta}:\operatorname{Bil}(V)\to M_n(K),\qquad \Phi_{\beta}(B)=[B]_{\beta}
+\]
+는 선형동형사상이다.
+\end{theorem}
+
+\paragraph{증명 전략.}
+선형성, 단사성, 전사성을 순서대로 확인하겠습니다. 단사성은 기저벡터에서의 값이 모두 0이면 전체가 0이라는 쌍선형성 전개로 보이고, 전사성은 주어진 행렬 $A$로부터 $B_A(x,y)=[x]_{\beta}^TA[y]_{\beta}$를 정의하여 얻겠습니다.
+
+\begin{proof}
+선형성은 정의에서 즉시 따른다. 실제로 $B,C\in\operatorname{Bil}(V)$, $\lambda\in K$에 대하여
+\[
+[B+\lambda C]_{\beta}=[B]_{\beta}+\lambda[C]_{\beta}
+\]
+이므로 $\Phi_{\beta}$는 선형이다.
+
+단사성을 보이자. $\Phi_{\beta}(B)=0$이면 모든 $i,j$에 대하여 $B(e_i,e_j)=0$이다. 임의의
+\[
+x=\sum_{i=1}^n x_ie_i,\qquad y=\sum_{j=1}^n y_je_j
+\]
+에 대하여 쌍선형성으로
+\[
+B(x,y)=\sum_{i,j}x_iy_jB(e_i,e_j)=0
+\]
+이므로 $B=0$이다. 따라서 $\Phi_{\beta}$는 단사이다.
+
+전사성을 보이자. 임의의 $A=(a_{ij})\in M_n(K)$를 잡고
+\[
+B_A(x,y):=[x]_{\beta}^T A [y]_{\beta}
+\]
+로 정의하면 좌표벡터의 선형성 때문에 $B_A$는 쌍선형형식이다. 또한
+\[
+B_A(e_i,e_j)=a_{ij}
+\]
+이므로 $[B_A]_{\beta}=A$이다. 따라서 $\Phi_{\beta}$는 전사이다.
+
+그러므로 $\Phi_{\beta}$는 선형동형사상이다.
+\end{proof}
+
+\paragraph{의미 해석.}
+이 정리는 ``쌍선형형식을 다룬다''는 말이 ``행렬을 다룬다''는 말과 동치임을 보장합니다. 이후의 비퇴화성, 랭크, 대칭성 논의는 형식 언어와 행렬 언어를 자유롭게 오가며 진행할 수 있습니다.
+
+\begin{theorem}[기저변환 공식]
+$\beta'=(e_1',\dots,e_n')$가 또 다른 순서기저이고 $\beta'=\beta P$($P\in GL_n(K)$)라 하자. 그러면 임의의 쌍선형형식 $B$에 대하여
+\[
+[B]_{\beta'}=P^T[B]_{\beta}P
+\]
+가 성립한다.
+\end{theorem}
+
+\paragraph{증명 전략.}
+좌표관계 $[x]_{\beta}=P[x]_{\beta'}$를 먼저 쓰고, 동일한 값 $B(x,y)$를 두 기저에서 각각 전개하여 행렬식을 비교하겠습니다.
+
+\begin{proof}
+$M=[B]_{\beta}$, $M'=[B]_{\beta'}$라 두자. 임의의 $x,y\in V$에 대해
+\[
+[x]_{\beta}=P[x]_{\beta'},\qquad [y]_{\beta}=P[y]_{\beta'}
+\]
+이므로
+\[
+B(x,y)=[x]_{\beta}^TM[y]_{\beta}
+=[x]_{\beta'}^TP^TMP[y]_{\beta'}.
+\]
+한편 정의에 의해
+\[
+B(x,y)=[x]_{\beta'}^TM'[y]_{\beta'}
+\]
+이므로 모든 $[x]_{\beta'},[y]_{\beta'}$에 대해
+\[
+M'=P^TMP
+\]
+가 따라온다.
+\end{proof}
+
+\paragraph{의미 해석.}
+동일한 형식이라도 좌표 행렬은 바뀝니다. 다만 변화는 임의의 유사변환이 아니라 \emph{합동변환(congruence)} $P^TMP$로 제한되며, 이 제한이 바로 형식 이론의 구조를 만듭니다.
+
+\begin{example}
+$V=\R^2$, $\beta$를 표준기저라 하고
+\[
+M=\begin{pmatrix}2&1\\-3&4\end{pmatrix}
+\]
+이라 하자. 그러면
+\[
+B(x,y)=x^TMy
+\]
+는 쌍선형형식이다. 예를 들어 $x=(1,2)^T$, $y=(3,-1)^T$이면
+\[
+B(x,y)=(1,2)\begin{pmatrix}2&1\\-3&4\end{pmatrix}\begin{pmatrix}3\\-1\end{pmatrix}=-8
+\]
+이다.
+\end{example}
+
+\subsection*{주의}
+\begin{warning}
+형식 $B$와 행렬 $[B]_{\beta}$를 동일한 대상으로 취급하면 기저가 바뀔 때 오류가 생긴다. 형식은 기저독립 객체이고, 행렬은 기저의존 표현이다.
+\end{warning}
+\begin{warning}
+쌍선형형식과 에르미트형식은 선형성 위치가 다르다. 복소수에서 켤레를 포함한 형식을 다룰 때는 반드시 어떤 변수에 선형인지 먼저 고정해야 한다.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item $B(x,y)=x^TMy$에서 $M=\begin{pmatrix}1&2\\0&-1\end{pmatrix}$일 때 $B((1,1)^T,(2,3)^T)$를 계산하시오.
+\item $\beta'=\beta P$이고 $P=\begin{pmatrix}1&1\\0&1\end{pmatrix}$일 때, 위의 $M$에 대한 $[B]_{\beta'}$를 구하시오.
+\item $\Phi_{\beta}$가 단사임을 ``기저쌍에서 0이면 전체에서 0''이라는 문장으로 다시 서술하고 직접 전개하시오.
+\end{enumerate}
+
+\sectiontemplate{랭크, radical, 비퇴화성}{이 절에서는 쌍선형형식의 핵심 불변량인 랭크와 비퇴화성(non-degenerate)을 다룹니다. 특히 형식에서 나오는 직교여공간 차원 공식을 통해 이후 분해 논리의 기반을 마련하겠습니다.}{\item 랭크와 좌/우 radical을 정의할 수 있습니다.\item 비퇴화성의 여러 동치 조건을 증명할 수 있습니다.\item 비퇴화 형식에서 $\dim W+\dim W^{\perp_B}=\dim V$를 적용할 수 있습니다.}{\item 쌍대공간 $V^*$\item rank-nullity 정리}
+
+\begin{definition}
+쌍선형형식 $B$에 대하여
+\[
+\operatorname{Rad}_L(B)=\{v\in V: B(v,w)=0\ \forall w\in V\},
+\]
+\[
+\operatorname{Rad}_R(B)=\{v\in V: B(w,v)=0\ \forall w\in V\}
+\]
+를 각각 좌 radical, 우 radical이라 한다.
+\end{definition}
+
+\begin{definition}
+$\operatorname{Rad}_L(B)=\{0\}$ (동치로 $\operatorname{Rad}_R(B)=\{0\}$)이면 $B$를 \emph{비퇴화(non-degenerate)}라 한다.
+\end{definition}
+
+\begin{theorem}[랭크와 비퇴화성의 동치]
+$\dim V=n$이라 하자. 쌍선형형식 $B$와 임의의 기저 $\beta$에 대해 $M=[B]_{\beta}$로 둔다.
+\begin{enumerate}[label=(\arabic*)]
+\item $\operatorname{rank}(M)$은 기저선택과 무관하다.
+\item $\dim\operatorname{Rad}_L(B)=n-\operatorname{rank}(M)$, $\dim\operatorname{Rad}_R(B)=n-\operatorname{rank}(M)$.
+\item 다음은 서로 동치이다.
+\begin{enumerate}[label=(\alph*)]
+\item $\operatorname{Rad}_L(B)=\{0\}$
+\item $\operatorname{Rad}_R(B)=\{0\}$
+\item $M$은 가역이다.
+\item $\lambda_B:V\to V^*$, $\lambda_B(v)(w)=B(v,w)$는 동형사상이다.
+\end{enumerate}
+\end{enumerate}
+\end{theorem}
+
+\paragraph{증명 전략.}
+기저변환 공식을 이용해 랭크 불변성을 먼저 보인 뒤, $\lambda_B$와 $\rho_B(v)(w)=B(w,v)$의 행렬이 각각 $M$, $M^T$임을 사용하겠습니다. 이후 rank-nullity로 radical 차원을 계산하고 동치성을 정리하겠습니다.
+
+\begin{proof}
+(1) 기저 $\beta'=\beta P$에 대해 $[B]_{\beta'}=P^TMP$이므로
+\[
+\operatorname{rank}[B]_{\beta'}=\operatorname{rank}(P^TMP)=\operatorname{rank}(M)
+\]
+이다. 따라서 랭크는 기저와 무관하다.
+
+(2) 선형사상
+\[
+\lambda_B:V\to V^*,\qquad \lambda_B(v)(w)=B(v,w)
+\]
+를 보자. 기저 $\beta$와 쌍대기저 $\beta^*$에 대한 $\lambda_B$의 행렬은 $M$이므로
+\[
+\operatorname{rank}\lambda_B=\operatorname{rank}(M),\qquad
+\ker\lambda_B=\operatorname{Rad}_L(B).
+\]
+rank-nullity에서
+\[
+\dim\operatorname{Rad}_L(B)=n-\operatorname{rank}(M).
+\]
+같은 방식으로
+\[
+\rho_B:V\to V^*,\qquad \rho_B(v)(w)=B(w,v)
+\]
+의 행렬은 $M^T$이므로
+\[
+\dim\operatorname{Rad}_R(B)=n-\operatorname{rank}(M^T)=n-\operatorname{rank}(M).
+\]
+
+(3) (c)$\Leftrightarrow$(d): $\lambda_B$의 행렬이 $M$이므로 행렬 가역성과 선형동형은 동치이다.
+
+(a)$\Rightarrow$(c): (2)에 의해 $\dim\operatorname{Rad}_L(B)=n-\operatorname{rank}(M)=0$, 따라서 $\operatorname{rank}(M)=n$, 즉 $M$ 가역이다.
+
+(c)$\Rightarrow$(a): $M$ 가역이면 $\operatorname{rank}(M)=n$, 다시 (2)로 $\dim\operatorname{Rad}_L(B)=0$.
+
+(a)$\Leftrightarrow$(b): (2)에서 좌우 radical 차원이 같으므로 한쪽이 0이면 다른 쪽도 0이다.
+
+따라서 (a),(b),(c),(d)는 서로 동치이다.
+\end{proof}
+
+\paragraph{의미 해석.}
+비퇴화성은 ``행렬식이 0이 아니다''라는 계산 조건과 ``$V$가 $V^*$로 정확히 대응된다''는 구조 조건을 연결합니다. 이 연결 덕분에 이후 직교여공간, 분해, 정준형 논의가 간명해집니다.
+
+\begin{theorem}[비퇴화 형식의 직교여공간 차원 공식]
+$B$가 비퇴화라고 하자. 부분공간 $W\le V$에 대하여
+\[
+W^{\perp_B}:=\{v\in V: B(v,w)=0\ \forall w\in W\}
+\]
+로 두면
+\[
+\dim W+\dim W^{\perp_B}=\dim V
+\]
+가 성립한다.
+\end{theorem}
+
+\paragraph{증명 전략.}
+$\lambda_B:V\to V^*$가 동형이라는 사실을 이용하여 $V\to W^*$로 가는 제한사상을 만들고, 그 핵이 정확히 $W^{\perp_B}$임을 확인한 뒤 rank-nullity를 적용하겠습니다.
+
+\begin{proof}
+$\lambda_B$를 위와 같이 두면 비퇴화성 때문에 $\lambda_B$는 동형이다. 제한사상
+\[
+r:V^*\to W^*,\qquad r(f)=f|_W
+\]
+는 전사이다. 따라서 합성
+\[
+T:=r\circ\lambda_B:V\to W^*
+\]
+는 전사이고 $\operatorname{rank}(T)=\dim W^*=\dim W$이다.
+
+또한
+\[
+\ker T=\{v\in V:\lambda_B(v)|_W=0\}
+=\{v\in V: B(v,w)=0\ \forall w\in W\}
+=W^{\perp_B}.
+\]
+rank-nullity에 의해
+\[
+\dim V=\dim\ker T+\operatorname{rank}(T)
+=\dim W^{\perp_B}+\dim W.
+\]
+따라서 원하는 식이 성립한다.
+\end{proof}
+
+\paragraph{의미 해석.}
+이 공식은 비퇴화 형식에서 직교조건이 ``정확한 제약 개수''를 만든다는 뜻입니다. 선형방정식의 자유도 계산과 완전히 같은 구조가 형식의 직교 이론에서도 재현됩니다.
+
+\begin{example}
+$V=\R^{2m}$, 
+\[
+J=\begin{pmatrix}0&I_m\\-I_m&0\end{pmatrix},\qquad
+B(x,y)=x^TJy
+\]
+로 두면 $B$는 쌍선형형식이고 $J$가 가역이므로 비퇴화이다. 또한 $B(v,v)=0$이 모든 $v$에 대해 성립하므로 이 형식은 교대형식의 대표 예이다.
+\end{example}
+
+\subsection*{주의}
+\begin{warning}
+비퇴화성과 양의정부호성은 다른 개념이다. 비퇴화라도 $B(v,v)$는 음수나 0이 될 수 있다.
+\end{warning}
+\begin{warning}
+비대칭 쌍선형형식에서는 좌직교와 우직교를 구분해야 한다. 어느 변수를 고정한 직교여공간인지 정의를 먼저 고정하지 않으면 식이 어긋난다.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item $M=\begin{pmatrix}1&2\\0&0\end{pmatrix}$일 때 좌 radical과 우 radical의 차원을 각각 구하시오.
+\item $B$가 비퇴화일 때 왜 $\lambda_B$가 반드시 단사이고 전사인지 차원 논리로 설명하시오.
+\item $W\le V$에 대해 $\dim W+\dim W^{\perp_B}=\dim V$ 공식을 rank-nullity 관점에서 다시 증명하시오.
+\end{enumerate}
+
+\sectiontemplate{대칭형식, 교대형식, 이차형식}{실수 또는 일반 체 위의 쌍선형형식은 대칭 성분과 반대칭 성분으로 분해됩니다. 이 절에서는 이 분해를 바탕으로 이차형식(quadratic form) 복원 공식과 실수 대칭형식의 부호 분류까지 완성하겠습니다.}{\item 대칭형식과 교대형식의 관계를 설명할 수 있습니다.\item 분극 공식으로 대칭형식을 이차형식에서 복원할 수 있습니다.\item Sylvester 관성법칙의 진술과 증명을 이해할 수 있습니다.}{\item 특성 $\operatorname{char}K$\item 실수 대칭행렬의 합동변환}
+
+\begin{definition}
+쌍선형형식 $B$에 대하여 다음을 정의한다.
+\begin{enumerate}[label=(\alph*)]
+\item $B(v,w)=B(w,v)$이면 \emph{대칭형식(symmetric bilinear form)}이라 한다.
+\item $B(v,v)=0$이 모든 $v$에 대해 성립하면 \emph{교대형식(alternating bilinear form)}이라 한다.
+\end{enumerate}
+\end{definition}
+
+\begin{definition}
+대칭형식 $B$가 주어졌을 때
+\[
+q_B(v):=B(v,v)
+\]
+를 $B$가 유도하는 \emph{이차형식(quadratic form)}이라 한다.
+\end{definition}
+
+\begin{theorem}[대칭-반대칭 분해]
+$\operatorname{char}K\neq 2$라 하자. 임의의 쌍선형형식 $B$에 대해
+\[
+B_s(v,w):=\frac{1}{2}(B(v,w)+B(w,v)),\quad
+B_a(v,w):=\frac{1}{2}(B(v,w)-B(w,v))
+\]
+로 두면 $B_s$는 대칭형식, $B_a$는 반대칭형식이고
+\[
+B=B_s+B_a
+\]
+가 성립한다. 이 분해는 유일하다.
+\end{theorem}
+
+\paragraph{증명 전략.}
+정의식에서 바로 성질을 확인하고, 유일성은 임의의 분해 $B=S+A$를 가정한 뒤 $S,A$를 $B$로부터 역으로 계산하는 방식으로 보이겠습니다.
+
+\begin{proof}
+$B_s,B_a$의 쌍선형성은 $B$의 쌍선형성과 스칼라 연산으로 즉시 따른다. 또한
+\[
+B_s(w,v)=\frac12(B(w,v)+B(v,w))=B_s(v,w),
+\]
+\[
+B_a(w,v)=\frac12(B(w,v)-B(v,w))=-B_a(v,w)
+\]
+이므로 각각 대칭, 반대칭이다. 두 식을 더하면
+\[
+B_s(v,w)+B_a(v,w)=B(v,w)
+\]
+이므로 $B=B_s+B_a$.
+
+유일성을 보이자. $B=S+A$이고 $S$ 대칭, $A$ 반대칭이라 하자. 그러면
+\[
+B(v,w)+B(w,v)=2S(v,w),\qquad
+B(v,w)-B(w,v)=2A(v,w).
+\]
+$\operatorname{char}K\neq2$이므로
+\[
+S(v,w)=\frac12(B(v,w)+B(w,v))=B_s(v,w),
+\]
+\[
+A(v,w)=\frac12(B(v,w)-B(w,v))=B_a(v,w).
+\]
+따라서 분해는 유일하다.
+\end{proof}
+
+\paragraph{의미 해석.}
+특성 2를 제외하면 쌍선형형식은 ``대칭 정보''와 ``방향성 정보''로 정확히 분리됩니다. 이후 이차형식은 대칭 부분만을 반영하므로, 어떤 정보가 남고 어떤 정보가 사라지는지 분명히 파악할 수 있습니다.
+
+\begin{theorem}[분극 공식과 유일복원]
+$\operatorname{char}K\neq2$이고 $B$가 대칭형식이라 하자. $q(v)=B(v,v)$로 두면
+\[
+B(u,v)=\frac12\big(q(u+v)-q(u)-q(v)\big)
+\]
+가 성립한다. 특히 대칭형식 $B$는 $q$에 의해 유일하게 결정된다.
+\end{theorem}
+
+\paragraph{증명 전략.}
+$q(u+v)$를 직접 전개하여 교차항을 분리하겠습니다. 그다음 같은 $q$를 갖는 두 대칭형식에 동일 공식을 적용해 유일성을 결론내리겠습니다.
+
+\begin{proof}
+대칭성과 쌍선형성으로
+\[
+q(u+v)=B(u+v,u+v)=B(u,u)+B(u,v)+B(v,u)+B(v,v)
+=q(u)+2B(u,v)+q(v).
+\]
+따라서
+\[
+B(u,v)=\frac12\big(q(u+v)-q(u)-q(v)\big).
+\]
+
+이제 대칭형식 $B_1,B_2$가 같은 이차형식 $q$를 유도한다고 하자. 위 공식으로 모든 $u,v$에 대해
+\[
+B_1(u,v)=\frac12\big(q(u+v)-q(u)-q(v)\big)=B_2(u,v)
+\]
+이므로 $B_1=B_2$이다. 즉 유일복원이 성립한다.
+\end{proof}
+
+\paragraph{의미 해석.}
+대칭형식에서는 ``대각값'' $q(v)=B(v,v)$만 알아도 비대각값 $B(u,v)$까지 되찾을 수 있습니다. 이 사실이 이차형식 이론과 대칭형식 이론을 사실상 동일한 수준으로 연결해 줍니다.
+
+\begin{theorem}[Sylvester의 관성법칙]
+$V$를 유한차원 실수 벡터공간이라 하고 $B$를 대칭형식이라 하자. 그러면 어떤 기저에서 $B$의 행렬은
+\[
+\operatorname{diag}(I_p,-I_q,0_r)
+\]
+꼴이 된다. 또한 $(p,q,r)$는 기저선택과 무관하게 유일하다.
+\end{theorem}
+
+\paragraph{증명 전략.}
+존재성은 차원에 대한 귀납법으로 대각화를 수행한 뒤 부호를 정규화하여 보이겠습니다. 유일성은 양/음 정부호 부분공간의 최대 차원 $\nu_+,\nu_-$를 도입해 합동변환 불변량임을 보이는 방식으로 정리하겠습니다.
+
+\begin{proof}
+\textbf{(존재성)} $n=\dim V$에 대한 귀납법을 쓴다. $n=0$은 자명하다. $n\ge1$에서 보자.
+
+먼저 $B=0$이면 이미 대각행렬 $0$ 꼴이다. 이제 $B\neq0$이라 하자. 이때 어떤 $v\in V$에 대해 $B(v,v)\neq0$임을 보인다. 만약 모든 $x$에 대해 $B(x,x)=0$이면 대칭성으로
+\[
+0=B(u+w,u+w)=B(u,u)+2B(u,w)+B(w,w)=2B(u,w)
+\]
+이므로 모든 $u,w$에 대해 $B(u,w)=0$, 즉 $B=0$이 되어 모순이다. 따라서 $d_1:=B(v_1,v_1)\neq0$인 $v_1$이 존재한다.
+
+이제
+\[
+W_1:=\{x\in V: B(x,v_1)=0\}
+\]
+라 두자. 임의의 $x\in V$에 대해
+\[
+x' = x-\frac{B(x,v_1)}{d_1}v_1
+\]
+로 놓으면 $x'\in W_1$이고 $x=\frac{B(x,v_1)}{d_1}v_1+x'$이므로
+\[
+V=\R v_1\oplus W_1.
+\]
+또한 $B(v_1,W_1)=0$이다. 따라서 적당한 기저에서 행렬은
+\[
+(d_1)\oplus A_1
+\]
+꼴이며 $A_1$은 $W_1$ 위 제한형식의 대칭행렬이다. $\dim W_1=n-1$이므로 귀납가정으로 $A_1$은 대각화된다. 결과적으로 $B$는
+\[
+\operatorname{diag}(d_1,\dots,d_s,0,\dots,0),\qquad d_i\neq0
+\]
+꼴이 된다. 각 $d_i$에 대해 기저벡터를 $|d_i|^{-1/2}$배하면 대각원소가 $\pm1$로 정규화되어
+\[
+\operatorname{diag}(I_p,-I_q,0_r)
+\]
+을 얻는다.
+
+\textbf{(유일성)} $q_B(x):=B(x,x)$로 두고
+\[
+\nu_+(B):=\max\{\dim U: q_B(u)>0\ \forall\,0\neq u\in U\},
+\]
+\[
+\nu_-(B):=\max\{\dim U: q_B(u)<0\ \forall\,0\neq u\in U\}
+\]
+를 정의한다. 합동변환 $A\mapsto P^TAP$는 선형동형에 의한 좌표변환일 뿐이므로 $\nu_+,\nu_-$를 보존한다.
+
+정준형 $D=\operatorname{diag}(I_p,-I_q,0_r)$에서
+\[
+V=V_+\oplus V_-\oplus V_0
+\]
+($\dim V_+=p$, $\dim V_-=q$)로 두면 $V_+$는 양정부호이므로 $\nu_+(D)\ge p$. 반대로 $U$가 양정부호 부분공간이면 $U\cap(V_-\oplus V_0)=\{0\}$이다(그 부분공간의 벡터는 $q_D\le0$). 따라서 사영 $\pi_+:U\to V_+$가 단사여서 $\dim U\le p$. 결국 $\nu_+(D)=p$. 같은 논리로 $\nu_-(D)=q$.
+
+그러므로 임의의 기저에서 얻는 정준형의 $p,q$는 각각 $\nu_+(B),\nu_-(B)$와 같아 유일하며, $r=n-p-q$도 유일하다.
+\end{proof}
+
+\paragraph{의미 해석.}
+실수 대칭형식의 본질은 고유한 세 숫자 $(p,q,r)$에 압축됩니다. 이는 좌표 선택의 흔들림을 제거하고, 형식의 기하적 성격(타원형/쌍곡형/퇴화)을 한 번에 판정하게 해 줍니다.
+
+\begin{example}
+\[
+q(x,y,z)=x^2+2xy+y^2-z^2=(x+y)^2-z^2
+\]
+는 대칭형식
+\[
+B((x,y,z),(x',y',z'))=xx'+xy'+yx'+yy'-zz'
+\]
+가 유도하는 이차형식이다. 적절한 기저변환 후 행렬은 $\operatorname{diag}(1,-1,0)$이 되어 관성지수는 $(1,1,1)$이다.
+\end{example}
+
+\subsection*{주의}
+\begin{warning}
+분극 공식은 $\operatorname{char}K\neq2$에서만 같은 모양으로 성립한다. 특성 2에서는 $\frac12$가 존재하지 않아 복원 논리가 즉시 깨진다.
+\end{warning}
+\begin{warning}
+교대형식과 반대칭형식의 동치는 특성 2에서 실패할 수 있다. ``$B(v,v)=0$이면 반대칭''이라는 문장을 무조건 사용하면 오류가 발생한다.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item 임의의 쌍선형형식 $B$를 $B_s+B_a$로 나누는 공식을 직접 써서 계산하시오.
+\item $q(v)=B(v,v)$가 주어졌을 때 대칭형식 $B$를 분극 공식으로 복원하시오.
+\item 관성법칙의 유일성 증명에서 왜 $\nu_+(B)$, $\nu_-(B)$를 도입하는지 설명하시오.
+\end{enumerate}
+
+\sectiontemplate{에르미트형식과 복소수 분극 공식}{이제 복소수 벡터공간으로 확장하여 에르미트형식(Hermitian form)을 다루겠습니다. 켤레대칭 구조 때문에 실수 경우와 다른 점이 생기며, 분극 공식도 이에 맞게 조정됩니다.}{\item 에르미트형식의 정의와 행렬판정 $A=A^*$를 사용할 수 있습니다.\item 복소수 분극 공식을 유도하여 형식을 복원할 수 있습니다.\item 에르미트형식의 정준 부호형을 설명할 수 있습니다.}{\item 켤레전치 $A^*$\item 유니터리 기저변환과 스펙트럴 정리}
+
+\begin{definition}
+복소수 벡터공간 $V$의 함수 $H:V\times V\to\C$가 다음을 만족하면 \emph{에르미트형식(Hermitian form)}이라 한다.
+\begin{enumerate}[label=(\alph*)]
+\item $H(\alpha x_1+\beta x_2,y)=\alpha H(x_1,y)+\beta H(x_2,y)$
+\item $H(x,\alpha y_1+\beta y_2)=\overline{\alpha}H(x,y_1)+\overline{\beta}H(x,y_2)$
+\item $H(y,x)=\overline{H(x,y)}$
+\end{enumerate}
+\end{definition}
+
+\begin{definition}
+에르미트형식 $H$가
+\[
+H(v,v)>0\quad (\forall\,0\neq v\in V)
+\]
+를 만족하면 \emph{양의정부호(positive definite)}라 한다.
+\end{definition}
+
+\begin{theorem}[에르미트형식의 행렬표현과 기저변환]
+순서기저 $\beta=(e_1,\dots,e_n)$를 잡고 $A=(a_{ij})$, $a_{ij}=H(e_i,e_j)$라 하자.
+\begin{enumerate}[label=(\arabic*)]
+\item 임의의 $x,y\in V$에 대해
+\[
+H(x,y)=[x]_{\beta}^*A[y]_{\beta}
+\]
+가 성립한다.
+\item $H$가 에르미트형식일 필요충분조건은 $A=A^*$이다.
+\item $\beta'=\beta P$($P\in GL_n(\C)$)이면
+\[
+[H]_{\beta'}=P^*[H]_{\beta}P.
+\]
+\end{enumerate}
+\end{theorem}
+
+\paragraph{증명 전략.}
+쌍선형형식 때와 같은 좌표 전개를 하되, 두 번째 변수의 켤레선형성 때문에 켤레전치가 자연스럽게 등장함을 확인하겠습니다. 마지막은 좌표관계 $[x]_{\beta}=P[x]_{\beta'}$를 대입하여 얻겠습니다.
+
+\begin{proof}
+(1) $x=\sum_i x_ie_i$, $y=\sum_j y_je_j$라 두면
+\[
+H(x,y)=\sum_{i,j}x_i\overline{y_j}\,H(e_i,e_j)
+=\sum_{i,j}x_i\overline{y_j}\,a_{ij}
+=[x]_{\beta}^*A[y]_{\beta}.
+\]
+
+(2) 에르미트 대칭성을 쓰면 임의의 $x,y$에 대해
+\[
+[y]_{\beta}^*A[x]_{\beta}=H(y,x)=\overline{H(x,y)}
+=\overline{[x]_{\beta}^*A[y]_{\beta}}
+=[y]_{\beta}^*A^*[x]_{\beta}.
+\]
+따라서 모든 $x,y$에 대해 $[y]^*(A-A^*)[x]=0$이므로 $A=A^*$이다. 역으로 $A=A^*$이면 위 계산을 거꾸로 적용하여 $H(y,x)=\overline{H(x,y)}$를 얻고, 선형성 조건은 (1)의 식에서 즉시 확인된다.
+
+(3) $A'=[H]_{\beta'}$라 하자. $[x]_{\beta}=P[x]_{\beta'}$, $[y]_{\beta}=P[y]_{\beta'}$이므로
+\[
+H(x,y)=[x]_{\beta}^*A[y]_{\beta}
+=[x]_{\beta'}^*P^*AP[y]_{\beta'}.
+\]
+또한 정의에 의해 $H(x,y)=[x]_{\beta'}^*A'[y]_{\beta'}$이므로
+\[
+A'=P^*AP.
+\]
+\end{proof}
+
+\paragraph{의미 해석.}
+복소수에서는 전치가 아니라 켤레전치가 구조를 지배합니다. 따라서 대칭성, 직교성, 대각화의 모든 공식은 $T$ 대신 $*$를 기준으로 읽어야 정확합니다.
+
+\begin{theorem}[복소수 분극 공식]
+$H$를 에르미트형식이라 하고 $Q(v):=H(v,v)$라 하자. 그러면 임의의 $u,v\in V$에 대해
+\[
+H(u,v)=\frac14\Big(Q(u+v)-Q(u-v)+iQ(u+iv)-iQ(u-iv)\Big)
+\]
+가 성립한다. 특히 $Q$가 주어지면 $H$는 유일하게 결정된다.
+\end{theorem}
+
+\paragraph{증명 전략.}
+$Q(u\pm v)$와 $Q(u\pm iv)$를 각각 전개하여 $\operatorname{Re}H(u,v)$와 $\operatorname{Im}H(u,v)$를 분리하겠습니다. 그다음 두 값을 합쳐 $H(u,v)$를 복원하면 유일성이 곧바로 따라옵니다.
+
+\begin{proof}
+$h:=H(u,v)$라 두자. 에르미트 대칭으로 $H(v,u)=\overline{h}$이다.
+\[
+Q(u+v)=Q(u)+Q(v)+h+\overline{h},
+\]
+\[
+Q(u-v)=Q(u)+Q(v)-h-\overline{h}.
+\]
+따라서
+\[
+Q(u+v)-Q(u-v)=2(h+\overline{h})=4\operatorname{Re}h.
+\]
+
+또한
+\[
+Q(u+iv)=H(u+iv,u+iv)
+=Q(u)+Q(v)-ih+i\overline{h},
+\]
+\[
+Q(u-iv)=Q(u)+Q(v)+ih-i\overline{h},
+\]
+이므로
+\[
+Q(u+iv)-Q(u-iv)=2i(\overline{h}-h)=4\operatorname{Im}h.
+\]
+따라서
+\[
+h=\operatorname{Re}h+i\operatorname{Im}h
+=\frac14\big(Q(u+v)-Q(u-v)\big)
++\frac{i}{4}\big(Q(u+iv)-Q(u-iv)\big).
+\]
+즉 원하는 식이 성립한다.
+
+마지막으로 위 식의 오른쪽은 $Q$만으로 쓰였으므로 $Q$가 고정되면 모든 $u,v$에 대한 $H(u,v)$가 고정된다. 유일성이 증명되었다.
+\end{proof}
+
+\paragraph{의미 해석.}
+에르미트형식도 결국 ``대각값 함수'' $Q(v)=H(v,v)$로부터 완전히 복원됩니다. 다만 복소수의 허수부 정보를 꺼내기 위해 $u\pm iv$가 추가로 필요하다는 점이 실수와의 본질적 차이입니다.
+
+\begin{theorem}[에르미트형식의 부호 정준형]
+유한차원 복소수 벡터공간의 에르미트형식 $H$에 대하여 어떤 기저에서 행렬이
+\[
+\operatorname{diag}(I_p,-I_q,0_r)
+\]
+꼴이 된다. 또한 $(p,q,r)$는 유일하다.
+\end{theorem}
+
+\paragraph{증명 전략.}
+먼저 스펙트럴 정리로 에르미트행렬을 유니터리 대각화하여 실수 대각행렬을 얻고, 비영 대각원소를 정규화하여 $\pm1$로 바꾸겠습니다. 유일성은 양/음 정부호 부분공간의 최대 차원을 불변량으로 사용해 보이겠습니다.
+
+\begin{proof}
+기저 $\beta$를 하나 택하고 $A=[H]_{\beta}$라 두자. 앞 정리에 의해 $A=A^*$이다. 이전 장의 스펙트럴 정리에 따라 어떤 유니터리 행렬 $U$가 존재하여
+\[
+U^*AU=\operatorname{diag}(\lambda_1,\dots,\lambda_n),\qquad \lambda_i\in\R
+\]
+이다. 따라서 적당한 기저에서 $H$의 행렬은 실수 대각행렬이다.
+
+양수, 음수, 0 대각원소의 개수를 각각 $p,q,r$라 하자. $\lambda_i\neq0$인 항에는 기저벡터를 $|\lambda_i|^{-1/2}$배하여 대각원소를 $\pm1$로 만든다. 그러면
+\[
+\operatorname{diag}(I_p,-I_q,0_r)
+\]
+꼴을 얻는다.
+
+유일성을 보이자. 다음 불변량을 정의한다.
+\[
+\nu_+(H):=\max\{\dim_{\C}U: H(u,u)>0\ \forall\,0\neq u\in U\},
+\]
+\[
+\nu_-(H):=\max\{\dim_{\C}U: H(u,u)<0\ \forall\,0\neq u\in U\}.
+\]
+기저변환 $A\mapsto P^*AP$는 선형동형에 의한 좌표변환이므로 $\nu_{\pm}$를 보존한다.
+
+정준형에서 $V=V_+\oplus V_-\oplus V_0$로 두면 $\dim_{\C}V_+=p$, $\dim_{\C}V_-=q$이고 $V_+$는 양정부호이므로 $\nu_+\ge p$. 반대로 양정부호 부분공간 $U$는 $U\cap(V_-\oplus V_0)=\{0\}$이므로 사영 $U\to V_+$가 단사, 따라서 $\dim U\le p$. 즉 $\nu_+=p$. 같은 방식으로 $\nu_-=q$.
+
+결국 $p,q$가 유일하고 $r=n-p-q$도 유일하다.
+\end{proof}
+
+\paragraph{의미 해석.}
+복소수 에르미트형식도 실수 대칭형식과 동일한 부호 불변량을 갖습니다. 따라서 ``양/음/영 방향이 몇 개인가''가 형식의 본질을 결정하며, 기저 선택은 이 숫자를 바꾸지 못합니다.
+
+\begin{example}
+$V=\C^3$에서
+\[
+H(x,y)=x^*\begin{pmatrix}2&0&0\\0&-3&0\\0&0&0\end{pmatrix}y
+\]
+로 두면 $H$는 에르미트형식이다. 정준형은 이미 $\operatorname{diag}(1,-1,0)$와 합동이며, 부호 불변량은 $(p,q,r)=(1,1,1)$이다.
+\end{example}
+
+\subsection*{주의}
+\begin{warning}
+일부 문헌은 두 번째 변수 선형, 첫 번째 변수 켤레선형을 사용한다. 관습을 바꾸면 분극 공식의 $i$ 부호가 달라지므로 절대 혼용하면 안 된다.
+\end{warning}
+\begin{warning}
+$Q(v)=H(v,v)$는 항상 실수값이지만 $\C$-선형 함수가 아니다. 이차형식을 ``복소선형''으로 취급하면 계산 규칙이 즉시 틀어진다.
+\end{warning}
+
+\subsection*{자가진단퀴즈}
+\begin{enumerate}[label=\arabic*.]
+\item $A=\begin{pmatrix}1&i\\-i&2\end{pmatrix}$가 에르미트행렬인지 판정하고 이유를 쓰시오.
+\item $Q(v)=H(v,v)$가 주어질 때 복소수 분극 공식으로 $H(u,v)$를 복원하시오.
+\item 에르미트형식의 부호 정준형에서 $(p,q,r)$의 유일성이 왜 기저독립인지 $\nu_+,\nu_-$를 이용해 설명하시오.
+\end{enumerate}
+
+\chapterapplicationtemplate{실수 데이터의 이차 에너지 $q(x)=x^TAx$를 대칭행렬로 모델링하고, 부호 정준형을 이용해 안정 방향(양수), 불안정 방향(음수), 중립 방향(영)을 분리해 보십시오. 이어서 복소수 신호 모델에서 에르미트형식 $H(x,y)=x^*Ay$를 사용해 에너지 보존 조건 $A=A^*$를 확인해 보십시오.}
+
+\chaptersummarytemplate
+
+\section*{종합 연습문제}
+\subsection*{연습문제 A (기초 확인)}
+\begin{exercise}[A1]
+$V=\R^2$에서 $M=\begin{pmatrix}1&-2\\3&0\end{pmatrix}$로 정의된 $B(x,y)=x^TMy$에 대해 $B((1,2)^T,(3,-1)^T)$를 계산하시오.
+\end{exercise}
+
+\begin{exercise}[A2]
+기저변환 $\beta'=\beta P$, $P=\begin{pmatrix}1&1\\0&1\end{pmatrix}$일 때 $M=\begin{pmatrix}2&1\\1&2\end{pmatrix}$의 새 좌표행렬 $M'=P^TMP$를 구하시오.
+\end{exercise}
+
+\begin{exercise}[A3]
+$M=\begin{pmatrix}1&2&0\\0&0&0\\0&0&0\end{pmatrix}$가 주는 쌍선형형식의 좌 radical과 우 radical의 차원을 구하시오.
+\end{exercise}
+
+\begin{exercise}[A4]
+임의의 쌍선형형식 $B$에 대해 $B_s,B_a$를 정의하고 $B=B_s+B_a$를 직접 확인하시오($\operatorname{char}K\neq2$ 가정).
+\end{exercise}
+
+\begin{exercise}[A5]
+대칭형식 $B$가 유도한 이차형식 $q(v)=B(v,v)$에 대해 분극 공식
+\[
+B(u,v)=\frac12(q(u+v)-q(u)-q(v))
+\]
+을 이용하여 $B(e_1,e_2)$를 $q$ 값들로 표현하시오.
+\end{exercise}
+
+\begin{exercise}[A6]
+$A=\begin{pmatrix}2&1+i\\1-i&3\end{pmatrix}$에 대해 $H(x,y)=x^*Ay$가 에르미트형식인지 판정하시오.
+\end{exercise}
+
+\begin{exercise}[A7]
+$H(x,y)=x^*\operatorname{diag}(4,-9,1)y$의 부호 정준형을 구하고 $(p,q,r)$를 쓰시오.
+\end{exercise}
+
+\subsection*{연습문제 B (개념 연결)}
+\begin{exercise}[B1]
+쌍선형형식 $B$에 대해 $\beta'=\beta P$일 때 $[B]_{\beta'}=P^T[B]_{\beta}P$를 이용하여 $\operatorname{rank}(B)$가 기저독립임을 증명하시오.
+\end{exercise}
+
+\begin{exercise}[B2]
+비퇴화 쌍선형형식 $B$와 부분공간 $W$에 대해 $\dim W+\dim W^{\perp_B}=\dim V$를 선형사상 $V\to W^*$의 핵과 상으로 설명하시오.
+\end{exercise}
+
+\begin{exercise}[B3]
+특성 $2$인 체에서 ``대칭-반대칭 분해''가 왜 같은 모양으로 성립하지 않는지 반례를 들어 설명하시오.
+\end{exercise}
+
+\begin{exercise}[B4]
+에르미트형식 $H$가 양의정부호이면 $H(v,v)=0$이 되는 벡터가 $v=0$뿐임을 증명하시오.
+\end{exercise}
+
+\begin{exercise}[B5]
+내적공간에서 선형연산자 $T$에 대해 $B_T(x,y)=\langle Tx,y\rangle$를 정의하자. $B_T$가 비퇴화일 필요충분조건을 $T$의 가역성으로 나타내고 증명하시오.
+\end{exercise}
+
+\subsection*{연습문제 C (증명/종합)}
+\begin{exercise}[C1]
+실수 대칭형식의 관성법칙에서 유일성 부분만 따로 증명하시오. 단, $\nu_+(B),\nu_-(B)$를 불변량으로 사용하시오.
+\end{exercise}
+
+\begin{exercise}[C2]
+교대형식 $B$가 비퇴화라면 $\dim V$가 짝수여야 함을 증명하시오.
+\end{exercise}
+
+\begin{exercise}[C3]
+에르미트형식에서 선형성 관습을 ``둘째 변수 선형''으로 바꾸었을 때 분극 공식을 새로 유도하고, 본문 공식과 어떤 항의 부호가 바뀌는지 정확히 비교하시오.
+\end{exercise}

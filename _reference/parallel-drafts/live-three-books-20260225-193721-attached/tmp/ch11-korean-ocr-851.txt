@@ -1,0 +1,5 @@
+대체 하여 $3.8
+
+제 13 장의 triangularization = matrix size 에 관한 귀납법
+
+로 옮겼다. 또 초판
