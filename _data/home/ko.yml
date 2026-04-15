@@ -1,0 +1,25 @@
+hero:
+  title: "PDE, scientific computing, simulation, 그리고 AI를 위한 수학을 다루는 블로그"
+  subtitle: "수학적 설명, 계산 실험, 그리고 기술 노트를 함께 정리합니다."
+  cta_label: "Browse Topics"
+  cta_href: "#topics"
+
+featured:
+  translation_keys:
+    - su2-cfd-beginner-project
+    - nonhomogeneous-dirichlet-boundary-lifting
+    - su2-de-laval-nozzle-study
+
+footer:
+  primary_links:
+    - title: "About"
+      url: "/ko/about/"
+    - title: "Topics"
+      url: "/ko/topics/"
+    - title: "Archives"
+      url: "/archives/"
+    - title: "Privacy Policy"
+      url: "/ko/privacy-policy/"
+
+social:
+  x_url: "https://x.com/knowledgelupin"

@@ -1,0 +1,111 @@
+{% if include.lang_code == 'en' %}
+  {% assign empty_label = 'English posts for this topic are coming soon.' %}
+  {% assign featured_label = 'Latest highlighted post' %}
+  {% assign latest_label = 'Recent posts' %}
+  {% assign tags_label = 'Related tags' %}
+{% else %}
+  {% assign empty_label = '이 주제의 한국어 글이 곧 추가됩니다.' %}
+  {% assign featured_label = '대표 최신 글' %}
+  {% assign latest_label = '최근 글' %}
+  {% assign tags_label = '관련 태그' %}
+{% endif %}
+
+{% assign matched_posts = '' | split: '' %}
+
+{% for post in site.posts %}
+  {% assign post_lang = post.lang %}
+  {% if post_lang == nil or post_lang == '' %}
+    {% if post.url contains '-en/' %}
+      {% assign post_lang = 'en' %}
+    {% elsif post.url contains '-ko/' %}
+      {% assign post_lang = 'ko' %}
+    {% endif %}
+  {% endif %}
+
+  {% if post.hidden == true or post_lang != include.lang_code %}
+    {% continue %}
+  {% endif %}
+
+  {% assign matched = false %}
+
+  {% for category in include.topic.include_categories %}
+    {% if post.categories contains category %}
+      {% assign matched = true %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+
+  {% unless matched %}
+    {% for tag in include.topic.include_tags %}
+      {% if post.tags contains tag %}
+        {% assign matched = true %}
+        {% break %}
+      {% endif %}
+    {% endfor %}
+  {% endunless %}
+
+  {% if matched %}
+    {% assign matched_posts = matched_posts | push: post %}
+  {% endif %}
+{% endfor %}
+
+<div class="topic-hub-shell">
+  <p class="section-kicker">{{ include.topic.title }}</p>
+  <h2>{{ include.topic.title }}</h2>
+  <p>{{ include.topic.description }}</p>
+
+  {% if matched_posts.size > 0 %}
+    {% assign featured_post = matched_posts | first %}
+
+    <section class="topic-hub-featured">
+      <p class="section-kicker">{{ featured_label }}</p>
+      <div class="topic-hub-meta">
+        <span class="category">{{ featured_post.categories | first }}</span>
+        <span>{% include datetime.html date=featured_post.date lang=include.ui_lang %}</span>
+      </div>
+      <h3><a href="{{ featured_post.url | relative_url }}">{{ featured_post.title }}</a></h3>
+      {% if featured_post.description %}
+        {% assign topic_summary = featured_post.description %}
+      {% else %}
+        {% assign topic_summary = featured_post.content
+          | markdownify
+          | strip_html
+          | newline_to_br
+          | replace: '<br />', ' '
+          | strip_newlines
+          | strip
+          | truncate: 220
+        %}
+      {% endif %}
+      <p>{{ topic_summary }}</p>
+    </section>
+
+    <section class="topic-hub-list">
+      <p class="section-kicker">{{ latest_label }}</p>
+      <ul>
+        {% for post in matched_posts limit: include.topic.hub_latest_limit %}
+          <li>
+            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+            <div class="topic-hub-date">{% include datetime.html date=post.date lang=include.ui_lang %}</div>
+          </li>
+        {% endfor %}
+      </ul>
+    </section>
+  {% else %}
+    <p class="section-empty">{{ empty_label }}</p>
+  {% endif %}
+
+  <section class="topic-hub-tags">
+    <p class="section-kicker">{{ tags_label }}</p>
+    <ul>
+      {% for tag in include.topic.include_tags %}
+        <li>
+          <a href="{{ '/tags/' | append: tag | slugify | append: '/' | relative_url }}">
+            <i class="fa-solid fa-hashtag"></i>
+            <span>{{ tag }}</span>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+</div>

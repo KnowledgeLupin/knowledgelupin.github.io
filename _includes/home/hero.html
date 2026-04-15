@@ -1,0 +1,19 @@
+<section class="topic-index-hero">
+  <div class="hero-copy">
+    <p class="hero-kicker">Knowledge Lupin</p>
+    <h1>{{ include.home.hero.title }}</h1>
+    <p class="hero-subtitle">{{ include.home.hero.subtitle }}</p>
+    <a class="hero-cta" href="{{ include.home.hero.cta_href | relative_url }}">
+      {{ include.home.hero.cta_label }}
+    </a>
+  </div>
+
+  <div class="hero-atlas">
+    {% for topic in include.topics %}
+      <article class="atlas-note">
+        <h2>{{ topic.title }}</h2>
+        <p>{{ topic.description }}</p>
+      </article>
+    {% endfor %}
+  </div>
+</section>

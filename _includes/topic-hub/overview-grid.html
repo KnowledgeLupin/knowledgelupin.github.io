@@ -1,0 +1,15 @@
+{% assign topics = site.data.topics[include.lang_code] %}
+
+<div class="topic-overview-grid">
+  {% for topic in topics %}
+    <article class="topic-overview-card">
+      <div class="topic-overview-head">
+        <h3>{{ topic.title }}</h3>
+        <a href="{{ topic.hub_url | relative_url }}" class="topic-overview-link">
+          {% if include.lang_code == 'en' %}View all{% else %}전체 보기{% endif %}
+        </a>
+      </div>
+      <p>{{ topic.description }}</p>
+    </article>
+  {% endfor %}
+</div>

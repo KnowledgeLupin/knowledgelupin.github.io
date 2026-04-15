@@ -1,0 +1,56 @@
+{% if include.lang_code == 'en' %}
+  {% assign section_title = 'Latest Posts' %}
+  {% assign section_body = 'The newest writing appears here automatically.' %}
+  {% assign empty_label = 'No English posts have been published yet.' %}
+{% else %}
+  {% assign section_title = '최신 글' %}
+  {% assign section_body = '새 글은 이 영역에서 자동으로 갱신됩니다.' %}
+  {% assign empty_label = '아직 게시된 한국어 글이 없습니다.' %}
+{% endif %}
+
+<section id="latest" class="latest-posts">
+  <header class="section-heading">
+    <p class="section-kicker">{{ section_title }}</p>
+    <h2>{{ section_title }}</h2>
+    <p>{{ section_body }}</p>
+  </header>
+
+  {% assign latest_posts = '' | split: '' %}
+
+  {% for post in site.posts %}
+    {% assign post_lang = post.lang %}
+    {% if post_lang == nil or post_lang == '' %}
+      {% if post.url contains '-en/' %}
+        {% assign post_lang = 'en' %}
+      {% elsif post.url contains '-ko/' %}
+        {% assign post_lang = 'ko' %}
+      {% endif %}
+    {% endif %}
+
+    {% if post_lang == include.lang_code %}
+      {% assign latest_posts = latest_posts | push: post %}
+    {% endif %}
+  {% endfor %}
+
+  <div class="latest-list">
+    {% if latest_posts.size > 0 %}
+      {% for post in latest_posts limit: 6 %}
+        {% unless post.hidden == true %}
+          <article class="latest-item">
+            <a href="{{ post.url | relative_url }}">
+              <h3>{{ post.title }}</h3>
+              <div class="latest-meta">
+                <span>{% include datetime.html date=post.date lang=include.ui_lang %}</span>
+                {% if post.categories and post.categories.size > 0 %}
+                  <span>{{ post.categories | first }}</span>
+                {% endif %}
+              </div>
+            </a>
+          </article>
+        {% endunless %}
+      {% endfor %}
+    {% else %}
+      <p class="section-empty">{{ empty_label }}</p>
+    {% endif %}
+  </div>
+</section>

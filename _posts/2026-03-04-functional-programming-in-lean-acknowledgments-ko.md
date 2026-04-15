@@ -1,6 +1,7 @@
 ---
 title: "Acknowledgments (한국어 번역)"
 date: 2026-03-04 09:01:00 +0900
+lang: ko
 categories: [Programming, Lean]
 tags: [Lean, Functional Programming, Translation, fp-lean, acknowledgments, community]
 toc: true

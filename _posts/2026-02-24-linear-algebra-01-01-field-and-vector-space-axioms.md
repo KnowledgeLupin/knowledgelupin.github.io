@@ -1,6 +1,7 @@
 ---
 title: "선형대수학 제1장 1.1: 체(Field)와 벡터공간의 공리"
 date: 2026-02-24 23:50:00 +0900
+lang: ko
 categories: [Mathematics, Linear Algebra]
 tags: [선형대수학, 벡터공간, 체, 공리]
 math: true

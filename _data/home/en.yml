@@ -1,0 +1,25 @@
+hero:
+  title: "PDE, scientific computing, simulation, and the mathematics behind AI."
+  subtitle: "A research blog for mathematical explanation, computational experiments, and technical notes."
+  cta_label: "Browse Topics"
+  cta_href: "#topics"
+
+featured:
+  translation_keys:
+    - su2-cfd-beginner-project
+    - nonhomogeneous-dirichlet-boundary-lifting
+    - su2-de-laval-nozzle-study
+
+footer:
+  primary_links:
+    - title: "About"
+      url: "/en/about/"
+    - title: "Topics"
+      url: "/en/topics/"
+    - title: "Archives"
+      url: "/archives/"
+    - title: "Privacy Policy"
+      url: "/en/privacy-policy/"
+
+social:
+  x_url: "https://x.com/knowledgelupin"

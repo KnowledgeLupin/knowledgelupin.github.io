@@ -1,0 +1,26 @@
+- id: pde
+  title: "PDE & Scientific Computing"
+  description: "Core ideas from partial differential equations, functional analysis, numerical analysis, and scientific computing."
+  hub_url: "/en/topics/pde-scientific-computing/"
+  include_categories: [PDE, Functional Analysis, Numerical Analysis, Scientific Computing]
+  include_tags: [pde, sobolev-spaces, weak-formulation, dirichlet-boundary, finite-element, finite-difference, finite-volume, stability, convergence, error-analysis]
+  latest_limit: 2
+  hub_latest_limit: 5
+
+- id: simulation-cfd
+  title: "Simulation & CFD"
+  description: "Simulation results, aerodynamic studies, nozzle problems, and visually compelling flow examples."
+  hub_url: "/en/topics/simulation-cfd/"
+  include_categories: [CFD, Simulation]
+  include_tags: [CFD, SU2, NACA0012, Aerodynamics, Nozzle, DeLavalNozzle, MachNumber, RocketPropulsion, turbulence, visualization]
+  latest_limit: 2
+  hub_latest_limit: 5
+
+- id: math-for-ai
+  title: "Mathematics for AI"
+  description: "Linear algebra, probability, and optimization notes for machine learning, deep learning, and LLMs."
+  hub_url: "/en/topics/mathematics-for-ai/"
+  include_categories: [AI, Machine Learning, Deep Learning, LLM, Optimization]
+  include_tags: [attention, transformer, llm, embeddings, gradient-descent, optimization, probability, linear-algebra-for-ml]
+  latest_limit: 2
+  hub_latest_limit: 5

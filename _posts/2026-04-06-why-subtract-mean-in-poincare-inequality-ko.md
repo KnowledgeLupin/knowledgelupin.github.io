@@ -1,6 +1,7 @@
 ---
 title: "왜 평균을 빼야 Poincare 부등식이 성립할까?"
 date: 2026-04-06 09:00:00 +0900
+lang: ko
 categories: [Mathematics, Functional Analysis]
 tags: [poincare-inequality, poincare-wirtinger, sobolev-spaces, pde]
 toc: true

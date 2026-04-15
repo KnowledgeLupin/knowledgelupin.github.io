@@ -1,0 +1,22 @@
+---
+layout: compress
+---
+
+<!doctype html>
+
+{% include origin-type.html %}
+{% include lang.html %}
+
+{% if site.theme_mode %}
+  {% capture prefer_mode %}data-mode="{{ site.theme_mode }}"{% endcapture %}
+{% endif %}
+
+<html lang="{{ page.lang | default: 'en' }}" {{ prefer_mode }}>
+  {% include head.html %}
+
+  <body class="lang-landing-page">
+    <main class="lang-landing-shell">
+      {{ content }}
+    </main>
+  </body>
+</html>

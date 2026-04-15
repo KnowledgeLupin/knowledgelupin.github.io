@@ -1,6 +1,7 @@
 ---
 title: "When AI Writes the World's Software, Who Verifies It? (한국어 번역)"
 date: 2026-03-04 16:20:00 +0900
+lang: ko
 categories: [Programming, Formal Verification]
 tags: [AI, Lean, Formal Verification, Translation]
 toc: true
