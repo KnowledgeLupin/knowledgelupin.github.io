@@ -29,7 +29,7 @@ github:
   username: KnowledgeLupin # change to your GitHub username
 
 twitter:
-  username: knowledgelupin
+  username: # change to your Twitter username
 
 social:
   # Change to your full name.
@@ -38,7 +38,7 @@ social:
   email: # change to your email address
   links:
     # The first element serves as the copyright owner's link
-    - https://x.com/knowledgelupin
+    - https://www.threads.com/@knowledgelupin
     - https://github.com/KnowledgeLupin
     # Uncomment below to add more social links
     # - https://www.facebook.com/username
@@ -208,7 +208,6 @@ compress_html:
 exclude:
   - "*.gem"
   - "*.gemspec"
-  - _reference
   - latex
   - docs
   - tools

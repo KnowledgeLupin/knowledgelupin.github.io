@@ -1,8 +1,6 @@
 ---
 title: "SU2로 시작하는 CFD 입문: 익형, 받음각, 공력계수, 그리고 비정상 유동까지"
 date: 2026-03-08 22:45:00 +0900
-lang: ko
-translation_key: su2-cfd-beginner-project
 categories: [Mathematics, CFD]
 tags: [CFD, SU2, NACA0012, Aerodynamics, Simulation]
 toc: true

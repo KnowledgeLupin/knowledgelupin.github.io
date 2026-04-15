@@ -1,8 +1,6 @@
 ---
 title: "비동차 Dirichlet 경계조건의 약형과 Boundary Lifting"
 date: 2026-04-08 06:24:46 +0900
-lang: ko
-translation_key: nonhomogeneous-dirichlet-boundary-lifting
 categories: [Mathematics, PDE]
 tags: [weak-formulation, dirichlet-boundary, sobolev-spaces, pde, poisson-equation]
 toc: true
