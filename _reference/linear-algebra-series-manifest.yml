@@ -1,0 +1,242 @@
+[
+  {
+    "order": 1,
+    "title": "선형대수의 대상과 응용 범위",
+    "slug": "scope-and-applications",
+    "tags": ["선형대수학", "응용수학", "모델링", "선형성"],
+    "source_refs": ["Applied Linear Algebra, Preface, pp. vii-ix", "Applied Linear Algebra, Chapter 1 intro, pp. 1-3"],
+    "status": "pending"
+  },
+  {
+    "order": 2,
+    "title": "연립일차방정식과 Gaussian elimination",
+    "slug": "linear-systems-and-gaussian-elimination",
+    "tags": ["선형대수학", "연립일차방정식", "gaussian-elimination", "행연산"],
+    "source_refs": ["Applied Linear Algebra, Chapter 1 §§1.1-1.3, pp. 1-22"],
+    "status": "pending"
+  },
+  {
+    "order": 3,
+    "title": "`LU` 분해와 전진/후진 대입",
+    "slug": "lu-factorization-and-triangular-solves",
+    "tags": ["선형대수학", "lu-factorization", "triangular-matrix", "algorithm"],
+    "source_refs": ["Applied Linear Algebra, Chapter 1 §1.3, pp. 16-22"],
+    "status": "pending"
+  },
+  {
+    "order": 4,
+    "title": "역행렬과 행렬식의 계산적 의미",
+    "slug": "inverse-and-determinant-in-computation",
+    "tags": ["선형대수학", "역행렬", "행렬식", "계산복잡도"],
+    "source_refs": ["Applied Linear Algebra, Chapter 1 §§1.5, 1.9, pp. 31-45, 69-74"],
+    "status": "pending"
+  },
+  {
+    "order": 5,
+    "title": "Pivoting과 수치적 안정성",
+    "slug": "pivoting-and-numerical-stability",
+    "tags": ["선형대수학", "pivoting", "수치해석", "안정성"],
+    "source_refs": ["Applied Linear Algebra, Chapter 1 §§1.4, 1.7, pp. 22-27, 48-58"],
+    "status": "pending"
+  },
+  {
+    "order": 6,
+    "title": "벡터공간과 부분공간",
+    "slug": "vector-spaces-and-subspaces",
+    "tags": ["선형대수학", "벡터공간", "부분공간", "공리"],
+    "source_refs": ["Applied Linear Algebra, Chapter 2 §§2.1-2.2, pp. 76-86"],
+    "status": "pending"
+  },
+  {
+    "order": 7,
+    "title": "생성, 선형독립, 기저, 차원",
+    "slug": "span-independence-basis-dimension",
+    "tags": ["선형대수학", "기저", "차원", "선형독립"],
+    "source_refs": ["Applied Linear Algebra, Chapter 2 §§2.3-2.4, pp. 87-104"],
+    "status": "pending"
+  },
+  {
+    "order": 8,
+    "title": "Kernel, image, rank-nullity",
+    "slug": "kernel-image-rank-nullity",
+    "tags": ["선형대수학", "kernel", "image", "rank-nullity"],
+    "source_refs": ["Applied Linear Algebra, Chapter 2 §2.5, pp. 105-119"],
+    "status": "pending"
+  },
+  {
+    "order": 9,
+    "title": "그래프와 incidence matrix",
+    "slug": "graphs-and-incidence-matrices",
+    "tags": ["선형대수학", "그래프이론", "incidence-matrix", "digraph"],
+    "source_refs": ["Applied Linear Algebra, Chapter 2 §2.6, pp. 120-127"],
+    "status": "pending"
+  },
+  {
+    "order": 10,
+    "title": "Euler 공식과 독립 회로",
+    "slug": "euler-formula-and-independent-circuits",
+    "tags": ["선형대수학", "Euler-공식", "회로", "cokernel"],
+    "source_refs": ["Applied Linear Algebra, Chapter 2 §2.6, pp. 120-127"],
+    "status": "pending"
+  },
+  {
+    "order": 11,
+    "title": "Inner product와 norm",
+    "slug": "inner-products-and-norms",
+    "tags": ["선형대수학", "inner-product", "norm", "함수공간"],
+    "source_refs": ["Applied Linear Algebra, Chapter 3 §§3.1-3.3, pp. 129-155"],
+    "status": "pending"
+  },
+  {
+    "order": 12,
+    "title": "Cauchy-Schwarz 부등식과 직교성",
+    "slug": "cauchy-schwarz-and-orthogonality",
+    "tags": ["선형대수학", "Cauchy-Schwarz", "직교성", "부등식"],
+    "source_refs": ["Applied Linear Algebra, Chapter 3 §§3.1-3.2, pp. 137-143", "Applied Linear Algebra, Chapter 4 §4.1, pp. 184-189"],
+    "status": "pending"
+  },
+  {
+    "order": 13,
+    "title": "Positive definite matrix와 Gram matrix",
+    "slug": "positive-definite-and-gram-matrices",
+    "tags": ["선형대수학", "positive-definite", "Gram-matrix", "quadratic-form"],
+    "source_refs": ["Applied Linear Algebra, Chapter 3 §§3.4-3.5, pp. 156-171"],
+    "status": "pending"
+  },
+  {
+    "order": 14,
+    "title": "Completing the square와 Cholesky 분해",
+    "slug": "completing-the-square-and-cholesky",
+    "tags": ["선형대수학", "Cholesky", "완전제곱", "positive-definite"],
+    "source_refs": ["Applied Linear Algebra, Chapter 3 §3.5, pp. 166-171"],
+    "status": "pending"
+  },
+  {
+    "order": 15,
+    "title": "Orthogonal projection과 least squares",
+    "slug": "orthogonal-projection-and-least-squares",
+    "tags": ["선형대수학", "least-squares", "projection", "근사"],
+    "source_refs": ["Applied Linear Algebra, Chapter 4 §4.4, pp. 212-225", "Applied Linear Algebra, Chapter 5 §§5.1-5.4, pp. 235-253"],
+    "status": "pending"
+  },
+  {
+    "order": 16,
+    "title": "Gram-Schmidt 과정과 `QR` 분해",
+    "slug": "gram-schmidt-and-qr-factorization",
+    "tags": ["선형대수학", "Gram-Schmidt", "QR-분해", "직교화"],
+    "source_refs": ["Applied Linear Algebra, Chapter 4 §§4.1-4.3, pp. 184-211"],
+    "status": "pending"
+  },
+  {
+    "order": 17,
+    "title": "Fredholm alternative",
+    "slug": "fredholm-alternative",
+    "tags": ["선형대수학", "Fredholm-alternative", "compatibility", "orthogonality"],
+    "source_refs": ["Applied Linear Algebra, Chapter 4 §4.4, pp. 221-225"],
+    "status": "pending"
+  },
+  {
+    "order": 18,
+    "title": "Interpolation과 approximation",
+    "slug": "interpolation-and-approximation",
+    "tags": ["선형대수학", "interpolation", "approximation", "data-fitting"],
+    "source_refs": ["Applied Linear Algebra, Chapter 5 §5.5, pp. 254-278"],
+    "status": "pending"
+  },
+  {
+    "order": 19,
+    "title": "Orthogonal polynomials와 최소제곱근사",
+    "slug": "orthogonal-polynomials-and-least-squares-approximation",
+    "tags": ["선형대수학", "orthogonal-polynomials", "least-squares", "Legendre"],
+    "source_refs": ["Applied Linear Algebra, Chapter 4 §4.5, pp. 226-234", "Applied Linear Algebra, Chapter 5 §5.5, pp. 274-277"],
+    "status": "pending"
+  },
+  {
+    "order": 20,
+    "title": "Spline과 piecewise polynomial approximation",
+    "slug": "splines-and-piecewise-polynomial-approximation",
+    "tags": ["선형대수학", "spline", "piecewise-polynomial", "approximation"],
+    "source_refs": ["Applied Linear Algebra, Chapter 5 §5.5, pp. 279-284"],
+    "status": "pending"
+  },
+  {
+    "order": 21,
+    "title": "Discrete Fourier transform과 FFT",
+    "slug": "discrete-fourier-transform-and-fft",
+    "tags": ["선형대수학", "DFT", "FFT", "signal-processing"],
+    "source_refs": ["Applied Linear Algebra, Chapter 5 §5.6, pp. 285-297"],
+    "status": "pending"
+  },
+  {
+    "order": 22,
+    "title": "압축과 잡음제거의 선형대수",
+    "slug": "compression-and-denoising",
+    "tags": ["선형대수학", "압축", "denoising", "Fourier"],
+    "source_refs": ["Applied Linear Algebra, Chapter 5 §5.6, pp. 293-297"],
+    "status": "pending"
+  },
+  {
+    "order": 23,
+    "title": "스프링-질량계와 에너지 최소화",
+    "slug": "spring-mass-systems-and-energy-minimization",
+    "tags": ["선형대수학", "spring-mass", "에너지", "equilibrium"],
+    "source_refs": ["Applied Linear Algebra, Chapter 5 §5.1, pp. 236-238", "Applied Linear Algebra, Chapter 6 §6.1, pp. 301-310"],
+    "status": "pending"
+  },
+  {
+    "order": 24,
+    "title": "전기회로와 equilibrium",
+    "slug": "electrical-networks-and-equilibrium",
+    "tags": ["선형대수학", "전기회로", "equilibrium", "Kirchhoff"],
+    "source_refs": ["Applied Linear Algebra, Chapter 6 §6.2, pp. 311-321"],
+    "status": "pending"
+  },
+  {
+    "order": 25,
+    "title": "선형사상, 기저변환, affine transformation",
+    "slug": "linear-maps-change-of-basis-and-affine-transformations",
+    "tags": ["선형대수학", "선형사상", "기저변환", "affine-transformation"],
+    "source_refs": ["Applied Linear Algebra, Chapter 7 §§7.1-7.3, pp. 342-375"],
+    "status": "pending"
+  },
+  {
+    "order": 26,
+    "title": "Eigenvalue와 spectral theorem",
+    "slug": "eigenvalues-and-the-spectral-theorem",
+    "tags": ["선형대수학", "eigenvalue", "spectral-theorem", "대각화"],
+    "source_refs": ["Applied Linear Algebra, Chapter 8 §§8.1-8.5, pp. 404-443"],
+    "status": "pending"
+  },
+  {
+    "order": 27,
+    "title": "Singular value, pseudoinverse, condition number",
+    "slug": "singular-values-pseudoinverse-and-condition-number",
+    "tags": ["선형대수학", "SVD", "pseudoinverse", "condition-number"],
+    "source_refs": ["Applied Linear Algebra, Chapter 8 §8.7, pp. 454-466"],
+    "status": "pending"
+  },
+  {
+    "order": 28,
+    "title": "Principal component analysis",
+    "slug": "principal-component-analysis",
+    "tags": ["선형대수학", "PCA", "covariance", "data-analysis"],
+    "source_refs": ["Applied Linear Algebra, Chapter 8 §8.8, pp. 467-474"],
+    "status": "pending"
+  },
+  {
+    "order": 29,
+    "title": "Iteration, Markov process, iterative solver",
+    "slug": "iteration-markov-processes-and-iterative-solvers",
+    "tags": ["선형대수학", "iteration", "Markov-process", "iterative-solver"],
+    "source_refs": ["Applied Linear Algebra, Chapter 9 §§9.1-9.4, pp. 476-521"],
+    "status": "pending"
+  },
+  {
+    "order": 30,
+    "title": "Power method, `QR` algorithm, Krylov methods, matrix exponential, stability, resonance",
+    "slug": "power-method-qr-krylov-and-linear-dynamics",
+    "tags": ["선형대수학", "power-method", "QR-algorithm", "Krylov", "dynamics"],
+    "source_refs": ["Applied Linear Algebra, Chapter 9 §§9.5-9.6, pp. 522-546", "Applied Linear Algebra, Chapter 10 §§10.1-10.6, pp. 565-630"],
+    "status": "pending"
+  }
+]

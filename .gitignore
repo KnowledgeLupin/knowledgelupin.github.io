@@ -39,3 +39,6 @@ package-lock.json
 *.swp
 ~*
 *~
+
+# Local automation runtime state
+_reference/.automation/
