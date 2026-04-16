@@ -17,6 +17,12 @@ Jekyll은 언더스코어(_)로 시작하는 폴더를 자동으로 빌드에서
 - `2026-02-24-linear-algebra-korean-textbook-toc.md`: 최종 목차(5부 16장)
 - `2026-02-25-linear-algebra-legacy-to-v2-mapping.md`: 레거시 파일 매핑 기록
 
+현재 선형대수 포스트 설계는 수학적 엄밀성뿐 아니라 검색 가시성까지 함께 다룹니다.
+
+1. 제목은 정확한 개념명을 유지하되 검색 의도와 만나는 한국어 표현을 포함합니다.
+2. front matter에는 `description`, `excerpt`, `image`를 포함하는 방향으로 설계합니다.
+3. 후보 선정과 게시 단계 모두에서 SEO 점검을 별도 단계로 둡니다.
+
 ## 자동화 스크립트
 - `../tools/generate-linear-algebra-draft.py`: 독립 포스트 초안 생성기
 - `../tools/review-linear-algebra-draft-with-claude.py`: Claude Code만을 이용해 초안을 3회 반복 교정하는 스크립트
