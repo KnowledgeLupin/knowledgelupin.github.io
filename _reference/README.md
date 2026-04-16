@@ -26,3 +26,4 @@ Jekyll은 언더스코어(_)로 시작하는 폴더를 자동으로 빌드에서
 ## 자동화 스크립트
 - `../tools/generate-linear-algebra-draft.py`: 독립 포스트 초안 생성기
 - `../tools/review-linear-algebra-draft-with-claude.py`: Claude Code만을 이용해 초안을 3회 반복 교정하는 스크립트
+- `../tools/check-linear-algebra-seo.py`: 초안이나 게시물의 front matter와 빌드된 HTML 메타 태그를 점검하는 SEO preflight 스크립트

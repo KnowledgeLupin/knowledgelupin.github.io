@@ -101,6 +101,20 @@ def split_frontmatter(text: str) -> tuple[str, str]:
     return f"---\n{middle}---\n", rest
 
 
+def parse_front_matter(text: str) -> dict[str, str]:
+    frontmatter, _ = split_frontmatter(text)
+    if not frontmatter:
+        return {}
+    result: dict[str, str] = {}
+    for raw_line in frontmatter.splitlines():
+        line = raw_line.strip()
+        if not line or line == "---" or ":" not in line:
+            continue
+        key, value = line.split(":", 1)
+        result[key.strip()] = value.strip().strip('"')
+    return result
+
+
 def split_document_chunks(text: str) -> tuple[str, list[str]]:
     frontmatter, body = split_frontmatter(text)
     matches = list(re.finditer(r"^## .*$", body, flags=re.MULTILINE))
@@ -143,6 +157,7 @@ def read_agents_excerpt() -> str:
 def build_chunk_prompt(path: Path, chunk: str, chunk_index: int, total_chunks: int) -> str:
     agents = read_agents_excerpt()
     contract = load_review_contract()
+    front = parse_front_matter(path.read_text(encoding="utf-8"))
     return f"""다음 Markdown 블로그 초안의 일부 구간을 최종 게시 가능한 수준으로 다듬어라.
 
 중요 규칙:
@@ -158,6 +173,12 @@ def build_chunk_prompt(path: Path, chunk: str, chunk_index: int, total_chunks: i
 10. 글이 너무 짧거나 설명이 성기면, 같은 수학 내용을 유지한 채 배경 설명, 증명 해설, 계산 예제 해석, 응용 연결을 보강해 독립 포스트다운 밀도를 갖추게 하라.
 11. ChatGPT스럽게 들리는 어색한 표현, 과하게 틀에 박힌 연결 문장, 불필요하게 번들거리는 요약 문구, 지나치게 교과서적이거나 기계적으로 반복되는 표현이 있으면 모두 자연스러운 한국어 문장으로 고쳐라.
 12. 이 단계의 문장 교정은 Claude Code만 담당한다. 현재 구간에서 고칠 점이 없다면 원문을 거의 그대로 유지하고, 불확실한 수정을 추측해서 추가하지 말라.
+13. 제목과 설명문이 암시하는 중심 검색어가 본문 초반에 자연스럽게 드러나도록 유지하라.
+14. 제목만 추상적으로 반복하지 말고, 독자가 실제로 찾을 개념명과 문제의식을 서두에서 분명히 드러내라.
+15. 정의에서 공리나 조건을 소개할 때는 키워드만 나열하지 말고, 각 조건의 의미를 수식과 짧은 해설로 분명히 적어라.
+16. `손으로 따라가는 계산`, `응용으로 보는 이유`, `자주 헷갈리는 점`, `정리하며`처럼 반복적이거나 의도가 불분명한 소제목은 자연스러운 다른 표제로 고쳐라.
+17. 완결된 증명 뒤에 남는 모호한 메타 설명, 특히 증명의 아이디어를 다시 흐리게 반복하는 문단은 수학적 기능이 없으면 제거하라.
+18. 증명 직후에 별도의 해설 단락을 새로 덧붙이지 말라. 증명 밖 설명이 꼭 필요하면 다음 절의 도입이나 응용 문단으로 넘겨라.
 
 특별 점검 항목:
 - 문장 간 전환이 자연스러운가
@@ -167,9 +188,16 @@ def build_chunk_prompt(path: Path, chunk: str, chunk_index: int, total_chunks: i
 - 설명이 지나치게 짧거나 끊겨 있지 않은가
 - ChatGPT스럽거나 기계적으로 반복되는 표현이 남아 있지 않은가
 - 적어도 대략 {contract["min_words"]}단어, {contract["min_characters"]}자, {contract["min_blocks"]}개 안팎의 prose block을 가진 독립 포스트다운 밀도를 향해 가고 있는가
+- 제목과 `description`에 대응하는 핵심 개념이 본문 앞부분에서 자연스럽게 나타나는가
 
 로컬 AGENTS.md 요약:
 {agents}
+
+front matter 요약:
+- title: {front.get("title", "")}
+- description: {front.get("description", "")}
+- excerpt: {front.get("excerpt", "")}
+- tags: {front.get("tags", "")}
 
 대상 파일: {path}
 현재 구간: {chunk_index}/{total_chunks}

@@ -31,18 +31,18 @@ MASTER_BIB_PATH = Path("/Users/kwkwon/Desktop/Obsidian/Mathematician/_shared/my-
 SITE_TIMEZONE = ZoneInfo("Europe/Berlin")
 AUTHOR = "KnowledgeLupin"
 DEFAULT_CATEGORIES = ["Mathematics", "Linear Algebra"]
+DEFAULT_SOCIAL_PREVIEW_IMAGE = "/assets/pdf/linear-algebra/linear-algebra-notes-latest-page1.png"
 DEFAULT_WRITING_CONTRACT = {
     "min_words": 850,
     "min_characters": 3200,
     "min_blocks": 18,
-    "min_sections": 6,
+    "min_sections": 5,
     "section_min_blocks": {
         "배경과 기본 정의": 5,
         "핵심 정리와 증명": 8,
-        "손으로 따라가는 계산": 7,
-        "응용으로 보는 이유": 3,
-        "자주 헷갈리는 점": 2,
-        "정리하며": 2,
+        "간단한 예제로 보는 구조": 7,
+        "응용에서 다시 나타나는 구조": 5,
+        "마무리": 2,
     },
 }
 SEMANTIC_REQUIRED_FIELDS = [
@@ -63,6 +63,16 @@ OPTIONAL_CANDIDATE_FIELDS = {
     "secondary_hand_example": "",
     "application_focus": [],
     "common_misunderstandings": [],
+    "primary_query": "",
+    "secondary_queries": [],
+    "search_intent": "",
+    "seo_title": "",
+    "seo_slug": "",
+    "meta_description_seed": "",
+    "related_terms": [],
+    "faq_queries": [],
+    "internal_link_targets": [],
+    "image_hint": "",
 }
 ACTIVE_STATUSES = {"selected", "drafting", "draft_ready", "needs_figure", "needs_revision", "review_ready"}
 LEVEL_TO_SCORE = {"low": 0, "medium": 1, "high": 2}
@@ -173,6 +183,56 @@ TAG_NORMALIZATION = {
     "pca": "PCA",
     "markov": "Markov process",
     "krylov": "Krylov 방법",
+}
+TITLE_LOCALIZATION = {
+    "Gaussian elimination": "가우스 소거법",
+    "Pivoting": "피벗팅",
+    "Kernel": "kernel",
+    "image": "image",
+    "rank-nullity": "rank nullity",
+    "Inner product": "내적",
+    "norm": "노름",
+    "Positive definite matrix": "양의 정부호 행렬",
+    "Gram matrix": "Gram 행렬",
+    "Completing the square": "완전제곱",
+    "Orthogonal projection": "직교사영",
+    "least squares": "최소제곱",
+    "Gram-Schmidt": "Gram Schmidt",
+    "QR": "QR",
+    "Discrete Fourier transform": "이산 푸리에 변환",
+    "Fourier": "푸리에",
+    "FFT": "FFT",
+    "Eigenvalue": "고유값",
+    "Singular value": "특이값",
+    "Principal component analysis": "주성분분석",
+    "Markov process": "마르코프 과정",
+}
+SEO_TITLE_OVERRIDES = {
+    "scope-and-applications": "선형대수란 무엇인가와 주요 응용",
+    "linear-systems-and-gaussian-elimination": "연립일차방정식과 가우스 소거법",
+    "lu-factorization-and-triangular-solves": "LU 분해와 전진 대입, 후진 대입",
+    "kernel-image-rank-nullity": "kernel과 image, rank nullity 정리",
+    "inner-products-and-norms": "내적과 노름",
+    "positive-definite-and-gram-matrices": "양의 정부호 행렬과 Gram 행렬",
+    "completing-the-square-and-cholesky": "완전제곱과 Cholesky 분해",
+    "orthogonal-projection-and-least-squares": "직교사영과 최소제곱",
+    "gram-schmidt-and-qr-factorization": "Gram Schmidt 과정과 QR 분해",
+    "discrete-fourier-transform-and-fft": "이산 푸리에 변환과 FFT",
+    "eigenvalues-and-the-spectral-theorem": "고유값과 스펙트럴 정리",
+    "singular-values-pseudoinverse-and-condition-number": "특이값, 의사역행렬, 조건수",
+    "principal-component-analysis": "주성분분석",
+}
+GENERIC_TITLE_PHRASES = {
+    "대상과 응용 범위",
+    "개요",
+    "개관",
+    "소개",
+}
+GENERIC_SLUG_TOKENS = {
+    "scope",
+    "overview",
+    "introduction",
+    "applications",
 }
 
 
@@ -423,16 +483,20 @@ TOPIC_BLUEPRINTS: dict[str, dict[str, Any]] = {
             "벡터공간만으로는 방향을 더하고 스칼라배할 수 있을 뿐, 길이나 각도를 말할 수는 없습니다. 내적은 바로 그 기하학을 다시 불러오는 장치입니다.",
             "이 장에서 중요한 것은 단순히 점곱의 공식을 외우는 일이 아닙니다. 길이, 거리, 유사도, 직교성 같은 익숙한 개념이 추상 공간으로 어떻게 확장되는지를 보는 일입니다.",
         ],
-        "background": "내적은 두 벡터를 수 하나로 보내면서 대칭성, 선형성, 양의 성질을 만족하는 함수입니다. 이 세 조건이 있으면 길이와 거리뿐 아니라 최소화와 투영까지 한꺼번에 정리됩니다.",
+        "background": "내적을 이해할 때 중요한 것은 대칭성, 선형성, 양의 정부호성이라는 말을 이름으로만 넘기지 않는 일입니다. 이 세 조건은 내적이 순서를 바꾸어도 같은 값을 주고, 선형결합을 안정적으로 전개하게 하며, 자기 자신과의 내적이 길이의 제곱처럼 작동하게 만든다는 뜻입니다.",
         "definitions": [
             {
                 "title": "내적 (inner product)",
-                "body": "벡터공간 $$V$$ 위의 함수 $$\\langle\\cdot,\\cdot\\rangle:V\\times V\\to\\mathbb R$$가 대칭성, 각 변수에 대한 선형성, 양의 정부호성을 만족하면 inner product라 한다.",
+                "body": "벡터공간 $$V$$ 위의 함수 $$\\langle\\cdot,\\cdot\\rangle:V\\times V\\to\\mathbb R$$가 임의의 $$u,v,w\\in V$$와 $$a,b\\in\\mathbb R$$에 대하여 $$\\langle u,v\\rangle=\\langle v,u\\rangle$$, $$\\langle au+bv,w\\rangle=a\\langle u,w\\rangle+b\\langle v,w\\rangle$$, $$\\langle u,av+bw\\rangle=a\\langle u,v\\rangle+b\\langle u,w\\rangle$$, 그리고 $$\\langle v,v\\rangle\\ge0$$이며 $$\\langle v,v\\rangle=0$$일 때 그리고 그때에 한하여 $$v=0$$를 만족하면 inner product라 한다.",
             },
             {
                 "title": "노름 (norm)",
                 "body": "내적이 주어졌을 때 $$\\|v\\|=\\sqrt{\\langle v,v\\rangle}$$로 정의한 함수를 그 내적이 유도하는 norm이라 한다.",
             },
+        ],
+        "definition_bridge": [
+            "첫째 조건 $$\\langle u,v\\rangle=\\langle v,u\\rangle$$는 두 벡터의 관계를 어느 쪽에서 읽어도 같은 수가 나온다는 뜻입니다. 둘째 조건은 선형결합이 각 변수에서 그대로 분배된다는 뜻이어서, 좌표를 바꾸거나 식을 전개할 때 계산이 흔들리지 않습니다.",
+            "마지막 조건 $$\\langle v,v\\rangle\\ge0$$와 $$\\langle v,v\\rangle=0\\iff v=0$$는 내적이 실제 길이의 제곱 역할을 하게 만듭니다. 그래서 $$\\|v\\|=\\sqrt{\\langle v,v\\rangle}$$라는 정의가 자연스럽게 등장합니다.",
         ],
         "theorem_name": "내적이 유도하는 노름",
         "theorem_statement": "내적 $$\\langle\\cdot,\\cdot\\rangle$$가 주어지면 $$\\|v\\|=\\sqrt{\\langle v,v\\rangle}$$는 노름이 된다.",
@@ -441,7 +505,7 @@ TOPIC_BLUEPRINTS: dict[str, dict[str, Any]] = {
             "스칼라 $$a$$에 대해 $$\\|av\\|^2=\\langle av,av\\rangle=a^2\\langle v,v\\rangle$$이므로 $$\\|av\\|=|a|\\|v\\|$$이다.",
             "삼각부등식은 Cauchy-Schwarz를 쓰면 된다. 실제로 $$\\|u+v\\|^2=\\|u\\|^2+2\\langle u,v\\rangle+\\|v\\|^2\\le \\|u\\|^2+2\\|u\\|\\|v\\|+\\|v\\|^2=(\\|u\\|+\\|v\\|)^2$$이므로 $$\\|u+v\\|\\le\\|u\\|+\\|v\\|$$이다. 따라서 노름 공리가 모두 성립한다. $$\\square$$",
         ],
-        "hand_example_intro": "좌표공간과 다항식 공간을 함께 보면 내적의 추상성이 훨씬 자연스럽게 읽힙니다.",
+        "hand_example_intro": "좌표공간과 다항식 공간을 함께 보면 내적의 공리가 실제 계산에서 어떤 구조를 만드는지 훨씬 또렷하게 드러납니다.",
         "hand_example_steps": [
             "$$\\mathbb R^2$$에서는 $$\\langle (x_1,y_1),(x_2,y_2)\\rangle=x_1x_2+y_1y_2$$이고, 여기서 유도된 노름은 익숙한 유클리드 길이다.",
             "다항식 공간 $$P_1$$에서는 $$\\langle p,q\\rangle=\\int_0^1 p(x)q(x)\\,dx$$처럼 적분으로 내적을 줄 수 있다.",
@@ -450,10 +514,7 @@ TOPIC_BLUEPRINTS: dict[str, dict[str, Any]] = {
         "application": [
             "데이터 분석에서는 두 벡터의 내적이 유사도나 상관성의 기본 측도로 쓰인다.",
             "최소제곱과 정사영은 결국 어떤 오차를 작게 본다는 문제인데, 그 오차의 크기를 재는 기준이 바로 내적이 유도하는 노름이다.",
-        ],
-        "pitfalls": [
-            "모든 노름이 어떤 내적에서 오는 것은 아니다. 내적이 있으면 노름이 따라오지만, 역은 일반적으로 성립하지 않는다.",
-            "함수공간의 내적을 좌표공간 점곱의 단순한 변형으로만 생각하면 적분 가중치나 직교기저의 의미를 놓치기 쉽다.",
+            "끝으로 한 가지는 분명히 해 둘 필요가 있다. 모든 노름이 어떤 내적에서 오는 것은 아니며, 함수공간의 내적도 좌표공간 점곱의 단순한 변형으로만 보면 구조를 놓치기 쉽다.",
         ],
         "closing": "내적을 도입하면 벡터공간은 계산의 무대에서 기하의 무대로 바뀐다. 이후의 직교성, 정사영, least squares는 모두 여기서 출발한다.",
         "visual_importance": "none",
@@ -693,6 +754,124 @@ def normalize_text(text: str) -> str:
     return " ".join(tokens)
 
 
+def localized_title(text: str) -> str:
+    localized = text
+    for source, target in TITLE_LOCALIZATION.items():
+        localized = localized.replace(source, target)
+    return localized.replace("  ", " ").strip()
+
+
+def public_title_for(candidate: dict[str, Any]) -> str:
+    explicit = str(candidate.get("seo_title", "")).strip()
+    if explicit:
+        return explicit
+    slug = candidate["slug"]
+    if slug in SEO_TITLE_OVERRIDES:
+        return SEO_TITLE_OVERRIDES[slug]
+    return localized_title(candidate["title"])
+
+
+def public_slug_for(candidate: dict[str, Any]) -> str:
+    explicit = str(candidate.get("seo_slug", "")).strip()
+    if explicit:
+        return explicit
+    return candidate["slug"]
+
+
+def primary_query_for(candidate: dict[str, Any]) -> str:
+    explicit = str(candidate.get("primary_query", "")).strip()
+    if explicit:
+        return explicit
+    return public_title_for(candidate)
+
+
+def secondary_queries_for(candidate: dict[str, Any]) -> list[str]:
+    explicit = ensure_list(candidate.get("secondary_queries"))
+    if explicit:
+        return explicit
+    title = public_title_for(candidate)
+    concepts = [localized_title(item) for item in ensure_list(candidate.get("core_concepts"))[:3]]
+    applications = [localized_title(item) for item in ensure_list(candidate.get("application_example_candidates"))[:2]]
+    related = [localized_title(item) for item in ensure_list(candidate.get("related_terms"))[:3]]
+    bag = [title] + concepts + applications + related
+    return dedupe_preserve([item for item in bag if item and normalize_text(item) != normalize_text(primary_query_for(candidate))])[:6]
+
+
+def meta_description_for(candidate: dict[str, Any]) -> str:
+    seed = str(candidate.get("meta_description_seed", "")).strip()
+    if seed:
+        return seed
+    title = public_title_for(candidate)
+    first = localized_title(ensure_list(candidate.get("core_concepts"))[0]) if ensure_list(candidate.get("core_concepts")) else title
+    second = localized_title(ensure_list(candidate.get("core_concepts"))[1]) if len(ensure_list(candidate.get("core_concepts"))) > 1 else first
+    application = localized_title(ensure_list(candidate.get("application_example_candidates"))[0]) if ensure_list(candidate.get("application_example_candidates")) else "응용"
+    return f"이 글은 {title}를 중심으로 {first}과 {second}의 구조를 설명하고, 작은 예제와 {application} 장면에서 이 개념이 어떻게 나타나는지 정리합니다."
+
+
+def excerpt_for(candidate: dict[str, Any]) -> str:
+    title = public_title_for(candidate)
+    application = localized_title(ensure_list(candidate.get("application_example_candidates"))[0]) if ensure_list(candidate.get("application_example_candidates")) else "현실적 응용"
+    return f"{title}의 핵심 정의와 정리를 엄밀하게 설명하고, 작은 예제와 {application} 맥락을 통해 이 주제가 왜 중요한지 정리합니다."
+
+
+def image_for(candidate: dict[str, Any], blueprint: dict[str, Any] | None = None) -> str:
+    hint = str(candidate.get("image_hint", "")).strip()
+    if hint.startswith("/"):
+        return hint
+    if blueprint and blueprint.get("visual_importance") in {"required", "supporting"}:
+        return DEFAULT_SOCIAL_PREVIEW_IMAGE
+    return DEFAULT_SOCIAL_PREVIEW_IMAGE
+
+
+def is_generic_title(title: str) -> bool:
+    return any(phrase in title for phrase in GENERIC_TITLE_PHRASES)
+
+
+def is_generic_slug(slug: str) -> bool:
+    tokens = set(normalize_text(slug).split())
+    return bool(tokens & GENERIC_SLUG_TOKENS)
+
+
+def headings(text: str) -> list[str]:
+    items: list[str] = []
+    for line in strip_front_matter(text).splitlines():
+        if line.startswith("# "):
+            items.append(line[2:].strip())
+        elif line.startswith("## "):
+            items.append(line[3:].strip())
+    return items
+
+
+def query_in_blocks(text: str, query: str, block_limit: int = 2) -> bool:
+    normalized_query = normalize_text(query)
+    if not normalized_query:
+        return False
+    query_tokens = normalized_query.split()
+    blocks = prose_blocks(text)[:block_limit]
+    normalized_blocks = " ".join(normalize_text(block) for block in blocks)
+    if normalized_query in normalized_blocks:
+        return True
+    if not query_tokens:
+        return False
+    matched = sum(1 for token in query_tokens if token in normalized_blocks)
+    return matched >= max(1, len(query_tokens) - 1)
+
+
+def query_in_heading(text: str, query: str) -> bool:
+    normalized_query = normalize_text(query)
+    if not normalized_query:
+        return False
+    query_tokens = normalized_query.split()
+    for item in headings(text):
+        normalized_heading = normalize_text(item)
+        if normalized_query in normalized_heading:
+            return True
+        matched = sum(1 for token in query_tokens if token in normalized_heading)
+        if matched >= max(1, len(query_tokens) - 1):
+            return True
+    return False
+
+
 def yaml_quote(text: str) -> str:
     escaped = text.replace("\\", "\\\\").replace('"', '\\"')
     return f'"{escaped}"'
@@ -838,13 +1017,13 @@ def collect_markdown_entries(directory: Path, *, recursive: bool = False) -> lis
 
 
 def same_topic(candidate: dict[str, Any], entry: dict[str, Any]) -> bool:
-    candidate_slug = candidate["slug"]
-    candidate_title = normalize_text(candidate["title"])
+    candidate_slugs = {candidate["slug"], public_slug_for(candidate)}
+    candidate_titles = {normalize_text(candidate["title"]), normalize_text(public_title_for(candidate))}
     entry_slug = entry.get("slug", "")
     entry_title = normalize_text(entry.get("title", ""))
-    if entry_slug and entry_slug == candidate_slug:
+    if entry_slug and entry_slug in candidate_slugs:
         return True
-    if entry_title and entry_title == candidate_title:
+    if entry_title and entry_title in candidate_titles:
         return True
     return False
 
@@ -886,7 +1065,7 @@ def count_words(text: str) -> int:
 
 
 def count_characters(text: str) -> int:
-    return len(re.sub(r"\s+", "", prose_text(text)))
+    return len(prose_text(text))
 
 
 def extract_sections(text: str) -> dict[str, str]:
@@ -929,16 +1108,21 @@ def writing_contract(manifest: dict[str, Any] | None = None) -> dict[str, Any]:
 def low_quality_report(text: str) -> dict[str, Any]:
     contract = writing_contract()
     issues: list[str] = []
+    front = parse_front_matter(text)
     if "> **정리 1" not in text:
         issues.append("missing_theorem_block")
     if "**증명.**" not in text:
         issues.append("missing_direct_proof")
     if "## 참고문헌" not in text:
         issues.append("missing_references")
-    if "## 손으로 따라가는 계산" not in text:
+    if "## 간단한 예제로 보는 구조" not in text:
         issues.append("missing_hand_example")
-    if "## 응용으로 보는 이유" not in text:
+    if "## 응용에서 다시 나타나는 구조" not in text:
         issues.append("missing_application_section")
+    if any(heading in text for heading in ("## 손으로 따라가는 계산", "## 응용으로 보는 이유", "## 자주 헷갈리는 점", "## 정리하며")):
+        issues.append("legacy_section_headings")
+    if "손계산" in text:
+        issues.append("legacy_hand_calculation_language")
     if count_headings(text) < contract["min_sections"]:
         issues.append("too_few_sections")
     if count_words(text) < contract["min_words"]:
@@ -954,6 +1138,20 @@ def low_quality_report(text: str) -> dict[str, Any]:
             issues.append(f"thin_section:{title}")
     if "연재" in text or "다음 글" in text:
         issues.append("series_style_language")
+    if not front.get("description"):
+        issues.append("missing_description")
+    if not front.get("excerpt"):
+        issues.append("missing_excerpt")
+    if not front.get("image"):
+        issues.append("missing_image")
+    if "inner-products-and-norms" in text:
+        formula_markers = (
+            "\\langle u,v\\rangle=\\langle v,u\\rangle",
+            "\\langle au+bv,w\\rangle",
+            "\\langle v,v\\rangle\\ge0",
+        )
+        if not all(marker in text for marker in formula_markers):
+            issues.append("inner_product_axioms_not_explicit")
     return {
         "low_quality": bool(issues),
         "issues": issues,
@@ -1032,20 +1230,25 @@ def bibliography_entries_from_refs(refs: list[str]) -> list[str]:
 
 def generate_tags(candidate: dict[str, Any]) -> list[str]:
     bag = " ".join(
-        [candidate["title"]]
+        [public_title_for(candidate), primary_query_for(candidate)]
         + candidate.get("core_concepts", [])
         + candidate.get("application_example_candidates", [])
+        + ensure_list(candidate.get("secondary_queries"))
     ).lower()
     tags = ["선형대수학"]
+    tags.append(primary_query_for(candidate))
     normalized_bag = normalize_text(bag)
     for key, pretty in TAG_NORMALIZATION.items():
         if key in normalized_bag:
             tags.append(pretty)
     for concept in candidate.get("core_concepts", [])[:3]:
-        pretty = concept.strip()
+        pretty = localized_title(concept.strip())
         if pretty and pretty not in tags:
             tags.append(pretty)
-    return dedupe_preserve(tags[:6])
+    for query in secondary_queries_for(candidate)[:3]:
+        if query:
+            tags.append(query)
+    return dedupe_preserve(tags[:8])
 
 
 def importance_level(candidate: dict[str, Any]) -> tuple[str, str]:
@@ -1076,6 +1279,20 @@ def applicability_level(candidate: dict[str, Any]) -> tuple[str, str]:
     return "medium", "응용 연결은 가능하지만 개념 구조 자체가 먼저 강조되는 편이다."
 
 
+def searchability_level(candidate: dict[str, Any]) -> tuple[str, str]:
+    title = public_title_for(candidate)
+    slug = public_slug_for(candidate)
+    primary_query = primary_query_for(candidate)
+    secondaries = secondary_queries_for(candidate)
+    if candidate.get("primary_query") or candidate.get("seo_title"):
+        return "high", "주 검색어와 공개 제목이 명시되어 있어 제목, 설명문, 태그를 검색 의도에 맞게 설계하기 쉽다."
+    if is_generic_title(title) or is_generic_slug(slug):
+        return "low", "현재 제목이나 slug가 다소 추상적이어서 검색 의도를 직접 드러내기 어렵다."
+    if primary_query and secondaries:
+        return "high", "핵심 검색어와 보조 검색어를 함께 구성할 수 있어 검색 스니펫과 태그 설계가 수월하다."
+    return "medium", "검색 가능한 개념명은 분명하지만 별도의 검색어 설계 정보가 아직 충분히 구체적이지 않다."
+
+
 def evaluate_candidate(
     candidate: dict[str, Any],
     state: dict[str, Any],
@@ -1087,15 +1304,18 @@ def evaluate_candidate(
     importance, importance_reason = importance_level(candidate)
     independence, independence_reason = independence_level(candidate)
     applicability, applicability_reason = applicability_level(candidate)
+    searchability, searchability_reason = searchability_level(candidate)
     total_score = (
         3 * LEVEL_TO_SCORE[importance]
         + 3 * LEVEL_TO_SCORE[independence]
         + 2 * LEVEL_TO_SCORE[applicability]
+        + 2 * LEVEL_TO_SCORE[searchability]
     )
 
     evaluation: dict[str, Any] = {
         "slug": candidate["slug"],
-        "title": candidate["title"],
+        "title": public_title_for(candidate),
+        "internal_title": candidate["title"],
         "order": int(candidate["order"]),
         "status_before": runtime.get("status", candidate.get("status", "candidate")),
         "importance": {"level": importance, "score": LEVEL_TO_SCORE[importance], "reason": importance_reason},
@@ -1108,6 +1328,11 @@ def evaluate_candidate(
             "level": applicability,
             "score": LEVEL_TO_SCORE[applicability],
             "reason": applicability_reason,
+        },
+        "searchability": {
+            "level": searchability,
+            "score": LEVEL_TO_SCORE[searchability],
+            "reason": searchability_reason,
         },
         "total_score": total_score,
         "eligible": True,
@@ -1165,6 +1390,7 @@ def pick_selected_candidate(
             -item["total_score"],
             -item["importance"]["score"],
             -item["independence"]["score"],
+            -item["searchability"]["score"],
             -item["applicability"]["score"],
             item["order"],
         )
@@ -1176,6 +1402,7 @@ def pick_selected_candidate(
         if item["total_score"] == selected_eval["total_score"]
         and item["importance"]["score"] == selected_eval["importance"]["score"]
         and item["independence"]["score"] == selected_eval["independence"]["score"]
+        and item["searchability"]["score"] == selected_eval["searchability"]["score"]
         and item["applicability"]["score"] == selected_eval["applicability"]["score"]
     ]
     if len(ties) > 1:
@@ -1214,7 +1441,7 @@ def fallback_blueprint(candidate: dict[str, Any]) -> dict[str, Any]:
     return {
         "intro": [
             f"이 글에서는 {candidate['title']}를 독립된 하나의 주제로 다룹니다. 핵심은 {first}과 {second}이 어떤 방식으로 연결되고, 그 연결이 계산과 응용에서 왜 중요한지 분명히 하는 데 있습니다.",
-            "세부 공식보다 먼저 구조를 붙잡고, 이어서 손으로 따라갈 수 있는 작은 계산과 실제 응용 장면을 통해 개념을 굳히겠습니다.",
+            "세부 공식보다 먼저 구조를 붙잡고, 이어서 작은 예제를 직접 전개하며 실제 응용 장면과 연결하겠습니다.",
         ],
         "background": f"본문 이해에 필요한 배경은 글 안에서 다시 설명하겠지만, 중심 질문은 {candidate['representative_theorem']}라는 진술이 왜 자연스럽고 어떤 계산에서 드러나는가에 있다.",
         "definitions": [
@@ -1234,7 +1461,7 @@ def fallback_blueprint(candidate: dict[str, Any]) -> dict[str, Any]:
             f"{first}의 정의를 그대로 전개하면 {second}가 등장하는 이유가 계산 안에서 드러난다. 즉, 임의의 선형결합을 취했을 때 필요한 닫힘성과 동치 조건이 유지된다.",
             f"따라서 문제의 핵심 구조는 좌표 표현을 바꾸어도 유지되고, 그 결과 {candidate['representative_theorem']}가 성립한다. $$\\square$$",
         ],
-        "hand_example_intro": "작은 예제 하나를 손으로 끝까지 따라가면 정의와 정리가 서로 어떻게 맞물리는지 더 선명해집니다.",
+        "hand_example_intro": "작은 예제 하나를 직접 전개해 보면 정의와 정리가 서로 어떻게 맞물리는지 더 선명해집니다.",
         "hand_example_steps": [
             candidate["hand_example"],
             f"이 계산에서 중요한 것은 숫자 자체보다 {first}이(가) 어떤 제약을 만들고, 그 제약이 {second}를 어떻게 결정하는지 읽는 것이다.",
@@ -1303,21 +1530,21 @@ def long_form_blueprint(candidate: dict[str, Any], depth_boost: int = 0) -> dict
     application_examples = candidate.get("application_example_candidates", [])
     leading_application = application_examples[0] if application_examples else candidate["title"]
     secondary_application = application_examples[1] if len(application_examples) > 1 else leading_application
+    public_title = public_title_for(candidate)
     background_requirements = ensure_list(candidate.get("background_requirements"))
     application_focus = ensure_list(candidate.get("application_focus"))
     common_misunderstandings = ensure_list(candidate.get("common_misunderstandings"))
     proof_focus = candidate.get("proof_focus", "").strip()
     secondary_hand_example = candidate.get("secondary_hand_example", "").strip()
-    intro_target = 3 + min(depth_boost, 1)
-    proof_target = 5 + depth_boost
+    intro_target = 4 + min(depth_boost, 1)
     example_step_target = 5 + depth_boost
-    application_target = 3 + min(depth_boost, 1)
+    application_target = 4 + min(depth_boost, 1)
 
     intro = pad_to_minimum(
         ensure_list(seed.get("intro")),
         [
-            f"또한 이 주제는 {leading_application} 같은 응용에서 갑자기 등장하는 계산 규칙이 아니라, {first}과 {second}을(를) 같은 구조로 읽게 해 주는 출발점이기도 합니다.",
-            f"따라서 아래에서는 정의를 적는 데서 멈추지 않고, 정리의 논리 전개와 손계산, 그리고 {secondary_application}으로 이어지는 해석까지 한 번에 묶어 보겠습니다.",
+            f"{public_title}는 {leading_application} 같은 응용에서 갑자기 등장하는 계산 규칙이 아니라, {first}과 {second}을(를) 같은 구조로 읽게 해 주는 출발점이기도 합니다.",
+            f"따라서 아래에서는 정의를 적는 데서 멈추지 않고, 정리의 논리 전개와 간단한 예제, 그리고 {secondary_application}으로 이어지는 해석까지 한 번에 묶어 보겠습니다.",
         ],
         intro_target,
     )
@@ -1350,30 +1577,17 @@ def long_form_blueprint(candidate: dict[str, Any], depth_boost: int = 0) -> dict
         2 + min(depth_boost, 1),
     )
 
-    proof_paragraphs = pad_to_minimum(
-        ensure_list(seed.get("proof")),
-        [
-            proof_focus or f"증명의 핵심은 {first}의 정의를 직접 전개하면서 {second}이(가) 어디에서 필연적으로 나타나는지를 단계별로 확인하는 데 있습니다.",
-            f"첫 단계에서는 가정이 정확히 무엇을 뜻하는지 분해해서 적습니다. 그래야 뒤의 계산이 단순한 조작이 아니라 정의에 근거한 논리 전개라는 점이 분명해집니다.",
-            f"그다음 단계에서는 각 조건이 실제 계산에서 어떤 형태로 쓰이는지 확인합니다. 여기서 {second}은(는) 계산을 줄이는 기술이 아니라 정리의 결론을 가능하게 하는 구조적 장치로 작동합니다.",
-            f"마지막으로 얻은 식을 다시 해석해 보면, 정리의 결론은 우연한 계산 결과가 아니라 {first}과 {third}이(가) 서로 양립해야 한다는 사실의 자연스러운 귀결임을 알 수 있습니다.",
-        ],
-        proof_target,
-    )
+    proof_seed = ensure_list(seed.get("proof"))
+    proof_paragraphs = proof_seed or [
+        proof_focus or f"증명에서는 {first}의 정의를 직접 전개하면서 {second}이(가) 어디에서 필연적으로 나타나는지를 확인합니다. $$\\square$$"
+    ]
 
-    theorem_consequences = pad_to_minimum(
-        ensure_list(seed.get("theorem_consequences")),
-        [
-            f"이 정리를 알고 나면 이후 계산에서 무엇을 보존해야 하는지 분명해집니다. 따라서 문제를 단순화하는 과정과 해를 해석하는 과정이 서로 분리되지 않습니다.",
-            f"또한 이 정리는 뒤에서 {leading_application}이나 {secondary_application}을 다룰 때도 같은 모습으로 다시 나타납니다. 결국 지금 보는 명제는 한 절의 결론이 아니라 이후 여러 주제의 공통 문장입니다.",
-        ],
-        2,
-    )
+    theorem_consequences = ensure_list(seed.get("theorem_consequences"))
 
     hand_example_intro = pad_to_minimum(
         ensure_list(seed.get("hand_example_intro")),
         [
-            f"손계산 예제를 자세히 따라가 보는 이유는, 정리의 각 문장이 실제로 어떤 계산 단계에 대응하는지를 눈으로 확인하기 위해서입니다.",
+            f"작은 예제를 직접 전개해 보는 이유는, 정리의 각 문장이 실제로 어떤 계산 단계에 대응하는지를 눈으로 확인하기 위해서입니다.",
             f"작은 예제라고 해서 중요도가 낮은 것은 아닙니다. 오히려 작은 예제에서는 {first}과 {second}이(가) 서로 어떻게 물리는지가 가장 선명하게 드러납니다.",
         ],
         2,
@@ -1393,7 +1607,7 @@ def long_form_blueprint(candidate: dict[str, Any], depth_boost: int = 0) -> dict
         ensure_list(seed.get("hand_example_takeaways")),
         [
             f"이 예제에서 얻은 결론은 더 큰 문제에서도 그대로 유지됩니다. 규모가 커지면 계산은 길어지지만, 정리의 적용 방식과 해석의 논리는 달라지지 않습니다.",
-            f"그래서 손계산 예제를 제대로 이해하면, 실제 응용 문제를 볼 때도 어떤 단계를 먼저 확인해야 하는지 자연스럽게 감이 잡힙니다.",
+            f"그래서 작은 예제를 직접 전개해 보면, 실제 응용 문제를 볼 때도 어떤 단계를 먼저 확인해야 하는지 자연스럽게 감이 잡힙니다.",
         ],
         2,
     )
@@ -1422,8 +1636,9 @@ def long_form_blueprint(candidate: dict[str, Any], depth_boost: int = 0) -> dict
         [
             f"결국 {candidate['title']}의 핵심은 정의, 정리, 계산, 응용이 따로 놀지 않는다는 데 있습니다. 이 흐름이 잡히면 다음 주제의 새로운 공식들도 훨씬 적은 부담으로 받아들일 수 있습니다.",
             f"이제 다음 단계에서는 지금 확인한 구조를 조금 더 복잡한 문제로 옮겨 가면서, 같은 논리가 어떻게 분해와 근사, 스펙트럼 해석으로 이어지는지 보게 됩니다.",
+            f"따라서 이 글을 읽은 뒤에는 결과만 기억하기보다, 어떤 정의가 어떤 계산과 응용으로 이어졌는지를 한 번 더 연결해 보는 것이 좋습니다.",
         ],
-        2,
+        3,
     )
 
     return {
@@ -1456,21 +1671,38 @@ def automation_meta_block(candidate: dict[str, Any], slot: str) -> str:
         f"primary-source: {PRIMARY_SOURCE_PATH}",
         f"design-doc: {DESIGN_PATH}",
         f"writing-spec: {WRITING_SPEC_PATH}",
+        f"public-title: {public_title_for(candidate)}",
+        f"public-slug: {public_slug_for(candidate)}",
+        f"primary-query: {primary_query_for(candidate)}",
     ]
     lines.extend(f"source-ref: {ref}" for ref in candidate["source_refs"])
     lines.append("-->")
     return "\n".join(lines)
 
 
-def render_front_matter(candidate: dict[str, Any], dt: datetime, tags: list[str], categories: list[str]) -> str:
+def render_front_matter(
+    candidate: dict[str, Any],
+    dt: datetime,
+    tags: list[str],
+    categories: list[str],
+    blueprint: dict[str, Any],
+) -> str:
+    title = public_title_for(candidate)
+    slug = public_slug_for(candidate)
+    description = meta_description_for(candidate)
+    excerpt = excerpt_for(candidate)
+    image = image_for(candidate, blueprint)
     return "\n".join(
         [
             "---",
-            f"title: {yaml_quote(candidate['title'])}",
+            f"title: {yaml_quote(title)}",
             f"date: {format_offset(dt)}",
-            f"slug: {yaml_quote(candidate['slug'])}",
+            f"slug: {yaml_quote(slug)}",
             f"categories: {yaml_inline_list(categories)}",
             f"tags: {yaml_inline_list(tags)}",
+            f"description: {yaml_quote(description)}",
+            f"excerpt: {yaml_quote(excerpt)}",
+            f"image: {yaml_quote(image)}",
             f"author: {yaml_quote(AUTHOR)}",
             "math: true",
             "toc: true",
@@ -1489,11 +1721,16 @@ def render_draft(candidate: dict[str, Any], manifest: dict[str, Any], slot: str,
     blueprint = long_form_blueprint(candidate, depth_boost=depth_boost)
     tags = generate_tags(candidate)
     categories = manifest.get("defaults", {}).get("categories", DEFAULT_CATEGORIES)
+    public_title = public_title_for(candidate)
+    application_paragraphs = blueprint["application"] + [
+        f"여기서 함께 짚어 둘 점은 {point}" if index == 1 else f"또한 {point}"
+        for index, point in enumerate(blueprint["pitfalls"], start=1)
+    ]
     parts: list[str] = [
-        render_front_matter(candidate, now, tags, categories).rstrip(),
+        render_front_matter(candidate, now, tags, categories, blueprint).rstrip(),
         automation_meta_block(candidate, slot),
         "",
-        f"# {candidate['title']}",
+        f"# {public_title}",
         "",
         "\n\n".join(blueprint["intro"]),
         "",
@@ -1508,23 +1745,17 @@ def render_draft(candidate: dict[str, Any], manifest: dict[str, Any], slot: str,
             "핵심 정리와 증명",
             blueprint["theorem_context"]
             + [block_theorem(blueprint["theorem_name"], blueprint["theorem_statement"]), "**증명.** " + blueprint["proof_paragraphs"][0]]
-            + blueprint["proof_paragraphs"][1:]
-            + blueprint["theorem_consequences"],
+            + blueprint["proof_paragraphs"][1:],
         ),
         "",
         render_section(
-            "손으로 따라가는 계산",
+            "간단한 예제로 보는 구조",
             blueprint["hand_example_intro"]
             + [f"{index}. {step}" for index, step in enumerate(blueprint["hand_example_steps"], start=1)]
             + blueprint["hand_example_takeaways"],
         ),
         "",
-        render_section("응용으로 보는 이유", blueprint["application"]),
-        "",
-        render_section(
-            "자주 헷갈리는 점",
-            [f"첫째, {point}" if index == 1 else f"둘째, {point}" if index == 2 else f"또한, {point}" for index, point in enumerate(blueprint["pitfalls"], start=1)],
-        ),
+        render_section("응용에서 다시 나타나는 구조", application_paragraphs),
     ]
 
     if blueprint.get("visual_importance") == "required":
@@ -1544,7 +1775,7 @@ def render_draft(candidate: dict[str, Any], manifest: dict[str, Any], slot: str,
     parts.extend(
         [
             "",
-            render_section("정리하며", blueprint["closing"]),
+            render_section("마무리", blueprint["closing"]),
             "",
             render_section("참고문헌", [f"- {entry}" for entry in bibliography_entries_from_refs(candidate["source_refs"])]),
             "",
@@ -1556,18 +1787,42 @@ def render_draft(candidate: dict[str, Any], manifest: dict[str, Any], slot: str,
 def quality_report(text: str, candidate: dict[str, Any], blueprint: dict[str, Any], manifest: dict[str, Any]) -> dict[str, Any]:
     contract = writing_contract(manifest)
     issues: list[str] = []
+    front = parse_front_matter(text)
+    public_title = public_title_for(candidate)
+    public_slug = public_slug_for(candidate)
+    primary_query = primary_query_for(candidate)
+    secondary_queries = secondary_queries_for(candidate)
     required_checks = {
-        "front_matter_slug": f"slug: {yaml_quote(candidate['slug'])}",
         "theorem_block": "> **정리 1",
         "proof_block": "**증명.**",
-        "hand_example": "## 손으로 따라가는 계산",
-        "application": "## 응용으로 보는 이유",
+        "hand_example": "## 간단한 예제로 보는 구조",
+        "application": "## 응용에서 다시 나타나는 구조",
         "references": "## 참고문헌",
-        "closing": "## 정리하며",
+        "closing": "## 마무리",
     }
     for key, needle in required_checks.items():
         if needle not in text:
             issues.append(key)
+    if any(heading in text for heading in ("## 손으로 따라가는 계산", "## 응용으로 보는 이유", "## 자주 헷갈리는 점", "## 정리하며")):
+        issues.append("legacy_section_headings")
+    if "손계산" in text:
+        issues.append("legacy_hand_calculation_language")
+    if normalize_text(front.get("title", "")) != normalize_text(public_title):
+        issues.append("front_matter_title")
+    if normalize_text(front.get("slug", "")) != normalize_text(public_slug):
+        issues.append("front_matter_slug")
+    if not front.get("description"):
+        issues.append("missing_description")
+    if not front.get("excerpt"):
+        issues.append("missing_excerpt")
+    if not front.get("image"):
+        issues.append("missing_image")
+    if normalize_text(front.get("description", "")) == normalize_text(front.get("title", "")):
+        issues.append("description_repeats_title")
+    if normalize_text(front.get("excerpt", "")) == normalize_text(front.get("title", "")):
+        issues.append("excerpt_repeats_title")
+    if normalize_text(front.get("excerpt", "")) == normalize_text(front.get("description", "")):
+        issues.append("excerpt_repeats_description")
     if count_headings(text) < contract["min_sections"]:
         issues.append("too_few_sections")
     words = count_words(text)
@@ -1583,6 +1838,28 @@ def quality_report(text: str, candidate: dict[str, Any], blueprint: dict[str, An
         issues.append("series_style_language")
     if blueprint.get("visual_importance") == "required" and "## 그림 메모" not in text:
         issues.append("missing_required_figure_placeholder")
+    if is_generic_title(front.get("title", "")):
+        issues.append("weak_seo_title")
+    if is_generic_slug(front.get("slug", "")):
+        issues.append("weak_seo_slug")
+    if not query_in_blocks(text, primary_query):
+        issues.append("missing_primary_query_in_opening")
+    if not query_in_heading(text, primary_query):
+        matched_secondary = any(query_in_heading(text, query) for query in secondary_queries[:3])
+        if not matched_secondary:
+            issues.append("missing_query_in_headings")
+    tag_blob = normalize_text(front.get("tags", ""))
+    search_terms = [primary_query] + secondary_queries[:3]
+    if not any(normalize_text(term) in tag_blob for term in search_terms if term):
+        issues.append("weak_search_tags")
+    if candidate.get("slug") == "inner-products-and-norms":
+        formula_markers = (
+            "\\langle u,v\\rangle=\\langle v,u\\rangle",
+            "\\langle au+bv,w\\rangle",
+            "\\langle v,v\\rangle\\ge0",
+        )
+        if not all(marker in text for marker in formula_markers):
+            issues.append("inner_product_axioms_not_explicit")
     sections = extract_sections(text)
     for title, min_blocks in contract["section_min_blocks"].items():
         body = sections.get(title, "")
@@ -1598,6 +1875,9 @@ def quality_report(text: str, candidate: dict[str, Any], blueprint: dict[str, An
             "characters": characters,
             "blocks": block_total,
             "headings": count_headings(text),
+            "primary_query": primary_query,
+            "public_title": public_title,
+            "public_slug": public_slug,
         },
     }
 
@@ -1683,7 +1963,7 @@ def main() -> int:
         return 0
 
     runtime = runtime_for(state, selected_candidate["slug"])
-    draft_path = target_draft_path(output_dir, selected_candidate["slug"])
+    draft_path = target_draft_path(output_dir, public_slug_for(selected_candidate))
     superseded: list[dict[str, str]] = []
 
     runtime["selected_at"] = now.isoformat()
@@ -1725,7 +2005,7 @@ def main() -> int:
                 "run_at": now.isoformat(),
                 "slot": args.slot,
                 "selected_slug": selected_candidate["slug"],
-                "selected_title": selected_candidate["title"],
+                "selected_title": public_title_for(selected_candidate),
                 "draft_path": str(draft_path),
                 "status": status,
                 "superseded": superseded,
@@ -1737,7 +2017,7 @@ def main() -> int:
     result = {
         "status": status,
         "slug": selected_candidate["slug"],
-        "title": selected_candidate["title"],
+        "title": public_title_for(selected_candidate),
         "draft_path": str(draft_path),
         "superseded": superseded,
         "revision_attempts": attempts,
