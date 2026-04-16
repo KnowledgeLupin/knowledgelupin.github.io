@@ -11,7 +11,7 @@ author: KnowledgeLupin
 # 선형대수학 한국어 교과서 상세 목차 (최종)
 
 ## 연계 문서
-- 집필 스타일 가이드: `2026-02-24-linear-algebra-writing-style-guide.md`
+- 현재 블로그 집필 기준: `2026-04-16-linear-algebra-blog-writing-spec.md`
 - 최종 집필 계획안: `2026-02-25-linear-algebra-final-plan.md`
 
 ## Part I 연립방정식과 행렬

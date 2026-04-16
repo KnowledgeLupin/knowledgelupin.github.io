@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
-"""Generate the next draft in the linear algebra blog series."""
+"""Generate the next independent linear algebra blog draft."""
 
 from __future__ import annotations
 
 import argparse
 import json
+import re
+import shutil
 import sys
+from copy import deepcopy
 from datetime import datetime
 from pathlib import Path
 from typing import Any
@@ -13,770 +16,649 @@ from zoneinfo import ZoneInfo
 
 
 ROOT = Path(__file__).resolve().parents[1]
-MANIFEST_PATH = ROOT / "_reference" / "linear-algebra-series-manifest.yml"
-STATE_PATH = ROOT / "_reference" / ".automation" / "linear-algebra-series-state.json"
+MANIFEST_PATH = ROOT / "_reference" / "linear-algebra-post-manifest.yml"
+STATE_PATH = ROOT / "_reference" / ".automation" / "linear-algebra-post-state.json"
 DEFAULT_OUTPUT_DIR = ROOT / "_drafts"
-STYLE_GUIDE_PATH = ROOT / "_reference" / "2026-02-24-linear-algebra-writing-style-guide.md"
-OPS_DOC_PATH = ROOT / "_reference" / "2026-04-16-linear-algebra-blog-series-ops.md"
+DEFAULT_POSTS_DIR = ROOT / "_posts"
+SUPERSCEDED_DIRNAME = "_superseded"
+DESIGN_PATH = ROOT / "_reference" / "2026-04-16-linear-algebra-independent-post-automation-design.md"
+WRITING_SPEC_PATH = ROOT / "_reference" / "2026-04-16-linear-algebra-blog-writing-spec.md"
 PRIMARY_SOURCE_PATH = Path(
     "/Users/kwkwon/Desktop/Obsidian/Mathematician/_shared/my-library/"
     "2018Olver - Applied Linear Algebra.pdf"
 )
+MASTER_BIB_PATH = Path("/Users/kwkwon/Desktop/Obsidian/Mathematician/_shared/my-library/master.bib")
 SITE_TIMEZONE = ZoneInfo("Europe/Berlin")
 AUTHOR = "KnowledgeLupin"
-CATEGORIES = ["Mathematics", "Linear Algebra"]
+DEFAULT_CATEGORIES = ["Mathematics", "Linear Algebra"]
+DEFAULT_WRITING_CONTRACT = {
+    "min_words": 850,
+    "min_characters": 3200,
+    "min_blocks": 18,
+    "min_sections": 6,
+    "section_min_blocks": {
+        "배경과 기본 정의": 5,
+        "핵심 정리와 증명": 8,
+        "손으로 따라가는 계산": 7,
+        "응용으로 보는 이유": 3,
+        "자주 헷갈리는 점": 2,
+        "정리하며": 2,
+    },
+}
+SEMANTIC_REQUIRED_FIELDS = [
+    "title",
+    "slug",
+    "status",
+    "source_refs",
+    "core_concepts",
+    "representative_theorem",
+    "hand_example",
+    "application_example_candidates",
+    "visual_hint",
+    "overlap_hint",
+]
+OPTIONAL_CANDIDATE_FIELDS = {
+    "background_requirements": [],
+    "proof_focus": "",
+    "secondary_hand_example": "",
+    "application_focus": [],
+    "common_misunderstandings": [],
+}
+ACTIVE_STATUSES = {"selected", "drafting", "draft_ready", "needs_figure", "needs_revision", "review_ready"}
+LEVEL_TO_SCORE = {"low": 0, "medium": 1, "high": 2}
+APPLIED_KEYWORDS = (
+    "데이터",
+    "머신러닝",
+    "회로",
+    "신호",
+    "그래프",
+    "Markov",
+    "PCA",
+    "최소제곱",
+    "근사",
+    "압축",
+    "필터링",
+    "동역학",
+    "에너지",
+)
+ESSENTIAL_IMPORTANCE_SLUGS = {
+    "linear-systems-and-gaussian-elimination",
+    "vector-spaces-and-subspaces",
+    "span-independence-basis-dimension",
+    "kernel-image-rank-nullity",
+    "inner-products-and-norms",
+    "orthogonal-projection-and-least-squares",
+    "gram-schmidt-and-qr-factorization",
+    "eigenvalues-and-the-spectral-theorem",
+    "singular-values-pseudoinverse-and-condition-number",
+    "principal-component-analysis",
+}
+HIGH_INDEPENDENCE_SLUGS = {
+    "scope-and-applications",
+    "linear-systems-and-gaussian-elimination",
+    "inverse-and-determinant-in-computation",
+    "pivoting-and-numerical-stability",
+    "vector-spaces-and-subspaces",
+    "span-independence-basis-dimension",
+    "kernel-image-rank-nullity",
+    "graphs-and-incidence-matrices",
+    "inner-products-and-norms",
+    "orthogonal-projection-and-least-squares",
+    "gram-schmidt-and-qr-factorization",
+    "interpolation-and-approximation",
+    "discrete-fourier-transform-and-fft",
+    "spring-mass-systems-and-energy-minimization",
+    "electrical-networks-and-equilibrium",
+    "principal-component-analysis",
+}
+LOW_INDEPENDENCE_SLUGS = {
+    "power-method-qr-krylov-and-linear-dynamics",
+    "iteration-markov-processes-and-iterative-solvers",
+}
+HIGH_APPLICABILITY_SLUGS = {
+    "scope-and-applications",
+    "linear-systems-and-gaussian-elimination",
+    "pivoting-and-numerical-stability",
+    "graphs-and-incidence-matrices",
+    "orthogonal-projection-and-least-squares",
+    "interpolation-and-approximation",
+    "discrete-fourier-transform-and-fft",
+    "compression-and-denoising",
+    "spring-mass-systems-and-energy-minimization",
+    "electrical-networks-and-equilibrium",
+    "singular-values-pseudoinverse-and-condition-number",
+    "principal-component-analysis",
+    "iteration-markov-processes-and-iterative-solvers",
+    "power-method-qr-krylov-and-linear-dynamics",
+}
+TAG_NORMALIZATION = {
+    "gaussian elimination": "Gaussian elimination",
+    "lu": "LU 분해",
+    "pivoting": "Pivoting",
+    "vector space": "벡터공간",
+    "subspace": "부분공간",
+    "basis": "기저",
+    "dimension": "차원",
+    "kernel": "Kernel",
+    "image": "Image",
+    "rank": "Rank",
+    "nullity": "Nullity",
+    "graph": "그래프",
+    "incidence": "Incidence matrix",
+    "inner product": "Inner product",
+    "norm": "Norm",
+    "cauchy": "Cauchy-Schwarz",
+    "positive definite": "Positive definite matrix",
+    "gram": "Gram matrix",
+    "cholesky": "Cholesky 분해",
+    "projection": "직교사영",
+    "least squares": "Least squares",
+    "gram schmidt": "Gram-Schmidt",
+    "qr": "QR 분해",
+    "fredholm": "Fredholm alternative",
+    "interpolation": "보간",
+    "approximation": "근사",
+    "spline": "Spline",
+    "fourier": "Fourier",
+    "fft": "FFT",
+    "compression": "압축",
+    "denoising": "잡음제거",
+    "spring": "스프링-질량계",
+    "kirchhoff": "Kirchhoff 법칙",
+    "eigenvalue": "고유값",
+    "spectral": "Spectral theorem",
+    "singular value": "특이값",
+    "pseudoinverse": "의사역행렬",
+    "condition": "조건수",
+    "pca": "PCA",
+    "markov": "Markov process",
+    "krylov": "Krylov 방법",
+}
 
 
-TOPIC_SPECS: dict[int, dict[str, Any]] = {
-    1: {
-        "intro": (
-            "선형대수를 단지 행렬 계산의 모음으로 읽으면 뒤로 갈수록 장들의 연결이 약해집니다. "
-            "이 글에서는 선형대수가 어떤 종류의 문제를 다루며, 왜 계산과 구조와 응용을 하나의 언어로 묶는지를 먼저 정리합니다."
-        ),
-        "prereqs": ["고등학교 수준의 일차식과 함수", "행렬과 벡터 표기법", "모형과 근사의 기본 생각"],
-        "key_points": [
+TOPIC_BLUEPRINTS: dict[str, dict[str, Any]] = {
+    "scope-and-applications": {
+        "intro": [
+            "선형대수를 처음 배울 때 가장 먼저 생기는 오해는 이것이 행렬 계산의 기술 목록이라는 생각입니다. 실제로는 그 반대에 가깝습니다. 선형대수는 서로 전혀 달라 보이는 문제를 같은 문법으로 번역해 주는 언어이고, 계산은 그 언어가 실제로 작동한다는 가장 직접적인 증거입니다.",
+            "이 글에서는 선형성이라는 말이 왜 연립일차방정식, 근사, 네트워크, 데이터 요약을 하나의 테이블에 올려놓는지를 정리합니다. 엄밀한 공리를 길게 나열하기보다는, 어떤 구조가 공통으로 반복되는지를 먼저 붙잡은 뒤 그 공통 구조가 수학적으로 무엇을 보장하는지 살펴보겠습니다.",
+        ],
+        "background": "선형성이라는 말은 보통 덧셈과 스칼라배를 보존한다는 뜻입니다. 이 보존 성질 하나 때문에 여러 문제를 좌표화할 수 있고, 좌표화된 문제는 다시 행렬과 벡터의 언어로 다룰 수 있습니다.",
+        "definitions": [
             {
-                "title": "선형대수가 다루는 문제군",
-                "note": "연립방정식, 미분방정식, 데이터 분석, 회로 모형이 모두 선형 결합과 선형 근사의 공통 문법으로 연결된다는 점을 강조합니다.",
+                "title": "선형사상 (linear map)",
+                "body": "벡터공간 사이의 사상 $$T:V\\to W$$가 모든 $$u,v\\in V$$와 스칼라 $$a$$에 대하여 $$T(u+v)=T(u)+T(v)$$, $$T(av)=aT(v)$$를 만족하면 선형사상이라 한다.",
             },
             {
-                "title": "선형성과 근사의 관점",
-                "note": "복잡한 비선형 현상을 직접 다루지 못하더라도 국소 선형화와 반복 계산이 강력한 출발점이 된다는 사실을 설명합니다.",
-            },
-            {
-                "title": "연재 전체의 흐름",
-                "note": "계산에서 시작해 벡터공간, 직교성, 스펙트럼, 동역학으로 나아가는 전체 흐름을 미리 보여 줍니다.",
+                "title": "선형모형",
+                "body": "여러 변수 사이의 관계가 미지수의 선형결합으로 주어지면 그 관계를 선형모형이라 부른다. 좌표를 정하면 이런 관계는 행렬과 벡터의 곱으로 기록된다.",
             },
         ],
-        "cautions": [
-            "선형대수를 단지 연립일차방정식 풀이 기술로 축소하면 이후의 구조 이론이 왜 필요한지 놓치기 쉽습니다.",
-            "응용 사례를 장식적인 예시로만 읽지 말고, 서로 다른 문제들이 어떤 공통 구조를 갖는지 확인해야 합니다.",
+        "theorem_name": "합성과 선형결합의 안정성",
+        "theorem_statement": "선형사상들의 합성과 선형결합은 다시 선형사상이다.",
+        "proof": [
+            "선형사상 $$S,T:V\\to W$$와 스칼라 $$\\alpha,\\beta$$를 잡자. 임의의 $$u,v\\in V$$에 대하여 $$\\alpha S+\\beta T$$를 적용하면",
+            "$$((\\alpha S+\\beta T)(u+v))=\\alpha S(u+v)+\\beta T(u+v)=\\alpha(Su+Sv)+\\beta(Tu+Tv)=((\\alpha S+\\beta T)u)+((\\alpha S+\\beta T)v).$$",
+            "같은 방식으로 $$((\\alpha S+\\beta T)(au))=\\alpha aS(u)+\\beta aT(u)=a((\\alpha S+\\beta T)u)$$이므로 선형결합은 선형이다. 합성 $$R\\circ T$$에 대해서도 $$R(T(u+v))=R(Tu+Tv)=RTu+RTv$$와 $$R(T(au))=R(aTu)=aRTu$$가 성립하므로 선형성이 보존된다. $$\\square$$",
         ],
+        "hand_example_intro": "선형식과 비선형식을 구분하는 가장 빠른 방법은 실제로 선형성 조건을 대입해 보는 것입니다.",
+        "hand_example_steps": [
+            "$$f(x,y)=2x-3y$$에 대하여 $$f((x_1,y_1)+(x_2,y_2))=f(x_1,y_1)+f(x_2,y_2)$$와 $$f(a(x,y))=af(x,y)$$가 그대로 성립한다.",
+            "반면 $$g(x,y)=x^2+y$$는 $$g((x_1,y_1)+(x_2,y_2))$$를 전개하면 교차항 $$2x_1x_2$$가 생기므로 덧셈을 보존하지 않는다.",
+            "이 단순한 계산 하나가 선형대수가 어디까지 유효한 언어이고 어디서부터는 다른 도구가 필요한지를 가르는 출발점이다.",
+        ],
+        "application": [
+            "선형회귀에서는 설명변수와 계수의 관계가 선형이기 때문에 데이터 적합 문제가 행렬식 언어로 바뀐다.",
+            "회로 평형에서는 Kirchhoff 법칙이 전압과 전류의 선형 관계를 만들고, 그래프의 incidence matrix는 이를 압축된 형태로 기록한다.",
+            "그래서 선형대수의 가치는 어떤 한 응용의 공식에 있지 않고, 전혀 다른 응용들이 같은 구조를 공유한다는 사실을 드러내는 데 있다.",
+        ],
+        "pitfalls": [
+            "선형성을 단지 1차식이라는 뜻으로만 이해하면 함수공간이나 행렬공간으로 확장될 때 곧바로 막힌다.",
+            "응용 사례를 모아 놓는다고 해서 자동으로 선형대수가 되는 것은 아니며, 실제로 덧셈과 스칼라배가 보존되는지를 확인해야 한다.",
+        ],
+        "closing": "선형대수의 첫 관문은 공식이 아니라 번역이다. 문제를 선형 구조로 번역할 수 있으면 계산, 분해, 근사, 스펙트럼 해석이 한 흐름으로 연결된다.",
+        "visual_importance": "none",
     },
-    2: {
-        "intro": (
-            "선형대수의 첫 번째 작업은 연립일차방정식을 체계적으로 푸는 것입니다. "
-            "이 글에서는 Gaussian elimination이 해집합을 보존하면서 문제를 어떻게 단순한 형태로 바꾸는지 단계별로 정리합니다."
-        ),
-        "prereqs": ["행렬의 기본 표기", "연립일차방정식의 해 개념", "덧셈과 스칼라배의 기초"],
-        "key_points": [
+    "linear-systems-and-gaussian-elimination": {
+        "intro": [
+            "연립일차방정식은 선형대수가 행렬로 출발하는 이유를 가장 잘 보여 줍니다. 미지수가 여러 개여도 중요한 것은 각 방정식이 어떤 평면이나 초평면을 나타내는지, 그리고 그 교집합을 해집합으로 읽을 수 있는지입니다.",
+            "Gaussian elimination의 핵심은 복잡한 식을 억지로 외워 푸는 데 있지 않습니다. 해를 바꾸지 않는 동치 변형만 허용하면서 문제를 점점 읽기 쉬운 형태로 바꾸는 데 있습니다. 그래서 이 절차를 이해하면 나중의 LU 분해, rank, least squares까지 한 번에 이어집니다.",
+        ],
+        "background": "증강행렬은 방정식의 계수와 우변을 한 표에 모아 적는 장치입니다. 이렇게 적으면 행연산이 해집합을 바꾸는지 아닌지를 식 전체 대신 행 단위로 추적할 수 있습니다.",
+        "definitions": [
             {
-                "title": "증강행렬과 기본 행연산",
-                "note": "방정식 자체 대신 증강행렬을 다루면 계산 절차와 해집합 보존 원리를 한눈에 볼 수 있습니다.",
+                "title": "증강행렬 (augmented matrix)",
+                "body": "연립일차방정식 $$A x=b$$의 계수행렬 $$A$$와 우변 $$b$$를 옆에 붙여 적은 행렬 $$[A\\mid b]$$를 증강행렬이라 한다.",
             },
             {
-                "title": "피벗과 자유변수",
-                "note": "사다리꼴 형태에서 어떤 열이 선도변수를 결정하고 어떤 열이 자유도를 남기는지 분명히 설명합니다.",
-            },
-            {
-                "title": "소거 알고리듬의 논리",
-                "note": "앞에서부터 미지수를 제거해 뒤쪽의 triangular structure를 얻는 것이 왜 효율적인지 강조합니다.",
+                "title": "기본 행연산",
+                "body": "두 행을 교환하는 연산, 한 행에 0이 아닌 상수를 곱하는 연산, 한 행에 다른 행의 상수배를 더하는 연산을 기본 행연산이라 한다.",
             },
         ],
-        "cautions": [
-            "행연산을 기계적으로 적용하기 전에 각 연산이 해집합을 보존하는 이유를 먼저 확인해야 합니다.",
-            "기약행 사다리꼴만을 목표로 잡으면 실제 계산에서는 불필요하게 많은 연산을 하게 될 수 있습니다.",
+        "theorem_name": "기본 행연산과 해집합",
+        "theorem_statement": "증강행렬에 가한 세 가지 기본 행연산은 대응하는 연립일차방정식의 해집합을 보존한다.",
+        "proof": [
+            "행 교환은 방정식의 순서만 바꾸는 것이므로 어떤 벡터가 한 시스템의 해이면 다른 시스템의 해이기도 하다.",
+            "한 행에 0이 아닌 상수 $$c$$를 곱하는 것은 등식 $$r=0$$를 동치인 등식 $$cr=0$$로 바꾸는 것과 같다. 따라서 해집합은 변하지 않는다.",
+            "한 행에 다른 행의 상수배를 더하는 경우를 보자. 어떤 벡터가 원래 시스템의 해이면 두 등식을 각각 만족하므로 그 선형결합도 만족한다. 반대로 바뀐 시스템의 해는 추가된 행과 원래 남겨둔 행을 이용해 이전 행을 복원할 수 있으므로 원래 시스템의 해이기도 하다. 세 연산 모두 양방향 동치 변형이므로 해집합이 보존된다. $$\\square$$",
         ],
+        "hand_example_intro": "직접 한 번 소거를 해 보면 피벗, 자유변수, 해의 개수가 한꺼번에 읽힙니다.",
+        "hand_example_steps": [
+            "$$\\begin{aligned}x+y+z&=2\\\\ 2x+y-z&=1\\\\ x+2y+3z&=5\\end{aligned}$$를 증강행렬로 쓰면 $$\\left[\\begin{array}{ccc|c}1&1&1&2\\\\2&1&-1&1\\\\1&2&3&5\\end{array}\\right]$$가 된다.",
+            "둘째 행에서 첫째 행의 두 배를 빼고, 셋째 행에서 첫째 행을 빼면 $$\\left[\\begin{array}{ccc|c}1&1&1&2\\\\0&-1&-3&-3\\\\0&1&2&3\\end{array}\\right]$$를 얻는다.",
+            "다시 셋째 행과 둘째 행을 더하면 $$\\left[\\begin{array}{ccc|c}1&1&1&2\\\\0&-1&-3&-3\\\\0&0&-1&0\\end{array}\\right]$$이고, 여기서 바로 $$z=0$$, $$y=3$$, $$x=-1$$을 읽을 수 있다. 피벗이 세 개이므로 자유변수는 없다.",
+        ],
+        "application": [
+            "회로의 전압과 전류, 질점계의 평형식, 마르코프 체인의 정상 상태 계산은 모두 결국 선형계로 정리된다.",
+            "실제 데이터 적합 문제에서도 정규방정식을 세우는 순간 다시 선형계가 나온다. 따라서 Gaussian elimination은 단지 1장 내용이 아니라 선형대수 전체의 기본 계산 도구다.",
+        ],
+        "pitfalls": [
+            "소거 결과만 읽고 각 행연산이 왜 동치 변형인지 잊어버리면, rank와 nullity를 배울 때 해석의 토대를 잃기 쉽다.",
+            "기약행 사다리꼴만이 정답이라고 생각하면 실제 계산에서 불필요한 연산을 많이 하게 된다. 해를 읽는 데 필요한 최소한의 형태가 무엇인지 보는 편이 중요하다.",
+        ],
+        "closing": "Gaussian elimination은 문제를 더 간단한 동치 문제로 바꾸는 과정이다. 이 구조를 이해하면 뒤에서 LU 분해가 왜 자연스럽게 나오는지도 바로 보인다.",
+        "visual_importance": "none",
     },
-    3: {
-        "intro": (
-            "소거법은 단순히 미지수를 없애는 계산이 아니라 행렬을 곱의 형태로 분해하는 과정이기도 합니다. "
-            "이 글에서는 소거법과 `LU` 분해, 그리고 전진/후진 대입이 하나의 계산 구조라는 점을 정리합니다."
-        ),
-        "prereqs": ["Gaussian elimination의 기본 절차", "삼각행렬의 형태", "행렬곱의 의미"],
-        "key_points": [
+    "pivoting-and-numerical-stability": {
+        "intro": [
+            "종이에 적는 계산과 컴퓨터가 실제로 수행하는 계산은 다릅니다. 종이 위에서는 동치인 알고리듬이 부동소수점 환경에서는 전혀 다른 오차를 만들 수 있고, pivoting은 그 차이를 가장 먼저 보여 주는 장면입니다.",
+            "수치적 안정성이라는 말은 답을 '대충' 얻는다는 뜻이 아닙니다. 입력의 작은 오차와 반올림 오차가 출력에서 통제 가능한 범위 안에 머무는지를 묻는 말입니다.",
+        ],
+        "background": "피벗은 소거 단계에서 나눗셈의 기준이 되는 원소입니다. 아주 작은 피벗을 나누기에 사용하면 상대오차가 크게 증폭될 수 있고, 행 교환은 이 문제를 줄이기 위한 가장 기본적인 처방입니다.",
+        "definitions": [
             {
-                "title": "소거와 인수분해의 대응",
-                "note": "소거 단계마다 누적되는 계수를 lower triangular matrix에 모으면 `LU` 분해가 자연스럽게 드러납니다.",
+                "title": "pivot",
+                "body": "사다리꼴을 만드는 각 단계에서 해당 열의 소거 기준이 되는 원소를 pivot이라 한다.",
             },
             {
-                "title": "전진/후진 대입의 역할",
-                "note": "분해 이후에는 두 개의 단순한 triangular system을 순서대로 푸는 문제로 바뀐다는 점을 설명합니다.",
-            },
-            {
-                "title": "반복 사용에서의 이점",
-                "note": "같은 계수행렬에 대해 여러 우변을 처리할 때 분해를 한 번만 계산하는 것이 얼마나 큰 이점인지 보여 줍니다.",
+                "title": "partial pivoting",
+                "body": "현재 열에서 절댓값이 큰 원소를 피벗으로 택하도록 행을 교환하는 절차를 partial pivoting이라 한다.",
             },
         ],
-        "cautions": [
-            "`LU` 분해는 항상 가능한 것이 아니며 피벗 선택 조건을 점검해야 합니다.",
-            "분해 공식을 외우는 것보다 소거 단계가 어떤 방식으로 `L`과 `U`에 기록되는지 이해하는 편이 중요합니다.",
+        "theorem_name": "작은 피벗의 위험",
+        "theorem_statement": "소거 과정에서 아주 작은 pivot을 그대로 사용하면 반올림 오차가 크게 증폭될 수 있으며, 행 교환은 그 위험을 줄인다.",
+        "proof": [
+            "$$\\begin{bmatrix}\\varepsilon &1\\\\1&1\\end{bmatrix}$$처럼 $$0<\\varepsilon\\ll1$$인 경우를 생각하자. 첫 번째 피벗을 $$\\varepsilon$$로 두고 둘째 행에서 $$\\varepsilon^{-1}$$배를 쓰면 계수의 크기가 급격히 커진다.",
+            "유한 정밀도에서는 큰 수와 비슷한 큰 수를 빼는 과정에서 유효숫자가 급격히 손실된다. 따라서 해 자체는 존재해도 계산된 삼각행렬이 원래 문제를 제대로 대표하지 못할 수 있다.",
+            "반대로 행을 교환해 1을 피벗으로 잡으면 소거 계수의 크기가 제한되고, 같은 반올림 환경에서도 훨씬 안정적으로 계산된다. 따라서 pivoting은 단순한 편의가 아니라 오차 제어 장치다. $$\\square$$",
         ],
+        "hand_example_intro": "숫자가 작은 2x2 예제만으로도 작은 피벗이 얼마나 위험한지 보입니다.",
+        "hand_example_steps": [
+            "$$\\varepsilon=10^{-6}$$라고 두고 $$\\begin{aligned}10^{-6}x+y&=1\\\\ x+y&=2\\end{aligned}$$를 생각하자.",
+            "행 교환 없이 소거하면 둘째 행에서 첫째 행의 $$10^6$$배를 빼야 하므로 중간 계수가 매우 커진다.",
+            "행을 바꾸면 피벗이 1이 되고, 이후 소거 계수는 $$10^{-6}$$ 수준에 머문다. 실제 구현에서는 이런 차이가 결과 정확도를 좌우한다.",
+        ],
+        "application": [
+            "큰 선형계를 푸는 과학 계산, 최적화, 미분방정식 시간 적분에서는 소거가 내부적으로 계속 나타난다.",
+            "그래서 pivoting을 이해하는 것은 수치선형대수를 따로 배울 때까지 미루는 주제가 아니라, '왜 같은 공식인데 구현 결과가 다른가'를 설명하는 핵심 배경이다.",
+        ],
+        "pitfalls": [
+            "안정성을 단순히 계산이 끝난다는 뜻으로 이해하면 안 된다. 중요한 것은 작은 입력 오차와 반올림 오차가 얼마나 증폭되는가이다.",
+            "행 교환이 해를 바꾼다고 오해하는 경우가 있다. 해를 바꾸는 것이 아니라 표현을 더 안전한 동치 형태로 바꾸는 것이다.",
+        ],
+        "closing": "소거법은 대수적으로만 보면 끝난 이야기 같지만, 실제 계산에서는 어떤 피벗을 고르느냐가 결과의 신뢰도를 결정한다.",
+        "visual_importance": "none",
     },
-    4: {
-        "intro": (
-            "역행렬과 행렬식은 선형대수에서 매우 상징적인 대상이지만, 실제 계산의 주인공은 아닙니다. "
-            "이 글에서는 왜 이 두 개념이 중요하면서도 직접 계산의 중심에 놓이지 않는지 설명합니다."
-        ),
-        "prereqs": ["행렬곱과 항등행렬", "Gaussian elimination의 기본 아이디어", "정사각행렬의 기초"],
-        "key_points": [
+    "vector-spaces-and-subspaces": {
+        "intro": [
+            "벡터공간을 처음 만나면 공리가 너무 많아 보입니다. 그러나 실제로는 '덧셈과 스칼라배를 해도 같은 세계 안에 남는다'는 한 가지 감각을 정교하게 적어 놓은 것에 가깝습니다.",
+            "부분공간은 선형대수 전체에서 반복해서 등장하는 무대입니다. 해집합, kernel, image, 고유공간, 직교여공간이 모두 부분공간이기 때문에 이 개념을 정확히 잡는 일이 가장 먼저 필요합니다.",
+        ],
+        "background": "벡터공간은 숫자 쌍만이 아니라 다항식, 함수, 행렬의 집합에도 나타납니다. 그래서 그림에만 기대기보다 공리가 무엇을 보장하는지를 보는 편이 중요합니다.",
+        "definitions": [
             {
-                "title": "역행렬의 이론적 의미",
-                "note": "가역성, 해의 유일성, 선형사상의 동형성 같은 구조적 의미를 통해 역행렬의 중요성을 설명합니다.",
+                "title": "벡터공간 (vector space)",
+                "body": "체 $$K$$ 위의 집합 $$V$$가 벡터 덧셈과 스칼라배에 대해 공리를 만족하면 $$V$$를 $$K$$ 위의 벡터공간이라 한다.",
             },
             {
-                "title": "행렬식의 판정 도구 역할",
-                "note": "행렬식은 면적·부피의 스케일과 가역성 판정에 유용하지만 실제 해법으로 직접 쓰기에는 비효율적입니다.",
-            },
-            {
-                "title": "계산 비용의 관점",
-                "note": "역행렬 전체를 구하는 것보다 필요한 선형계를 직접 푸는 편이 훨씬 경제적이라는 점을 비교합니다.",
+                "title": "부분공간 (subspace)",
+                "body": "벡터공간 $$V$$의 부분집합 $$W$$가 영벡터를 포함하고 덧셈과 스칼라배에 대해 닫혀 있으면 $$W$$를 $$V$$의 부분공간이라 한다.",
             },
         ],
-        "cautions": [
-            "`A^{-1}b`라는 공식이 있다고 해서 언제나 먼저 역행렬을 계산해야 한다고 생각하면 안 됩니다.",
-            "행렬식을 0이냐 아니냐의 판정 도구로만 쓰고 끝내면 그 기하학적 의미를 놓치기 쉽습니다.",
+        "theorem_name": "부분공간의 교집합",
+        "theorem_statement": "벡터공간 $$V$$의 임의의 부분공간족의 교집합은 다시 $$V$$의 부분공간이다.",
+        "proof": [
+            "부분공간족을 $$\\{W_i\\}_{i\\in I}$$라 하고 $$W=\\bigcap_{i\\in I}W_i$$라 두자. 각 $$W_i$$는 영벡터를 포함하므로 $$0\\in W$$이다.",
+            "이제 $$u,v\\in W$$이면 모든 $$i$$에 대하여 $$u,v\\in W_i$$이고, 각 $$W_i$$가 부분공간이므로 $$u+v\\in W_i$$이다. 따라서 $$u+v\\in W$$이다.",
+            "같은 방식으로 임의의 스칼라 $$a$$와 $$u\\in W$$에 대해 모든 $$i$$에 대하여 $$au\\in W_i$$이므로 $$au\\in W$$이다. 세 조건이 모두 성립하므로 $$W$$는 부분공간이다. $$\\square$$",
         ],
+        "hand_example_intro": "부분공간 판정은 공리를 전부 다시 쓰는 일이 아니라 세 조건을 차례로 확인하는 일입니다.",
+        "hand_example_steps": [
+            "$$W=\\{(x,y,z)\\in\\mathbb R^3\\mid x+y+z=0\\}$$를 보자. $$0+0+0=0$$이므로 영벡터가 들어 있다.",
+            "$$u=(x_1,y_1,z_1), v=(x_2,y_2,z_2)\\in W$$이면 $$(x_1+x_2)+(y_1+y_2)+(z_1+z_2)=0$$이므로 $$u+v\\in W$$다.",
+            "또 $$a\\in\\mathbb R$$에 대해 $$a(x+y+z)=0$$이므로 $$au\\in W$$다. 따라서 $$W$$는 부분공간이다.",
+        ],
+        "application": [
+            "동차 연립방정식의 해집합이 부분공간이라는 사실은 이후 kernel을 정의할 때 바로 쓰인다.",
+            "다항식 공간이나 함수공간을 벡터공간으로 보는 순간, 선형대수는 유한차원 그림을 넘어서 훨씬 넓은 문제를 다루는 언어가 된다.",
+        ],
+        "pitfalls": [
+            "덧셈 닫힘만 보고 부분공간이라고 결론 내리면 안 된다. 영벡터 포함과 스칼라배 닫힘도 반드시 확인해야 한다.",
+            "벡터를 화살표 그림으로만 이해하면 다항식이나 함수가 벡터가 되는 순간 개념이 흔들린다.",
+        ],
+        "closing": "부분공간은 선형대수에서 계속 반복해 등장하는 '좋은 부분세계'다. 이후의 kernel, image, 직교여공간, 고유공간은 모두 이 언어로 정리된다.",
+        "visual_importance": "none",
     },
-    5: {
-        "intro": (
-            "실제 계산에서는 정확한 대수 공식보다 반올림 오차에 얼마나 버티는지가 더 중요할 때가 많습니다. "
-            "이 글에서는 pivoting이 왜 필요한지, 그리고 수치적 안정성이라는 말이 무엇을 뜻하는지 설명합니다."
-        ),
-        "prereqs": ["Gaussian elimination", "부동소수점 오차의 직관", "절댓값과 상대오차의 기본 개념"],
-        "key_points": [
+    "span-independence-basis-dimension": {
+        "intro": [
+            "기저와 차원은 벡터공간의 자유도를 가장 압축된 방식으로 적는 언어입니다. 생성은 충분함을, 선형독립은 중복 없음 을 뜻하고, 기저는 이 둘이 정확히 만나는 자리입니다.",
+            "그래서 기저를 배운다는 것은 좌표를 고르는 법을 배우는 것과 같습니다. 한 번 좌표가 정해지면 계산은 쉬워지고, 좌표가 달라도 변하지 않는 양으로 차원이 나타납니다.",
+        ],
+        "background": "생성집합은 모든 벡터를 만들 수 있을 만큼 커야 하고, 선형독립집합은 불필요한 중복이 없어야 합니다. 기저는 이 두 요구를 동시에 만족하는 최소의 좌표축입니다.",
+        "definitions": [
             {
-                "title": "pivoting의 기본 아이디어",
-                "note": "작은 피벗을 피하고 계산 중 계수의 폭주를 줄이기 위해 행 또는 열을 재배열하는 이유를 설명합니다.",
+                "title": "생성 (span)",
+                "body": "집합 $$S\\subset V$$의 모든 유한 선형결합으로 얻어지는 벡터들의 집합을 $$\\operatorname{span}(S)$$라 한다.",
             },
             {
-                "title": "round-off error의 증폭",
-                "note": "정확한 공식이라도 유한 정밀도 환경에서는 오차가 누적되고 증폭될 수 있다는 점을 구체적으로 짚습니다.",
-            },
-            {
-                "title": "practical linear algebra의 시선",
-                "note": "이론적으로는 같은 해를 주는 알고리듬도 실제 계산 환경에서는 전혀 다른 품질을 낼 수 있음을 강조합니다.",
+                "title": "기저 (basis)",
+                "body": "집합 $$B\\subset V$$가 $$V$$를 생성하고 동시에 선형독립이면 $$B$$를 $$V$$의 기저라 한다.",
             },
         ],
-        "cautions": [
-            "수치적 안정성은 단순히 계산이 끝난다는 뜻이 아니라 오차가 통제 가능한 범위에 머무른다는 뜻입니다.",
-            "pivoting을 예외적인 보정 절차로 보면 안 되고, 실제 구현에서는 기본 선택지로 보는 편이 자연스럽습니다.",
+        "theorem_name": "기저의 원소 수",
+        "theorem_statement": "유한차원 벡터공간의 임의의 두 기저는 같은 수의 원소를 가진다.",
+        "proof": [
+            "하나의 기저를 $$B=\\{v_1,\\dots,v_n\\}$$, 다른 기저를 $$C=\\{w_1,\\dots,w_m\\}$$라 하자. $$B$$는 생성집합이고 $$C$$는 선형독립이므로 교체정리에 의해 $$m\\le n$$이다.",
+            "같은 논리를 반대로 적용하면 $$C$$는 생성집합이고 $$B$$는 선형독립이므로 $$n\\le m$$이다.",
+            "따라서 $$m=n$$이다. 즉 기저 선택이 달라도 원소 수는 같고, 이 공통의 수를 차원이라 부른다. $$\\square$$",
         ],
+        "hand_example_intro": "생성집합에서 중복을 지워 기저를 만드는 과정은 차원의 의미를 가장 직접적으로 보여 줍니다.",
+        "hand_example_steps": [
+            "$$\\mathbb R^3$$에서 $$v_1=(1,0,0), v_2=(0,1,0), v_3=(1,1,0), v_4=(0,0,1)$$을 보자.",
+            "$$v_3=v_1+v_2$$이므로 $$\\{v_1,v_2,v_3,v_4\\}$$는 생성집합이지만 선형독립은 아니다.",
+            "$$v_3$$를 빼도 나머지 세 벡터는 여전히 $$\\mathbb R^3$$를 생성하고 선형독립이므로 기저가 된다. 여기서 차원이 3이라는 사실이 다시 드러난다.",
+        ],
+        "application": [
+            "데이터 표현에서는 기저를 바꾸는 일이 곧 좌표계를 바꾸는 일이다. 좋은 기저를 고르면 표현이 압축되거나 계산이 단순해진다.",
+            "함수 근사나 신호 처리에서도 결국 어떤 기저를 쓰느냐가 해석과 계산의 품질을 좌우한다.",
+        ],
+        "pitfalls": [
+            "생성과 선형독립을 서로 완전히 반대되는 성질이라고만 생각하면 기저의 의미를 놓치기 쉽다. 기저는 두 성질의 균형점이다.",
+            "차원을 단지 벡터의 길이나 좌표 수로 이해하면 함수공간이나 추상 벡터공간으로 갈 때 바로 무너진다.",
+        ],
+        "closing": "기저는 좌표의 출발점이고, 차원은 좌표를 바꾸어도 변하지 않는 자유도의 수다. 선형대수의 많은 정리는 결국 이 두 문장을 다양한 방식으로 다시 쓰는 일이다.",
+        "visual_importance": "none",
     },
-    6: {
-        "intro": (
-            "벡터공간과 부분공간은 선형대수 전체의 문법을 정하는 가장 기본적인 개념입니다. "
-            "이 글에서는 공리의 나열을 넘어서, 어떤 집합이 왜 선형적이라고 불릴 수 있는지 설명합니다."
-        ),
-        "prereqs": ["집합과 함수의 기본 개념", "실수벡터의 표기", "덧셈과 스칼라배의 연산 규칙"],
-        "key_points": [
+    "kernel-image-rank-nullity": {
+        "intro": [
+            "선형사상을 이해하는 가장 빠른 방법은 '무엇이 0으로 가는가'와 '어디까지 도달할 수 있는가'를 동시에 보는 것입니다. kernel과 image는 바로 이 두 질문에 대한 답입니다.",
+            "rank-nullity 정리는 입력 차원이 해의 자유도와 도달 가능한 출력의 차원으로 분해된다는 사실을 말합니다. 그래서 이 정리는 단순한 공식이 아니라 선형사상의 해석도입니다.",
+        ],
+        "background": "행렬로 보면 kernel은 동차방정식 $$Ax=0$$의 해공간이고, image는 열벡터들의 생성공간입니다. 선형사상의 언어로 보면 둘 다 좌표계에 의존하지 않는 부분공간입니다.",
+        "definitions": [
             {
-                "title": "벡터공간 공리의 역할",
-                "note": "공리는 계산이 가능한 최소 문법을 고정해 주며 이후 모든 정리의 출발점이 됩니다.",
+                "title": "kernel",
+                "body": "선형사상 $$T:V\\to W$$에 대하여 $$\\ker T=\\{v\\in V\\mid T(v)=0\\}$$를 $$T$$의 kernel이라 한다.",
             },
             {
-                "title": "부분공간 판정 기준",
-                "note": "영벡터 포함, 덧셈 닫힘, 스칼라배 닫힘이라는 세 조건이 실제 판정에서 어떻게 쓰이는지 정리합니다.",
-            },
-            {
-                "title": "대표 예시의 폭",
-                "note": "유클리드 공간뿐 아니라 다항식 공간과 함수공간까지 함께 보아야 개념의 추상성이 살아납니다.",
+                "title": "image",
+                "body": "선형사상 $$T:V\\to W$$에 대하여 $$\\operatorname{im}T=\\{T(v)\\mid v\\in V\\}$$를 $$T$$의 image라 한다.",
             },
         ],
-        "cautions": [
-            "부분공간 여부를 볼 때 닫힘성만 확인하고 영벡터 포함 여부를 빠뜨리는 실수가 자주 생깁니다.",
-            "벡터를 화살표 그림으로만 이해하면 함수공간이나 행렬공간으로 자연스럽게 확장하기 어렵습니다.",
+        "theorem_name": "rank-nullity",
+        "theorem_statement": "유한차원 벡터공간 $$V$$와 선형사상 $$T:V\\to W$$에 대하여 $$\\dim V=\\dim\\ker T+\\dim\\operatorname{im}T$$가 성립한다.",
+        "proof": [
+            "$$\\ker T$$의 기저를 $$\\{u_1,\\dots,u_k\\}$$라 하고 이를 $$V$$의 기저 $$\\{u_1,\\dots,u_k,v_1,\\dots,v_r\\}$$로 확장하자. 그러면 $$k=\\dim\\ker T$$이고 $$k+r=\\dim V$$이다.",
+            "이제 $$\\{Tv_1,\\dots,Tv_r\\}$$가 $$\\operatorname{im}T$$의 기저임을 보이면 된다. 먼저 임의의 $$x\\in V$$는 위 기저로 전개되므로 $$Tx$$는 $$Tv_j$$들의 선형결합이다. 따라서 $$Tv_j$$들은 image를 생성한다.",
+            "또 $$\\sum c_jTv_j=0$$이면 $$T(\\sum c_jv_j)=0$$이므로 $$\\sum c_jv_j\\in\\ker T$$이다. 그런데 $$u_i,v_j$$ 전체가 기저이므로 $$v_j$$ 부분의 계수는 모두 0이어야 한다. 따라서 $$Tv_j$$들은 선형독립이다. 결국 $$\\dim\\operatorname{im}T=r$$이고 $$\\dim V=k+r=\\dim\\ker T+\\dim\\operatorname{im}T$$가 된다. $$\\square$$",
         ],
+        "hand_example_intro": "작은 행렬 하나만으로 kernel과 image, 그리고 차원 공식을 모두 확인할 수 있습니다.",
+        "hand_example_steps": [
+            "$$A=\\begin{bmatrix}1&2&0\\\\0&0&1\\end{bmatrix}$$를 보자. $$Ax=0$$을 풀면 $$x_1=-2x_2, x_3=0$$이므로 kernel은 $$(-2,1,0)$$ 하나로 생성되고 nullity는 1이다.",
+            "image는 열벡터 $$ (1,0)^T, (2,0)^T, (0,1)^T$$의 생성공간이다. 첫째와 셋째 열이 독립이므로 rank는 2다.",
+            "입력 차원은 3이고 $$3=1+2$$이므로 rank-nullity 정리가 정확히 맞아떨어진다.",
+        ],
+        "application": [
+            "선형 회귀에서는 설계행렬의 kernel이 계수의 비식별성을 드러내고, image는 실제로 설명 가능한 출력의 공간을 뜻한다.",
+            "미분방정식의 선형화나 제약 최적화에서도 '허용되는 방향'과 '관측 가능한 출력'을 구분하는 언어로 kernel과 image가 반복해서 등장한다.",
+        ],
+        "pitfalls": [
+            "kernel을 단지 해공간이라고만 외우면 선형사상의 구조를 놓친다. kernel은 정보가 사라지는 방향 전체를 모아 놓은 부분공간이다.",
+            "rank-nullity를 공식처럼만 기억하면 왜 자유변수의 수가 nullity와 같은지, 왜 열공간의 차원이 rank인지 연결이 약해진다.",
+        ],
+        "closing": "rank-nullity 정리는 입력 자유도가 어디로 사라지고 어디에 남는지를 보여 주는 균형식이다. 해석과 계산이 한 줄에 만나는 대표적인 정리다.",
+        "visual_importance": "none",
     },
-    7: {
-        "intro": (
-            "기저와 차원은 벡터공간의 자유도를 가장 압축된 방식으로 기록하는 언어입니다. "
-            "이 글에서는 생성과 선형독립이 어떻게 만나 기저를 이루고, 차원이 왜 구조적 불변량이 되는지 정리합니다."
-        ),
-        "prereqs": ["벡터공간과 부분공간", "유한 집합의 기초", "행렬의 열벡터 관점"],
-        "key_points": [
+    "inner-products-and-norms": {
+        "intro": [
+            "벡터공간만으로는 방향을 더하고 스칼라배할 수 있을 뿐, 길이나 각도를 말할 수는 없습니다. 내적은 바로 그 기하학을 다시 불러오는 장치입니다.",
+            "이 장에서 중요한 것은 단순히 점곱의 공식을 외우는 일이 아닙니다. 길이, 거리, 유사도, 직교성 같은 익숙한 개념이 추상 공간으로 어떻게 확장되는지를 보는 일입니다.",
+        ],
+        "background": "내적은 두 벡터를 수 하나로 보내면서 대칭성, 선형성, 양의 성질을 만족하는 함수입니다. 이 세 조건이 있으면 길이와 거리뿐 아니라 최소화와 투영까지 한꺼번에 정리됩니다.",
+        "definitions": [
             {
-                "title": "span과 선형독립의 긴장",
-                "note": "많이 생성하려면 중복이 생기기 쉽고, 중복을 없애면 생성력이 약해지기 쉬운 두 요구가 기저에서 균형을 이룹니다.",
+                "title": "내적 (inner product)",
+                "body": "벡터공간 $$V$$ 위의 함수 $$\\langle\\cdot,\\cdot\\rangle:V\\times V\\to\\mathbb R$$가 대칭성, 각 변수에 대한 선형성, 양의 정부호성을 만족하면 inner product라 한다.",
             },
             {
-                "title": "기저의 존재와 교체 원리",
-                "note": "기저는 우연한 예시가 아니라 벡터공간의 핵심 구조이며, 교체 정리는 그 안정성을 보여 줍니다.",
-            },
-            {
-                "title": "차원의 불변성",
-                "note": "기저 선택이 달라져도 기저의 원소 수는 같다는 사실이 차원을 구조적 수치로 만들어 줍니다.",
+                "title": "노름 (norm)",
+                "body": "내적이 주어졌을 때 $$\\|v\\|=\\sqrt{\\langle v,v\\rangle}$$로 정의한 함수를 그 내적이 유도하는 norm이라 한다.",
             },
         ],
-        "cautions": [
-            "생성과 선형독립을 서로 반대되는 성질로만 보면 기저의 의미를 놓치기 쉽습니다.",
-            "차원을 단지 원소의 개수처럼 오해하면 무한차원 공간이나 함수공간을 이해하기 어려워집니다.",
+        "theorem_name": "내적이 유도하는 노름",
+        "theorem_statement": "내적 $$\\langle\\cdot,\\cdot\\rangle$$가 주어지면 $$\\|v\\|=\\sqrt{\\langle v,v\\rangle}$$는 노름이 된다.",
+        "proof": [
+            "양의 정부호성에 의해 $$\\langle v,v\\rangle\\ge0$$이고, $$\\langle v,v\\rangle=0$$이면 $$v=0$$이므로 노름의 비음수성과 영벡터 판정이 성립한다.",
+            "스칼라 $$a$$에 대해 $$\\|av\\|^2=\\langle av,av\\rangle=a^2\\langle v,v\\rangle$$이므로 $$\\|av\\|=|a|\\|v\\|$$이다.",
+            "삼각부등식은 Cauchy-Schwarz를 쓰면 된다. 실제로 $$\\|u+v\\|^2=\\|u\\|^2+2\\langle u,v\\rangle+\\|v\\|^2\\le \\|u\\|^2+2\\|u\\|\\|v\\|+\\|v\\|^2=(\\|u\\|+\\|v\\|)^2$$이므로 $$\\|u+v\\|\\le\\|u\\|+\\|v\\|$$이다. 따라서 노름 공리가 모두 성립한다. $$\\square$$",
         ],
+        "hand_example_intro": "좌표공간과 다항식 공간을 함께 보면 내적의 추상성이 훨씬 자연스럽게 읽힙니다.",
+        "hand_example_steps": [
+            "$$\\mathbb R^2$$에서는 $$\\langle (x_1,y_1),(x_2,y_2)\\rangle=x_1x_2+y_1y_2$$이고, 여기서 유도된 노름은 익숙한 유클리드 길이다.",
+            "다항식 공간 $$P_1$$에서는 $$\\langle p,q\\rangle=\\int_0^1 p(x)q(x)\\,dx$$처럼 적분으로 내적을 줄 수 있다.",
+            "예를 들어 $$p(x)=1+x$$이면 $$\\|p\\|^2=\\int_0^1(1+x)^2dx=\\frac73$$이다. 좌표가 아닌 함수도 내적공간의 벡터가 된다.",
+        ],
+        "application": [
+            "데이터 분석에서는 두 벡터의 내적이 유사도나 상관성의 기본 측도로 쓰인다.",
+            "최소제곱과 정사영은 결국 어떤 오차를 작게 본다는 문제인데, 그 오차의 크기를 재는 기준이 바로 내적이 유도하는 노름이다.",
+        ],
+        "pitfalls": [
+            "모든 노름이 어떤 내적에서 오는 것은 아니다. 내적이 있으면 노름이 따라오지만, 역은 일반적으로 성립하지 않는다.",
+            "함수공간의 내적을 좌표공간 점곱의 단순한 변형으로만 생각하면 적분 가중치나 직교기저의 의미를 놓치기 쉽다.",
+        ],
+        "closing": "내적을 도입하면 벡터공간은 계산의 무대에서 기하의 무대로 바뀐다. 이후의 직교성, 정사영, least squares는 모두 여기서 출발한다.",
+        "visual_importance": "none",
     },
-    8: {
-        "intro": (
-            "Kernel, image, rank-nullity는 선형사상이 해를 어떻게 압축하고 남기는지를 동시에 보여 줍니다. "
-            "이 글에서는 해의 자유도와 출력의 차원을 연결하는 가장 중요한 정리 하나를 중심으로 설명합니다."
-        ),
-        "prereqs": ["기저와 차원", "선형결합", "행렬의 열공간 직관"],
-        "key_points": [
+    "orthogonal-projection-and-least-squares": {
+        "intro": [
+            "직교사영과 최소제곱은 '정확한 해가 없을 때 무엇을 해로 볼 것인가'라는 질문에 대한 선형대수의 대답입니다. 해가 아예 없다고 끝내지 않고, 가장 가까운 해를 구조적으로 찾아냅니다.",
+            "이 주제는 기하와 계산이 가장 아름답게 만나는 장면이기도 합니다. 한 점을 직선에 내린 수선의 발이라는 그림이 곧바로 데이터 적합의 행렬식으로 이어지기 때문입니다.",
+        ],
+        "background": "부분공간 $$W$$에 대한 직교사영은 주어진 벡터 $$b$$를 $$W$$ 안의 벡터와 $$W$$에 직교한 오차로 나누는 과정입니다. least squares는 בדיוק 그 오차의 길이를 최소로 만드는 문제입니다.",
+        "definitions": [
             {
-                "title": "kernel과 해의 자유도",
-                "note": "동차방정식의 해공간이 왜 kernel로 나타나고, 자유변수의 수가 nullity와 맞물리는지 설명합니다.",
+                "title": "직교사영 (orthogonal projection)",
+                "body": "내적공간의 부분공간 $$W$$에 대하여 $$b-p\\in W^\\perp$$를 만족하는 $$p\\in W$$를 $$b$$의 $$W$$ 위의 orthogonal projection이라 한다.",
             },
             {
-                "title": "image와 도달 가능한 출력",
-                "note": "선형사상이 실제로 만들어 낼 수 있는 값들의 집합을 image로 보고, 그 차원이 rank가 되는 이유를 봅니다.",
-            },
-            {
-                "title": "rank-nullity의 균형식",
-                "note": "입력 차원이 kernel과 image의 차원으로 분해된다는 사실이 선형대수의 핵심 구조를 드러냅니다.",
+                "title": "least squares 문제",
+                "body": "계 $$Ax=b$$가 정확히 풀리지 않을 때 $$\\|Ax-b\\|$$를 최소화하는 $$x$$를 찾는 문제를 least squares 문제라 한다.",
             },
         ],
-        "cautions": [
-            "kernel과 image를 각각 해공간과 열공간으로만 외우면 선형사상 전체의 언어로 확장하기 어렵습니다.",
-            "rank-nullity를 공식으로만 기억하지 말고 입력 자유도의 분해로 읽어야 응용에서 힘을 발휘합니다.",
+        "theorem_name": "정규방정식의 성격",
+        "theorem_statement": "벡터 $$x_*$$가 $$\\|Ax-b\\|$$를 최소화할 필요충분조건은 잔차 $$r=b-Ax_*$$가 $$\\operatorname{im}A$$에 직교하는 것이다. 동치로 $$A^TAx_*=A^Tb$$가 성립한다.",
+        "proof": [
+            "$$Ax$$는 항상 $$\\operatorname{im}A$$에 속한다. 따라서 최소제곱 문제는 $$b$$를 $$\\operatorname{im}A$$ 위로 직교사영하는 문제와 같다.",
+            "$$p=Ax_*$$가 직교사영이면 $$b-p\\in (\\operatorname{im}A)^\\perp$$이다. 이는 임의의 열벡터 $$a_j$$에 대해 $$a_j^T(b-Ax_*)=0$$임을 뜻하므로 행렬식으로 쓰면 $$A^T(b-Ax_*)=0$$, 즉 $$A^TAx_*=A^Tb$$이다.",
+            "반대로 $$A^T(b-Ax_*)=0$$이면 잔차가 모든 열벡터에 직교하므로 $$\\operatorname{im}A$$ 전체에 직교한다. 직교사영의 성질에 의해 $$Ax_*$$는 $$b$$에 가장 가까운 $$\\operatorname{im}A$$의 원소이고, 따라서 $$x_*$$는 least squares 해다. $$\\square$$",
         ],
+        "hand_example_intro": "가장 작은 예제는 직교사영과 least squares가 정말 같은 말인지 확인하게 해 줍니다.",
+        "hand_example_steps": [
+            "직선 $$W=\\operatorname{span}\\{(1,1)\\}$$ 위로 $$b=(2,0)$$를 사영해 보자. 사영벡터를 $$p=t(1,1)$$라 두면 잔차 $$b-p=(2-t,-t)$$가 $$(1,1)$$에 직교해야 한다.",
+            "$$(2-t,-t)\\cdot(1,1)=2-2t=0$$이므로 $$t=1$$, 따라서 $$p=(1,1)$$이다.",
+            "행렬로 보면 $$A=\\begin{bmatrix}1\\\\1\\end{bmatrix}$$, $$x=t$$이고 정규방정식은 $$A^TAx=A^Tb$$, 즉 $$2t=2$$가 된다. 그림과 행렬 계산이 정확히 같은 답을 준다.",
+        ],
+        "application": [
+            "선형회귀는 데이터를 가장 잘 설명하는 직선을 찾는 문제인데, 결국 설계행렬의 열공간으로 데이터를 사영하는 문제다.",
+            "그래서 least squares는 회귀분석, 잡음이 있는 측정의 보정, 과잉결정계의 해석에서 가장 기본적인 도구가 된다.",
+        ],
+        "pitfalls": [
+            "최소제곱해는 원래 방정식의 정확한 해가 아닐 수 있다. 중요한 것은 잔차의 길이를 최소화한다는 점이다.",
+            "정규방정식을 공식처럼 외우기보다, 왜 잔차가 열공간에 직교해야 하는지를 기하적으로 이해하는 편이 훨씬 오래 남는다.",
+        ],
+        "closing": "least squares의 핵심은 해가 없다는 사실을 포기하지 않는 데 있다. 대신 가장 가까운 설명을 찾고, 그 조건을 직교성과 정규방정식으로 정확하게 적어 낸다.",
+        "visual_importance": "required",
+        "visual_caption": "점 $$b$$를 부분공간 $$W$$ 위로 직교사영하는 그림은 least squares가 '가장 가까운 점' 문제라는 사실을 한눈에 보여 준다.",
     },
-    9: {
-        "intro": (
-            "그래프는 조합론적 대상처럼 보이지만 incidence matrix를 도입하는 순간 선형대수의 문제로 바뀝니다. "
-            "이 글에서는 꼭짓점과 변의 정보를 행렬로 옮기는 방식이 어떤 구조를 드러내는지 설명합니다."
-        ),
-        "prereqs": ["행렬과 벡터의 표기", "기저와 차원", "그래프의 기초 용어"],
-        "key_points": [
+    "gram-schmidt-and-qr-factorization": {
+        "intro": [
+            "직교기저를 하나 가지고 있으면 좌표 계산과 사영 계산이 갑자기 쉬워집니다. Gram-Schmidt 과정은 일반적인 생성집합을 직교기저로 바꾸는 가장 직접적인 절차입니다.",
+            "그리고 이 절차를 열벡터 전체에 적용해 모으면 QR 분해가 나옵니다. 즉, 추상적인 직교화와 실전 계산 알고리듬이 사실상 같은 이야기입니다.",
+        ],
+        "background": "이미 확보한 방향의 성분을 빼면 새로운 방향에서 중복이 사라집니다. Gram-Schmidt는 이 관찰을 반복해 독립 벡터열을 직교열로 바꿉니다.",
+        "definitions": [
             {
-                "title": "incidence matrix의 정의",
-                "note": "각 변이 어떤 꼭짓점에 들어오고 나가는지를 부호 있는 열벡터로 기록하는 방식이 핵심입니다.",
+                "title": "정규직교집합",
+                "body": "벡터열 $$q_1,\\dots,q_k$$가 서로 직교하고 각 벡터의 길이가 1이면 이를 orthonormal set이라 한다.",
             },
             {
-                "title": "그래프 정보의 선형화",
-                "note": "연결성, 흐름, 회로 같은 조합적 정보가 행렬의 kernel과 cokernel 언어로 옮겨집니다.",
-            },
-            {
-                "title": "응용을 위한 준비",
-                "note": "이 관점은 이후 Markov process, spectral graph theory, 네트워크 문제로 이어지는 기반이 됩니다.",
+                "title": "QR 분해",
+                "body": "열독립 행렬 $$A$$를 $$A=QR$$ 꼴로 쓰되, $$Q$$의 열들이 정규직교이고 $$R$$이 상삼각행렬이면 이를 QR factorization이라 한다.",
             },
         ],
-        "cautions": [
-            "incidence matrix는 adjacency matrix와 역할이 다르므로 둘을 섞어 쓰지 않도록 주의해야 합니다.",
-            "그래프의 방향 부호는 임의로 정해도 되지만, 정한 뒤에는 끝까지 일관되게 유지해야 합니다.",
+        "theorem_name": "Gram-Schmidt의 span 보존",
+        "theorem_statement": "선형독립 벡터열 $$v_1,\\dots,v_k$$에 Gram-Schmidt를 적용해 얻은 $$q_1,\\dots,q_k$$는 정규직교이며, 각 $$j$$에 대해 $$\\operatorname{span}\\{q_1,\\dots,q_j\\}=\\operatorname{span}\\{v_1,\\dots,v_j\\}$$가 성립한다.",
+        "proof": [
+            "$$j=1$$에서는 $$q_1=v_1/\\|v_1\\|$$이므로 자명하다. 이제 $$j-1$$까지 성립한다고 가정하자.",
+            "$$u_j=v_j-\\sum_{i=1}^{j-1}\\langle v_j,q_i\\rangle q_i$$로 두면 $$u_j$$는 모든 $$q_i$$에 직교한다. 또한 $$u_j$$는 $$v_1,\\dots,v_j$$의 선형결합이므로 왼쪽 span에 속한다.",
+            "반대로 $$v_j=u_j+\\sum_{i<j}\\langle v_j,q_i\\rangle q_i$$이므로 $$v_j$$도 $$q_1,\\dots,q_j$$의 span에 속한다. 따라서 두 span이 같다. $$u_j\\neq0$$는 $$v_j$$의 독립성에서 나오고, 정규화하여 $$q_j=u_j/\\|u_j\\|$$를 얻는다. 귀납이 끝난다. $$\\square$$",
         ],
+        "hand_example_intro": "작은 벡터열 하나를 직접 직교화하면 QR 분해가 어떻게 읽히는지 바로 보입니다.",
+        "hand_example_steps": [
+            "$$v_1=(1,1,0), v_2=(1,0,1)$$를 보자. 먼저 $$q_1=\\frac1{\\sqrt2}(1,1,0)$$이다.",
+            "$$v_2$$에서 $$q_1$$ 방향 성분을 빼면 $$u_2=v_2-\\langle v_2,q_1\\rangle q_1=(1,0,1)-\\frac12(1,1,0)=(\\frac12,-\\frac12,1)$$가 된다.",
+            "$$u_2$$를 정규화하면 $$q_2$$를 얻고, $$A=[v_1\\ v_2]$$에 대해 $$Q=[q_1\\ q_2]$$, $$R=Q^TA$$를 계산하면 QR 분해가 완성된다.",
+        ],
+        "application": [
+            "least squares를 직접 푸는 데에는 정규방정식보다 QR 분해가 더 안정적인 경우가 많다.",
+            "또한 직교기저는 신호 분해, 함수 근사, 고유값 계산 알고리듬의 준비 단계로 반복해서 등장한다.",
+        ],
+        "pitfalls": [
+            "Gram-Schmidt의 공식만 외우면 왜 span이 보존되는지, 왜 직교성이 얻어지는지 쉽게 잊게 된다.",
+            "직교화는 이론적으로 단순하지만 실제 부동소수점 계산에서는 수정된 Gram-Schmidt나 Householder 방법이 더 안정적일 수 있다.",
+        ],
+        "closing": "Gram-Schmidt는 중복을 제거하면서 같은 공간을 보존하는 절차다. 그래서 직교성과 좌표 계산이 같은 흐름으로 묶이고, QR 분해라는 계산 도구로 바로 이어진다.",
+        "visual_importance": "supporting",
     },
-    10: {
-        "intro": (
-            "그래프 위의 회로를 선형대수로 보면 단순한 그림이 차원 공식으로 바뀝니다. "
-            "이 글에서는 독립 회로의 수와 Euler 공식이 어떻게 cokernel 관점에서 나타나는지 정리합니다."
-        ),
-        "prereqs": ["그래프와 incidence matrix", "kernel과 cokernel의 기본 생각", "차원의 계산"],
-        "key_points": [
+    "discrete-fourier-transform-and-fft": {
+        "intro": [
+            "DFT는 데이터를 다른 좌표계에서 다시 읽는 변환입니다. 시간 순서로 적힌 샘플을 주파수 기저에 대한 좌표로 바꾸는 순간, 주기성과 진동 구조가 훨씬 선명하게 드러납니다.",
+            "FFT는 새로운 수학적 변환이 아니라 같은 DFT를 훨씬 빠르게 계산하는 알고리듬입니다. 그래서 이 글의 핵심은 변환과 계산을 분리해서 보는 것입니다.",
+        ],
+        "background": "길이 $$n$$의 데이터 벡터를 $$\\omega=e^{-2\\pi i/n}$$의 거듭제곱으로 이루어진 기저에 투영하면 Fourier 행렬이 등장합니다. 이 행렬의 직교성이 DFT의 안정성과 역변환 공식을 뒷받침합니다.",
+        "definitions": [
             {
-                "title": "회로의 벡터 표현",
-                "note": "회로를 edge vector로 표현하면 서로 다른 회로의 독립성을 선형독립성으로 읽을 수 있습니다.",
+                "title": "DFT",
+                "body": "길이 $$n$$ 벡터 $$x=(x_0,\\dots,x_{n-1})$$의 DFT는 $$\\hat x_k=\\sum_{j=0}^{n-1}x_j\\omega^{jk}$$로 정의한다. 여기서 $$\\omega=e^{-2\\pi i/n}$$이다.",
             },
             {
-                "title": "cokernel과 독립 회로 수",
-                "note": "incidence matrix의 cokernel 차원이 독립 회로의 개수와 맞물린다는 점을 강조합니다.",
-            },
-            {
-                "title": "Euler 공식의 선형대수적 증명",
-                "note": "정점 수, 변 수, 독립 회로 수 사이의 관계가 rank 계산 하나로 자연스럽게 도출됩니다.",
+                "title": "Fourier 행렬",
+                "body": "행렬 $$F_n=(\\omega^{jk})_{0\\le j,k\\le n-1}$$를 Fourier matrix라 한다. DFT는 행렬식으로는 $$\\hat x=F_nx$$이다.",
             },
         ],
-        "cautions": [
-            "Euler 공식을 단순 암기식으로만 보면 왜 회로의 수와 연결되는지 이해하기 어렵습니다.",
-            "그래프의 평면성 여부와 독립 회로의 선형대수적 차원을 같은 개념으로 혼동하지 말아야 합니다.",
+        "theorem_name": "Fourier 행렬의 직교성",
+        "theorem_statement": "Fourier 행렬 $$F_n$$에 대하여 $$\\frac1{\\sqrt n}F_n$$은 unitary이다.",
+        "proof": [
+            "$$F_n$$의 서로 다른 두 열 $$c_r,c_s$$의 내적을 계산하면 $$\\sum_{j=0}^{n-1}\\omega^{j(r-s)}$$가 된다.",
+            "$$r\\neq s$$이면 $$\\omega^{r-s}\\neq1$$이고 이는 공비가 1이 아닌 등비수열의 합이므로 0이다. $$r=s$$이면 각 항의 절댓값이 1이므로 합은 $$n$$이다.",
+            "따라서 $$F_n^*F_n=nI$$이고, 곧 $$\\left(\\frac1{\\sqrt n}F_n\\right)^*\\left(\\frac1{\\sqrt n}F_n\\right)=I$$이다. 즉 $$\\frac1{\\sqrt n}F_n$$은 unitary이다. $$\\square$$",
         ],
+        "hand_example_intro": "길이 4 데이터는 손으로도 DFT를 계산할 수 있는 가장 좋은 연습장입니다.",
+        "hand_example_steps": [
+            "$$x=(1,0,1,0)$$와 $$\\omega=e^{-2\\pi i/4}=-i$$를 잡자.",
+            "$$\\hat x_0=1+0+1+0=2$$, $$\\hat x_1=1+0\\cdot(-i)+1\\cdot(-1)+0\\cdot i=0$$, $$\\hat x_2=1+1=2$$, $$\\hat x_3=0$$이다.",
+            "즉 원래 데이터는 시간축에서는 두 개의 1로 보이지만, 주파수축에서는 특정 계수 두 개가 살아 있는 벡터로 읽힌다.",
+        ],
+        "application": [
+            "신호 처리에서는 특정 주파수 대역만 남기거나 지우는 작업이 시간 영역보다 주파수 영역에서 훨씬 쉽다.",
+            "또한 FFT 덕분에 큰 데이터에서도 DFT를 반복해서 계산할 수 있어, 압축과 필터링이 실전 알고리듬으로 작동한다.",
+        ],
+        "pitfalls": [
+            "FFT를 DFT와 다른 변환이라고 생각하면 안 된다. FFT는 같은 DFT를 빠르게 계산하는 절차다.",
+            "연속 Fourier transform과 DFT를 그대로 동일시하면 샘플링과 주기화의 차이를 놓치게 된다.",
+        ],
+        "closing": "DFT는 좌표계를 바꾸는 선형변환이고, FFT는 그 좌표변환을 현실적인 시간 안에 수행하게 해 주는 계산 전략이다.",
+        "visual_importance": "supporting",
     },
-    11: {
-        "intro": (
-            "내적과 노름은 길이와 각도를 추상적인 공간으로 옮기는 장치입니다. "
-            "이 글에서는 유클리드 공간의 익숙한 기하학이 함수공간으로 확장되는 과정을 중심으로 설명합니다."
-        ),
-        "prereqs": ["벡터공간", "절댓값과 거리", "적분의 기초 직관"],
-        "key_points": [
+    "eigenvalues-and-the-spectral-theorem": {
+        "intro": [
+            "고유값 이론은 선형변환을 가장 잘 보이는 좌표계에서 읽으려는 시도입니다. 변환 뒤에도 방향이 바뀌지 않는 특별한 축을 찾으면, 복잡한 변환이 훨씬 단순한 스칼라배로 분해됩니다.",
+            "모든 행렬이 그렇게 단순해지는 것은 아니지만, 대칭행렬에서는 놀라울 정도로 강한 구조가 성립합니다. 이 대칭성 때문에 spectral theorem이 가능해집니다.",
+        ],
+        "background": "고유벡터는 선형변환이 방향을 보존하는 벡터이고, 고유값은 그 방향에서의 확대축소 비율입니다. 서로 다른 고유값이 많을수록 변환을 좌표별로 분해하기 쉬워집니다.",
+        "definitions": [
             {
-                "title": "inner product의 구조",
-                "note": "대칭성, 선형성, 양의 정부호성이라는 세 조건이 길이와 각도의 기반을 이룬다는 점을 정리합니다.",
+                "title": "고유값과 고유벡터",
+                "body": "선형사상 $$T:V\\to V$$에 대하여 $$T(v)=\\lambda v$$를 만족하는 0이 아닌 벡터 $$v$$를 고유벡터, 그때의 스칼라 $$\\lambda$$를 고유값이라 한다.",
             },
             {
-                "title": "norm과 거리",
-                "note": "내적에서 노름과 거리가 어떻게 유도되며, 이것이 계산과 수렴 논의에 어떤 의미를 주는지 설명합니다.",
-            },
-            {
-                "title": "함수공간으로의 확장",
-                "note": "벡터가 수열이나 함수일 때도 동일한 개념틀이 작동한다는 사실이 추상화의 힘을 보여 줍니다.",
+                "title": "대각화",
+                "body": "기저를 적절히 택해 선형사상의 행렬표현이 대각행렬이 되면 그 선형사상 또는 행렬을 diagonalizable하다고 한다.",
             },
         ],
-        "cautions": [
-            "모든 노름이 반드시 어떤 내적에서 오는 것은 아니므로 두 개념을 동일시하면 안 됩니다.",
-            "함수공간의 내적은 적분으로 정의되지만, 그 의미를 좌표공간의 점곱과 단순 동일시하면 세부 구조를 놓칩니다.",
+        "theorem_name": "서로 다른 고유값과 선형독립성",
+        "theorem_statement": "서로 다른 고유값에 대응하는 고유벡터들은 선형독립이다.",
+        "proof": [
+            "고유벡터 $$v_1,\\dots,v_k$$가 각각 서로 다른 고유값 $$\\lambda_1,\\dots,\\lambda_k$$에 대응한다고 하자. 선형독립이 아니라고 가정하고, 가장 짧은 관계식 $$c_1v_1+\\cdots+c_kv_k=0$$를 잡는다.",
+            "여기에 선형사상 $$T$$를 적용하면 $$c_1\\lambda_1v_1+\\cdots+c_k\\lambda_kv_k=0$$을 얻는다. 원래 식에 $$\\lambda_k$$를 곱해 빼면 $$c_1(\\lambda_1-\\lambda_k)v_1+\\cdots+c_{k-1}(\\lambda_{k-1}-\\lambda_k)v_{k-1}=0$$이 된다.",
+            "고유값들이 서로 다르므로 계수 $$\\lambda_j-\\lambda_k$$는 0이 아니다. 따라서 더 짧은 비자명 관계식이 생겨 최소성에 모순이다. 결국 모든 $$c_j$$가 0이고, 고유벡터들은 선형독립이다. $$\\square$$",
         ],
+        "hand_example_intro": "대칭행렬에서는 고유벡터들의 직교성까지 자연스럽게 보입니다.",
+        "hand_example_steps": [
+            "$$A=\\begin{bmatrix}2&1\\\\1&2\\end{bmatrix}$$의 특성방정식은 $$(2-\\lambda)^2-1=0$$이므로 고유값은 3과 1이다.",
+            "$$\\lambda=3$$에 대한 고유벡터는 $$(1,1)$$, $$\\lambda=1$$에 대한 고유벡터는 $$(1,-1)$$로 잡을 수 있다.",
+            "이 둘은 서로 직교한다. 대칭행렬에서는 이런 현상이 일반적으로 일어나고, 그것이 spectral theorem의 핵심 정서다.",
+        ],
+        "application": [
+            "선형 동역학에서는 반복이나 미분방정식의 장기 거동이 고유값의 크기와 부호에 의해 크게 좌우된다.",
+            "PCA에서는 공분산 행렬의 고유벡터가 데이터의 주된 방향을 주므로, 고유값 이론이 곧 데이터 해석 도구가 된다.",
+        ],
+        "pitfalls": [
+            "모든 행렬이 대각화 가능하다고 생각하면 Jordan 형식을 배울 때 큰 혼란이 온다.",
+            "고유값 계산만 강조하고 왜 대칭행렬에서 직교기저가 가능한지 보지 않으면 spectral theorem의 핵심을 놓친다.",
+        ],
+        "closing": "고유값 이론은 복잡한 변환을 가능한 한 좌표별 현상으로 분해하려는 시도다. 그 시도가 가장 아름답게 완성되는 경우가 바로 대칭행렬의 spectral theorem이다.",
+        "visual_importance": "supporting",
     },
-    12: {
-        "intro": (
-            "Cauchy-Schwarz 부등식은 내적공간에서 가능한 거의 모든 기하학적 논의의 출발점입니다. "
-            "이 글에서는 이 부등식이 왜 직교성, 삼각부등식, 투영 논의로 이어지는지 정리합니다."
-        ),
-        "prereqs": ["inner product와 norm", "기본적인 대수 전개", "직교의 직관"],
-        "key_points": [
+    "principal-component-analysis": {
+        "intro": [
+            "PCA는 데이터를 가장 잘 설명하는 방향을 찾는 절차입니다. 눈으로 보면 기울어진 구름처럼 보이는 데이터가, 수학적으로는 공분산 행렬의 고유값 문제로 바뀝니다.",
+            "그래서 PCA는 통계 기법이면서 동시에 아주 전형적인 선형대수의 응용입니다. 분산을 가장 크게 만드는 방향을 고르는 문제와 고유벡터를 찾는 문제가 정확히 같은 문제이기 때문입니다.",
+        ],
+        "background": "데이터를 평균 중심화하면 각 방향으로 얼마나 퍼져 있는지가 공분산 행렬에 기록됩니다. 이때 분산을 많이 설명하는 방향일수록 차원 축소에서도 더 많은 정보를 남깁니다.",
+        "definitions": [
             {
-                "title": "Cauchy-Schwarz 부등식의 의미",
-                "note": "내적이 길이의 곱보다 클 수 없다는 제약이 각도와 직교의 개념을 가능하게 합니다.",
+                "title": "공분산 행렬 (covariance matrix)",
+                "body": "중심화된 데이터 행렬 $$X\\in\\mathbb R^{m\\times n}$$에 대하여 $$C=\\frac1m X^TX$$를 공분산 행렬이라 한다.",
             },
             {
-                "title": "직교성과 최소화",
-                "note": "직교는 단지 각이 90도인 상태가 아니라 오차를 최소화하는 방향이라는 사실을 강조합니다.",
-            },
-            {
-                "title": "삼각부등식으로의 연결",
-                "note": "노름의 기본 성질도 결국 Cauchy-Schwarz에서 나온다는 흐름을 보여 줍니다.",
+                "title": "주성분",
+                "body": "단위벡터 $$u$$ 중에서 사영된 데이터의 분산 $$u^TCu$$를 최대화하는 방향을 첫 번째 주성분이라 한다.",
             },
         ],
-        "cautions": [
-            "부등식의 증명을 외우는 데 그치면 왜 equality case가 중요한지 놓치기 쉽습니다.",
-            "직교를 좌표축이 서로 수직인 그림으로만 이해하면 함수공간이나 추상공간에서 막히기 쉽습니다.",
+        "theorem_name": "첫 주성분의 성격",
+        "theorem_statement": "공분산 행렬 $$C$$의 최대 고유값에 대응하는 단위 고유벡터는 데이터 분산 $$u^TCu$$를 최대화하는 방향이다.",
+        "proof": [
+            "$$C$$는 대칭행렬이므로 직교대각화 가능하다. 즉 정규직교기저 $$q_1,\\dots,q_n$$와 고유값 $$\\lambda_1\\ge\\cdots\\ge\\lambda_n$$가 존재하여 $$C=Q\\Lambda Q^T$$라 쓸 수 있다.",
+            "임의의 단위벡터 $$u$$를 $$u=\\sum_j c_j q_j$$라 쓰면 $$\\sum_j c_j^2=1$$이고 $$u^TCu=\\sum_j \\lambda_j c_j^2$$이다.",
+            "이 값은 가중평균이므로 최대값은 $$\\lambda_1$$이고, 그 최대는 $$u=q_1$$일 때 달성된다. 따라서 최대 고유값의 고유벡터가 첫 주성분이다. $$\\square$$",
         ],
-    },
-    13: {
-        "intro": (
-            "양의 정부호 행렬은 이차형식, 에너지, 최소화 문제를 묶어 주는 중심 개념입니다. "
-            "이 글에서는 Gram matrix와 positive definite matrix가 왜 자주 함께 등장하는지 설명합니다."
-        ),
-        "prereqs": ["inner product와 norm", "대칭행렬의 기초", "이차식 전개"],
-        "key_points": [
-            {
-                "title": "positive definite의 판정 의미",
-                "note": "벡터를 0이 아닌 방향으로 움직였을 때 언제나 양의 값을 주는 이차형식이 안정성과 최소화의 기반이 됩니다.",
-            },
-            {
-                "title": "Gram matrix의 자연스러움",
-                "note": "내적을 행렬로 모으면 positive semidefinite 구조가 자동으로 생긴다는 점을 보여 줍니다.",
-            },
-            {
-                "title": "에너지와 최소화의 연결",
-                "note": "양의 정부호성은 최소값 존재와 유일성, 그리고 수치 알고리듬의 안정성까지 이어집니다.",
-            },
+        "hand_example_intro": "작은 2차원 데이터만으로도 PCA의 핵심을 손으로 계산할 수 있습니다.",
+        "hand_example_steps": [
+            "중심화된 데이터 점을 $$(1,1),(2,2),(-1,-1),(-2,-2)$$처럼 잡으면 모든 점이 직선 $$y=x$$ 위에 놓여 있다.",
+            "이 경우 공분산 행렬은 $$\\begin{bmatrix}a&a\\\\a&a\\end{bmatrix}$$ 꼴이 되고, 최대 고유벡터는 $$\\frac1{\\sqrt2}(1,1)$$이다.",
+            "즉 데이터가 가장 많이 퍼지는 방향이 바로 대각선 방향이라는 직관이 고유벡터 계산으로 정확히 확인된다.",
         ],
-        "cautions": [
-            "모든 대칭행렬이 양의 정부호인 것은 아니며, 고유값 정보와 함께 봐야 합니다.",
-            "Gram matrix는 단순한 계산 보조물이 아니라 내적 구조를 좌표로 끌어온 핵심 표현이라는 점을 잊지 말아야 합니다.",
+        "application": [
+            "PCA는 고차원 데이터를 2차원이나 3차원으로 눌러 시각화할 때 가장 널리 쓰인다.",
+            "또한 노이즈가 많은 데이터에서 분산이 작은 방향을 버리면 차원 축소와 잡음 완화가 동시에 일어나기도 한다.",
         ],
-    },
-    14: {
-        "intro": (
-            "완전제곱과 Cholesky 분해는 이차형식을 가장 잘 보이는 좌표로 바꾸는 방법입니다. "
-            "이 글에서는 대칭 양의 정부호 행렬의 구조가 왜 triangular factorization으로 떨어지는지 설명합니다."
-        ),
-        "prereqs": ["positive definite matrix", "삼각행렬", "이차형식의 기초"],
-        "key_points": [
-            {
-                "title": "completing the square의 관점",
-                "note": "복잡한 이차식을 반복적으로 정리하면 독립적인 제곱합 형태에 가까워지는 과정을 설명합니다.",
-            },
-            {
-                "title": "Cholesky 분해의 구조",
-                "note": "대칭 양의 정부호 행렬을 `LL^T` 꼴로 쓰는 것이 계산과 해석 모두에서 왜 편리한지 다룹니다.",
-            },
-            {
-                "title": "최소화 문제와의 연결",
-                "note": "분해된 형태는 에너지 함수의 양의 성질과 유일한 최소점을 훨씬 투명하게 보여 줍니다.",
-            },
+        "pitfalls": [
+            "평균 중심화를 하지 않으면 PCA는 데이터의 퍼짐이 아니라 원점으로부터의 위치까지 함께 반영해 버린다.",
+            "주성분의 수를 정할 때 고유값 크기만 기계적으로 자르면 해석 가능한 구조를 놓칠 수 있다.",
         ],
-        "cautions": [
-            "Cholesky 분해는 일반 행렬이 아니라 대칭 양의 정부호 행렬에서만 자연스럽게 작동합니다.",
-            "완전제곱을 단순한 대수 기술로만 보면 최소화와 안정성으로 이어지는 의미를 놓치기 쉽습니다.",
-        ],
-    },
-    15: {
-        "intro": (
-            "직교투영과 최소제곱은 정확히 풀 수 없는 문제를 가장 잘 근사하는 방법을 제공합니다. "
-            "이 글에서는 기하학적 투영 그림과 행렬 계산이 같은 내용을 말하고 있음을 설명합니다."
-        ),
-        "prereqs": ["직교성", "positive definite matrix", "연립방정식의 해 구조"],
-        "key_points": [
-            {
-                "title": "closest point 문제",
-                "note": "주어진 점에서 부분공간으로 내린 수선의 발이 최소제곱 문제의 기하학적 핵심입니다.",
-            },
-            {
-                "title": "normal equation의 해석",
-                "note": "오차가 부분공간에 직교해야 한다는 조건이 곧 최소제곱의 정상 방정식으로 이어집니다.",
-            },
-            {
-                "title": "근사와 데이터 적합",
-                "note": "정확한 해가 없더라도 가장 작은 오차를 주는 해를 찾는다는 관점이 실제 응용에서 얼마나 중요한지 보여 줍니다.",
-            },
-        ],
-        "cautions": [
-            "최소제곱해는 원래 문제의 정확한 해가 아니라 오차를 최소화한 근사해라는 점을 분명히 해야 합니다.",
-            "정상 방정식을 공식처럼 쓰기 전에 왜 오차가 직교해야 하는지 기하학적으로 이해하는 편이 좋습니다.",
-        ],
-    },
-    16: {
-        "intro": (
-            "직교기저를 만들면 계산이 급격히 단순해집니다. "
-            "이 글에서는 Gram-Schmidt 과정과 `QR` 분해가 왜 직교화와 수치 계산의 기본 도구가 되는지 설명합니다."
-        ),
-        "prereqs": ["직교성", "기저와 차원", "삼각행렬과 행렬곱"],
-        "key_points": [
-            {
-                "title": "Gram-Schmidt의 아이디어",
-                "note": "기존 벡터에서 이미 확보한 방향의 성분을 빼면 새로운 직교 방향을 얻는다는 단순한 원리를 강조합니다.",
-            },
-            {
-                "title": "orthonormal basis의 계산 이점",
-                "note": "직교정규기저에서는 좌표 추출과 투영 계산이 내적 하나로 정리된다는 점을 보여 줍니다.",
-            },
-            {
-                "title": "`QR` 분해로의 연결",
-                "note": "열벡터를 직교화한 결과를 모으면 자연스럽게 `A = QR` 구조가 나오며, 이는 수치해석의 핵심 도구가 됩니다.",
-            },
-        ],
-        "cautions": [
-            "직교화 과정은 이론적으로 단순해 보여도 실제 수치 계산에서는 수정된 알고리듬이 필요할 수 있습니다.",
-            "`Q`와 `R`을 기호로만 기억하지 말고, 각각 직교 기저와 좌표 변환 정보를 담는다는 점을 이해해야 합니다.",
-        ],
-    },
-    17: {
-        "intro": (
-            "Fredholm alternative는 선형계가 언제 풀리고 언제 막히는지에 대한 구조적 답을 줍니다. "
-            "이 글에서는 직교여공간과 적합성 조건이 만나는 지점을 중심으로 설명합니다."
-        ),
-        "prereqs": ["kernel과 image", "직교성과 직교여공간", "선형계의 해 구조"],
-        "key_points": [
-            {
-                "title": "compatibility 조건",
-                "note": "우변이 어떤 부분공간에 직교해야만 해가 존재한다는 구조적 조건을 분명히 합니다.",
-            },
-            {
-                "title": "adjoint 관점",
-                "note": "적합성 조건은 원래 행렬이 아니라 그 수반 또는 전치가 만드는 공간과 자연스럽게 연결됩니다.",
-            },
-            {
-                "title": "해의 존재와 자유도",
-                "note": "해가 존재할 때도 유일할 수 있고 무한히 많을 수 있으며, 그 차이가 kernel 구조에서 나온다는 점을 봅니다.",
-            },
-        ],
-        "cautions": [
-            "Fredholm alternative를 추상적인 정리로만 보면 실제 연립방정식의 적합성 판정과 연결되지 않습니다.",
-            "해의 존재 조건과 해의 유일성 조건은 서로 다른 층위의 문제라는 점을 분리해서 보아야 합니다.",
-        ],
-    },
-    18: {
-        "intro": (
-            "보간과 근사는 주어진 데이터를 함수나 다항식으로 바꾸는 두 가지 서로 다른 전략입니다. "
-            "이 글에서는 정확히 맞추는 것과 잘 맞추는 것의 차이를 선형대수 언어로 설명합니다."
-        ),
-        "prereqs": ["least squares", "다항식의 기초", "행렬과 계수 벡터의 대응"],
-        "key_points": [
-            {
-                "title": "interpolation의 조건",
-                "note": "주어진 점들을 정확히 통과하는 함수를 찾는 문제는 선형계 하나로 정리할 수 있습니다.",
-            },
-            {
-                "title": "approximation의 관점",
-                "note": "데이터가 많거나 잡음이 있을 때는 정확한 일치보다 오차 제어가 더 중요한 목표가 됩니다.",
-            },
-            {
-                "title": "선형대수적 통일",
-                "note": "둘 다 결국 기저 선택, 계수행렬, 오차 측정 방식의 차이로 설명할 수 있다는 점이 핵심입니다.",
-            },
-        ],
-        "cautions": [
-            "모든 데이터에 대해 높은 차수 다항식 보간을 하는 것이 좋은 근사라고 생각하면 안 됩니다.",
-            "정확히 맞춘다는 사실과 안정적으로 예측한다는 사실은 서로 다른 평가 기준이라는 점을 기억해야 합니다.",
-        ],
-    },
-    19: {
-        "intro": (
-            "직교다항식은 함수공간에서의 직교기저라는 관점을 가장 잘 보여 주는 예시입니다. "
-            "이 글에서는 직교다항식과 최소제곱근사가 왜 자연스럽게 만나게 되는지 설명합니다."
-        ),
-        "prereqs": ["inner product와 함수공간", "least squares", "다항식의 기초"],
-        "key_points": [
-            {
-                "title": "직교다항식의 구조",
-                "note": "Legendre 다항식처럼 서로 직교하는 다항식족은 함수공간의 좌표계를 제공해 줍니다.",
-            },
-            {
-                "title": "함수공간의 최소제곱근사",
-                "note": "함수를 직교기저로 전개하면 근사 계수 계산이 유한차원 벡터와 거의 같은 방식으로 진행됩니다.",
-            },
-            {
-                "title": "기저 선택의 효과",
-                "note": "표준 단항식 기저보다 직교기저가 계산과 해석에서 얼마나 유리한지를 비교합니다.",
-            },
-        ],
-        "cautions": [
-            "직교다항식은 단지 특별한 함수족이 아니라 내적과 가중치 선택이 만들어 낸 구조라는 점을 봐야 합니다.",
-            "최소제곱근사에서 기저만 바꾸면 문제가 끝난다고 생각하면 오차 해석과 수치 안정성을 놓치기 쉽습니다.",
-        ],
-    },
-    20: {
-        "intro": (
-            "Spline은 보간과 근사 문제를 전역 고차다항식 대신 구간별 다항식으로 푸는 방법입니다. "
-            "이 글에서는 spline이 왜 국소성, 매끄러움, 계산 효율을 동시에 확보하는지 설명합니다."
-        ),
-        "prereqs": ["보간과 근사", "다항식의 기초", "연속성과 매끄러움의 기본 개념"],
-        "key_points": [
-            {
-                "title": "piecewise polynomial의 관점",
-                "note": "전체 구간을 한 번에 다루는 대신 작은 구간마다 다항식을 두는 것이 안정성에 어떤 도움을 주는지 설명합니다.",
-            },
-            {
-                "title": "연결 조건의 역할",
-                "note": "각 구간을 이어 붙일 때 함수값과 도함수 조건을 어떻게 맞추는지가 spline의 핵심입니다.",
-            },
-            {
-                "title": "국소 제어와 계산성",
-                "note": "데이터 일부를 바꾸었을 때 전체 해가 흔들리지 않는다는 국소성이 spline의 큰 장점입니다.",
-            },
-        ],
-        "cautions": [
-            "spline을 단순히 보간 다항식의 한 종류로만 보면 국소성과 계산 효율이라는 핵심 장점을 놓칩니다.",
-            "연속성 조건을 너무 약하게 두거나 너무 강하게 두면 원하는 근사 성질을 잃을 수 있습니다.",
-        ],
-    },
-    21: {
-        "intro": (
-            "이산 푸리에 변환은 샘플 데이터를 주파수 성분으로 다시 읽는 방법입니다. "
-            "이 글에서는 DFT의 선형대수적 구조와 FFT가 계산량을 어떻게 줄이는지를 설명합니다."
-        ),
-        "prereqs": ["복소수의 기본 성질", "행렬벡터 곱", "주기함수와 삼각함수의 기초"],
-        "key_points": [
-            {
-                "title": "DFT의 행렬 구조",
-                "note": "샘플 벡터를 복소 지수 기저에 대한 좌표로 바꾸는 선형변환으로 DFT를 해석합니다.",
-            },
-            {
-                "title": "주파수 해석의 의미",
-                "note": "시간 영역의 데이터를 주파수 성분으로 바꾸면 압축과 필터링이 훨씬 자연스러워집니다.",
-            },
-            {
-                "title": "FFT의 계산 절감",
-                "note": "대칭성과 분할 정복을 이용하면 계산량이 급격히 줄어든다는 점을 구조적으로 설명합니다.",
-            },
-        ],
-        "cautions": [
-            "DFT와 연속 푸리에 변환은 밀접하지만 같은 대상이 아니므로 샘플링 맥락을 분명히 해야 합니다.",
-            "FFT는 새로운 수학적 변환이 아니라 DFT를 빠르게 계산하는 알고리듬이라는 점을 구분해야 합니다.",
-        ],
-    },
-    22: {
-        "intro": (
-            "주파수 관점에서 보면 압축과 잡음제거는 선형변환 뒤의 좌표 선택 문제로 바뀝니다. "
-            "이 글에서는 선형대수가 디지털 데이터 처리에서 어떤 실질적 힘을 갖는지 설명합니다."
-        ),
-        "prereqs": ["DFT와 FFT", "벡터의 좌표 표현", "오차와 근사의 기초 개념"],
-        "key_points": [
-            {
-                "title": "중요한 성분만 남기는 압축",
-                "note": "대부분의 에너지가 소수의 계수에 몰릴 때 좌표를 잘 선택하면 데이터 표현을 크게 줄일 수 있습니다.",
-            },
-            {
-                "title": "고주파 성분과 잡음",
-                "note": "주파수 영역에서는 잡음이 특정 패턴으로 드러나기 때문에 필터링 전략이 명확해집니다.",
-            },
-            {
-                "title": "선형변환 선택의 중요성",
-                "note": "무엇을 기준으로 좋은 기저를 고를 것인지가 압축률과 복원 품질을 좌우합니다.",
-            },
-        ],
-        "cautions": [
-            "계수를 많이 지운다고 해서 항상 좋은 압축이 되는 것은 아니며, 복원 오류를 함께 봐야 합니다.",
-            "잡음제거는 데이터의 진짜 고주파 성분까지 함께 깎아낼 수 있으므로 해석 기준이 필요합니다.",
-        ],
-    },
-    23: {
-        "intro": (
-            "스프링-질량계는 선형대수가 물리적 모형으로 어떻게 들어가는지 보여 주는 대표적인 예입니다. "
-            "이 글에서는 힘의 평형과 에너지 최소화가 왜 같은 내용을 말하는지 설명합니다."
-        ),
-        "prereqs": ["least squares와 최소화의 기초", "양의 정부호 행렬", "힘과 에너지의 물리 직관"],
-        "key_points": [
-            {
-                "title": "스프링-질량계의 선형 모형",
-                "note": "Hooke 법칙 아래에서는 힘의 관계가 선형계로 정리되어 행렬 모델이 자연스럽게 등장합니다.",
-            },
-            {
-                "title": "에너지 최소화 원리",
-                "note": "평형 상태는 힘의 합이 0인 상태이면서 동시에 퍼텐셜 에너지가 최소가 되는 상태로 읽을 수 있습니다.",
-            },
-            {
-                "title": "모형과 계산의 결합",
-                "note": "선형대수는 단지 해를 계산하는 역할뿐 아니라 물리적 해석의 구조를 드러내는 역할도 맡습니다.",
-            },
-        ],
-        "cautions": [
-            "힘의 평형식과 에너지 최소화식을 별개의 원리처럼 보면 두 접근의 일치가 주는 통찰을 놓칩니다.",
-            "선형 모델은 작은 변형이나 이상화 조건에 기대고 있으므로 모형의 적용 범위를 항상 함께 봐야 합니다.",
-        ],
-    },
-    24: {
-        "intro": (
-            "전기회로는 선형 방정식이 실제 세계에서 얼마나 자연스럽게 등장하는지 보여 주는 또 하나의 예입니다. "
-            "이 글에서는 회로의 평형과 스프링-질량계 사이의 대응까지 함께 설명합니다."
-        ),
-        "prereqs": ["연립일차방정식", "그래프와 incidence matrix", "기본적인 전압·전류 개념"],
-        "key_points": [
-            {
-                "title": "회로 방정식의 선형 구조",
-                "note": "Kirchhoff 법칙과 저항 관계를 정리하면 미지 전압과 전류에 대한 선형계가 자연스럽게 나타납니다.",
-            },
-            {
-                "title": "그래프 관점의 회로 해석",
-                "note": "회로를 그래프로 보면 incidence matrix와 회로 공간의 언어가 곧바로 들어옵니다.",
-            },
-            {
-                "title": "기계-전기 대응",
-                "note": "스프링-질량계와 전기회로가 서로 다른 현상처럼 보여도 같은 선형 구조를 공유한다는 점을 보여 줍니다.",
-            },
-        ],
-        "cautions": [
-            "회로 문제를 단순한 공식 대입 문제로만 보면 왜 그래프와 선형대수가 자연스럽게 연결되는지 보이지 않습니다.",
-            "물리량의 단위와 부호 규약을 무시하면 선형계는 맞아 보여도 해석이 틀릴 수 있습니다.",
-        ],
-    },
-    25: {
-        "intro": (
-            "행렬은 선형사상을 좌표계 안에서 기록한 모습입니다. "
-            "이 글에서는 선형사상, 기저변환, affine transformation이 서로 어떻게 연결되는지 설명합니다."
-        ),
-        "prereqs": ["기저와 차원", "kernel과 image", "행렬과 벡터 곱"],
-        "key_points": [
-            {
-                "title": "선형사상의 본질",
-                "note": "선형사상은 벡터공간 사이의 구조 보존 규칙이며, 행렬은 그 규칙을 특정 기저에서 본 좌표 표현입니다.",
-            },
-            {
-                "title": "기저변환과 similarity",
-                "note": "같은 사상이라도 기저를 바꾸면 행렬은 달라지며, similarity는 이러한 좌표 변화의 흔적입니다.",
-            },
-            {
-                "title": "affine transformation의 기하학",
-                "note": "선형 변환에 평행이동을 더하면 실제 기하학적 변형과 그래픽스에서 쓰이는 affine structure가 나타납니다.",
-            },
-        ],
-        "cautions": [
-            "행렬이 곧 사상이라고 생각하면 기저를 바꿨을 때 무엇이 본질이고 무엇이 표현인지 흐려집니다.",
-            "affine transformation은 선형성이 완전히 사라진 경우가 아니라 선형 부분과 평행이동이 결합된 구조입니다.",
-        ],
-    },
-    26: {
-        "intro": (
-            "고유값 이론은 복잡한 선형변환을 가장 잘 보이는 좌표계에서 읽으려는 시도입니다. "
-            "이 글에서는 eigenvalue, diagonalization, spectral theorem이 만드는 큰 흐름을 설명합니다."
-        ),
-        "prereqs": ["선형사상과 행렬표현", "기저변환", "대칭행렬의 기초"],
-        "key_points": [
-            {
-                "title": "eigenvalue 문제의 의미",
-                "note": "어떤 방향은 변환 뒤에도 방향을 유지하며 크기만 바뀌는데, 이것이 고유값 문제의 출발점입니다.",
-            },
-            {
-                "title": "대각화의 힘",
-                "note": "적절한 기저를 찾으면 복잡한 변환이 좌표별 스칼라배로 분해되어 계산과 해석이 급격히 단순해집니다.",
-            },
-            {
-                "title": "spectral theorem의 구조",
-                "note": "대칭행렬이나 self-adjoint operator에서는 직교기저로 대각화가 가능하다는 점이 핵심입니다.",
-            },
-        ],
-        "cautions": [
-            "모든 행렬이 대각화 가능한 것은 아니므로 eigenvector가 충분히 모인다는 가정을 자동으로 두면 안 됩니다.",
-            "고유값을 찾는 계산과 스펙트럴 정리의 구조적 의미를 분리해서 봐야 전체 그림이 선명해집니다.",
-        ],
-    },
-    27: {
-        "intro": (
-            "특이값 이론은 정사각행렬과 대칭행렬 바깥에서도 행렬의 크기와 방향 왜곡을 읽게 해 줍니다. "
-            "이 글에서는 singular value, pseudoinverse, condition number를 한 흐름으로 설명합니다."
-        ),
-        "prereqs": ["inner product", "spectral theorem의 기초", "least squares"],
-        "key_points": [
-            {
-                "title": "singular value의 해석",
-                "note": "행렬이 단위구를 타원체로 보내는 방식에서 각 축의 길이가 singular value로 읽힌다는 점을 강조합니다.",
-            },
-            {
-                "title": "pseudoinverse와 최소제곱",
-                "note": "정사각이 아니거나 가역이 아닌 경우에도 가장 자연스러운 역연산이 최소제곱 관점에서 정의됩니다.",
-            },
-            {
-                "title": "condition number와 민감도",
-                "note": "입력의 작은 오차가 출력에서 얼마나 증폭되는지를 singular value가 정량화해 줍니다.",
-            },
-        ],
-        "cautions": [
-            "특이값은 고유값의 대체물이 아니라 일반 행렬에서의 왜곡 크기를 보여 주는 별도의 구조입니다.",
-            "condition number를 단지 큰 수치 하나로만 보면 어떤 방향이 문제를 일으키는지 보이지 않습니다.",
-        ],
-    },
-    28: {
-        "intro": (
-            "PCA는 데이터의 분산을 가장 잘 설명하는 방향을 찾는 선형대수적 절차입니다. "
-            "이 글에서는 공분산 행렬과 특이값/고유값 이론이 데이터 분석으로 이어지는 과정을 설명합니다."
-        ),
-        "prereqs": ["특이값 또는 고유값의 기초", "평균과 분산의 기본 개념", "행렬 데이터 표기"],
-        "key_points": [
-            {
-                "title": "variance와 covariance",
-                "note": "데이터의 퍼짐과 변수 간 상관 구조를 행렬 하나로 요약하는 것이 PCA의 출발점입니다.",
-            },
-            {
-                "title": "주성분 방향의 선택",
-                "note": "분산을 최대화하는 방향을 찾는 문제가 결국 고유값 문제로 바뀐다는 점을 설명합니다.",
-            },
-            {
-                "title": "차원 축소의 해석",
-                "note": "적은 수의 주성분으로 데이터를 설명하면 정보 손실과 단순화 사이의 균형을 볼 수 있습니다.",
-            },
-        ],
-        "cautions": [
-            "PCA는 지도학습 기법이 아니라 데이터의 선형 구조를 요약하는 비지도적 방법입니다.",
-            "공분산 기반 분석은 스케일과 중심화에 민감하므로 전처리를 빼고 논의하면 결과 해석이 왜곡됩니다.",
-        ],
-    },
-    29: {
-        "intro": (
-            "반복은 큰 행렬을 직접 다루기 어려울 때 선형대수가 택하는 기본 전략입니다. "
-            "이 글에서는 iterative system, Markov process, iterative solver가 왜 같은 장에서 만나는지 설명합니다."
-        ),
-        "prereqs": ["행렬곱의 반복", "수열의 수렴 직관", "선형계와 고정점의 기본 개념"],
-        "key_points": [
-            {
-                "title": "iteration의 기본 구조",
-                "note": "한 번의 선형 변환을 계속 반복할 때 어떤 성분이 살아남고 어떤 성분이 사라지는지가 핵심입니다.",
-            },
-            {
-                "title": "Markov process의 선형성",
-                "note": "확률 벡터의 진화도 전이행렬의 반복으로 표현되므로 선형대수의 도구가 그대로 들어갑니다.",
-            },
-            {
-                "title": "iterative solver의 필요",
-                "note": "대규모 문제에서는 직접법보다 반복법이 현실적이며, 수렴 조건을 아는 것이 중요합니다.",
-            },
-        ],
-        "cautions": [
-            "반복법은 계산을 덜 하는 대신 수렴 보장이 자동으로 따라오는 것이 아니므로 안정성 분석이 필요합니다.",
-            "Markov process를 단지 확률론의 예시로만 보면 행렬 반복과의 구조적 공통점을 놓치게 됩니다.",
-        ],
-    },
-    30: {
-        "intro": (
-            "스펙트럼 계산과 선형 동역학의 마지막 주제들은 선형대수가 계산과 해석을 얼마나 깊게 결합하는지 보여 줍니다. "
-            "이 글에서는 power method, `QR` algorithm, Krylov methods, matrix exponential, stability, resonance를 한 흐름으로 묶어 설명합니다."
-        ),
-        "prereqs": ["eigenvalue와 spectral theorem", "iteration의 기초", "미분방정식의 가장 기본적인 직관"],
-        "key_points": [
-            {
-                "title": "고유값 계산 알고리듬",
-                "note": "power method와 `QR` algorithm은 행렬의 스펙트럼을 직접 계산하기 위한 대표적 절차입니다.",
-            },
-            {
-                "title": "Krylov 부분공간의 아이디어",
-                "note": "큰 문제에서 필요한 정보만 부분공간에 모아 계산하는 전략이 현대 반복법의 중심을 이룹니다.",
-            },
-            {
-                "title": "matrix exponential과 동역학",
-                "note": "선형 미분방정식의 해, 안정성, 공명 현상은 결국 스펙트럼과 행렬지수의 언어로 정리됩니다.",
-            },
-        ],
-        "cautions": [
-            "고유값 알고리듬은 단지 계산 절차가 아니라 어떤 스펙트럼 정보가 반복에서 드러나는지를 이해해야 제대로 보입니다.",
-            "선형 동역학의 안정성과 공명은 공식 대입보다 스펙트럼 구조를 먼저 보는 편이 훨씬 선명합니다.",
-        ],
+        "closing": "PCA는 '데이터가 가장 길게 뻗은 방향을 찾자'는 직관을 고유값 문제로 번역한 것이다. 그래서 선형대수의 스펙트럼 이론이 곧 데이터 해석 도구가 된다.",
+        "visual_importance": "required",
+        "visual_caption": "산점도 위에 첫 주성분 축을 그리면 PCA가 분산을 최대화하는 방향을 고르는 절차라는 사실이 즉시 드러난다.",
     },
 }
 
@@ -785,8 +667,8 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--slot", choices=("am", "pm"), required=True, help="Automation slot label.")
     parser.add_argument("--now", help="Override the current timestamp with an ISO-8601 string.")
-    parser.add_argument("--dry-run", action="store_true", help="Render metadata without writing files or state.")
-    parser.add_argument("--index", type=int, help="Generate a specific manifest order without advancing state.")
+    parser.add_argument("--dry-run", action="store_true", help="Render without writing drafts or state.")
+    parser.add_argument("--index", type=int, help="Force a specific candidate order without advancing selection logic.")
     parser.add_argument(
         "--output-dir",
         default=str(DEFAULT_OUTPUT_DIR),
@@ -798,7 +680,6 @@ def parse_args() -> argparse.Namespace:
 def parse_now(raw: str | None) -> datetime:
     if not raw:
         return datetime.now(SITE_TIMEZONE)
-
     cleaned = raw.replace("Z", "+00:00")
     dt = datetime.fromisoformat(cleaned)
     if dt.tzinfo is None:
@@ -806,32 +687,81 @@ def parse_now(raw: str | None) -> datetime:
     return dt.astimezone(SITE_TIMEZONE)
 
 
-def load_manifest() -> list[dict[str, Any]]:
-    data = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
-    if not isinstance(data, list):
-        raise ValueError("Manifest must be a JSON list stored in YAML-compatible form.")
+def normalize_text(text: str) -> str:
+    lowered = text.replace("`", " ").lower()
+    tokens = re.findall(r"[a-z0-9가-힣]+", lowered)
+    return " ".join(tokens)
 
-    validated: list[dict[str, Any]] = []
-    for item in data:
-        if not isinstance(item, dict):
-            raise ValueError("Manifest entries must be objects.")
-        for field in ("order", "title", "slug", "tags", "source_refs", "status"):
-            if field not in item:
-                raise ValueError(f"Missing required manifest field: {field}")
-        validated.append(item)
-    return sorted(validated, key=lambda item: int(item["order"]))
+
+def yaml_quote(text: str) -> str:
+    escaped = text.replace("\\", "\\\\").replace('"', '\\"')
+    return f'"{escaped}"'
+
+
+def yaml_inline_list(items: list[str]) -> str:
+    return "[" + ", ".join(yaml_quote(item) for item in items) + "]"
+
+
+def format_offset(dt: datetime) -> str:
+    return dt.strftime("%Y-%m-%d %H:%M:%S %z")
+
+
+def dedupe_preserve(items: list[str]) -> list[str]:
+    seen: set[str] = set()
+    result: list[str] = []
+    for item in items:
+        if item not in seen:
+            result.append(item)
+            seen.add(item)
+    return result
+
+
+def load_manifest() -> dict[str, Any]:
+    data = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
+    if not isinstance(data, dict):
+        raise ValueError("Manifest must contain a JSON object.")
+    if data.get("kind") != "linear_algebra_independent_posts":
+        raise ValueError("Unexpected manifest kind.")
+    candidates = data.get("candidates")
+    if not isinstance(candidates, list):
+        raise ValueError("Manifest candidates must be a list.")
+    contract = deepcopy(DEFAULT_WRITING_CONTRACT)
+    manifest_contract = data.get("writing_contract")
+    if isinstance(manifest_contract, dict):
+        contract.update({key: value for key, value in manifest_contract.items() if key != "section_min_blocks"})
+        if isinstance(manifest_contract.get("section_min_blocks"), dict):
+            contract["section_min_blocks"] = {
+                **DEFAULT_WRITING_CONTRACT["section_min_blocks"],
+                **manifest_contract["section_min_blocks"],
+            }
+    data["writing_contract"] = contract
+    for candidate in candidates:
+        if not isinstance(candidate, dict):
+            raise ValueError("Manifest candidate entries must be objects.")
+        for field in SEMANTIC_REQUIRED_FIELDS + ["order"]:
+            if field not in candidate:
+                raise ValueError(f"Missing candidate field: {field}")
+        for field_name, default_value in OPTIONAL_CANDIDATE_FIELDS.items():
+            candidate.setdefault(field_name, deepcopy(default_value))
+    data["candidates"] = sorted(candidates, key=lambda item: int(item["order"]))
+    return data
 
 
 def load_state() -> dict[str, Any]:
     if not STATE_PATH.exists():
-        return {"next_order": 1, "updated_at": None, "history": []}
-
+        return {
+            "schema_version": 1,
+            "updated_at": None,
+            "runs": [],
+            "candidates": {},
+        }
     data = json.loads(STATE_PATH.read_text(encoding="utf-8"))
     if not isinstance(data, dict):
-        raise ValueError("State file must contain a JSON object.")
-    data.setdefault("next_order", 1)
+        raise ValueError("State file must be a JSON object.")
+    data.setdefault("schema_version", 1)
     data.setdefault("updated_at", None)
-    data.setdefault("history", [])
+    data.setdefault("runs", [])
+    data.setdefault("candidates", {})
     return data
 
 
@@ -840,318 +770,987 @@ def write_state(state: dict[str, Any]) -> None:
     STATE_PATH.write_text(json.dumps(state, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
-def format_offset(dt: datetime) -> str:
-    return dt.strftime("%Y-%m-%d %H:%M:%S %z")
-
-
-def build_goals(spec: dict[str, Any]) -> list[str]:
-    points = spec["key_points"]
-    return [
-        f"{points[0]['title']}이 이 주제에서 왜 먼저 등장하는지 설명할 수 있습니다.",
-        f"`{points[1]['title']}`와 `{points[2]['title']}`가 이 글 안에서 어떻게 이어지는지 자신의 언어로 정리할 수 있습니다.",
-        "대표 예시나 계산 절차에 이 관점을 적용해 다음 글과의 연결 고리를 만들 수 있습니다.",
-    ]
-
-
-def build_quiz(spec: dict[str, Any]) -> list[str]:
-    points = spec["key_points"]
-    return [
-        f"`{points[0]['title']}`의 뜻을 오늘 글의 맥락에서 한 문단으로 설명하여라.",
-        f"`{points[1]['title']}`가 왜 필요한지 간단한 예시와 함께 서술하여라.",
-        f"`{points[2]['title']}`가 다음 단계의 이론이나 계산에 어떤 역할을 하는지 정리하여라.",
-    ]
-
-
-def build_summary(spec: dict[str, Any]) -> list[str]:
-    return [point["note"] for point in spec["key_points"]]
-
-
-def prompt_info_block(item: dict[str, Any], slot: str) -> str:
-    source_lines = "\n".join([f"> - {ref}" for ref in item["source_refs"]])
-    return (
-        f"> 자동 생성 슬롯: `{slot}`\n"
-        f"> 1차 자료: `{PRIMARY_SOURCE_PATH}`\n"
-        f"> 2차 자료: `{STYLE_GUIDE_PATH.name}`, `{OPS_DOC_PATH.name}`\n"
-        f"> 참고 위치:\n{source_lines}\n"
-        "{: .prompt-info }"
+def runtime_for(state: dict[str, Any], slug: str) -> dict[str, Any]:
+    candidates = state.setdefault("candidates", {})
+    return candidates.setdefault(
+        slug,
+        {
+            "status": "candidate",
+            "selected_at": None,
+            "last_checked_at": None,
+            "skip_reason": None,
+            "draft_path": None,
+            "revision_attempts": 0,
+            "failure_reason": None,
+            "history": [],
+        },
     )
 
 
-def render_front_matter(item: dict[str, Any], dt: datetime) -> str:
-    tag_list = ", ".join(item["tags"])
-    categories = ", ".join(CATEGORIES)
-    return "\n".join(
-        [
-            "---",
-            f'title: "{item["title"]}"',
-            f"date: {format_offset(dt)}",
-            f"categories: [{categories}]",
-            f"tags: [{tag_list}]",
-            "math: true",
-            "toc: true",
-            f"author: {AUTHOR}",
-            "---",
-            "",
-        ]
+def append_history(runtime: dict[str, Any], now: datetime, status: str, note: str) -> None:
+    runtime.setdefault("history", []).append(
+        {
+            "at": now.isoformat(),
+            "status": status,
+            "note": note,
+        }
     )
 
 
-def render_body(item: dict[str, Any], spec: dict[str, Any], slot: str) -> str:
-    goals = build_goals(spec)
-    quiz = build_quiz(spec)
-    summary = build_summary(spec)
-    sections = spec["key_points"]
-
-    lines = [
-        prompt_info_block(item, slot),
-        "",
-        f"# {item['title']}",
-        "",
-        "## 도입 설명",
-        spec["intro"],
-        "",
-        "## 학습목표",
-        *(f"- {goal}" for goal in goals),
-        "",
-        "## 선수개념 체크",
-        *(f"- {prereq}" for prereq in spec["prereqs"]),
-        "",
-        "## 핵심 내용",
-    ]
-
-    for index, section in enumerate(sections, start=1):
-        lines.extend(
-            [
-                f"### {index}. {section['title']}",
-                (
-                    f"이 부분의 초점은 `{section['title']}`입니다. "
-                    f"{section['note']}"
-                ),
-                (
-                    "정의와 계산 절차를 따로 외우기보다는, 이 개념이 어떤 문제를 단순화하고 "
-                    "어떤 다음 주제로 이어지는지 함께 정리하는 방식으로 읽는 것이 좋습니다."
-                ),
-                "",
-            ]
-        )
-
-    lines.extend(
-        [
-            "## 주의",
-            "1. " + spec["cautions"][0],
-            "2. " + spec["cautions"][1],
-            "",
-            "## 자가진단퀴즈",
-            "1. " + quiz[0],
-            "2. " + quiz[1],
-            "3. " + quiz[2],
-            "",
-            "## 요약",
-            "1. " + summary[0],
-            "2. " + summary[1],
-            "3. " + summary[2],
-            "",
-        ]
-    )
-
-    return "\n".join(lines)
-
-
-def render_post(item: dict[str, Any], slot: str, dt: datetime) -> str:
-    order = int(item["order"])
-    spec = TOPIC_SPECS.get(order)
-    if spec is None:
-        raise KeyError(f"Missing topic spec for order {order}")
-    return render_front_matter(item, dt) + render_body(item, spec, slot)
-
-
-def draft_name(item: dict[str, Any]) -> str:
-    return f"linear-algebra-{int(item['order']):02d}-{item['slug']}.md"
-
-
-def make_result(
-    *,
-    status: str,
-    item: dict[str, Any] | None,
-    draft_path: Path | None,
-    timestamp: datetime,
-    skipped_orders: list[int] | None = None,
-    message: str | None = None,
-    preview: str | None = None,
-) -> dict[str, Any]:
-    result: dict[str, Any] = {
-        "status": status,
-        "timestamp": timestamp.isoformat(),
-        "skipped_orders": skipped_orders or [],
-    }
-    if item is not None:
-        result["order"] = int(item["order"])
-        result["title"] = item["title"]
-        result["slug"] = item["slug"]
-        result["tags"] = item["tags"]
-    if draft_path is not None:
-        result["draft_path"] = str(draft_path)
-    if message:
-        result["message"] = message
-    if preview:
-        result["preview"] = preview
+def parse_front_matter(text: str) -> dict[str, str]:
+    if not text.startswith("---\n"):
+        return {}
+    try:
+        _, block, _ = text.split("---\n", 2)
+    except ValueError:
+        return {}
+    result: dict[str, str] = {}
+    for raw_line in block.splitlines():
+        line = raw_line.strip()
+        if not line or ":" not in line:
+            continue
+        key, value = line.split(":", 1)
+        result[key.strip()] = value.strip().strip('"')
     return result
 
 
-def save_draft(path: Path, content: str) -> None:
+def collect_markdown_entries(directory: Path, *, recursive: bool = False) -> list[dict[str, Any]]:
+    if not directory.exists():
+        return []
+    pattern = "**/*.md" if recursive else "*.md"
+    entries: list[dict[str, Any]] = []
+    for path in sorted(directory.glob(pattern)):
+        if path.is_dir():
+            continue
+        if SUPERSCEDED_DIRNAME in path.parts:
+            continue
+        text = path.read_text(encoding="utf-8")
+        front_matter = parse_front_matter(text)
+        entries.append(
+            {
+                "path": path,
+                "title": front_matter.get("title", ""),
+                "slug": front_matter.get("slug", ""),
+                "text": text,
+            }
+        )
+    return entries
+
+
+def same_topic(candidate: dict[str, Any], entry: dict[str, Any]) -> bool:
+    candidate_slug = candidate["slug"]
+    candidate_title = normalize_text(candidate["title"])
+    entry_slug = entry.get("slug", "")
+    entry_title = normalize_text(entry.get("title", ""))
+    if entry_slug and entry_slug == candidate_slug:
+        return True
+    if entry_title and entry_title == candidate_title:
+        return True
+    return False
+
+
+def count_headings(text: str) -> int:
+    return sum(1 for line in text.splitlines() if line.startswith("## "))
+
+
+def strip_front_matter(text: str) -> str:
+    if not text.startswith("---\n"):
+        return text
+    parts = text.split("---\n", 2)
+    if len(parts) < 3:
+        return text
+    return parts[2]
+
+
+def prose_text(text: str) -> str:
+    body = strip_front_matter(text)
+    body = re.sub(r"<!--.*?-->", "", body, flags=re.DOTALL)
+    return body
+
+
+def prose_blocks(text: str) -> list[str]:
+    body = prose_text(text)
+    blocks: list[str] = []
+    for chunk in re.split(r"\n\s*\n", body):
+        stripped = chunk.strip()
+        if not stripped:
+            continue
+        if stripped.startswith("#"):
+            continue
+        blocks.append(stripped)
+    return blocks
+
+
+def count_words(text: str) -> int:
+    return len(prose_text(text).split())
+
+
+def count_characters(text: str) -> int:
+    return len(re.sub(r"\s+", "", prose_text(text)))
+
+
+def extract_sections(text: str) -> dict[str, str]:
+    sections: dict[str, str] = {}
+    current_title: str | None = None
+    buffer: list[str] = []
+    for line in strip_front_matter(text).splitlines():
+        if line.startswith("## "):
+            if current_title is not None:
+                sections[current_title] = "\n".join(buffer).strip()
+            current_title = line[3:].strip()
+            buffer = []
+            continue
+        if current_title is not None:
+            buffer.append(line)
+    if current_title is not None:
+        sections[current_title] = "\n".join(buffer).strip()
+    return sections
+
+
+def count_blocks(body: str) -> int:
+    return len([chunk for chunk in re.split(r"\n\s*\n", body) if chunk.strip()])
+
+
+def writing_contract(manifest: dict[str, Any] | None = None) -> dict[str, Any]:
+    if manifest is None:
+        return deepcopy(DEFAULT_WRITING_CONTRACT)
+    contract = deepcopy(DEFAULT_WRITING_CONTRACT)
+    manifest_contract = manifest.get("writing_contract")
+    if isinstance(manifest_contract, dict):
+        contract.update({key: value for key, value in manifest_contract.items() if key != "section_min_blocks"})
+        if isinstance(manifest_contract.get("section_min_blocks"), dict):
+            contract["section_min_blocks"] = {
+                **DEFAULT_WRITING_CONTRACT["section_min_blocks"],
+                **manifest_contract["section_min_blocks"],
+            }
+    return contract
+
+
+def low_quality_report(text: str) -> dict[str, Any]:
+    contract = writing_contract()
+    issues: list[str] = []
+    if "> **정리 1" not in text:
+        issues.append("missing_theorem_block")
+    if "**증명.**" not in text:
+        issues.append("missing_direct_proof")
+    if "## 참고문헌" not in text:
+        issues.append("missing_references")
+    if "## 손으로 따라가는 계산" not in text:
+        issues.append("missing_hand_example")
+    if "## 응용으로 보는 이유" not in text:
+        issues.append("missing_application_section")
+    if count_headings(text) < contract["min_sections"]:
+        issues.append("too_few_sections")
+    if count_words(text) < contract["min_words"]:
+        issues.append("too_few_words")
+    if count_characters(text) < contract["min_characters"]:
+        issues.append("too_few_characters")
+    if len(prose_blocks(text)) < contract["min_blocks"]:
+        issues.append("too_few_blocks")
+    sections = extract_sections(text)
+    for title, min_blocks in contract["section_min_blocks"].items():
+        body = sections.get(title)
+        if body and count_blocks(body) < int(min_blocks):
+            issues.append(f"thin_section:{title}")
+    if "연재" in text or "다음 글" in text:
+        issues.append("series_style_language")
+    return {
+        "low_quality": bool(issues),
+        "issues": issues,
+    }
+
+
+def reference_titles_from_refs(refs: list[str]) -> list[str]:
+    titles: list[str] = []
+    for ref in refs:
+        title = ref.split(",", 1)[0].strip()
+        if title:
+            titles.append(title)
+    if PRIMARY_SOURCE_PATH.name not in titles and "Applied Linear Algebra" not in titles:
+        titles.append("Applied Linear Algebra")
+    return dedupe_preserve(titles)
+
+
+def parse_bibtex_entries(path: Path) -> dict[str, dict[str, str]]:
+    if not path.exists():
+        return {}
+    text = path.read_text(encoding="utf-8")
+    entries: dict[str, dict[str, str]] = {}
+    pattern = re.compile(r"@(?P<kind>\w+)\{(?P<key>[^,]+),(?P<body>.*?)\n\}", re.DOTALL)
+    field_pattern = re.compile(r"^\s*(\w+)\s*=\s*\{(.*)\}\s*,?\s*$", re.MULTILINE)
+    for match in pattern.finditer(text):
+        body = match.group("body")
+        fields: dict[str, str] = {"ENTRYTYPE": match.group("kind"), "ID": match.group("key").strip()}
+        for field_match in field_pattern.finditer(body):
+            field_name = field_match.group(1).strip().lower()
+            field_value = field_match.group(2).strip()
+            fields[field_name] = field_value
+        title = fields.get("title")
+        if title:
+            entries[normalize_text(title)] = fields
+    return entries
+
+
+def format_author_list(author_field: str) -> str:
+    authors = [part.strip() for part in author_field.split(" and ") if part.strip()]
+    pretty_names: list[str] = []
+    for author in authors:
+        if "," in author:
+            family, given = [piece.strip() for piece in author.split(",", 1)]
+            pretty_names.append(f"{given} {family}".strip())
+        else:
+            pretty_names.append(author)
+    if len(pretty_names) <= 2:
+        return " and ".join(pretty_names)
+    return ", ".join(pretty_names[:-1]) + f", and {pretty_names[-1]}"
+
+
+def bibliography_entries_from_refs(refs: list[str]) -> list[str]:
+    titles = reference_titles_from_refs(refs)
+    catalog = parse_bibtex_entries(MASTER_BIB_PATH)
+    formatted: list[str] = []
+    for title in titles:
+        record = catalog.get(normalize_text(title))
+        if not record:
+            formatted.append(title)
+            continue
+        authors = format_author_list(record.get("author", "")).strip()
+        year = record.get("year", "").strip()
+        publisher = record.get("publisher", "").strip()
+        book_title = record.get("title", title).strip()
+        parts = []
+        if authors:
+            parts.append(authors)
+        if year:
+            parts.append(f"({year})")
+        parts.append(book_title)
+        if publisher:
+            parts.append(publisher)
+        formatted.append(". ".join(part for part in parts if part) + ".")
+    return dedupe_preserve(formatted)
+
+
+def generate_tags(candidate: dict[str, Any]) -> list[str]:
+    bag = " ".join(
+        [candidate["title"]]
+        + candidate.get("core_concepts", [])
+        + candidate.get("application_example_candidates", [])
+    ).lower()
+    tags = ["선형대수학"]
+    normalized_bag = normalize_text(bag)
+    for key, pretty in TAG_NORMALIZATION.items():
+        if key in normalized_bag:
+            tags.append(pretty)
+    for concept in candidate.get("core_concepts", [])[:3]:
+        pretty = concept.strip()
+        if pretty and pretty not in tags:
+            tags.append(pretty)
+    return dedupe_preserve(tags[:6])
+
+
+def importance_level(candidate: dict[str, Any]) -> tuple[str, str]:
+    slug = candidate["slug"]
+    if slug in ESSENTIAL_IMPORTANCE_SLUGS:
+        return "high", "이 주제는 기저, 선형계, 직교성, 스펙트럼처럼 이후 많은 글의 기반을 이루므로 중요도를 높게 둔다."
+    if int(candidate["order"]) <= 12:
+        return "medium", "선형대수의 기본 구조를 이루지만 다른 핵심 주제의 준비 단계로도 읽히므로 중요도는 중간으로 둔다."
+    return "medium", "응용이나 확장 측면에서 중요하지만 전체 뼈대를 이루는 핵심 축보다 한 단계 뒤에 놓인다."
+
+
+def independence_level(candidate: dict[str, Any]) -> tuple[str, str]:
+    slug = candidate["slug"]
+    if slug in HIGH_INDEPENDENCE_SLUGS:
+        return "high", "앞선 글을 읽지 않아도 필요한 배경을 짧게 다시 설명하면 독립 포스트로 충분히 완결될 수 있다."
+    if slug in LOW_INDEPENDENCE_SLUGS:
+        return "low", "스펙트럼, 반복, 동역학 등 여러 선행 개념이 함께 필요해 독립성이 상대적으로 낮다."
+    return "medium", "독립적으로 읽을 수는 있지만 핵심 개념 몇 개를 본문 안에서 다시 설명해야 한다."
+
+
+def applicability_level(candidate: dict[str, Any]) -> tuple[str, str]:
+    slug = candidate["slug"]
+    if slug in HIGH_APPLICABILITY_SLUGS:
+        return "high", "데이터, 회로, 신호, 최적화처럼 독자가 바로 떠올릴 수 있는 응용 맥락이 분명하다."
+    joined = " ".join(candidate.get("application_example_candidates", []))
+    if any(keyword.lower() in joined.lower() for keyword in APPLIED_KEYWORDS):
+        return "high", "응용 맥락이 구체적으로 확보되어 있어 학습 동기를 강하게 줄 수 있다."
+    return "medium", "응용 연결은 가능하지만 개념 구조 자체가 먼저 강조되는 편이다."
+
+
+def evaluate_candidate(
+    candidate: dict[str, Any],
+    state: dict[str, Any],
+    draft_entries: list[dict[str, Any]],
+    post_entries: list[dict[str, Any]],
+    now: datetime,
+) -> dict[str, Any]:
+    runtime = runtime_for(state, candidate["slug"])
+    importance, importance_reason = importance_level(candidate)
+    independence, independence_reason = independence_level(candidate)
+    applicability, applicability_reason = applicability_level(candidate)
+    total_score = (
+        3 * LEVEL_TO_SCORE[importance]
+        + 3 * LEVEL_TO_SCORE[independence]
+        + 2 * LEVEL_TO_SCORE[applicability]
+    )
+
+    evaluation: dict[str, Any] = {
+        "slug": candidate["slug"],
+        "title": candidate["title"],
+        "order": int(candidate["order"]),
+        "status_before": runtime.get("status", candidate.get("status", "candidate")),
+        "importance": {"level": importance, "score": LEVEL_TO_SCORE[importance], "reason": importance_reason},
+        "independence": {
+            "level": independence,
+            "score": LEVEL_TO_SCORE[independence],
+            "reason": independence_reason,
+        },
+        "applicability": {
+            "level": applicability,
+            "score": LEVEL_TO_SCORE[applicability],
+            "reason": applicability_reason,
+        },
+        "total_score": total_score,
+        "eligible": True,
+        "decision": None,
+        "decision_reason": None,
+        "existing_draft": None,
+    }
+
+    missing = [field for field in SEMANTIC_REQUIRED_FIELDS if not candidate.get(field)]
+    if missing:
+        evaluation["eligible"] = False
+        evaluation["decision"] = "missing_semantics"
+        evaluation["decision_reason"] = f"Manifest semantic fields are incomplete: {', '.join(missing)}"
+        return evaluation
+
+    for entry in post_entries:
+        if same_topic(candidate, entry):
+            evaluation["eligible"] = False
+            evaluation["decision"] = "published_duplicate"
+            evaluation["decision_reason"] = f"Published post already exists at {entry['path']}"
+            return evaluation
+
+    for entry in draft_entries:
+        if same_topic(candidate, entry):
+            report = low_quality_report(entry["text"])
+            evaluation["existing_draft"] = {
+                "path": str(entry["path"]),
+                "title": entry["title"],
+                "low_quality": report["low_quality"],
+                "issues": report["issues"],
+            }
+            if report["low_quality"]:
+                evaluation["decision"] = "supersede_existing_draft"
+                evaluation["decision_reason"] = "Existing draft does not meet the independent-post quality bar and can be superseded."
+            else:
+                evaluation["eligible"] = False
+                evaluation["decision"] = "active_draft_exists"
+                evaluation["decision_reason"] = f"Usable draft already exists at {entry['path']}"
+            return evaluation
+
+    return evaluation
+
+
+def pick_selected_candidate(
+    evaluations: list[dict[str, Any]],
+    manifest_candidates: list[dict[str, Any]],
+) -> tuple[dict[str, Any] | None, dict[str, Any] | None, list[dict[str, Any]]]:
+    lookup = {candidate["slug"]: candidate for candidate in manifest_candidates}
+    eligible = [item for item in evaluations if item["eligible"]]
+    if not eligible:
+        return None, None, evaluations
+
+    eligible.sort(
+        key=lambda item: (
+            -item["total_score"],
+            -item["importance"]["score"],
+            -item["independence"]["score"],
+            -item["applicability"]["score"],
+            item["order"],
+        )
+    )
+    selected_eval = eligible[0]
+    ties = [
+        item
+        for item in eligible
+        if item["total_score"] == selected_eval["total_score"]
+        and item["importance"]["score"] == selected_eval["importance"]["score"]
+        and item["independence"]["score"] == selected_eval["independence"]["score"]
+        and item["applicability"]["score"] == selected_eval["applicability"]["score"]
+    ]
+    if len(ties) > 1:
+        selected_eval["decision_reason"] = (
+            "Multiple candidates tied on the published rubric; the earliest internal order was used as the operational fallback."
+        )
+        selected_eval["tie_candidates"] = [item["slug"] for item in ties]
+    else:
+        selected_eval["decision_reason"] = "Selected by rubric score and tie-break order."
+    selected_eval["decision"] = "selected"
+    return lookup[selected_eval["slug"]], selected_eval, evaluations
+
+
+def target_draft_path(output_dir: Path, slug: str) -> Path:
+    return output_dir / f"linear-algebra-{slug}.md"
+
+
+def superseded_path(output_dir: Path, original: Path, now: datetime) -> Path:
+    stamp = now.strftime("%Y%m%d-%H%M%S")
+    dest_dir = output_dir / SUPERSCEDED_DIRNAME
+    dest_dir.mkdir(parents=True, exist_ok=True)
+    return dest_dir / f"{stamp}-{original.name}"
+
+
+def block_definition(title: str, body: str) -> str:
+    return f"> **정의 ({title})**  \n> {body}"
+
+
+def block_theorem(name: str, statement: str) -> str:
+    return f"> **정리 1 ({name})**  \n> {statement}"
+
+
+def fallback_blueprint(candidate: dict[str, Any]) -> dict[str, Any]:
+    first, second = candidate["core_concepts"][:2]
+    application = candidate["application_example_candidates"][0]
+    return {
+        "intro": [
+            f"이 글에서는 {candidate['title']}를 독립된 하나의 주제로 다룹니다. 핵심은 {first}과 {second}이 어떤 방식으로 연결되고, 그 연결이 계산과 응용에서 왜 중요한지 분명히 하는 데 있습니다.",
+            "세부 공식보다 먼저 구조를 붙잡고, 이어서 손으로 따라갈 수 있는 작은 계산과 실제 응용 장면을 통해 개념을 굳히겠습니다.",
+        ],
+        "background": f"본문 이해에 필요한 배경은 글 안에서 다시 설명하겠지만, 중심 질문은 {candidate['representative_theorem']}라는 진술이 왜 자연스럽고 어떤 계산에서 드러나는가에 있다.",
+        "definitions": [
+            {
+                "title": f"{first}",
+                "body": f"이 글에서는 {first}을(를) 중심 개념으로 두고, 그것이 {second}와 맺는 구조적 관계를 살핀다.",
+            },
+            {
+                "title": f"{second}",
+                "body": f"{second}은(는) {first}의 계산적 또는 기하적 해석을 정리해 주는 보조 언어로 작동한다.",
+            },
+        ],
+        "theorem_name": candidate["title"],
+        "theorem_statement": candidate["representative_theorem"],
+        "proof": [
+            f"{candidate['representative_theorem']}라는 진술을 볼 때 가장 먼저 확인할 것은 정의가 실제로 선형성 조건과 어떻게 맞물리는가이다.",
+            f"{first}의 정의를 그대로 전개하면 {second}가 등장하는 이유가 계산 안에서 드러난다. 즉, 임의의 선형결합을 취했을 때 필요한 닫힘성과 동치 조건이 유지된다.",
+            f"따라서 문제의 핵심 구조는 좌표 표현을 바꾸어도 유지되고, 그 결과 {candidate['representative_theorem']}가 성립한다. $$\\square$$",
+        ],
+        "hand_example_intro": "작은 예제 하나를 손으로 끝까지 따라가면 정의와 정리가 서로 어떻게 맞물리는지 더 선명해집니다.",
+        "hand_example_steps": [
+            candidate["hand_example"],
+            f"이 계산에서 중요한 것은 숫자 자체보다 {first}이(가) 어떤 제약을 만들고, 그 제약이 {second}를 어떻게 결정하는지 읽는 것이다.",
+            "같은 절차를 조금 더 큰 문제에 적용하면 알고리듬이나 근사 문제로 자연스럽게 확장된다.",
+        ],
+        "application": [
+            f"응용 쪽에서는 {application}이(가) 가장 자연스러운 예다. 문제를 이 언어로 옮기면 개념적 설명과 계산 절차가 한 번에 정리된다.",
+            f"그래서 {candidate['title']}는 교재 안의 한 절에 머물지 않고, 실제 데이터나 물리 모형을 해석하는 기본 틀로 반복해서 나타난다.",
+        ],
+        "pitfalls": [
+            f"{first}과(와) {second}를 각각 따로 외우면 왜 이 주제가 하나의 독립 포스트가 되어야 하는지 보이지 않는다.",
+            candidate["overlap_hint"],
+        ],
+        "closing": f"{candidate['title']}의 핵심은 {first}과(와) {second}을(를) 따로 배우는 것이 아니라, 하나의 구조로 읽는 데 있다.",
+        "visual_importance": "supporting" if "그림" in candidate["visual_hint"] or "도식" in candidate["visual_hint"] else "none",
+        "visual_caption": candidate["visual_hint"],
+    }
+
+
+def blueprint_for(candidate: dict[str, Any]) -> dict[str, Any]:
+    return deepcopy(TOPIC_BLUEPRINTS.get(candidate["slug"], fallback_blueprint(candidate)))
+
+
+def ensure_list(value: Any) -> list[str]:
+    if value is None:
+        return []
+    if isinstance(value, str):
+        return [value.strip()] if value.strip() else []
+    if isinstance(value, list):
+        return [str(item).strip() for item in value if str(item).strip()]
+    return [str(value).strip()]
+
+
+def dedupe_text(items: list[str]) -> list[str]:
+    seen: set[str] = set()
+    result: list[str] = []
+    for item in items:
+        key = normalize_text(item)
+        if key and key not in seen:
+            seen.add(key)
+            result.append(item)
+    return result
+
+
+def pad_to_minimum(seed: list[str], extras: list[str], minimum: int) -> list[str]:
+    merged = dedupe_text(seed)
+    for item in extras:
+        if len(merged) >= minimum:
+            break
+        if normalize_text(item) not in {normalize_text(existing) for existing in merged}:
+            merged.append(item)
+    return merged
+
+
+def concept_labels(candidate: dict[str, Any]) -> tuple[str, str, str]:
+    concepts = [item for item in candidate.get("core_concepts", []) if item]
+    first = concepts[0] if concepts else candidate["title"]
+    second = concepts[1] if len(concepts) > 1 else first
+    third = concepts[2] if len(concepts) > 2 else second
+    return first, second, third
+
+
+def long_form_blueprint(candidate: dict[str, Any], depth_boost: int = 0) -> dict[str, Any]:
+    seed = blueprint_for(candidate)
+    first, second, third = concept_labels(candidate)
+    application_examples = candidate.get("application_example_candidates", [])
+    leading_application = application_examples[0] if application_examples else candidate["title"]
+    secondary_application = application_examples[1] if len(application_examples) > 1 else leading_application
+    background_requirements = ensure_list(candidate.get("background_requirements"))
+    application_focus = ensure_list(candidate.get("application_focus"))
+    common_misunderstandings = ensure_list(candidate.get("common_misunderstandings"))
+    proof_focus = candidate.get("proof_focus", "").strip()
+    secondary_hand_example = candidate.get("secondary_hand_example", "").strip()
+    intro_target = 3 + min(depth_boost, 1)
+    proof_target = 5 + depth_boost
+    example_step_target = 5 + depth_boost
+    application_target = 3 + min(depth_boost, 1)
+
+    intro = pad_to_minimum(
+        ensure_list(seed.get("intro")),
+        [
+            f"또한 이 주제는 {leading_application} 같은 응용에서 갑자기 등장하는 계산 규칙이 아니라, {first}과 {second}을(를) 같은 구조로 읽게 해 주는 출발점이기도 합니다.",
+            f"따라서 아래에서는 정의를 적는 데서 멈추지 않고, 정리의 논리 전개와 손계산, 그리고 {secondary_application}으로 이어지는 해석까지 한 번에 묶어 보겠습니다.",
+        ],
+        intro_target,
+    )
+
+    background_opening = pad_to_minimum(
+        [seed.get("background", "").strip()] + background_requirements,
+        [
+            f"특히 {first}과 {second}은(는) 서로 다른 개념처럼 보이지만, 실제 계산에서는 같은 조건을 다른 언어로 적어 놓은 경우가 많습니다.",
+            f"이 글에서 필요한 선수 내용은 본문 안에서 다시 짚겠지만, 핵심은 {third}이(가) 정의의 부속물이 아니라 정리와 계산을 연결하는 매개라는 점입니다.",
+        ],
+        3 + min(depth_boost, 1),
+    )
+
+    definition_bridge = pad_to_minimum(
+        ensure_list(seed.get("definition_bridge")),
+        [
+            f"이제 정의를 하나씩 적어 놓고 나면, 왜 같은 문제를 {first}의 언어와 {second}의 언어로 동시에 읽을 수 있는지가 조금 더 분명해집니다.",
+            f"이런 배경 위에서 대표 정리를 보면, 추상적인 진술처럼 보이던 명제가 실제 계산 절차와 정확히 맞물린다는 사실을 확인할 수 있습니다.",
+        ],
+        2,
+    )
+
+    theorem_context = pad_to_minimum(
+        ensure_list(seed.get("theorem_context")),
+        [
+            f"이 글의 대표 정리는 {candidate['representative_theorem']}라는 문장을 중심으로 잡습니다. 중요한 이유는 이 진술 하나가 {first}의 정의와 {second}의 계산 규칙을 동시에 정리해 주기 때문입니다.",
+            f"정리의 이름만 외우면 공식처럼 보일 수 있지만, 실제로는 어떤 정보가 보존되고 어떤 정보가 새로 드러나는지를 분명히 설명하는 문장입니다.",
+            f"따라서 증명에서는 단순히 결론을 확인하는 데 그치지 않고, 왜 이 정리가 이후의 {leading_application} 같은 응용으로 자연스럽게 이어지는지도 함께 드러내겠습니다.",
+        ],
+        2 + min(depth_boost, 1),
+    )
+
+    proof_paragraphs = pad_to_minimum(
+        ensure_list(seed.get("proof")),
+        [
+            proof_focus or f"증명의 핵심은 {first}의 정의를 직접 전개하면서 {second}이(가) 어디에서 필연적으로 나타나는지를 단계별로 확인하는 데 있습니다.",
+            f"첫 단계에서는 가정이 정확히 무엇을 뜻하는지 분해해서 적습니다. 그래야 뒤의 계산이 단순한 조작이 아니라 정의에 근거한 논리 전개라는 점이 분명해집니다.",
+            f"그다음 단계에서는 각 조건이 실제 계산에서 어떤 형태로 쓰이는지 확인합니다. 여기서 {second}은(는) 계산을 줄이는 기술이 아니라 정리의 결론을 가능하게 하는 구조적 장치로 작동합니다.",
+            f"마지막으로 얻은 식을 다시 해석해 보면, 정리의 결론은 우연한 계산 결과가 아니라 {first}과 {third}이(가) 서로 양립해야 한다는 사실의 자연스러운 귀결임을 알 수 있습니다.",
+        ],
+        proof_target,
+    )
+
+    theorem_consequences = pad_to_minimum(
+        ensure_list(seed.get("theorem_consequences")),
+        [
+            f"이 정리를 알고 나면 이후 계산에서 무엇을 보존해야 하는지 분명해집니다. 따라서 문제를 단순화하는 과정과 해를 해석하는 과정이 서로 분리되지 않습니다.",
+            f"또한 이 정리는 뒤에서 {leading_application}이나 {secondary_application}을 다룰 때도 같은 모습으로 다시 나타납니다. 결국 지금 보는 명제는 한 절의 결론이 아니라 이후 여러 주제의 공통 문장입니다.",
+        ],
+        2,
+    )
+
+    hand_example_intro = pad_to_minimum(
+        ensure_list(seed.get("hand_example_intro")),
+        [
+            f"손계산 예제를 자세히 따라가 보는 이유는, 정리의 각 문장이 실제로 어떤 계산 단계에 대응하는지를 눈으로 확인하기 위해서입니다.",
+            f"작은 예제라고 해서 중요도가 낮은 것은 아닙니다. 오히려 작은 예제에서는 {first}과 {second}이(가) 서로 어떻게 물리는지가 가장 선명하게 드러납니다.",
+        ],
+        2,
+    )
+
+    hand_example_steps = pad_to_minimum(
+        ensure_list(seed.get("hand_example_steps")),
+        [
+            secondary_hand_example or f"같은 예제를 다른 좌표나 표현으로 다시 써 보면, 계산 절차가 달라져도 결국 읽어 내는 구조는 동일하다는 사실을 확인할 수 있습니다.",
+            f"이 단계에서 중요한 것은 숫자를 끝까지 정리하는 것만이 아닙니다. 어떤 항이 {second}에 해당하고, 그 항이 왜 해석의 기준점이 되는지를 함께 읽어야 합니다.",
+            f"마지막으로 결과를 다시 원래 문제의 언어로 번역하면, 계산된 값이 단순한 수가 아니라 {leading_application}에서 의미 있는 양이라는 점도 확인할 수 있습니다.",
+        ],
+        example_step_target,
+    )
+
+    hand_example_takeaways = pad_to_minimum(
+        ensure_list(seed.get("hand_example_takeaways")),
+        [
+            f"이 예제에서 얻은 결론은 더 큰 문제에서도 그대로 유지됩니다. 규모가 커지면 계산은 길어지지만, 정리의 적용 방식과 해석의 논리는 달라지지 않습니다.",
+            f"그래서 손계산 예제를 제대로 이해하면, 실제 응용 문제를 볼 때도 어떤 단계를 먼저 확인해야 하는지 자연스럽게 감이 잡힙니다.",
+        ],
+        2,
+    )
+
+    application = pad_to_minimum(
+        ensure_list(seed.get("application")) + application_focus,
+        [
+            f"{leading_application}에서는 문제의 표면적 모습이 달라도, 핵심 계산은 결국 지금 본 구조로 환원됩니다. 그래서 추상적인 정의를 정확히 이해해 두면 응용의 세부 공식이 훨씬 덜 낯설게 느껴집니다.",
+            f"또한 {secondary_application}처럼 겉보기에는 다른 분야에서도 같은 정리와 같은 계산이 반복됩니다. 선형대수가 여러 분야를 잇는 공통 언어라고 하는 이유가 바로 여기에 있습니다.",
+            f"이 응용 관점은 단순한 동기 부여에 그치지 않습니다. 어떤 양이 실제로 관측 가능하고, 어떤 양이 계산의 편의를 위해 도입된 표현인지를 구분하게 해 준다는 점에서도 중요합니다.",
+        ],
+        application_target,
+    )
+
+    pitfalls = pad_to_minimum(
+        ensure_list(seed.get("pitfalls")) + common_misunderstandings,
+        [
+            candidate["overlap_hint"],
+            f"또 하나 흔한 오해는 {first}과 {second}을(를) 각각 따로 외워 두면 충분하다고 생각하는 것입니다. 그러나 실제로는 두 개념 사이의 대응을 읽지 못하면 계산과 해석이 금세 분리됩니다.",
+        ],
+        2,
+    )
+
+    closing = pad_to_minimum(
+        ensure_list(seed.get("closing")),
+        [
+            f"결국 {candidate['title']}의 핵심은 정의, 정리, 계산, 응용이 따로 놀지 않는다는 데 있습니다. 이 흐름이 잡히면 다음 주제의 새로운 공식들도 훨씬 적은 부담으로 받아들일 수 있습니다.",
+            f"이제 다음 단계에서는 지금 확인한 구조를 조금 더 복잡한 문제로 옮겨 가면서, 같은 논리가 어떻게 분해와 근사, 스펙트럼 해석으로 이어지는지 보게 됩니다.",
+        ],
+        2,
+    )
+
+    return {
+        "intro": intro,
+        "background_opening": background_opening,
+        "definitions": deepcopy(seed.get("definitions", [])),
+        "definition_bridge": definition_bridge,
+        "theorem_name": seed["theorem_name"],
+        "theorem_statement": seed["theorem_statement"],
+        "theorem_context": theorem_context,
+        "proof_paragraphs": proof_paragraphs,
+        "theorem_consequences": theorem_consequences,
+        "hand_example_intro": hand_example_intro,
+        "hand_example_steps": hand_example_steps,
+        "hand_example_takeaways": hand_example_takeaways,
+        "application": application,
+        "pitfalls": pitfalls,
+        "closing": closing,
+        "visual_importance": seed.get("visual_importance", "none"),
+        "visual_caption": seed.get("visual_caption", candidate["visual_hint"]),
+    }
+
+
+def automation_meta_block(candidate: dict[str, Any], slot: str) -> str:
+    lines = [
+        "<!--",
+        f"automation-slot: {slot}",
+        f"manifest: {MANIFEST_PATH}",
+        f"state-file: {STATE_PATH}",
+        f"primary-source: {PRIMARY_SOURCE_PATH}",
+        f"design-doc: {DESIGN_PATH}",
+        f"writing-spec: {WRITING_SPEC_PATH}",
+    ]
+    lines.extend(f"source-ref: {ref}" for ref in candidate["source_refs"])
+    lines.append("-->")
+    return "\n".join(lines)
+
+
+def render_front_matter(candidate: dict[str, Any], dt: datetime, tags: list[str], categories: list[str]) -> str:
+    return "\n".join(
+        [
+            "---",
+            f"title: {yaml_quote(candidate['title'])}",
+            f"date: {format_offset(dt)}",
+            f"slug: {yaml_quote(candidate['slug'])}",
+            f"categories: {yaml_inline_list(categories)}",
+            f"tags: {yaml_inline_list(tags)}",
+            f"author: {yaml_quote(AUTHOR)}",
+            "math: true",
+            "toc: true",
+            "---",
+            "",
+        ]
+    )
+
+
+def render_section(title: str, paragraphs: list[str]) -> str:
+    body = "\n\n".join(paragraphs)
+    return f"## {title}\n{body}"
+
+
+def render_draft(candidate: dict[str, Any], manifest: dict[str, Any], slot: str, now: datetime, depth_boost: int = 0) -> tuple[str, dict[str, Any]]:
+    blueprint = long_form_blueprint(candidate, depth_boost=depth_boost)
+    tags = generate_tags(candidate)
+    categories = manifest.get("defaults", {}).get("categories", DEFAULT_CATEGORIES)
+    parts: list[str] = [
+        render_front_matter(candidate, now, tags, categories).rstrip(),
+        automation_meta_block(candidate, slot),
+        "",
+        f"# {candidate['title']}",
+        "",
+        "\n\n".join(blueprint["intro"]),
+        "",
+        render_section(
+            "배경과 기본 정의",
+            blueprint["background_opening"]
+            + [block_definition(item["title"], item["body"]) for item in blueprint["definitions"]]
+            + blueprint["definition_bridge"],
+        ),
+        "",
+        render_section(
+            "핵심 정리와 증명",
+            blueprint["theorem_context"]
+            + [block_theorem(blueprint["theorem_name"], blueprint["theorem_statement"]), "**증명.** " + blueprint["proof_paragraphs"][0]]
+            + blueprint["proof_paragraphs"][1:]
+            + blueprint["theorem_consequences"],
+        ),
+        "",
+        render_section(
+            "손으로 따라가는 계산",
+            blueprint["hand_example_intro"]
+            + [f"{index}. {step}" for index, step in enumerate(blueprint["hand_example_steps"], start=1)]
+            + blueprint["hand_example_takeaways"],
+        ),
+        "",
+        render_section("응용으로 보는 이유", blueprint["application"]),
+        "",
+        render_section(
+            "자주 헷갈리는 점",
+            [f"첫째, {point}" if index == 1 else f"둘째, {point}" if index == 2 else f"또한, {point}" for index, point in enumerate(blueprint["pitfalls"], start=1)],
+        ),
+    ]
+
+    if blueprint.get("visual_importance") == "required":
+        parts.extend(
+            [
+                "",
+                render_section(
+                    "그림 메모",
+                    [
+                        f"> **그림 메모.** {blueprint.get('visual_caption', candidate['visual_hint'])}",
+                        "> 실제 게시 전에는 이 자리표시를 SVG 또는 PNG 시각자료로 대체해야 한다.",
+                    ],
+                ),
+            ]
+        )
+
+    parts.extend(
+        [
+            "",
+            render_section("정리하며", blueprint["closing"]),
+            "",
+            render_section("참고문헌", [f"- {entry}" for entry in bibliography_entries_from_refs(candidate["source_refs"])]),
+            "",
+        ]
+    )
+    return "\n".join(parts), blueprint
+
+
+def quality_report(text: str, candidate: dict[str, Any], blueprint: dict[str, Any], manifest: dict[str, Any]) -> dict[str, Any]:
+    contract = writing_contract(manifest)
+    issues: list[str] = []
+    required_checks = {
+        "front_matter_slug": f"slug: {yaml_quote(candidate['slug'])}",
+        "theorem_block": "> **정리 1",
+        "proof_block": "**증명.**",
+        "hand_example": "## 손으로 따라가는 계산",
+        "application": "## 응용으로 보는 이유",
+        "references": "## 참고문헌",
+        "closing": "## 정리하며",
+    }
+    for key, needle in required_checks.items():
+        if needle not in text:
+            issues.append(key)
+    if count_headings(text) < contract["min_sections"]:
+        issues.append("too_few_sections")
+    words = count_words(text)
+    characters = count_characters(text)
+    block_total = len(prose_blocks(text))
+    if words < contract["min_words"]:
+        issues.append("too_few_words")
+    if characters < contract["min_characters"]:
+        issues.append("too_few_characters")
+    if block_total < contract["min_blocks"]:
+        issues.append("too_few_blocks")
+    if "다음 글" in text or "연재" in text:
+        issues.append("series_style_language")
+    if blueprint.get("visual_importance") == "required" and "## 그림 메모" not in text:
+        issues.append("missing_required_figure_placeholder")
+    sections = extract_sections(text)
+    for title, min_blocks in contract["section_min_blocks"].items():
+        body = sections.get(title, "")
+        if not body:
+            continue
+        if count_blocks(body) < int(min_blocks):
+            issues.append(f"thin_section:{title}")
+    return {
+        "passed": not issues,
+        "issues": issues,
+        "metrics": {
+            "words": words,
+            "characters": characters,
+            "blocks": block_total,
+            "headings": count_headings(text),
+        },
+    }
+
+
+def build_and_check(candidate: dict[str, Any], manifest: dict[str, Any], slot: str, now: datetime) -> tuple[str, dict[str, Any], int]:
+    attempts = 0
+    text, blueprint = render_draft(candidate, manifest, slot, now, depth_boost=attempts)
+    report = quality_report(text, candidate, blueprint, manifest)
+    while not report["passed"] and attempts < 3:
+        attempts += 1
+        text, blueprint = render_draft(candidate, manifest, slot, now, depth_boost=attempts)
+        report = quality_report(text, candidate, blueprint, manifest)
+    return text, report, attempts
+
+
+def final_status(candidate: dict[str, Any], report: dict[str, Any]) -> str:
+    blueprint = blueprint_for(candidate)
+    if not report["passed"]:
+        return "needs_revision"
+    if blueprint.get("visual_importance") == "required":
+        return "needs_figure"
+    return "review_ready"
+
+
+def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(content, encoding="utf-8")
-
-
-def next_item_from_state(
-    manifest: list[dict[str, Any]], output_dir: Path, start_order: int
-) -> tuple[dict[str, Any] | None, list[int], int]:
-    skipped_orders: list[int] = []
-    for item in manifest:
-        order = int(item["order"])
-        if order < start_order:
-            continue
-        if item["status"] == "published":
-            skipped_orders.append(order)
-            continue
-
-        expected_path = output_dir / draft_name(item)
-        if expected_path.exists():
-            skipped_orders.append(order)
-            continue
-        return item, skipped_orders, order
-    return None, skipped_orders, len(manifest) + 1
-
-
-def handle_dry_run(
-    *, manifest: list[dict[str, Any]], output_dir: Path, args: argparse.Namespace, now: datetime, state: dict[str, Any]
-) -> dict[str, Any]:
-    if args.index is not None:
-        item = next((entry for entry in manifest if int(entry["order"]) == args.index), None)
-        if item is None:
-            raise ValueError(f"No manifest entry with order {args.index}")
-        draft_path = output_dir / draft_name(item)
-        preview = render_post(item, args.slot, now)
-        return make_result(
-            status="dry_run",
-            item=item,
-            draft_path=draft_path,
-            timestamp=now,
-            preview=preview,
-        )
-
-    item, skipped_orders, next_order = next_item_from_state(
-        manifest, output_dir, int(state.get("next_order", 1))
-    )
-    if item is None:
-        return make_result(
-            status="complete",
-            item=None,
-            draft_path=None,
-            timestamp=now,
-            skipped_orders=skipped_orders,
-            message=f"All drafts are already present. Next order would be {next_order}.",
-        )
-
-    preview = render_post(item, args.slot, now)
-    return make_result(
-        status="dry_run",
-        item=item,
-        draft_path=output_dir / draft_name(item),
-        timestamp=now,
-        skipped_orders=skipped_orders,
-        preview=preview,
-    )
-
-
-def handle_write(
-    *, manifest: list[dict[str, Any]], output_dir: Path, args: argparse.Namespace, now: datetime, state: dict[str, Any]
-) -> dict[str, Any]:
-    if args.index is not None:
-        item = next((entry for entry in manifest if int(entry["order"]) == args.index), None)
-        if item is None:
-            raise ValueError(f"No manifest entry with order {args.index}")
-        path = output_dir / draft_name(item)
-        if path.exists():
-            return make_result(
-                status="existing",
-                item=item,
-                draft_path=path,
-                timestamp=now,
-                message="Draft already exists for the requested order.",
-            )
-        save_draft(path, render_post(item, args.slot, now))
-        return make_result(status="created", item=item, draft_path=path, timestamp=now)
-
-    next_order = int(state.get("next_order", 1))
-    item, skipped_orders, resolved_next_order = next_item_from_state(manifest, output_dir, next_order)
-    if item is None:
-        state["next_order"] = resolved_next_order
-        state["updated_at"] = now.isoformat()
-        write_state(state)
-        return make_result(
-            status="complete",
-            item=None,
-            draft_path=None,
-            timestamp=now,
-            skipped_orders=skipped_orders,
-            message="No remaining pending draft to generate.",
-        )
-
-    path = output_dir / draft_name(item)
-    content = render_post(item, args.slot, now)
-    save_draft(path, content)
-
-    state["next_order"] = int(item["order"]) + 1
-    state["updated_at"] = now.isoformat()
-    history = state.setdefault("history", [])
-    history.append(
-        {
-            "order": int(item["order"]),
-            "title": item["title"],
-            "slot": args.slot,
-            "draft_path": str(path),
-            "created_at": now.isoformat(),
-            "skipped_orders": skipped_orders,
-        }
-    )
-    write_state(state)
-
-    return make_result(
-        status="created",
-        item=item,
-        draft_path=path,
-        timestamp=now,
-        skipped_orders=skipped_orders,
-        message="Draft created and state advanced.",
-    )
+    path.write_text(text, encoding="utf-8")
 
 
 def main() -> int:
     args = parse_args()
     now = parse_now(args.now)
-    output_dir = Path(args.output_dir).expanduser()
-    if not output_dir.is_absolute():
-        output_dir = (ROOT / output_dir).resolve()
-
+    output_dir = Path(args.output_dir).resolve()
     manifest = load_manifest()
     state = load_state()
+    draft_entries = collect_markdown_entries(output_dir, recursive=True)
+    post_entries = collect_markdown_entries(DEFAULT_POSTS_DIR, recursive=False)
 
-    if args.index is not None and args.index < 1:
-        raise ValueError("--index must be a positive order number.")
-
-    if args.dry_run:
-        result = handle_dry_run(manifest=manifest, output_dir=output_dir, args=args, now=now, state=state)
+    if args.index is not None:
+        selected_candidate = next((item for item in manifest["candidates"] if int(item["order"]) == args.index), None)
+        if selected_candidate is None:
+            raise SystemExit(f"No manifest candidate with order {args.index}.")
+        evaluations = [
+            evaluate_candidate(selected_candidate, state, draft_entries, post_entries, now),
+        ]
+        selected_eval = evaluations[0] if evaluations[0]["eligible"] else None
+        if selected_eval:
+            selected_eval["decision"] = "selected"
+            selected_eval["decision_reason"] = "Selected by explicit --index override."
     else:
-        result = handle_write(manifest=manifest, output_dir=output_dir, args=args, now=now, state=state)
+        evaluations = [evaluate_candidate(item, state, draft_entries, post_entries, now) for item in manifest["candidates"]]
+        selected_candidate, selected_eval, evaluations = pick_selected_candidate(evaluations, manifest["candidates"])
 
+    for evaluation in evaluations:
+        runtime = runtime_for(state, evaluation["slug"])
+        runtime["last_checked_at"] = now.isoformat()
+        if evaluation["decision"] and evaluation["decision"] != "selected":
+            runtime["skip_reason"] = evaluation["decision_reason"]
+
+    if not selected_candidate or not selected_eval:
+        if not args.dry_run:
+            state["updated_at"] = now.isoformat()
+            state.setdefault("runs", []).append(
+                {
+                    "run_at": now.isoformat(),
+                    "slot": args.slot,
+                    "selected_slug": None,
+                    "selected_title": None,
+                    "draft_path": None,
+                    "status": "no_candidate",
+                    "superseded": [],
+                    "evaluations": evaluations,
+                }
+            )
+            write_state(state)
+        result = {
+            "status": "no_candidate",
+            "reason": "No eligible independent-post candidate is currently available.",
+            "evaluations": evaluations,
+            "state_path": str(STATE_PATH),
+        }
+        print(json.dumps(result, ensure_ascii=False, indent=2))
+        return 0
+
+    runtime = runtime_for(state, selected_candidate["slug"])
+    draft_path = target_draft_path(output_dir, selected_candidate["slug"])
+    superseded: list[dict[str, str]] = []
+
+    runtime["selected_at"] = now.isoformat()
+    runtime["last_checked_at"] = now.isoformat()
+    runtime["skip_reason"] = None
+    runtime["failure_reason"] = None
+    runtime["status"] = "selected"
+    append_history(runtime, now, "selected", selected_eval["decision_reason"])
+
+    existing_draft = selected_eval.get("existing_draft")
+    if existing_draft and existing_draft.get("low_quality"):
+        original = Path(existing_draft["path"])
+        destination = superseded_path(output_dir, original, now)
+        if not args.dry_run:
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            shutil.move(str(original), str(destination))
+        superseded.append({"from": str(original), "to": str(destination)})
+        append_history(runtime, now, "superseded", f"Superseded low-quality draft at {original}")
+
+    runtime["status"] = "drafting"
+    append_history(runtime, now, "drafting", f"Draft generation started for {draft_path}")
+    draft_text, report, attempts = build_and_check(selected_candidate, manifest, args.slot, now)
+    status = final_status(selected_candidate, report)
+    runtime["revision_attempts"] = attempts
+    runtime["status"] = status
+    runtime["draft_path"] = str(draft_path)
+    if status == "needs_revision":
+        runtime["failure_reason"] = ", ".join(report["issues"])
+        append_history(runtime, now, "needs_revision", runtime["failure_reason"])
+    else:
+        append_history(runtime, now, "draft_ready", "Draft satisfies structure and content checks.")
+        append_history(runtime, now, status, f"Draft finalized with status {status}.")
+
+    if not args.dry_run:
+        write_text(draft_path, draft_text)
+        state["updated_at"] = now.isoformat()
+        state.setdefault("runs", []).append(
+            {
+                "run_at": now.isoformat(),
+                "slot": args.slot,
+                "selected_slug": selected_candidate["slug"],
+                "selected_title": selected_candidate["title"],
+                "draft_path": str(draft_path),
+                "status": status,
+                "superseded": superseded,
+                "evaluations": evaluations,
+            }
+        )
+        write_state(state)
+
+    result = {
+        "status": status,
+        "slug": selected_candidate["slug"],
+        "title": selected_candidate["title"],
+        "draft_path": str(draft_path),
+        "superseded": superseded,
+        "revision_attempts": attempts,
+        "quality_issues": report["issues"],
+        "quality_metrics": report.get("metrics", {}),
+        "selected_reason": selected_eval["decision_reason"],
+        "state_path": str(STATE_PATH),
+        "manifest_path": str(MANIFEST_PATH),
+        "dry_run": args.dry_run,
+    }
     print(json.dumps(result, ensure_ascii=False, indent=2))
     return 0
 
 
 if __name__ == "__main__":
-    try:
-        raise SystemExit(main())
-    except Exception as exc:  # pragma: no cover - surfaced to automation logs
-        print(json.dumps({"status": "error", "message": str(exc)}, ensure_ascii=False, indent=2), file=sys.stderr)
-        raise
+    sys.exit(main())

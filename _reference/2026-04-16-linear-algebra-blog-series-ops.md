@@ -10,18 +10,22 @@ author: KnowledgeLupin
 
 # 선형대수 블로그 연재 운영표
 
+이 문서는 `연재형 운영안`을 기준으로 작성된 이전 문서입니다.  
+현재 자동화 설계의 정본은 [2026-04-16-linear-algebra-independent-post-automation-design.md](/Users/kwkwon/Desktop/Obsidian/Mathematician/_active/github-blog/_reference/2026-04-16-linear-algebra-independent-post-automation-design.md)입니다.
+
 이 문서는 선형대수 연재 초안 자동화의 내부 기준표입니다.  
 공개 게시용 색인으로 쓰지 않고, `_drafts/` 생성 순서와 검토 상태를 관리하기 위한 내부 문서로만 보관합니다.
 
 ## 운영 원칙
 - 제목은 모두 교과서식 제목을 유지합니다.
+- 본문은 장문 해설형 블로그 초안으로 작성하고, 교재식 고정 템플릿은 쓰지 않습니다.
 - 초안 자동화는 `Europe/Berlin` 기준 `09:00`, `18:00`에 각각 1편씩 생성합니다.
 - 자동화는 `_drafts/`에만 파일을 만들고 `_posts/` 승격은 사람이 수동으로 처리합니다.
 - 상태 값은 `pending`, `drafted`, `reviewed`, `published` 네 단계로 봅니다.
 
 ## 기준 자료
 - 1차 자료: `/Users/kwkwon/Desktop/Obsidian/Mathematician/_shared/my-library/2018Olver - Applied Linear Algebra.pdf`
-- 2차 자료: `_reference/2026-02-24-linear-algebra-writing-style-guide.md`
+- 2차 자료: `_reference/2026-04-16-linear-algebra-blog-writing-spec.md`
 - 기계용 manifest: `_reference/linear-algebra-series-manifest.yml`
 
 ## 연재 순서

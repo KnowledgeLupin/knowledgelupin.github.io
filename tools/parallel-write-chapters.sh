@@ -5,7 +5,7 @@ shopt -s nullglob
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 CHAPTER_DIR="$ROOT_DIR/latex/linear-algebra/chapters"
-STYLE_GUIDE_PATH="$ROOT_DIR/_reference/2026-02-24-linear-algebra-writing-style-guide.md"
+WRITING_REFERENCE_PATH="$ROOT_DIR/_reference/2026-04-16-linear-algebra-blog-writing-spec.md"
 PLAN_PATH="$ROOT_DIR/_reference/2026-02-25-linear-algebra-final-plan.md"
 PREAMBLE_PATH="$ROOT_DIR/latex/linear-algebra/preamble.tex"
 VALIDATOR_SCRIPT="$ROOT_DIR/tools/validate-chapter-draft.sh"
@@ -522,7 +522,7 @@ Strict requirements:
 
 Repository context:
 - Chapter file: ${chapter_path}
-- Style guide: ${STYLE_GUIDE_PATH}
+- Writing reference: ${WRITING_REFERENCE_PATH}
 - Project plan: ${PLAN_PATH}
 - Preamble/macros: ${PREAMBLE_PATH}
 - Proof policy: ${PROOF_POLICY}
@@ -825,7 +825,7 @@ if [[ -n "$CHAPTER_FILTER" ]]; then
   CHAPTER_FILTER_NORMALIZED="$(IFS=','; echo "${normalized_tokens[*]}")"
 fi
 
-for required in "$VALIDATOR_SCRIPT" "$MERGE_SCRIPT" "$STYLE_GUIDE_PATH" "$PLAN_PATH" "$PREAMBLE_PATH"; do
+for required in "$VALIDATOR_SCRIPT" "$MERGE_SCRIPT" "$WRITING_REFERENCE_PATH" "$PLAN_PATH" "$PREAMBLE_PATH"; do
   if [[ ! -f "$required" ]]; then
     echo "Required file not found: $required" >&2
     exit 1
